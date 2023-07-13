@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/core",
   "projectType": "library",
+  "implicitDependencies": ["date-fns"],
   "targets": {
     "watch": {
       "watch": true,

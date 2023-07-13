@@ -7,13 +7,14 @@ const require = createRequire(import.meta.url);
 export default () => {
   const rules: RuleSetRule[] = [
     {
-      // test: /\.m?js$/,
       test: /\.(js|mjs|jsx|ts|tsx)$/,
       // https://webpack.js.org/configuration/module/#resolvefullyspecified
       resolve: {
         fullySpecified: false,
       },
-      exclude: /(node_modules)/,
+      // FIXME: excluding the node_modules would break compilation as there are
+      // imports without the `.js` extensions inside and outside our packages
+      // exclude: /(node_modules)/,
       use: {
         // `.swcrc` can be used to configure swc
         loader: require.resolve("swc-loader"),
