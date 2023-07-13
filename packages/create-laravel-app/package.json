@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/create-laravel-app",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Create Laravel apps with no build configuration.",
   "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "license": "ISC",
