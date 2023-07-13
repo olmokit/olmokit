@@ -14,7 +14,7 @@ function pkgSetup(pkg: JsonEditor) {
   const existingStartYear = pkg.get("config.startYear");
   const startYear = existingStartYear || new Date().getFullYear();
 
-  // FIXME: this object could/should be created dynamically by reading commander
+  // TODO: this object could/should be created dynamically by reading commander
   pkg.set("scripts", {
     postinstall: "olmo postinstall",
     ...existingScripts,

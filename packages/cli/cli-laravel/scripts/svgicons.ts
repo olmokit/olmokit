@@ -36,7 +36,7 @@ export const svgicons: CliLaravel.Task = async ({ logger }) => {
     const { result } = await spriter.compileAsync();
     const file = result.symbol.sprite;
 
-    // FIXME: after a `wipe` command we do not have this folder, we could enforce
+    // TODO: after a `wipe` command we do not have this folder, we could enforce
     // its presence at a lower level
     await ensureDir(paths.frontend.dest.components);
 

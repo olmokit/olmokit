@@ -125,7 +125,7 @@ export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
       .option("-d, --dry-run", "When active it will not modify your files.")
       .action(async (options) => {
         // FIXME: finish here the options passing to the prettier task
-        console.log("format command options", options);
+        // console.log("format command options", options);
         const prettier = (await import("./scripts/prettier.js")).prettier;
         await prettier(taskr);
       }),

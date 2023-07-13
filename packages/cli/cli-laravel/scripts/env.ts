@@ -105,7 +105,7 @@ envSetupLoad.meta = { title: "reload .env" };
  * been generated in case it was missing and after the `envSetupModify` dynamic
  * configuration
  *
- * TODO:FIXME: update and simplify env task behaviour
+ * TODO: check whether we need to refine this task group
  */
 export const env: CliLaravel.TaskGroup = {
   meta: { title: "Manage .env file" },
