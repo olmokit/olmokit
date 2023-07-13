@@ -20,7 +20,7 @@ import { visit } from "./visit.js";
  * `Failed to connect to myconfig.company.com port 443: Connection refused`
  * We also make sure to add http authentication for http protected endpoints
  */
-async function callDeployEndpoint(
+function callDeployEndpoint(
   log: TaskrLog,
   path: string,
   action = "",
@@ -29,10 +29,10 @@ async function callDeployEndpoint(
   const url = normaliseUrl(process.env.APP_URL + "/" + path);
 
   // alternative with curl:
-  log.info(`Calling ${action} script at url: ${url}`);
+  log.info(`Calling ${action} script at url ${url}`);
   if (async) {
     execSync(`curl ${url}`);
-    log.success(`Done calling ${action} script`);
+    log.success(`Called ${action} script`);
 
     // exec(`curl ${url}`);
     // // we do not want to wait for the async `exec` to complete here, but still
@@ -43,7 +43,7 @@ async function callDeployEndpoint(
     // );
   } else {
     execSync(`curl ${url}`);
-    log.success(`Done calling ${action} script`);
+    log.success(`Called ${action} script`);
   }
 }
 
@@ -144,25 +144,22 @@ ciTouch.meta = { title: "Touch generated files timestamps" };
  *
  * all commands are synchronous here, just run them one by one
  */
-const ciSync: CliLaravel.CmdDeploy.Task = async ({
-  spinner,
-  chalk,
-  arg,
-  ctx,
-}) => {
+const ciSync: CliLaravel.CmdDeploy.Task = async ({ log, chalk, arg, ctx }) => {
   const mode = ctx.options.mode;
 
-  spinner.start();
   if (mode === "ftp") {
-    spinner.text = `Sync files via ${chalk.bold(mode)}`;
-    return ciSyncFtp(arg);
+    log.info(`Sync files via ${chalk.bold(mode)}`);
+    ciSyncFtp(arg);
+    return;
   } else if (mode === "ssh") {
-    spinner.text = `Sync files via ${chalk.bold(mode)}`;
-    return ciSyncSsh(arg);
+    log.info(`Sync files via ${chalk.bold(mode)}`);
+    ciSyncSsh(arg);
+    return;
   } else {
-    throw new Error(
+    log.error(
       `deploy script supports 'ftp' and 'ssh'. Mode '${mode}' is not recognised`
     );
+    process.exit(1);
   }
 };
 ciSync.meta = { title: "Sync files" };
@@ -172,8 +169,8 @@ ciSync.meta = { title: "Sync files" };
  *
  * all commands are synchronous here, just run them one by one
  */
-async function ciSyncFtp(arg: CliLaravel.CmdDeploy.TaskArg) {
-  const { spinner } = arg;
+function ciSyncFtp(arg: CliLaravel.CmdDeploy.TaskArg) {
+  const { log } = arg;
   const { username, password, host, folder: folderRaw } = arg.ctx.options;
   const cmdPrefx = `lftp -c "set ftp:ssl-allow no; open -u`;
   const cmdDefaults = `mirror --reverse --parallel=50`;
@@ -181,22 +178,20 @@ async function ciSyncFtp(arg: CliLaravel.CmdDeploy.TaskArg) {
   const folder = removeTrailingSlashes(folderRaw);
 
   // selective incremental sync (without delete, for long cached files)
-  spinner.text = "Syncing storage folder...";
   execSync(`${cmdCommon} ./storage ${folder}/storage" || true`);
+  log.success("Synced storage folder");
 
   // selective excluding sync (with delete)
-  spinner.text = "Syncing public folder...";
   execSync(`${cmdCommon} --delete ./public ${folder}/public" || true`);
+  log.success("Synced public folder");
 
-  spinner.text = "Syncing resources folder...";
   execSync(`${cmdCommon} --delete ./resources ${folder}/resources" || true`);
+  log.success("Synced resources folder");
 
-  spinner.text = "Syncing all the rest...";
   execSync(
     `${cmdCommon} --delete --exclude-glob=.git* --exclude=^.git/ --exclude=^.npm/ --exclude=^node_modules/ --exclude=^vendor/ --exclude=^public/ --exclude=^resources/ --exclude=^storage/ ./ ${folder}/" || true`
   );
-
-  spinner.stop();
+  log.success("Synced all the rest");
 }
 
 /**
@@ -205,7 +200,7 @@ async function ciSyncFtp(arg: CliLaravel.CmdDeploy.TaskArg) {
  * all commands are synchronous here, just run them one by one
  */
 async function ciSyncSsh(arg: CliLaravel.CmdDeploy.TaskArg) {
-  const { spinner } = arg;
+  const { log } = arg;
   const { sshkeyvar, port, host: hostRaw, folder, password } = arg.ctx.options;
   let cmdPrefx = `rsync --recursive --verbose`;
   let address = "";
@@ -220,8 +215,6 @@ async function ciSyncSsh(arg: CliLaravel.CmdDeploy.TaskArg) {
     address = `-e 'ssh -p ${port}' ${address}`;
   }
 
-  spinner.text = "Configuring ssh access...";
-
   // standard SSH auth via SSH key
   if (sshkeyvar) {
     execSync(`mkdir -p ~/.ssh`);
@@ -234,29 +227,29 @@ async function ciSyncSsh(arg: CliLaravel.CmdDeploy.TaskArg) {
     cmdPrefx = `sshpass -p "${password}" ${cmdPrefx}`;
   }
 
+  log.success("Configured ssh access");
+
   // selective incremental sync (without delete, for long cached files)
-  spinner.text = "Syncing storage folder...";
   execSync(
     `${cmdPrefx} --update --exclude 'framework/cache/data' ./storage ${address}/`
   );
+  log.success("Synced storage folder");
 
   // selective excluding sync (with delete)
-  spinner.text = "Syncing public folder...";
   execSync(
     `${cmdPrefx} --delete-after --exclude 'page-cache' ./public ${address}/`
   );
-  spinner.text = "Syncing resources folder...";
+  log.success("Synced public folder");
   execSync(`${cmdPrefx} --delete-after ./resources ${address}/`);
-  spinner.text = "Syncing all the rest...";
+  log.success("Synced resources folder");
   execSync(
     `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' ./ ${address}/`
   );
+  log.success("Synced all the rest");
 
   if (sshkeyvar) {
     execSync(`rm ~/.ssh/id_dsa`);
   }
-
-  spinner.stop();
 }
 
 /**
@@ -274,7 +267,7 @@ ciCopyScripts.meta = { title: "Copy scripts" };
  * Call deployer script temporarily put on server
  */
 const ciDeployer: CliLaravel.CmdDeploy.Task = async ({ log }) => {
-  return callDeployEndpoint(log, "deployer.php", "deployer");
+  callDeployEndpoint(log, "deployer.php", "deployer");
 };
 ciDeployer.meta = { title: "Run deployer.php" };
 
@@ -282,12 +275,7 @@ ciDeployer.meta = { title: "Run deployer.php" };
  * Call laravel-frontend exposed hook
  */
 const ciHooks: CliLaravel.CmdDeploy.Task = async ({ log }) => {
-  return callDeployEndpoint(
-    log,
-    "_/hooks/deploy/end/",
-    "deploy end hook",
-    true
-  );
+  callDeployEndpoint(log, "_/hooks/deploy/end/", "deploy end hook", true);
 };
 ciHooks.meta = { title: "Run deploy hooks" };
 
@@ -299,14 +287,13 @@ const ciVisit: CliLaravel.CmdDeploy.Task = async ({ ctx, log }) => {
 
   if (!mode || (mode && mode.trim() === "false")) {
     log.info("CI visit will not run.");
-    return;
   } else if (mode && mode.trim() === "node") {
     log.info("CI visit will run as a node task.");
-    return visit(ctx, log);
+    await visit(ctx, log);
   } else {
     log.info("CI visit will run as a php task.");
-    return;
   }
+  return;
 };
 ciVisit.meta = { title: "Run visit task" };
 
