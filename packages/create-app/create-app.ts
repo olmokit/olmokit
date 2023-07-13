@@ -31,6 +31,11 @@ import { tryGitInit } from "./git.js";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const thisPkgName = "@olmokit/create-app";
 let projectName: string;
 
 type CommandOptions = {
@@ -45,16 +50,9 @@ const semverLt = require("semver/functions/lt");
 const semverSatisfies = require("semver/functions/satisfies");
 const semverValid = require("semver/functions/valid");
 const semverGte = require("semver/functions/gte");
-const packageJson = JSON.parse(
-  readFileSync(join(process.cwd(), "./package.json"), "utf-8")
-) as {
-  name: string;
-  version: string;
-};
 
 export function init() {
-  const program = new Command(packageJson.name.split("/")[1])
-    .version(packageJson.version)
+  const program = new Command("olmo-create")
     .arguments("<project-directory>")
     .usage(`${chalk.magenta("<project-directory>")} [options]`)
     .action((name) => {
@@ -145,14 +143,14 @@ export function init() {
 
   const { info, packageManager, verbose, scriptsVersion, template } =
     program.options as unknown as CommandOptions;
-  const { name: thisPkgName } = packageJson;
 
   if (info) {
     console.log(chalk.bold("\nEnvironment Info:"));
-    console.log(
-      `\n  current version of ${packageJson.name}: ${packageJson.version}`
-    );
-    console.log(`  running from ${__dirname}`);
+    // TODO: inline the version, requiring the package.json does not work
+    // console.log(
+    //   `\n  current version of ${thisPkgName}: ${packageJson.version}`
+    // );
+    // console.log(`  running from ${__dirname}`);
     return envinfoRun(
       {
         System: ["OS", "CPU"],
@@ -191,50 +189,52 @@ export function init() {
   // This is important for users in environments where direct access to npm is
   // blocked by a firewall, and packages are provided exclusively via a private
   // registry.
-  (checkForLatestVersion() as Promise<string | undefined>)
-    .catch(() => {
-      try {
-        return execSync(`npm view ${thisPkgName} version`).toString().trim();
-      } catch (e) {
-        return packageJson.version;
-      }
-    })
-    .then((latest?: string) => {
-      if (latest && semverLt(packageJson.version, latest)) {
-        console.log();
-        console.error(
-          chalk.yellow(
-            `You are running ${chalk.bold(thisPkgName)}@${
-              packageJson.version
-            }, which is behind the latest release (${latest}).\n\n` +
-              `We no longer support global installation of ${thisPkgName}.`
-          )
-        );
-        console.log();
-        console.log(
-          "Please remove any global installs running " +
-            chalk.bold(
-              `${
-                packageManager === "pnpm"
-                  ? "pnpm uninstall -g"
-                  : packageManager === "npm"
-                  ? "npm uninstall -g"
-                  : "yarn global remove"
-              } ${thisPkgName}`
-            )
-        );
-        console.log();
-        process.exit(1);
-      } else {
-        createApp(
-          projectName,
-          verbose,
-          scriptsVersion,
-          template,
-          packageManager
-        );
-      }
-    });
+  // TODO: maybe restore all the below, but we can't inline the version atm...
+  // (checkForLatestVersion() as Promise<string | undefined>)
+  //   .catch(() => {
+  //     try {
+  //       return execSync(`npm view ${thisPkgName} version`).toString().trim();
+  //     } catch (e) {
+  //       return packageJson.version;
+  //     }
+  //   })
+  //   .then((latest?: string) => {
+  //     if (latest && semverLt(packageJson.version, latest)) {
+  //       console.log();
+  //       console.error(
+  //         chalk.yellow(
+  //           `You are running ${chalk.bold(thisPkgName)}@${
+  //             packageJson.version
+  //           }, which is behind the latest release (${latest}).\n\n` +
+  //             `We no longer support global installation of ${thisPkgName}.`
+  //         )
+  //       );
+  //       console.log();
+  //       console.log(
+  //         "Please remove any global installs running " +
+  //           chalk.bold(
+  //             `${
+  //               packageManager === "pnpm"
+  //                 ? "pnpm uninstall -g"
+  //                 : packageManager === "npm"
+  //                 ? "npm uninstall -g"
+  //                 : "yarn global remove"
+  //             } ${thisPkgName}`
+  //           )
+  //       );
+  //       console.log();
+  //       process.exit(1);
+  //     } else {
+  //       createApp(
+  //         projectName,
+  //         verbose,
+  //         scriptsVersion,
+  //         template,
+  //         packageManager
+  //       );
+  //     }
+  //   });
+  createApp(projectName, verbose, scriptsVersion, template, packageManager);
 
   return;
 }
