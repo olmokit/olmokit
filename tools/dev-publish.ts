@@ -122,6 +122,9 @@ function iGitDirty() {
  * policy toward an "independent" policy if needed.
  */
 async function bumbLib(lib: Lib, release: Release) {
+  await editJSONfile(self().root, "package.json", (data) => {
+    data.version = release.version;
+  });
   if (lib.packager === "npm") {
     await editJSONfile(lib.src, "package.json", (data) => {
       data.version = release.version;

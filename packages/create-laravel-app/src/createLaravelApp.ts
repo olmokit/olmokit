@@ -39,7 +39,7 @@ import { tryGitInit } from "./git.js";
 
 const packageJson = {
   name: "@olmokit/create-laravel-app",
-  version: "0.0.1",
+  version: "0.0.3",
 };
 
 // shared with cli

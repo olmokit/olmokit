@@ -44,14 +44,15 @@ const require = createRequire(import.meta.url);
 export type Lib = LibNpm | LibComposer;
 
 export const self = () => {
-  const packageJson = require(join(
-    __dirname,
-    "../package.json"
-  )) as PackageJson;
+  const root = join(__dirname, "../");
+  const packageJsonPath = join(root, "../package.json");
+  const packageJson = require(packageJsonPath) as PackageJson;
   const scope = packageJson.name.split("/")[0];
   const libs = getLibs(packageJson, scope);
 
   return {
+    root,
+    packageJsonPath,
     scope,
     packageJson,
     libs,
