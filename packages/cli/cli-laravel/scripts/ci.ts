@@ -50,8 +50,7 @@ async function callDeployEndpoint(
 /**
  * Run composer to install vendor files
  */
-const ciComposer: CliLaravel.CmdDeploy.Task = async ({ ctx }) => {
-  console.log("ctx.options", ctx.options);
+const ciComposer: CliLaravel.CmdDeploy.Task = async () => {
   execSync(
     "composer install --no-interaction --no-progress --no-dev --prefer-dist --quiet"
   );
