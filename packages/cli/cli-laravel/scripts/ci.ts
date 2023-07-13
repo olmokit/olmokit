@@ -240,10 +240,12 @@ async function ciSyncSsh(arg: CliLaravel.CmdDeploy.TaskArg) {
     `${cmdPrefx} --delete-after --exclude 'page-cache' ./public ${address}/`
   );
   log.success("Synced public folder");
+
   execSync(`${cmdPrefx} --delete-after ./resources ${address}/`);
   log.success("Synced resources folder");
+
   execSync(
-    `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' ./ ${address}/`
+    `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude '.pnpm-store' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' ./ ${address}/`
   );
   log.success("Synced all the rest");
 

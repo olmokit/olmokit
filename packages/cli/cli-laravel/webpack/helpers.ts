@@ -46,12 +46,12 @@ export function getCopySetting(
   const context = paths.frontend.src[type];
   const from = "**/*.*";
   let to;
-  if (process.env["NODE_ENV"] === "production") {
+  if (process.env.NODE_ENV === "production") {
     to = `${paths.frontend.dest.folders[type]}/[path][name]`;
   } else {
     to = `${paths.frontend.dest[type]}/[path][name]`;
   }
-  if (hashable && process.env["NODE_ENV"] === "production") {
+  if (hashable && process.env.NODE_ENV === "production") {
     to += ".[contenthash]";
   }
   to += "[ext]";

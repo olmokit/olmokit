@@ -28,7 +28,10 @@ export default (config: CliLaravel.Config) => {
     ),
     new CopyPlugin({
       patterns: [
-        getCopySetting("fonts", true),
+        // NOTE: when deploying to a CDN webpack does not resolve the URLs of
+        // the fonts correctl, anyway we already use a versioned folder name in
+        // the public path so there is no risk here in omitting the contenthash
+        getCopySetting("fonts", process.env.CDN ? false : true),
         getCopySetting("images", false),
         getCopySetting("media", false),
       ],

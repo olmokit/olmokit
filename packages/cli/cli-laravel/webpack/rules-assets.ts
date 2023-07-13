@@ -9,12 +9,7 @@ export default (config: CliLaravel.Config) => {
       test: /\.(woff2?|ttf|otf|eot)$/,
       type: "asset",
       generator: {
-        // NOTE: when deploying to a CDN webpack does not resolve the URLs of
-        // the fonts correctl, anyway we already use a versioned folder name in
-        // the public path so there is no risk here in omitting the contenthash
-        filename: `${paths.frontend.dest.folders.fonts}/[name].${
-          process.env.CDN ? "" : "[contenthash]"
-        }[ext]`,
+        filename: `${paths.frontend.dest.folders.fonts}/[name].[contenthash][ext]`,
       },
     },
     {
