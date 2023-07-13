@@ -35,8 +35,6 @@ import { tryGitInit } from "./git.js";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 const thisPkgName = "@olmokit/create-app";
 let projectName: string;
 
@@ -48,11 +46,10 @@ type CommandOptions = {
   packageManager: "pnpm" | "npm" | "yarn";
 };
 
-// FIXME: semver import not working
-// const semverLt = require("semver/functions/lt");
-// const semverSatisfies = require("semver/functions/satisfies");
-// const semverValid = require("semver/functions/valid");
-// const semverGte = require("semver/functions/gte");
+const semverLt = require("semver/functions/lt");
+const semverSatisfies = require("semver/functions/satisfies");
+const semverValid = require("semver/functions/valid");
+const semverGte = require("semver/functions/gte");
 
 export function init() {
   const program = new Command("olmo-create")
@@ -263,9 +260,7 @@ function createApp(
   template: CommandOptions["template"],
   packageManager: CommandOptions["packageManager"]
 ) {
-  // FIXME: semver import not working
-  const unsupportedNodeVersion = false;
-  // const unsupportedNodeVersion = !semverSatisfies(process.version, ">=16");
+  const unsupportedNodeVersion = !semverSatisfies(process.version, ">=16");
   if (unsupportedNodeVersion) {
     console.log(
       chalk.yellow(
@@ -309,18 +304,17 @@ function createApp(
   process.chdir(root);
 
   if (packageManager === "npm") {
-    // FIXME: semver import not working
-    // const npmInfo = checkNpmVersion();
-    // if (!npmInfo.hasMinNpm) {
-    //   if (npmInfo.npmVersion) {
-    //     console.log(
-    //       chalk.red(
-    //         `You are using an unsupported npm version ${npmInfo.npmVersion}\n`
-    //       )
-    //     );
-    //   }
-    //   process.exit(1);
-    // }
+    const npmInfo = checkNpmVersion();
+    if (!npmInfo.hasMinNpm) {
+      if (npmInfo.npmVersion) {
+        console.log(
+          chalk.red(
+            `You are using an unsupported npm version ${npmInfo.npmVersion}\n`
+          )
+        );
+      }
+      process.exit(1);
+    }
   } else if (packageManager === "yarn") {
     let yarnUsesDefaultRegistry = true;
     try {
@@ -521,24 +515,22 @@ function run(
 
 function getInstallPackage(version: string, originalDirectory: string) {
   let packageToInstall = "@olmokit/cli";
-  // FIXME: semver import not working
-  packageToInstall += `@${version}`;
-  // const validSemver = semverValid(version);
-  // if (validSemver) {
-  //   packageToInstall += `@${validSemver}`;
-  // } else if (version) {
-  //   if (version[0] === "@" && !version.includes("/")) {
-  //     packageToInstall += version;
-  //   } else if (version.match(/^file:/)) {
-  //     packageToInstall = `file:${resolve(
-  //       originalDirectory,
-  //       version.match(/^file:(.*)?$/)![1]
-  //     )}`;
-  //   } else {
-  //     // for tar.gz or alternative paths
-  //     packageToInstall = version;
-  //   }
-  // }
+  const validSemver = semverValid(version);
+  if (validSemver) {
+    packageToInstall += `@${validSemver}`;
+  } else if (version) {
+    if (version[0] === "@" && !version.includes("/")) {
+      packageToInstall += version;
+    } else if (version.match(/^file:/)) {
+      packageToInstall = `file:${resolve(
+        originalDirectory,
+        version.match(/^file:(.*)?$/)![1]
+      )}`;
+    } else {
+      // for tar.gz or alternative paths
+      packageToInstall = version;
+    }
+  }
 
   return Promise.resolve(packageToInstall);
 }
@@ -661,56 +653,53 @@ async function getPackageInfo(installPackage: string) {
 }
 
 function checkNpmVersion() {
-  return true;
-  // FIXME: semver import not working
-  // let hasMinNpm = false;
-  // let npmVersion = null;
-  // try {
-  //   npmVersion = execSync("npm --version").toString().trim();
-  //   hasMinNpm = semverGte(npmVersion, "8.0.0");
-  // } catch (err) {
-  //   // ignore
-  // }
-  // return {
-  //   hasMinNpm: hasMinNpm,
-  //   npmVersion: npmVersion,
-  // };
+  let hasMinNpm = false;
+  let npmVersion = null;
+  try {
+    npmVersion = execSync("npm --version").toString().trim();
+    hasMinNpm = semverGte(npmVersion, "8.0.0");
+  } catch (err) {
+    // ignore
+  }
+  return {
+    hasMinNpm: hasMinNpm,
+    npmVersion: npmVersion,
+  };
 }
 
-// FIXME: semver import not working
-// function checkYarnVersion() {
-//   const minYarnPnp = "1.12.0";
-//   const maxYarnPnp = "2.0.0";
-//   let hasMinYarnPnp = false;
-//   let hasMaxYarnPnp = false;
-//   let yarnVersion = null;
-//   try {
-//     yarnVersion = execSync("yarnpkg --version").toString().trim();
-//     if (semverValid(yarnVersion)) {
-//       hasMinYarnPnp = semverGte(yarnVersion, minYarnPnp);
-//       hasMaxYarnPnp = semverLt(yarnVersion, maxYarnPnp);
-//     } else {
-//       // Handle non-semver compliant yarn version strings, which yarn currently
-//       // uses for nightly builds. The regex truncates anything after the first
-//       // dash. See #5362.
-//       const trimmedYarnVersionMatch = /^(.+?)[-+].+$/.exec(yarnVersion);
-//       if (trimmedYarnVersionMatch) {
-//         const trimmedYarnVersion = trimmedYarnVersionMatch.pop();
-//         if (trimmedYarnVersion) {
-//           hasMinYarnPnp = semverGte(trimmedYarnVersion, minYarnPnp);
-//           hasMaxYarnPnp = semverLt(trimmedYarnVersion, maxYarnPnp);
-//         }
-//       }
-//     }
-//   } catch (err) {
-//     // ignore
-//   }
-//   return {
-//     hasMinYarnPnp: hasMinYarnPnp,
-//     hasMaxYarnPnp: hasMaxYarnPnp,
-//     yarnVersion: yarnVersion,
-//   };
-// }
+function checkYarnVersion() {
+  const minYarnPnp = "1.12.0";
+  const maxYarnPnp = "2.0.0";
+  let hasMinYarnPnp = false;
+  let hasMaxYarnPnp = false;
+  let yarnVersion = null;
+  try {
+    yarnVersion = execSync("yarnpkg --version").toString().trim();
+    if (semverValid(yarnVersion)) {
+      hasMinYarnPnp = semverGte(yarnVersion, minYarnPnp);
+      hasMaxYarnPnp = semverLt(yarnVersion, maxYarnPnp);
+    } else {
+      // Handle non-semver compliant yarn version strings, which yarn currently
+      // uses for nightly builds. The regex truncates anything after the first
+      // dash. See #5362.
+      const trimmedYarnVersionMatch = /^(.+?)[-+].+$/.exec(yarnVersion);
+      if (trimmedYarnVersionMatch) {
+        const trimmedYarnVersion = trimmedYarnVersionMatch.pop();
+        if (trimmedYarnVersion) {
+          hasMinYarnPnp = semverGte(trimmedYarnVersion, minYarnPnp);
+          hasMaxYarnPnp = semverLt(trimmedYarnVersion, maxYarnPnp);
+        }
+      }
+    }
+  } catch (err) {
+    // ignore
+  }
+  return {
+    hasMinYarnPnp: hasMinYarnPnp,
+    hasMaxYarnPnp: hasMaxYarnPnp,
+    yarnVersion: yarnVersion,
+  };
+}
 
 function checkNodeVersion(packageName: string) {
   const packageJsonPath = resolve(
@@ -730,19 +719,18 @@ function checkNodeVersion(packageName: string) {
     return;
   }
 
-  // FIXME: semver import not working
-  // if (!semverSatisfies(process.version, packageJson.engines.node)) {
-  //   console.error(
-  //     chalk.red(
-  //       "You are running Node %s.\n" +
-  //         "Create Laravel App requires Node %s or higher. \n" +
-  //         "Please update your version of Node."
-  //     ),
-  //     process.version,
-  //     packageJson.engines.node
-  //   );
-  //   process.exit(1);
-  // }
+  if (!semverSatisfies(process.version, packageJson.engines.node)) {
+    console.error(
+      chalk.red(
+        "You are running Node %s.\n" +
+          "Create Laravel App requires Node %s or higher. \n" +
+          "Please update your version of Node."
+      ),
+      process.version,
+      packageJson.engines.node
+    );
+    process.exit(1);
+  }
 }
 
 // FIXME: still use dependency `validate-npm-package-name`?
