@@ -170,7 +170,7 @@ async function publishLib(lib: Lib, release: Release) {
  */
 async function postpublish(release: Release) {
   const tagName = `v${release.version}`;
-  await $`git tag -a ${tagName} -m "Release ${release.version}"`;
+  await $`git tag -a ${tagName} -m ${"Release " + release.version}"`;
   await $`git push origin ${tagName}`;
 }
 
