@@ -111,7 +111,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
           composerJson = require(join(dist, "/composer.json")) as ComposerJson;
           if (composerJson) {
             packager = "composer";
-            name = packageJson.name!;
+            name = composerJson.name!;
             const { require: composerRequire = {} } = composerJson;
             deps = { ...composerRequire };
             internalDeps = Object.keys(require).filter((depName) =>
