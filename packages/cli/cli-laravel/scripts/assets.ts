@@ -14,7 +14,8 @@ function getAssetPartialData() {
     manifestPath: paths.frontend.dest.relativeUrls.manifest,
     entriesFolder: paths.frontend.dest.folders.entries,
     assetsUrl: publicUrls.assets,
-    hasServiceWorker: isHttps(),
+    // NOTE: service worker does not work with cross origin URLs
+    hasServiceWorker: isHttps() && !process.env.CDN,
     serviceWorkerUrl: publicUrls.serviceWorker,
   };
 }

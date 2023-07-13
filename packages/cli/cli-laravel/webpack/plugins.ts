@@ -36,7 +36,7 @@ export default (config: CliLaravel.Config) => {
   ];
 
   // non-production plugins
-  if (process.env["NODE_ENV"] === "development") {
+  if (process.env.NODE_ENV === "development") {
     // const CleanWebpackPlugin = require("clean-webpack-plugin");
     plugins = plugins.concat([
       // new webpack.HotModuleReplacementPlugin(),
@@ -47,7 +47,7 @@ export default (config: CliLaravel.Config) => {
   }
 
   // production plugins
-  if (process.env["NODE_ENV"] === "production") {
+  if (process.env.NODE_ENV === "production") {
     plugins = plugins.concat([
       new MiniCssExtractPlugin({
         filename: getOutputName("entry", "css"),
@@ -71,6 +71,12 @@ export default (config: CliLaravel.Config) => {
         entryOnly: true,
         exclude: /^vendors/,
       }),
+    ]);
+  }
+
+  // NOTE: service worker does not work with cross origin URLs
+  if (process.env.NODE_ENV === "production" && !process.env.CDN) {
+    plugins.push(
       new WorkboxPlugin.GenerateSW({
         swDest: join(paths.frontend.dest.assets, "service-worker.js"),
         clientsClaim: true,
@@ -78,8 +84,8 @@ export default (config: CliLaravel.Config) => {
         // exclude php files (like the favicons partial which goes through webpack
         // HTML plugin and therefore ends up in the webpack chunks handling)
         exclude: [/\.php$/],
-      }),
-    ]);
+      })
+    );
   }
 
   // env dependent plugins
