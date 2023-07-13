@@ -7,6 +7,7 @@ import {
   copyFileSync,
   existsSync,
   lstatSync,
+  readFileSync,
   readdirSync,
   rmSync,
   writeFileSync,
@@ -24,21 +25,11 @@ import { $ } from "execa";
 // import { temporaryDirectory} from 'tempy';
 // import tar from "tar";
 import { ensureDirSync } from "fs-extra";
-// import validateProjectName from "validate-npm-package-name";
-// shared with cli
-// import packageJson from "../package.json";
 import { tryGitInit } from "./git.js";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /* eslint-disable @typescript-eslint/no-var-requires */
-
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-// const packageJson = {
-//   name: "@olmokit/create-app",
-//   version: "0.0.3",
-// };
 
 let projectName: string;
 
@@ -54,7 +45,12 @@ const semverLt = require("semver/functions/lt");
 const semverSatisfies = require("semver/functions/satisfies");
 const semverValid = require("semver/functions/valid");
 const semverGte = require("semver/functions/gte");
-const packageJson = require("./package.json");
+const packageJson = JSON.parse(
+  readFileSync(join(process.cwd(), "./package.json"), "utf-8")
+) as {
+  name: string;
+  version: string;
+};
 
 export function init() {
   const program = new Command(packageJson.name.split("/")[1])
