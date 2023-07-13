@@ -32,5 +32,5 @@
     ".*.js$",
     "./*\\.d.ts"
   ],
-  "minify": false
+  "minify": true
 }

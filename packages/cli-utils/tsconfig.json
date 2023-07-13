@@ -1,13 +1,17 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["ES2021"],
+    "lib": [
+      "ES2021"
+    ],
     "target": "ESNext",
     "module": "ESNext",
     "declaration": true,
     "allowSyntheticDefaultImports": true
   },
-  "files": ["../../@types/globals.d.ts"],
+  "files": [
+    "../../@types/globals.d.ts"
+  ],
   "include": [],
   "exclude": [],
   "references": [

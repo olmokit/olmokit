@@ -22,14 +22,13 @@ import { oraOpts } from "./dev.js";
 import { type Lib as LibBase, editJSONfile, self } from "./helpers.js";
 
 const libsConfig: LibConfig[] = [
-  { name: "browser", type: "module", exports: ["esm"] },
-  { name: "cli", type: "module", exports: "none" },
-  { name: "cli-utils", type: "module", exports: ["esm"] },
+  { name: "browser", type: "module", exports: ["esm"], minify: true },
+  { name: "cli", type: "module", exports: "none", minify: true },
+  { name: "cli-utils", type: "module", exports: ["esm"], minify: true },
   { name: "components", type: "module", exports: ["esm"], minify: true },
   { name: "core", type: "module", exports: ["esm"], minify: true },
   { name: "dom", type: "module", exports: ["esm"], minify: true },
   { name: "utils", type: "module", exports: ["esm"], minify: true },
-  { name: "webpack-plugin-s3", type: "module", exports: ["esm"] },
 ];
 
 // FIXME: to fix in swc? just exclude `SystemjsConfig` because it does not extends `BaseModuleConfig`

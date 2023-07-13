@@ -6,7 +6,9 @@
     "declaration": false,
     "allowSyntheticDefaultImports": true
   },
-  "files": ["../../@types/globals.d.ts"],
+  "files": [
+    "../../@types/globals.d.ts"
+  ],
   "include": [],
   "exclude": [],
   "references": [

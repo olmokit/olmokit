@@ -33,5 +33,5 @@
     "./**/templates",
     "./*\\.d.ts"
   ],
-  "minify": false
+  "minify": true
 }

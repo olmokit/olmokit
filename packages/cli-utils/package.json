@@ -11,9 +11,6 @@
     "./git": {
       "import": "./git.js"
     },
-    "./log": {
-      "import": "./log.js"
-    },
     "./package-manager": {
       "import": "./package-manager.js"
     },
