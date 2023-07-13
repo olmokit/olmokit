@@ -13,10 +13,8 @@ export default () => {
       resolve: {
         fullySpecified: false,
       },
-      // FIXME: excluding the node_modules would break compilation as there are
-      // imports without the `.js` extensions inside and outside our packages
-      // exclude: /(node_modules)/,
-      // process our internal packages
+      // FIXME: excluding all node_modules but ours as they break compilation
+      // dure to the missing `.js` imports
       exclude: new RegExp(`node_modules(?!/(${meta.orgScope})).*`),
       use: {
         // `.swcrc` can be used to configure swc
@@ -34,8 +32,6 @@ export default () => {
               compress: true,
               mangle: true,
             },
-            externalHelpers:
-              process.env["NODE_ENV"] === "production" ? false : true,
             keepClassNames: false,
           },
           minify: process.env["NODE_ENV"] === "production",
