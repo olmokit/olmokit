@@ -45,7 +45,7 @@ export type Lib = LibNpm | LibComposer;
 
 export const self = () => {
   const root = join(__dirname, "../");
-  const packageJsonPath = join(root, "../package.json");
+  const packageJsonPath = join(root, "package.json");
   const packageJson = require(packageJsonPath) as PackageJson;
   const scope = packageJson.name.split("/")[0];
   const libs = getLibs(packageJson, scope);
