@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/core",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "type": "module",
   "dependencies": {
     "videojs-font": "^4.1.0",
