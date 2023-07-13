@@ -6,6 +6,8 @@ import type { CliLaravel } from "../pm.js";
 
 /**
  * Create readme file
+ *
+ * FIXME: some mapped data gathered from the env is not right here...
  */
 export const readme: CliLaravel.Task = async ({ ctx }) => {
   const title = ctx.project.title;
