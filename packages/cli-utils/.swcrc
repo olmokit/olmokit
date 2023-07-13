@@ -13,8 +13,8 @@
     },
     "keepClassNames": true,
     "externalHelpers": true,
-    "preserveAllComments": true,
-    "loose": false,
+    // "preserveAllComments": true,
+    "loose": true,
     "minify": {
       "compress": false
     }

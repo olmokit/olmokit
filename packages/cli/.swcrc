@@ -13,8 +13,8 @@
     },
     "keepClassNames": true,
     "externalHelpers": true,
-    "preserveAllComments": true,
-    "loose": false,
+    // "preserveAllComments": true,
+    "loose": true,
     "minify": {
       "compress": false
     }
@@ -33,5 +33,5 @@
     "./**/templates",
     "./*\\.d.ts"
   ],
-  "minify": true
+  "minify": false
 }
