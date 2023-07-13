@@ -1,7 +1,7 @@
 {
   "name": "create-laravel-app",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/create-laravel-app/src",
+  "sourceRoot": "packages/create-laravel-app",
   "projectType": "library",
   "targets": {
     "watch": {

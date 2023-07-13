@@ -18,5 +18,8 @@
   "files": [
     "template",
     "template.json"
-  ]
+  ],
+  "dependencies": {
+    "@olmokit/cli": "latest"
+  }
 }

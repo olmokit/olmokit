@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 "use strict";
 
-import { execSync, spawnSync } from "node:child_process";
+import { execSync } from "node:child_process";
 import { lookup } from "node:dns";
 import {
   copyFileSync,
@@ -16,7 +16,7 @@ import { EOL } from "node:os";
 import { basename, join, resolve } from "node:path";
 import { parse as urlParse } from "node:url";
 import chalk from "chalk";
-import { Command } from "commander";
+import { Command, Option } from "commander";
 import { spawn } from "cross-spawn";
 import { run as envinfoRun } from "envinfo";
 import { $ } from "execa";
@@ -33,20 +33,10 @@ import { tryGitInit } from "./git.js";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-const packageJson = {
-  name: "@olmokit/create-laravel-app",
-  version: "0.0.3",
-};
-
-// shared with cli
+// const packageJson = {
+//   name: "@olmokit/create-laravel-app",
+//   version: "0.0.3",
+// };
 
 let projectName: string;
 
@@ -55,20 +45,20 @@ type CommandOptions = {
   info?: boolean;
   scriptsVersion: string;
   template: string;
-  useNpm?: boolean;
-  usePnp?: boolean;
+  packageManager: "pnpm" | "npm" | "yarn";
 };
 
 const semverLt = require("semver/functions/lt");
 const semverSatisfies = require("semver/functions/satisfies");
 const semverValid = require("semver/functions/valid");
 const semverGte = require("semver/functions/gte");
+const packageJson = require("./package.json");
 
 export function init() {
-  const program = new Command(packageJson.name)
+  const program = new Command(packageJson.name.split("/")[1])
     .version(packageJson.version)
     .arguments("<project-directory>")
-    .usage(`${chalk.green("<project-directory>")} [options]`)
+    .usage(`${chalk.magenta("<project-directory>")} [options]`)
     .action((name) => {
       projectName = name;
     })
@@ -82,34 +72,38 @@ export function init() {
       "--template <path-to-template>",
       "specify a template for the created project"
     )
-    .option("--use-npm")
-    .option("--use-pnp")
+    .option(
+      new Option(
+        "-p --package-manager",
+        "Choose which package manager to use"
+      ).defaultValue(getDefaultPackageManager())
+    )
     .allowUnknownOption()
     .on("--help", () => {
       console.log(
-        `    Only ${chalk.green("<project-directory>")} is required.`
+        `    Only ${chalk.magenta("<project-directory>")} is required.`
       );
       console.log();
       console.log(
-        `    A custom ${chalk.cyan("--scripts-version")} can be one of:`
+        `    A custom ${chalk.magenta("--scripts-version")} can be one of:`
       );
-      console.log(`      - a specific npm version: ${chalk.green("0.8.2")}`);
-      console.log(`      - a specific npm tag: ${chalk.green("@next")}`);
+      console.log(`      - a specific npm version: ${chalk.magenta("0.8.2")}`);
+      console.log(`      - a specific npm tag: ${chalk.magenta("@next")}`);
       console.log(
-        `      - a custom fork published on npm: ${chalk.green("my-cli")}`
+        `      - a custom fork published on npm: ${chalk.magenta("my-cli")}`
       );
       console.log(
-        `      - a local path relative to the current working directory: ${chalk.green(
+        `      - a local path relative to the current working directory: ${chalk.magenta(
           "file:../my-cli"
         )}`
       );
       console.log(
-        `      - a .tgz archive: ${chalk.green(
+        `      - a .tgz archive: ${chalk.magenta(
           "https://mysite.com/my-cli-0.8.2.tgz"
         )}`
       );
       console.log(
-        `      - a .tar.gz archive: ${chalk.green(
+        `      - a .tar.gz archive: ${chalk.magenta(
           "https://mysite.com/my-cli-0.8.2.tar.gz"
         )}`
       );
@@ -117,24 +111,24 @@ export function init() {
         `    It is not needed unless you specifically want to use a fork.`
       );
       console.log();
-      console.log(`    A custom ${chalk.cyan("--template")} can be one of:`);
+      console.log(`    A custom ${chalk.magenta("--template")} can be one of:`);
       console.log(
-        `      - a custom template published on npm: ${chalk.green(
-          "@olmokit/template-laravel-typescript"
+        `      - a custom template published on npm: ${chalk.magenta(
+          "@mycompany/olmokit-template"
         )}`
       );
       console.log(
-        `      - a local path relative to the current working directory: ${chalk.green(
+        `      - a local path relative to the current working directory: ${chalk.magenta(
           "file:../my-custom-template"
         )}`
       );
       console.log(
-        `      - a .tgz archive: ${chalk.green(
+        `      - a .tgz archive: ${chalk.magenta(
           "https://mysite.com/my-custom-template-0.8.2.tgz"
         )}`
       );
       console.log(
-        `      - a .tar.gz archive: ${chalk.green(
+        `      - a .tar.gz archive: ${chalk.magenta(
           "https://mysite.com/my-custom-template-0.8.2.tar.gz"
         )}`
       );
@@ -143,15 +137,19 @@ export function init() {
         `    If you have any problems, do not hesitate to file an issue:`
       );
       console.log(
-        `      ${chalk.cyan("https://github.com/olmokit/olmokit/issues/new")}`
+        `      ${chalk.magenta(
+          "https://github.com/olmokit/olmokit/issues/new"
+        )}`
       );
       console.log();
     })
     .parse(process.argv);
 
-  const programOptions = program.options as unknown as CommandOptions;
+  const { info, packageManager, verbose, scriptsVersion, template } =
+    program.options as unknown as CommandOptions;
+  const { name: thisPkgName } = packageJson;
 
-  if (programOptions.info) {
+  if (info) {
     console.log(chalk.bold("\nEnvironment Info:"));
     console.log(
       `\n  current version of ${packageJson.name}: ${packageJson.version}`
@@ -175,14 +173,16 @@ export function init() {
   if (typeof projectName === "undefined") {
     console.error("Please specify the project directory:");
     console.log(
-      `  ${chalk.cyan(program.name())} ${chalk.green("<project-directory>")}`
+      `  ${chalk.magenta(program.name())} ${chalk.magenta(
+        "<project-directory>"
+      )}`
     );
     console.log();
     console.log("For example:");
-    console.log(`  ${chalk.cyan(program.name())} ${chalk.green("myapp")}`);
+    console.log(`  ${chalk.magenta(program.name())} ${chalk.magenta("myapp")}`);
     console.log();
     console.log(
-      `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`
+      `Run ${chalk.magenta(`${program.name()} --help`)} to see all options.`
     );
     process.exit(1);
   }
@@ -196,11 +196,9 @@ export function init() {
   (checkForLatestVersion() as Promise<string | undefined>)
     .catch(() => {
       try {
-        return execSync("npm view @olmokit/create-laravel-app version")
-          .toString()
-          .trim();
+        return execSync(`npm view ${thisPkgName} version`).toString().trim();
       } catch (e) {
-        return "0.0.1";
+        return packageJson.version;
       }
     })
     .then((latest?: string) => {
@@ -208,31 +206,34 @@ export function init() {
         console.log();
         console.error(
           chalk.yellow(
-            `You are running \`@olmokit/create-laravel-app\` ${packageJson.version}, which is behind the latest release (${latest}).\n\n` +
-              "We no longer support global installation of Create Laravel App."
+            `You are running ${chalk.bold(thisPkgName)}@${
+              packageJson.version
+            }, which is behind the latest release (${latest}).\n\n` +
+              `We no longer support global installation of ${thisPkgName}.`
           )
         );
         console.log();
         console.log(
-          "Please remove any global installs with one of the following commands:\n" +
-            "- npm uninstall -g @olmokit/create-laravel-app\n" +
-            "- yarn global remove @olmokit/create-laravel-app"
+          "Please remove any global installs running " +
+            chalk.bold(
+              `${
+                packageManager === "pnpm"
+                  ? "pnpm uninstall -g"
+                  : packageManager === "npm"
+                  ? "npm uninstall -g"
+                  : "yarn global remove"
+              } ${thisPkgName}`
+            )
         );
-        console.log();
-        // console.log(
-        //   'The latest instructions for creating a new app can be found here:\n' +
-        //     'https://create-react-app.dev/docs/getting-started/'
-        // );
         console.log();
         process.exit(1);
       } else {
         createApp(
           projectName,
-          programOptions.verbose,
-          programOptions.scriptsVersion,
-          programOptions.template,
-          programOptions.useNpm,
-          programOptions.usePnp
+          verbose,
+          scriptsVersion,
+          template,
+          packageManager
         );
       }
     });
@@ -240,13 +241,26 @@ export function init() {
   return;
 }
 
+// TODO: make this list autogenerated?
+// FIXME: this list should depend on the CLI context...once we implement
+// different ones, then we will also prompt the user to select a CLI
+// context here earlier
+const innerDependencies = [
+  "@olmokit/browser",
+  "@olmokit/cli",
+  "@olmokit/components",
+  "@olmokit/core",
+  "@olmokit/dom",
+  "@olmokit/use",
+  "@olmokit/utils",
+];
+
 function createApp(
   name: string,
-  verbose: boolean,
-  version: string,
-  template: string,
-  useNpm?: boolean,
-  usePnp?: boolean
+  verbose: CommandOptions["verbose"],
+  version: CommandOptions["scriptsVersion"],
+  template: CommandOptions["template"],
+  packageManager: CommandOptions["packageManager"]
 ) {
   const unsupportedNodeVersion = !semverSatisfies(process.version, ">=18");
   if (unsupportedNodeVersion) {
@@ -256,8 +270,6 @@ function createApp(
           `Please update to Node 18 or higher for a better, fully supported experience.\n`
       )
     );
-    // Fall back to latest supported cli on Node 4
-    // version = 'cli@0.9.x';
     process.exit(1);
   }
 
@@ -271,12 +283,12 @@ function createApp(
   }
   console.log();
 
-  console.log(`Creating a new Laravel app in ${chalk.green(root)}.`);
+  console.log(`Creating a new Olmo Laravel app in ${chalk.magenta(root)}.`);
   console.log();
 
   const packageJson = {
     private: true,
-    name: `@olmokit/${appName}`,
+    name: `${appName}`,
     version: "0.0.1",
   };
   writeFileSync(
@@ -290,50 +302,22 @@ function createApp(
     console.log("Initialized a git repository.");
   }
 
-  const useYarn = useNpm ? false : shouldUseYarn();
   const originalDirectory = process.cwd();
   process.chdir(root);
 
-  if (!useYarn) {
+  if (packageManager === "npm") {
     const npmInfo = checkNpmVersion();
     if (!npmInfo.hasMinNpm) {
       if (npmInfo.npmVersion) {
         console.log(
-          chalk.yellow(
-            `You are using npm ${npmInfo.npmVersion} so the project will be bootstrapped with an old unsupported version of tools.\n\n` +
-              `Please update to npm 6 or higher for a better, fully supported experience.\n`
+          chalk.red(
+            `You are using an unsupported npm version ${npmInfo.npmVersion}\n`
           )
         );
       }
-      // Fall back to latest supported cli for npm 3
-      version = "cli@0.9.x";
+      process.exit(1);
     }
-  } else if (usePnp) {
-    const yarnInfo = checkYarnVersion();
-    if (yarnInfo.yarnVersion) {
-      if (!yarnInfo.hasMinYarnPnp) {
-        console.log(
-          chalk.yellow(
-            `You are using Yarn ${yarnInfo.yarnVersion} together with the --use-pnp flag, but Plug'n'Play is only supported starting from the 1.12 release.\n\n` +
-              `Please update to Yarn 1.12 or higher for a better, fully supported experience.\n`
-          )
-        );
-        // 1.11 had an issue with webpack-dev-middleware, so better not use PnP with it (never reached stable, but still)
-        usePnp = false;
-      }
-      if (!yarnInfo.hasMaxYarnPnp) {
-        console.log(
-          chalk.yellow(
-            "The --use-pnp flag is no longer necessary with yarn 2 and will be deprecated and removed in a future release.\n"
-          )
-        );
-        // 2 supports PnP by default and breaks when trying to use the flag
-        usePnp = false;
-      }
-    }
-  }
-
-  if (useYarn) {
+  } else if (packageManager === "yarn") {
     let yarnUsesDefaultRegistry = true;
     try {
       yarnUsesDefaultRegistry =
@@ -349,6 +333,7 @@ function createApp(
       );
     }
   }
+  // TODO: check pnpm version?
 
   run(
     root,
@@ -357,39 +342,27 @@ function createApp(
     verbose,
     originalDirectory,
     template,
-    useYarn,
-    usePnp
+    packageManager
   );
-}
-
-function shouldUseYarn() {
-  return false; // disable yarn for now...
-  try {
-    execSync("yarnpkg --version", { stdio: "ignore" });
-    return true;
-  } catch (e) {
-    return false;
-  }
 }
 
 async function install(
   root: string,
-  useYarn?: boolean,
-  usePnp?: boolean,
+  packageManager: CommandOptions["packageManager"],
   dependencies: string[] = [],
   verbose?: boolean,
   isOnline?: boolean
 ) {
   let command: string;
   let args: string[];
-  if (useYarn) {
+  if (packageManager === "pnpm") {
+    command = "pnpm";
+    args = ["install"].concat(dependencies);
+  } else if (packageManager === "yarn") {
     command = "yarnpkg";
     args = ["add", "--exact"];
     if (!isOnline) {
       args.push("--offline");
-    }
-    if (usePnp) {
-      args.push("--enable-pnp");
     }
     [].push.apply(args, dependencies as never[]);
 
@@ -411,19 +384,13 @@ async function install(
     args = ["install", "--save", "--save-exact", "--loglevel", "error"].concat(
       dependencies
     );
-
-    if (usePnp) {
-      console.log(chalk.yellow("NPM doesn't support PnP."));
-      console.log(chalk.yellow("Falling back to the regular installs."));
-      console.log();
-    }
   }
 
   if (verbose) {
     args.push("--verbose");
   }
 
-  const { exitCode } = $({ stdio: "inherit" })`${command} ${args}`;
+  const { exitCode } = await $({ stdio: "inherit" })`${command} ${args}`;
   if (exitCode === 1) {
     return { command: `${command} ${args.join(" ")}` };
   }
@@ -435,30 +402,16 @@ function run(
   root: string,
   appName: string,
   version: string,
-  verbose: boolean,
+  verbose: CommandOptions["verbose"],
   originalDirectory: string,
-  template: string,
-  useYarn?: boolean,
-  usePnp?: boolean
+  template: CommandOptions["template"],
+  packageManager: CommandOptions["packageManager"]
 ) {
   Promise.all([
     getInstallPackage(version, originalDirectory),
     getTemplateInstallPackage(template, originalDirectory),
   ]).then(([packageToInstall, templateToInstall]) => {
-    const allDependencies = [
-      // TODO: make this list autogenerated?
-      // FIXME: this list should depend on the CLI context...once we implement
-      // different ones, then we will also prompt the user to select a CLI
-      // context here earlier
-      "@olmokit/browser",
-      "@olmokit/cli",
-      "@olmokit/components",
-      "@olmokit/core",
-      "@olmokit/dom",
-      "@olmokit/use",
-      "@olmokit/utils",
-      packageToInstall,
-    ];
+    const allDependencies = [...innerDependencies, packageToInstall];
 
     console.log("Installing packages. This might take a couple of minutes.");
 
@@ -467,7 +420,7 @@ function run(
       getPackageInfo(templateToInstall),
     ])
       .then(([packageInfo, templateInfo]) =>
-        checkIfOnline(useYarn).then((isOnline) => ({
+        checkIfOnline(packageManager === "yarn").then((isOnline) => ({
           isOnline,
           packageInfo,
           templateInfo,
@@ -477,7 +430,7 @@ function run(
         allDependencies.push(templateToInstall);
 
         console.log(
-          `Installing ${chalk.cyan(packageInfo.name)} with ${chalk.cyan(
+          `Installing ${chalk.magenta(packageInfo.name)} with ${chalk.magenta(
             templateInfo.name
           )}...`
         );
@@ -485,8 +438,7 @@ function run(
 
         return install(
           root,
-          useYarn,
-          usePnp,
+          packageManager,
           allDependencies,
           verbose,
           isOnline
@@ -516,21 +468,12 @@ function run(
         init.apply(null, JSON.parse(process.argv[1]));
       `
         );
-
-        // if (version === 'cli@0.9.x') {
-        //   console.log(
-        //     chalk.yellow(
-        //       `\nNote: the project was bootstrapped with an old unsupported version of tools.\n` +
-        //         `Please update to Node >=18 and npm >=6 to get supported tools in new projects.\n`
-        //     )
-        //   );
-        // }
       })
       .catch((reason) => {
         console.log();
         console.log("Aborting installation.");
         if (reason.command) {
-          console.log(`  ${chalk.cyan(reason.command)} has failed.`);
+          console.log(`  ${chalk.magenta(reason.command)} has failed.`);
         } else {
           console.log(
             chalk.red("Unexpected error. Please report it as a bug:")
@@ -550,7 +493,7 @@ function run(
           knownGeneratedFiles.forEach((fileToMatch) => {
             // This removes all knownGeneratedFiles.
             if (file === fileToMatch) {
-              console.log(`Deleting generated file... ${chalk.cyan(file)}`);
+              console.log(`Deleting generated file... ${chalk.magenta(file)}`);
               rmSync(join(root, file));
             }
           });
@@ -559,7 +502,7 @@ function run(
         if (!remainingFiles.length) {
           // Delete target folder if empty
           console.log(
-            `Deleting ${chalk.cyan(`${appName}/`)} from ${chalk.cyan(
+            `Deleting ${chalk.magenta(`${appName}/`)} from ${chalk.magenta(
               resolve(root, "..")
             )}`
           );
@@ -680,7 +623,7 @@ async function getPackageInfo(installPackage: string) {
     //       /^.+\/(.+?)(?:-\d+.+)?\.(tgz|tar\.gz)$/
     //     )?.[1];
     //     console.log(
-    //       `Based on the filename, assuming it is "${chalk.cyan(
+    //       `Based on the filename, assuming it is "${chalk.magenta(
     //         assumedProjectName
     //       )}"`
     //     );
@@ -716,7 +659,7 @@ function checkNpmVersion() {
   let npmVersion = null;
   try {
     npmVersion = execSync("npm --version").toString().trim();
-    hasMinNpm = semverGte(npmVersion, "6.0.0");
+    hasMinNpm = semverGte(npmVersion, "8.0.0");
   } catch (err) {
     // ignore
   }
@@ -805,7 +748,7 @@ function checkAppName(appName: string) {
   if (!validationResult.validForNewPackages) {
     console.error(
       chalk.red(
-        `Cannot create a project named ${chalk.green(
+        `Cannot create a project named ${chalk.magenta(
           `"${appName}"`
         )} because of npm naming restrictions:\n`
       )
@@ -821,16 +764,18 @@ function checkAppName(appName: string) {
   }
 
   // TODO: there should be a single place that holds the dependencies
-  const dependencies = [/* '@olmokit/frontend', */ "@olmokit/cli"].sort();
+  const dependencies = innerDependencies.sort();
   if (dependencies.includes(appName)) {
     console.error(
       chalk.red(
-        `Cannot create a project named ${chalk.green(
+        `Cannot create a project named ${chalk.magenta(
           `"${appName}"`
         )} because a dependency with the same name exists.\n` +
           `Due to the way npm works, the following names are not allowed:\n\n`
       ) +
-        chalk.cyan(dependencies.map((depName) => `  ${depName}`).join("\n")) +
+        chalk.magenta(
+          dependencies.map((depName) => `  ${depName}`).join("\n")
+        ) +
         chalk.red("\n\nPlease choose a different project name.")
     );
     process.exit(1);
@@ -864,16 +809,16 @@ function setCaretRangeForRuntimeDeps(packageName: string) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const packageJson = require(packagePath);
 
-  if (typeof packageJson.dependencies === "undefined") {
-    console.error(chalk.red("Missing dependencies in package.json"));
-    process.exit(1);
-  }
+  // if (typeof packageJson.dependencies === "undefined") {
+  //   console.error(chalk.red("Missing dependencies in package.json"));
+  //   process.exit(1);
+  // }
 
-  const packageVersion = packageJson.dependencies[packageName];
-  if (typeof packageVersion === "undefined") {
-    console.error(chalk.red(`Unable to find ${packageName} in package.json`));
-    process.exit(1);
-  }
+  // const packageVersion = packageJson.dependencies[packageName];
+  // if (typeof packageVersion === "undefined") {
+  //   console.error(chalk.red(`Unable to find ${packageName} in package.json`));
+  //   process.exit(1);
+  // }
 
   // makeCaretRange(packageJson.dependencies, '@olmokit/frontend');
 
@@ -924,7 +869,7 @@ function isSafeToCreateProjectIn(root: string, name: string) {
 
   if (conflicts.length > 0) {
     console.log(
-      `The directory ${chalk.green(name)} contains files that could conflict:`
+      `The directory ${chalk.magenta(name)} contains files that could conflict:`
     );
     console.log();
     for (const file of conflicts) {
@@ -1028,6 +973,30 @@ function executeNodeScript(
       resolve();
     });
   });
+}
+
+function getDefaultPackageManager(): CommandOptions["packageManager"] {
+  if (shouldUsePnpm()) return "pnpm";
+  if (shouldUseYarn()) return "yarn";
+  return "npm";
+}
+
+function shouldUsePnpm() {
+  try {
+    execSync("pnpm -v", { stdio: "ignore" });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function shouldUseYarn() {
+  try {
+    execSync("yarnpkg --version", { stdio: "ignore" });
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 function checkForLatestVersion() {

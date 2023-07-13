@@ -1,5 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
+import { EOL } from "node:os";
 import { basename, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import json from "comment-json";
@@ -166,7 +167,7 @@ export async function editJSONfile<TData = any>(
         const fileNewContent = json.stringify(jsonContent, null, 2);
 
         if (fileNewContent) {
-          await writeFile(filePath, fileNewContent);
+          await writeFile(filePath, fileNewContent + EOL);
         }
       } catch (err) {
         console.log("editJSONfile failed for:", filePath);

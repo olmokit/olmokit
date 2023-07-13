@@ -24,8 +24,8 @@
   "scripts": {
     "pre": "mkdir -p ../../dist/packages/create-laravel-app/ && cp ./package.json ../../dist/packages/create-laravel-app/package.json && cp ./README.md ../../dist/packages/create-laravel-app/README.md",
     "post": "cp ./dist/index.js ../../dist/packages/create-laravel-app/index.js && rm -r ./dist",
-    "compile": "ncc build ./src/index.ts -o ./dist/ --minify --no-cache --no-source-map-register",
-    "dev": "pnpm pre && ncc build ./src/index.ts -w -o ../../dist/packages/create-laravel-app/",
+    "compile": "ncc build ./index.ts -o ./dist/ --minify --no-cache --no-source-map-register",
+    "dev": "pnpm pre && ncc build ./index.ts -w -o ../../dist/packages/create-laravel-app/",
     "build": "pnpm pre && pnpm compile && pnpm post"
   }
 }

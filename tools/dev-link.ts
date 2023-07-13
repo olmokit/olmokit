@@ -24,21 +24,14 @@ export const link = () =>
       console.log();
       await linkGlobally(libs, opts);
 
-      console.log();
-      ora({
-        text: `Now link those packages in one another...`,
-        ...oraOpts,
-      }).stopAndPersist();
-      console.log();
-      linkRecursively(libs, opts);
+      // console.log();
+      // ora({
+      //   text: `Now link those packages in one another...`,
+      //   ...oraOpts,
+      // }).stopAndPersist();
+      // console.log();
+      // linkRecursively(libs, opts);
     });
-
-// program
-//   .command("link")
-//   .description(link.description)
-//   .option("-v --verbose")
-//   .action(link.action)
-//   .parseAsync();
 
 async function linkGlobally(libs: LibNpm[], opts: Options) {
   await Promise.all(

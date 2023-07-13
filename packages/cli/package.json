@@ -16,5 +16,16 @@
     "sass-resources-loader": "^2.2.5",
     "swc-loader": "^0.2.3",
     "webpack": "^5.88.1"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.js"
+    },
+    "./scripts/bootstrap": {
+      "import": "./scripts/bootstrap.js"
+    },
+    "./cli-laravel": {
+      "import": "./cli-laravel/index.js"
+    }
   }
 }
