@@ -1,7 +1,4 @@
-import {
-  type Logger,
-  createLogger,
-} from "@niceties/logger";
+import { type Logger, createLogger } from "@niceties/logger";
 import { terminalSupportsUnicode } from "@niceties/logger/format-utils";
 import chalk, { type ChalkInstance } from "chalk";
 import cliCursor from "cli-cursor";
