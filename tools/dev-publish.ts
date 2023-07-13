@@ -55,6 +55,14 @@ export const publish = () =>
         }
       );
 
+      // build libs
+      await oraPromise(
+        $({ stdio: "inherit" })`git commit -am ${`chore(release): v${release.version}`}`,
+        {
+          text: `Commit files edited during release`,
+        }
+      );
+
       // prepublish libs
       await Promise.all(
         self().libs.map(async (lib) =>
