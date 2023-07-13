@@ -3,18 +3,6 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/cli",
   "projectType": "library",
-  "implicitDependencies": [
-    "@swc/core",
-    "autoprefixer",
-    "css-loader",
-    "postcss-loader",
-    "postcss-preset-env",
-    "postcss-sort-media-queries",
-    "sass-loader",
-    "sass-resources-loader",
-    "swc-loader",
-    "webpack"
-  ],
   "targets": {
     "watch": {
       "executor": "@nx/js:swc",

@@ -1,9 +1,10 @@
 {
   "name": "@olmokit/core",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "dependencies": {
-    "videojs-font": "^4.1.0"
+    "videojs-font": "^4.1.0",
+    "date-fns": "^2.30.0"
   },
   "sideEffects": [
     "**/*.scss",
