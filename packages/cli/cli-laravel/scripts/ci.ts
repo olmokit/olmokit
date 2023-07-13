@@ -114,6 +114,7 @@ const ciClean: CliLaravel.CmdDeploy.Task = async ({ ctx }) => {
       join(root, "pnpm-lock.yaml"),
       join(root, "composer.lock"),
       join(root, "tsconfig.json"),
+      join(root, "olmo.ts"),
       join(root, ".npmrc"),
       join(root, "*.md"),
       join(root, ".vscode"),
@@ -313,10 +314,10 @@ ciVisit.meta = { title: "Run visit task" };
 export const ci: CliLaravel.CmdDeploy.TaskGroup = {
   meta: { /* subject: "ci", */ title: "CI" },
   children: [
-    ciClean,
     ciComposer,
     ciComposerZip,
     ciCopyScripts,
+    ciClean,
     ciTouch,
     ciSync,
     ciDeployer,
