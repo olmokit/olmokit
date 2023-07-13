@@ -1,0 +1,9 @@
+.ff\:feedback {
+  height: 0;
+  overflow: hidden;
+
+  // &__success,
+  &__failure {
+    padding-bottom: $Grid-gutter-half;
+  }
+}

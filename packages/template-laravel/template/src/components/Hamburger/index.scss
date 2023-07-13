@@ -1,0 +1,8 @@
+//
+// Component: Hamburger
+//
+
+.Hamburger\: {
+  @include Hamburger();
+  @include Hamburger-twist();
+}

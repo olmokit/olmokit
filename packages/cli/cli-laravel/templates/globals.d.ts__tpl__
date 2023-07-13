@@ -1,0 +1,8 @@
+<% for (var i = 0; i < globals.length; i++) { var def = globals[i]; %>
+/** 
+ * <%= def.desc %> Build system constant made globally available by `<%= packageName %>`.
+ */
+declare const <%= def.name %>: <%= def.type %>;
+<% } %>
+
+<%= globalConfig %>

@@ -1,0 +1,51 @@
+{
+  "name": "cli-utils",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/cli-utils",
+  "projectType": "library",
+  "targets": {
+    "watch": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "watch": true,
+        "outputPath": "dist/packages/cli-utils",
+        "main": "packages/cli-utils/index.ts",
+        "tsConfig": "packages/cli-utils/tsconfig.lib.json",
+        "assets": ["packages/cli-utils/*.md"]
+      }
+    },
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/cli-utils",
+        "main": "packages/cli-utils/index.ts",
+        "tsConfig": "packages/cli-utils/tsconfig.lib.json",
+        "assets": ["packages/cli-utils/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/cli-utils/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/cli-utils/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,9 @@
+.logo {
+  width: $Header__logo-width;
+  height: $Header__logo-height;
+
+  @include Header-is(uncollapsed) {
+    width: $Header__logo-width-uncollapsed;
+    height: $Header__logo-height-uncollapsed;
+  }
+}

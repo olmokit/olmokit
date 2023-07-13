@@ -1,0 +1,81 @@
+//
+// Route: checkoutdetails
+//
+// This file is compiled as a standalone entrypoint and it is included by
+// default in its blade template. In this way the style written in this file
+// will always remain scoped, helping to avoid unintended cascading effects.
+//
+
+// .route-checkoutdetails\: {}
+
+// Module: page
+// -----------------------------------------------------------------------------
+.page\: {
+  // Block: page -> shipping
+  // ---------------------------------------------------------------------------
+  &shipping {
+  }
+
+  // Block: page -> billing
+  // ---------------------------------------------------------------------------
+  &billing {
+  }
+
+  // Block: page -> title
+  // ---------------------------------------------------------------------------
+  &title {
+  }
+}
+
+// Module: method
+// -----------------------------------------------------------------------------
+.method\: {
+  &.radio {
+    display: block;
+  }
+
+  // Block: method -> head
+  // ---------------------------------------------------------------------------
+  &head {
+    // Element: method -> head -> text
+    // -------------------------------------------------------------------------
+    &__text {
+    }
+
+    // Element: method -> head -> name
+    // -------------------------------------------------------------------------
+    &__name {
+    }
+
+    // Element: method -> head -> desc
+    // -------------------------------------------------------------------------
+    &__desc {
+    }
+  }
+
+  // Block: method -> body
+  // ---------------------------------------------------------------------------
+  &body {
+    // Element: method -> body -> data
+    // -------------------------------------------------------------------------
+    &__data {
+    }
+
+    // Element: method -> body -> actions
+    // -------------------------------------------------------------------------
+    &__actions {
+    }
+  }
+
+  // Block: method -> staticaddress
+  // ---------------------------------------------------------------------------
+  &staticaddress {
+  }
+}
+
+// .AddressDetails\: {
+//   &.radio {
+//     margin: 0;
+//     cursor: pointer;
+//   }
+// }

@@ -1,0 +1,12 @@
+@if $ENV == "local" {
+  .debugFormsBtn {
+    background: lightgrey;
+    color: darkviolet;
+    padding: 2px 6px;
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+  }
+}

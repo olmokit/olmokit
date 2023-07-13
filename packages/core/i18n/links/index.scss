@@ -1,0 +1,28 @@
+.i18nLinks {
+  // Status: is-loading
+  // ---------------------------------------------------------------------------
+  &.is-loading {
+    cursor: wait;
+  }
+
+  // Block: item
+  // ---------------------------------------------------------------------------
+  &Item {
+    cursor: pointer;
+
+    &.is-loading {
+      display: none;
+    }
+  }
+
+  // Block: loader
+  // ---------------------------------------------------------------------------
+  &Loader {
+  }
+
+  &:not(.is-loading) {
+    .i18nLinksLoader {
+      display: none;
+    }
+  }
+}

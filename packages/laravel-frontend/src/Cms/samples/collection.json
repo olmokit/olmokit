@@ -1,0 +1,26 @@
+{
+  "route": {
+    "id": "collection",
+    "locale": "en",
+    "slug": {
+      "en": "/a-collection-name",
+      "it": "/una-collezione"
+    }
+  },
+  "seo": {
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "og_title": "",
+    "og_desc": "",
+    "og_img": "",
+    "index": "index",
+    "follow": "follow",
+    "itemtype": ""
+  },
+  "analytics": {},
+  "title": "A collection",
+  "subtitle": "",
+  "excerpt": "",
+  "content": "<p>Some <b>HTML</b> content</p>"
+}

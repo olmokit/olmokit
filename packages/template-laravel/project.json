@@ -1,0 +1,38 @@
+{
+  "name": "template-laravel",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/template-laravel",
+  "projectType": "library",
+  "implicitDependencies": [],
+  "targets": {
+    "watch": {
+      "executor": "nx:noop"
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "inputs": [
+          {
+            "externalDependencies": []
+          }
+        ],
+        "commands": [
+          "mkdir p ./dist/packages",
+          "rsync -a ./packages/template-laravel ./dist/packages --exclude project.json"
+        ],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/template-laravel/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "nx:noop"
+    }
+  },
+  "tags": []
+}

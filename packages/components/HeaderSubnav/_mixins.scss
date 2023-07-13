@@ -1,0 +1,33 @@
+@import "@olmokit/core/dropdown/mixins";
+
+// When header is collapsed style
+// -----------------------------------------------------------------------------
+@mixin HS-in-collapsed() {
+  @include Header-is(collapsed) {
+    // flyout visible state
+    // -------------------------------------------------------------------------
+    @include Dropdown-flyout-in("HS") {
+      @content;
+    }
+  }
+}
+
+// When header is uncollapsed style
+// -----------------------------------------------------------------------------
+@mixin HS-in-uncollapsed() {
+  @include Header-is(uncollapsed) {
+    // flyout visible state
+    // -------------------------------------------------------------------------
+    @include Dropdown-flyout-in("HS") {
+      @content;
+    }
+  }
+}
+
+// toggle active state
+// -----------------------------------------------------------------------------
+@mixin HS-toggle-active() {
+  @include Dropdown-toggle-active("HS") {
+    @content;
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "laravel-frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/laravel-frontend",
+  "projectType": "library",
+  "implicitDependencies": [],
+  "targets": {
+    "watch": {
+      "executor": "nx:noop"
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "inputs": [
+          {
+            "externalDependencies": []
+          }
+        ],
+        "commands": [
+          "mkdir p ./dist/packages",
+          "rsync -a ./packages/laravel-frontend ./dist/packages --exclude vendor --exclude project.json --exclude .gitignore"
+        ],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "nx:noop"
+    },
+    "test": {
+      "executor": "nx:noop"
+    }
+  },
+  "tags": []
+}

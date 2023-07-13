@@ -1,0 +1,57 @@
+{
+  "name": "components",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/components",
+  "projectType": "library",
+  "targets": {
+    "watch": {
+      "watch": true,
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/components",
+        "main": "packages/components/index.ts",
+        "tsConfig": "packages/components/tsconfig.lib.json",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "updateBuildableProjectDepsInPackageJson": true,
+        "assets": [
+          "packages/components/*.md",
+          "packages/components/**/*.js",
+          "packages/components/**/*.scss",
+          "packages/components/**/*.php",
+          "packages/components/**/*.svg"
+        ]
+      }
+    },
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/components",
+        "main": "packages/components/index.ts",
+        "tsConfig": "packages/components/tsconfig.lib.json",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "updateBuildableProjectDepsInPackageJson": true,
+        "assets": [
+          "packages/components/*.md",
+          "packages/components/**/*.js",
+          "packages/components/**/*.scss",
+          "packages/components/**/*.php",
+          "packages/components/**/*.svg"
+        ]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs components {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/components/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

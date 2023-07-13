@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "checkJs": true,
+    "allowJs": true,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "es2015",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "baseUrl": "./<%= srcFolder %>",
+    "paths": {
+      "assets": ["assets/*"],
+      "components": ["components/*"],
+      "config": ["config/*"],
+      "layouts": ["layouts/*"],
+      "routes": ["routes/*"], 
+      "utils": ["utils/*"],
+      "vendor": ["vendor/*"]
+    }
+  },
+  "include": [
+    "<%= srcFolder %>"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "plugins": [
+    "@prettier/plugin-php",
+    "@trivago/prettier-plugin-sort-imports",
+    "@shufo/prettier-plugin-blade"
+  ],
+  "overrides": [
+    {
+      "files": "*.php",
+      "options": {
+        "singleQuote": true
+      }
+    },
+    {
+      "files": [
+        "*.blade.php"
+      ],
+      // https://github.com/shufo/prettier-plugin-blade#options
+      "options": {
+        "parser": "blade",
+        "tabWidth": 2,
+        "wrapAttributes": "force-expand-multiline",
+        "sortHtmlAttributes": "code-guide"
+      }
+    }
+  ],
+  "importOrder": [
+    "^node:(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^@olmokit/utils(.*)$",
+    "^@olmokit/cli(.*)$",
+    "^@olmokit/cli-utils(.*)$",
+    "^@olmokit/dom(.*)$",
+    "^@olmokit/browser(.*)$",
+    "^@olmokit/core(.*)$",
+    "^@olmokit/components(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true
+}

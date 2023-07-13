@@ -1,0 +1,36 @@
+/**
+ * @file Route: <%= route.slug %>
+ *
+ * This file is compiled as a standalone entrypoint and it is included by
+ * default in its blade template.
+ * This route is managed by barba.js, it needs to use the `route` HOC whose
+ * arguments should be first a `mounted` method called when the DOM of the
+ * entered route is ready and secodly a `destroyed` method called when the
+ * route is exited. By convention we define an array of components each of
+ * which should expose a `destroy` method to clean up once the route using
+ * it exits.
+ */
+
+import "layouts/main";
+import route from "@olmokit/core/barba/route";
+// import "components/MyComponent";
+
+let components = [];
+
+/**
+ * Standard route hook called on route's DOM insertion (after DOM rendering)
+ */
+function mounted() {
+  components = components.concat([
+    
+  ]);
+}
+
+/**
+ * Standard route hook called on route's DOM deletion
+ */
+function destroyed() {
+  components.forEach(({ destroy }) => destroy());
+}
+
+export default route(mounted, destroyed);

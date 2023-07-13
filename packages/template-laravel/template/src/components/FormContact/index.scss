@@ -1,0 +1,36 @@
+.FormContact\: {
+  @include Container-max(md);
+  @include Spacing-vertical(lg);
+
+  // Block: title
+  // ---------------------------------------------------------------------------
+  &title {
+    @extend %heading;
+    color: Color(black);
+  }
+
+  // olmoforms.io styling
+  // ---------------------------------------------------------------------------
+  .of\: {
+    @extend %Row;
+
+    &el {
+      @include Col(md, 6);
+      @include Col(lg, 4);
+    }
+
+    &message,
+    &privacy,
+    &submit {
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
+    }
+
+    &submit {
+      @include OF-standard-submit("right");
+    }
+  }
+
+  .btn {
+  }
+}

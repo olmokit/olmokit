@@ -1,0 +1,14 @@
+//
+// Component: AddressBtnRemove
+//
+
+.AddressBtnRemove\: {
+}
+
+[data-address-when="loading"] {
+  display: none;
+
+  [data-address-status="loading"] & {
+    display: block;
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "jsc": {
+    "target": "esnext",
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true,
+      "dynamicImport": true
+    },
+    "transform": {
+      "decoratorMetadata": true,
+      "legacyDecorator": true
+    },
+    "keepClassNames": true,
+    "externalHelpers": true,
+    "preserveAllComments": true,
+    "loose": false,
+    "minify": {
+      "compress": false
+    }
+  },
+  "module": {
+    "type": "es6",
+    "strict": true,
+    "noInterop": true
+  },
+  "sourceMaps": false,
+  "exclude": [
+    "jest.config.ts",
+    "./jest-setup.ts$",
+    "./**/jest-setup.ts$",
+    ".*.js$",
+    "./*\\.d.ts"
+  ],
+  "minify": false
+}

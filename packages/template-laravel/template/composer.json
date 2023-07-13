@@ -1,0 +1,40 @@
+{
+  "name": "mycompany/myproject",
+  "type": "project",
+  "repositories": [],
+  "require": {
+    "olmo/laravel-frontend": "^1"
+  },
+  "require-dev": {
+    "barryvdh/laravel-debugbar": "^3.6"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "autoload": {
+    "files": [],
+    "classmap": [],
+    "psr-4": {
+      "resources\\": "resources/"
+    }
+  },
+  "autoload-dev": {},
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
+    ],
+    "post-create-project-cmd": [
+      "@php artisan key:generate --ansi"
+    ]
+  }
+}

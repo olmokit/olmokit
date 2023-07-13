@@ -1,0 +1,18 @@
+//
+// @fileOverview
+//
+// Everything in this is always available in the global scope (using
+// `sass-resource-loader` in webpack). Note that here the order matters.
+//
+
+%body {
+  // font-weight: normal;
+  // font-size: $Typography-font-size;
+  // line-height: $Typography-line-height;
+}
+
+%heading {
+  // font-weight: bold;
+  // font-size: 20px;
+  // line-height: $Typography-headings-line-height;
+}

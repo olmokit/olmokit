@@ -1,0 +1,12 @@
+{
+  "extends": ["../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*", "*.spec.ts"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "import/extensions": ["error", "always", { "ignorePackages": true }]
+      }
+    }
+  ]
+}

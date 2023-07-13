@@ -1,0 +1,80 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nx", "import"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nx/typescript"],
+      "rules": {
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "env": {
+        "jest": true
+      },
+      "rules": {}
+    },
+    {
+      "files": ["*.ts"],
+      // https://github.com/import-js/eslint-plugin-import/blob/main/README.md
+      "rules": {
+        "import/no-duplicates": ["error"],
+        "import/no-extraneous-dependencies": [
+          "error",
+          { "packageDir": ["./"] }
+        ],
+        // "import/internal-regex": "^@olmokit/",
+        // "import/consistent-type-specifier-style": ["error", "prefer-inline"],
+        "import/order": [
+          "error",
+          {
+            "pathGroups": [
+              {
+                "pattern": "@olmokit/**",
+                "group": "internal"
+              }
+            ],
+            "groups": [
+              "builtin",
+              "external",
+              "internal",
+              "parent",
+              "sibling",
+              "index"
+              // "internal",
+              // "object",
+              // "type"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

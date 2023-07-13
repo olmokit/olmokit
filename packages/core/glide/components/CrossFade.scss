@@ -1,0 +1,25 @@
+.glide {
+  // class applied on the root `.glide` element.
+  &--crossfade {
+    .glide__slides {
+      // important needed because this is set using the style attribute
+      transform: none !important;
+    }
+
+    .glide__slide {
+      z-index: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition-property: opacity !important;
+      transition-timing-function: ease-in-out !important;
+      opacity: 0;
+    }
+
+    .glide__slide.is-active {
+      position: relative;
+      z-index: 1;
+      opacity: 1 !important;
+    }
+  }
+}

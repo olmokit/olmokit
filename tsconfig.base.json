@@ -1,0 +1,50 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": false,
+    "allowJs": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "target": "es5",
+    "module": "esnext",
+    "lib": ["es2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "declaration": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@olmokit/browser": ["packages/browser/index.ts"],
+      "@olmokit/browser/*": ["packages/browser/*"],
+      "@olmokit/cli": ["packages/cli/index.ts"],
+      "@olmokit/cli-utils": ["packages/cli-utils/index.ts"],
+      "@olmokit/cli-utils/*": ["packages/cli-utils/*"],
+      "@olmokit/cli/*": ["packages/cli/*"],
+      "@olmokit/components": ["packages/components/index.ts"],
+      "@olmokit/components/*": ["packages/components/*"],
+      "@olmokit/core": ["packages/core/index.ts"],
+      "@olmokit/core/*": ["packages/core/*"],
+      "@olmokit/create-laravel-app": [
+        "packages/create-laravel-app/src/index.ts"
+      ],
+      "@olmokit/dom": ["packages/dom/index.ts"],
+      "@olmokit/dom/*": ["packages/dom/*"],
+      "@olmokit/use": ["packages/use/index.ts"],
+      "@olmokit/use/*": ["packages/use/*"],
+      "@olmokit/utils": ["packages/utils/index.ts"],
+      "@olmokit/utils/*": ["packages/utils/*"],
+      "@olmokit/webpack-plugin-s3": ["packages/webpack-plugin-s3/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

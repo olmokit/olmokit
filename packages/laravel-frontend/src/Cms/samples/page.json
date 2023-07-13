@@ -1,0 +1,26 @@
+{
+  "route": {
+    "id": "home",
+    "locale": "en",
+    "slug": {
+      "en": "/",
+      "it": "/"
+    }
+  },
+  "seo": {
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "og_title": "",
+    "og_desc": "",
+    "og_img": "",
+    "index": "index",
+    "follow": "follow",
+    "itemtype": ""
+  },
+  "analytics": {},
+  "title": "Home",
+  "subtitle": "",
+  "excerpt": "",
+  "content": "<p>Some <b>HTML</b> content</p>"
+}

@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // @see https://github.com/vercel/next.js/blob/canary/packages/create-next-app/tsconfig.json
+    // "target": "es2019",
+    // "moduleResolution": "node",
+    // "strict": true,
+    // "resolveJsonModule": true,
+    // "esModuleInterop": true,
+    // "skipLibCheck": false,
+    // "module": "commonjs",
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"]
+  },
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "include": ["src/**/*.ts"]
+}

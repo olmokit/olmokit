@@ -1,0 +1,160 @@
+//
+// Header is collapsed/uncollapsed?
+//
+// @param {"collapsed" | "uncollapsed"} [$status="collapsed"]
+//
+// -----------------------------------------------------------------------------
+@mixin Header-is($status: collapsed) {
+  @if $status == collapsed {
+    @include Down(
+      breakpoint-prev($Header-breakpoint-collapse, $Grid-breakpoints)
+    ) {
+      @content;
+    }
+  }
+  @if $status == uncollapsed {
+    @include Up($Header-breakpoint-collapse) {
+      @content;
+    }
+  }
+}
+
+//
+// Header spacer (to account distances of a fixed/absolute positioned header)
+//
+// @param {"padding-top" | "margin-top" | "top"} [$property="padding-top"]
+//
+// -----------------------------------------------------------------------------
+@mixin Header-spacer($property: padding-top) {
+  #{$property}: $Header-height;
+
+  @include Header-is(uncollapsed) {
+    #{$property}: $Header-height-uncollapsed;
+  }
+}
+
+//
+// Header base, just the structure
+//
+// @param {string} $bg
+// @param {string} $color
+//
+// -----------------------------------------------------------------------------
+@mixin Header-base($bg, $color) {
+  background: $bg;
+  color: $color;
+
+  @if $Header-position == fixed {
+    z-index: $Header-zindex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  > .container {
+    min-height: $Header-height;
+    display: flex;
+  }
+
+  // Header element: inner
+  &inner {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: $Header-gutter-y 0;
+  }
+}
+
+//
+// Header variation: dark colours (uses global variables)
+//
+// -----------------------------------------------------------------------------
+@mixin Header--dark() {
+  .Header\:brand svg {
+    fill: $Header--dark-brand-color;
+  }
+  .Hamburger\: .bar {
+    background: $Header--dark-color;
+  }
+  .Hamburger\:#{$Hamburger-selector-active} .bar {
+    background: $Header--dark-active-color;
+  }
+  .Header\:nav__link {
+    color: $Header--dark-color;
+  }
+  .progressShape {
+    stroke: $Header--dark-color;
+  }
+  .Header\:nav__link:hover {
+    color: $Header--dark-hover-color;
+  }
+  .Header\:nav__item.is-active .Header\:nav__link {
+    color: $Header--dark-active-color;
+  }
+  @include Header-is(collapsed) {
+    .Header\:bgExpanded {
+      background: $Header--dark-bg;
+    }
+    @if $Header-position == fixed {
+      .Header\:mobileBar {
+        background: $Header--dark-bg;
+      }
+    }
+    // @include Header-is(uncollapsed) {
+    //   @if $Header-position == fixed {
+    //     .Header {
+    //       background: $Header--dark-bg;
+    //     }
+    //   }
+    // }
+  }
+}
+
+//
+// Header variation: light colours (uses global variables)
+//
+// -----------------------------------------------------------------------------
+@mixin Header--light() {
+  .Header\:brand svg {
+    fill: $Header--light-brand-color;
+  }
+  .Hamburger\: .bar {
+    background: $Header--light-color;
+  }
+  .Hamburger\:#{$Hamburger-selector-active} .bar {
+    background: $Header--light-active-color;
+  }
+  .Header\:nav__link {
+    color: $Header--light-color;
+  }
+  .progressShape {
+    stroke: $Header--light-color;
+  }
+  .Header\:nav__link:hover {
+    color: $Header--light-hover-color;
+  }
+  .Header\:nav__item.is-active .Header\:nav__link {
+    color: $Header--light-active-color;
+  }
+  &[data-status="expanded"] .Header\:collapse {
+    box-shadow: $Header-shadow;
+  }
+  @include Header-is(collapsed) {
+    .Header\:bgExpanded {
+      background: $Header--light-bg;
+    }
+    @if $Header-position == fixed {
+      .Header\:mobileBar {
+        background: $Header--light-bg;
+      }
+    }
+  }
+  // @include Header-is(uncollapsed) {
+  //   @if $Header-position == fixed {
+  //     .Header {
+  //       background: $Header--light-bg;
+  //     }
+  //   }
+  // }
+}

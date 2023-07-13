@@ -1,0 +1,76 @@
+{
+  "i18n": {
+    "locales": ["en", "it"],
+    "default_locale": "en"
+  },
+  "assets": {
+    "media": "https://myproject.company.com/storage/app/media"
+  },
+  "seo": {
+    "sitemap_index": false
+  },
+  "analytics": {
+    "gtm_header": "",
+    "gtm_body": "",
+    "gtm_header_prod": "",
+    "gtm_body_prod": ""
+  },
+  "routes": [
+    {
+      "id": "home",
+      "slug": {
+        "en": "/",
+        "it": "/"
+      }
+    },
+    {
+      "id": "404",
+      "slug": {
+        "en": "/404/",
+        "it": "/404/"
+      }
+    },
+    {
+      "id": "500",
+      "slug": {
+        "en": "/500/",
+        "it": "/500/"
+      }
+    },
+    {
+      "id": "collection",
+      "slug": {
+        "en": "/collection/",
+        "it": "/collezione/"
+      }
+    },
+    {
+      "id": "collectionsingle",
+      "slug": {
+        "en": "/collection/:slug/",
+        "it": "/collezione/:slug/"
+      }
+    },
+    {
+      "id": "contacts",
+      "slug": {
+        "en": "/contacts/",
+        "it": "/contatti/"
+      }
+    },
+    {
+      "id": "cookiepolicy",
+      "slug": {
+        "en": "/cookie-policy/",
+        "it": "/cookie-policy/"
+      }
+    },
+    {
+      "id": "privacy",
+      "slug": {
+        "en": "/privacy-policy/",
+        "it": "/privacy-policy/"
+      }
+    }
+  ]
+}

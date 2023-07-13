@@ -1,0 +1,75 @@
+//
+// Component: Footer
+//
+
+// Module: Footer
+// -----------------------------------------------------------------------------
+.Footer\: {
+  background: white;
+  color: Color(black);
+  @include Spacing-top(sm);
+  @include Spacing-bottom(md);
+
+  .row {
+    align-items: center;
+    margin: 0;
+    border-top: 1px solid Color(black);
+  }
+
+  a {
+    color: Color(black);
+  }
+
+  // Block: logo
+  // ---------------------------------------------------------------------------
+  &logo {
+    width: 191px;
+    .logoText {
+      fill: Color(blue);
+    }
+  }
+
+  // Block: company
+  // ---------------------------------------------------------------------------
+  &company {
+    flex: 1;
+    padding: $Grid-gutter $Grid-gutter-double;
+    font-size: 12px;
+  }
+
+  // Block: visit
+  // ---------------------------------------------------------------------------
+  &visit {
+    margin: $Grid-gutter 0;
+    padding: 0 $Grid-gutter-double 0 ($Grid-gutter * 1.2);
+    border-left: 1px solid Color(black);
+
+    // Element: visit -> head
+    // -------------------------------------------------------------------------
+    &__head {
+    }
+
+    // Element: visit -> link
+    // -------------------------------------------------------------------------
+    &__link {
+      text-decoration: underline;
+    }
+  }
+
+  // Block: links
+  // ---------------------------------------------------------------------------
+  &links {
+    margin: $Grid-gutter 0;
+    padding: 0 0 0 ($Grid-gutter * 1.2);
+    border-left: 1px solid Color(black);
+
+    a {
+      display: block;
+      padding: 0.2em 0;
+    }
+
+    @include Up(md) {
+      text-align: right;
+    }
+  }
+}

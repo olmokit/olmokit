@@ -1,0 +1,15 @@
+// .of\: {}
+
+.file {
+  display: inline-flex;
+  flex-direction: column;
+  .formBox {
+    display: block;
+    width: 100%;
+  }
+  .fileSizeLabel {
+    width: 100%;
+    display: block;
+    font-size: 12px;
+  }
+}

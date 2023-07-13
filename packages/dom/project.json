@@ -1,0 +1,45 @@
+{
+  "name": "dom",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/dom",
+  "projectType": "library",
+  "targets": {
+    "watch": {
+      "watch": true,
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/dom",
+        "main": "packages/dom/index.ts",
+        "tsConfig": "packages/dom/tsconfig.lib.json",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "updateBuildableProjectDepsInPackageJson": true,
+        "assets": ["packages/dom/*.md"]
+      }
+    },
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/dom",
+        "main": "packages/dom/index.ts",
+        "tsConfig": "packages/dom/tsconfig.lib.json",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "updateBuildableProjectDepsInPackageJson": true,
+        "assets": ["packages/dom/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs dom {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/dom/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

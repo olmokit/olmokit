@@ -1,0 +1,11 @@
+$Hamburger-selector-active: ".is-active" !default;
+$Hamburger__bar-width: 28px !default;
+$Hamburger__bar-height: 2px !default;
+$Hamburger__bar-bg: Color(black) !default;
+$Hamburger__bar-bg--hover: inherit !default;
+$Hamburger__bar-bg--active: $Hamburger__bar-bg--hover !default;
+$Hamburger__bar-margin: 6px !default;
+$Hamburger-width: $Hamburger__bar-width !default;
+$Hamburger-height: ($Hamburger__bar-height * 3) + ($Hamburger__bar-margin * 2) !default;
+$Hamburger-speed: 1 !default;
+$Hamburger-easing: cubic-bezier(0.645, 0.045, 0.355, 1) !default; // $Transition

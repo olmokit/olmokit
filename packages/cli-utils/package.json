@@ -1,0 +1,28 @@
+{
+  "name": "@olmokit/cli-utils",
+  "version": "0.0.1",
+  "exports": {
+    ".": {
+      "import": "./index.js"
+    },
+    "./filer": {
+      "import": "./filer.js"
+    },
+    "./git": {
+      "import": "./git.js"
+    },
+    "./log": {
+      "import": "./log.js"
+    },
+    "./package-manager": {
+      "import": "./package-manager.js"
+    },
+    "./taskr-appender": {
+      "import": "./taskr-appender.js"
+    },
+    "./taskr": {
+      "import": "./taskr.js"
+    }
+  },
+  "type": "module"
+}

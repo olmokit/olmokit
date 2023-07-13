@@ -1,0 +1,43 @@
+{
+  "files.exclude": {
+    "node_modules": true,
+    "*.sql": true,
+    "*.lock": true,
+    ".gitignore": true,
+    ".npmignore": true,
+    ".husky": true,
+    ".env": true,
+    "tsconfig.json": true,
+    "artisan": true,
+    "bootstrap": true,
+    // "config": true,
+    "config/env.php": true,
+    "public/index.php": true,
+    "public/assets": true,
+    "public/page-cache": true,
+    "public/favicon.ico": true,
+    "resources": true,
+    "storage": true,
+    "storage/app": true,
+    "storage/debugbar": true,
+    "storage/framework": true,
+    "vendor": true
+  },
+  "[php]": {
+    "editor.tabSize": 4
+  },
+  "files.associations": {
+    ".env*": "properties",
+    ".htaccess*": "ruby"
+  },
+  "window.title": "<%= prefix %><%= packageName %><%= suffix %>",
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#000",
+    "activityBar.foreground": "#fff"
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "olmo.*": "*.md, .env*, .github*, .gitlab*, *composer.json, *package.json, tsconfig.*, *.config.ts, *.config.js, .*rc"
+  }
+}

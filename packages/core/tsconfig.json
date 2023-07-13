@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    // here because of: "loadjs"
+    "allowSyntheticDefaultImports": true
+  },
+  "files": [
+    "../../@types/globals.d.ts",
+    "../cli/cli-laravel/templates/globals_config.d.ts"
+  ],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
+  ]
+}

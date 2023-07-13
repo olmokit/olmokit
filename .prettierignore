@@ -1,0 +1,16 @@
+CHANGELOG.md
+pnpm-lock.yaml
+pnpm-workspaces.yaml
+package-lock.json
+/dist
+/tmp
+vendor
+
+packages/cli/*/templates
+packages/laravel-frontend/vendor
+packages/laravel-frontend/bootstrap/cache
+packages-todo
+
+docs/.docusaurus
+docs/build
+docs/docs/guides/async-behaviours.md

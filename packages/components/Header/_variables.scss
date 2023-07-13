@@ -1,0 +1,41 @@
+$Header-zindex: $Zindex-fixed !default;
+$Header-position: absolute !default;
+$Header-height: 58px !default;
+$Header-height-uncollapsed: 164px !default;
+$Header-font-size: $Typography-font-size !default;
+$Header-text-transform: null !default;
+$Header-breakpoint-collapse: lg !default;
+$Header-transition-duration-ms: 300 !default;
+$Header-transition-duration: #{math.div($Header-transition-duration-ms, 1000)}s !default;
+$Header-transition-timing-function: ease-in-out !default;
+$Header-transition: $Header-transition-duration
+  $Header-transition-timing-function !default;
+$Header-shadow-size: 10px !default;
+$Header-shadow-color: rgba(0, 0, 0, 0.08) !default;
+$Header-shadow: 0 10px $Header-shadow-size $Header-shadow-color !default;
+$Header--light-bg: null !default;
+$Header--light-color: #000 !default;
+$Header--light-hover-color: $Header--light-color !default;
+$Header--light-active-color: $Header--light-hover-color !default;
+$Header--light-brand-color: $Header--light-color !default;
+$Header--dark-bg: null !default;
+$Header--dark-color: #fff !default;
+$Header--dark-hover-color: $Header--dark-color !default;
+$Header--dark-active-color: $Header--dark-hover-color !default;
+$Header--dark-brand-color: $Header--dark-color !default;
+$Header__navLink-padding-x: $Grid-gutter-half !default;
+$Header__navLink-padding-y: math.div(
+  $Header-height-uncollapsed - ($Header-font-size * $Typography-line-height),
+  2
+) !default;
+$Header__navLink-padding--collapsed: $Grid-gutter-half !default;
+$Header-max-width: map-get($Container-widths, xl) !default;
+$Header__logo-offset-top: 0px !default;
+$Header__logo-width-uncollapsed: 200px !default;
+$Header__logo-height-uncollapsed: $Header-height !default;
+$Header__logo-width: $Header__logo-width-uncollapsed * 0.66 !default;
+$Header__logo-height: $Header__logo-height-uncollapsed * 0.66 !default;
+$Header-mobile-horizontal-align: right !default;
+$Header__brand-fixed-size: true !default;
+$Header__brand-padding-mobile-y: $Grid-gutter-half !default;
+$Header__brand-padding-mobile-x: $Grid-gutter-half !default;

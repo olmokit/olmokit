@@ -1,0 +1,1 @@
+export { onScroll } from "./withScrollTrigger";

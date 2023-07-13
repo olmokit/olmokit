@@ -1,0 +1,1 @@
+export { transitionsBarbaCurtain } from "./curtain";

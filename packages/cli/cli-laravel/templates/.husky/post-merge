@@ -1,0 +1,26 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+function changed {
+  git diff --name-only HEAD@{1} HEAD | grep "^$1" > /dev/null 2>&1
+}
+
+if changed 'package-lock.json'; then
+  echo "📦 package-lock.json changed. Running `npm install` to bring your dependencies up to date..."
+  npm install
+fi
+
+if changed 'pnpm-lock.yaml'; then
+  echo "📦 pnpm-lock.yaml changed. Running `pnpm install` to bring your dependencies up to date..."
+  pnpm install
+fi
+
+if changed 'yarn.yaml'; then
+  echo "📦 yarn.yaml changed. Running `yarn install` to bring your dependencies up to date..."
+  yarn install
+fi
+
+if changed 'composer-lock.json'; then
+  echo "📦 composer-lock.json changed. Running `composer update` to bring your dependencies up to date..."
+  composer update
+fi

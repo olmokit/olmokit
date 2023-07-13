@@ -1,0 +1,8 @@
+{
+  "name": "@olmokit/cli",
+  "version": "0.0.1",
+  "bin": {
+    "olmo": "./bin/pm.js"
+  },
+  "type": "module"
+}

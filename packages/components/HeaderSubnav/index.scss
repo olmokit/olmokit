@@ -1,0 +1,95 @@
+//
+// Component: Header subnav
+//
+
+@import "variables";
+
+// .HeaderSubnav\: {
+// }
+
+.HS\: {
+  position: relative;
+  @include Header-is(collapsed) {
+    width: 100%;
+  }
+
+  // Block: toggle
+  // ---------------------------------------------------------------------------
+  &toggle {
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  // Block: list
+  // ---------------------------------------------------------------------------
+  &list {
+    @extend %List-unstyled;
+  }
+
+  // Block: item
+  // ---------------------------------------------------------------------------
+  &item {
+  }
+
+  // Block: link
+  // ---------------------------------------------------------------------------
+  &link {
+    display: block;
+    width: 100%;
+    padding: $HS__link-padding-y $HS__link-padding-x;
+    @if $HS__link-bg != transparent {
+      background: $HS__link-bg;
+    }
+    @if $HS__link-color != inherit {
+      color: $HS__link-color;
+    }
+
+    &:hover {
+      @if $HS__link-bg--hover != transparent {
+        background: $HS__link-bg--hover;
+      }
+      @if $HS__link-color--hover != inherit {
+        color: $HS__link-color--hover;
+      }
+    }
+
+    @include Header-is(uncollapsed) {
+      @if $HS__link-uncollapsed-bg != transparent {
+        background: $HS__link-uncollapsed-bg;
+      }
+      @if $HS__link-uncollapsed-color != inherit {
+        color: $HS__link-uncollapsed-color;
+      }
+
+      &:hover {
+        @if $HS__link-uncollapsed-bg--hover != transparent {
+          background: $HS__link-uncollapsed-bg--hover;
+        }
+        @if $HS__link-uncollapsed-color--hover != inherit {
+          color: $HS__link-uncollapsed-color--hover;
+        }
+      }
+    }
+  }
+
+  // Block: flyout
+  // ---------------------------------------------------------------------------
+  &flyout {
+    @include Header-is(collapsed) {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-in-out;
+      background: $HS__flyout-bg;
+    }
+    @include Header-is(uncollapsed) {
+      min-width: $HS__flyout-min-width;
+      box-shadow: $HS__flyout-box-shadow;
+      background: $HS__flyout-uncollapsed-bg;
+    }
+  }
+}
+
+// make the dropdown work on hover only when header is uncollapsed and js
+// has not kicked in. After that js will control this behaviour
+// -----------------------------------------------------------------------------
+// @include Dropdown-flyout-hover-controlled("HS");

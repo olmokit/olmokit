@@ -1,0 +1,26 @@
+image: node:16
+
+# Cache modules in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+pages:
+  script:
+    - node -v
+    - npm -v
+    - cd docs
+    - yarn install
+    - yarn build
+    # The build directory is created based on the value set for projectName in
+    # website/siteConfig.js. If you change it there, you need to change it here
+    # as well.
+    - mv ./build ../public
+
+  artifacts:
+    paths:
+      - public
+
+  only:
+    - main

@@ -1,0 +1,26 @@
+{
+  "route": {
+    "id": "collectionsingle",
+    "locale": "en",
+    "slug": {
+      "en": "/a-collection-name/a-product-name",
+      "it": "/una-collezione/un-prodotto"
+    }
+  },
+  "seo": {
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "og_title": "",
+    "og_desc": "",
+    "og_img": "",
+    "index": "index",
+    "follow": "follow",
+    "itemtype": ""
+  },
+  "analytics": {},
+  "title": "A collection's single item",
+  "subtitle": "",
+  "excerpt": "",
+  "content": "<p>Some <b>HTML</b> content</p>"
+}

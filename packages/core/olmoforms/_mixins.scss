@@ -1,0 +1,41 @@
+//
+// Olmoforms standard privacy field styling
+//
+// -----------------------------------------------------------------------------
+@mixin OF-standard-privacy($fontSize: 12px) {
+  @include Col(auto);
+  flex: 1;
+  font-size: $fontSize;
+}
+
+//
+// Olmoforms standard submit field styling
+//
+// @param {'block' | 'left' | 'center' | 'right'} [$mode='block']
+// -----------------------------------------------------------------------------
+@mixin OF-standard-submit($mode: "block", $fullwidth-breakpoint: md) {
+  @include Col(auto);
+  @include Up(sm) {
+    text-align: right;
+  }
+  @include Up($fullwidth-breakpoint) {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  @include Down(xs) {
+    min-width: 100%;
+    @if $mode == "right" or $mode == "center" {
+      display: flex;
+    }
+    @if $mode == "center" {
+      justify-content: center;
+    } @else if $mode == "right" {
+      justify-content: flex-end;
+    } @else if $mode == "block" {
+      .btn {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}

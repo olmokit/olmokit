@@ -1,0 +1,23 @@
+// @import "../variables";
+
+.glide {
+  // class applied on the root `.glide` element.
+  // @see https://github.com/glidejs/glide/issues/369#issuecomment-554668906
+  &--fade {
+    .glide__slides {
+      // important needed because this is set using the style attribute
+      transform: none !important;
+    }
+
+    .glide__slide {
+      order: 2;
+      transition: opacity #{$Glide__fade-transition-time}ms ease-in-out !important;
+      opacity: 0;
+    }
+
+    .glide__slide.is-active {
+      order: 1 !important;
+      opacity: 1 !important;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+//
+// Route: checkoutpayment
+//
+// This file is compiled as a standalone entrypoint and it is included by
+// default in its blade template. In this way the style written in this file
+// will always remain scoped, helping to avoid unintended cascading effects.
+//
+
+// .route-checkoutpayment\: {}
+
+// Module: page
+// -----------------------------------------------------------------------------
+.page\: {
+  @include Spacing-top(md, 1.5);
+  @include Spacing-bottom(lg);
+  max-width: 600px;
+
+  // Block: page -> title
+  // ---------------------------------------------------------------------------
+  &title {
+    font-size: 30px;
+    padding-bottom: 10px;
+    @extend %uppercase;
+  }
+}

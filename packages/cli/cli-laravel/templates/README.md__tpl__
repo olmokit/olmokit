@@ -1,0 +1,23 @@
+# <%= title %>
+
+> Refer to the documentation of [Olmo](https://olmokit.gitlab.io/olmokit)
+
+## Installation
+
+```bash
+git clone <%= repo.ssh %>
+cd <%= repo.name %>
+pnpm i
+composer i
+olmo start
+```
+
+## Urls
+<% for (var i = 0; i < envs.length; i++) { var env = envs[i]; %>
+- `<%= env.name %>`: [app](<%= env.vars.APP_URL %>), [cms-api](<%= env.vars.CMS_API_URL %>)<% if (env.vars.AUTH_API_URL && env.vars.AUTH_API_URL !== "false") { %>, [auth-api](<%= env.vars.AUTH_API_URL %>)<% } %>;<% } %>
+
+*To copy paste in git's project description*:
+
+```text
+Frontend: <% for (var i = 0; i < envs.length; i++) { var env = envs[i]; %>[<%= env.name %>](<%= env.vars.APP_URL %>)<% if (i < envs.length - 1) { %>, <% } %><% } %>
+```

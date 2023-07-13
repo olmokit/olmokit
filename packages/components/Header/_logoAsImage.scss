@@ -1,0 +1,12 @@
+// when the logo is not in svg and is rendered with the media/img.htm partial
+.Header\: {
+  &brand {
+    .media {
+      flex: 1;
+    }
+
+    .mediaElement {
+      @include object-fit(contain);
+    }
+  }
+}

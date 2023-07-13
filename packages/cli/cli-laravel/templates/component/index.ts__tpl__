@@ -1,0 +1,9 @@
+import "./index.scss";
+// import { $ } from "@olmokit/dom";
+
+/**
+ * Component: <%= component.className %>
+ */
+export function <%= component.className %>() {
+  console.log("<%= component.className %> mounted.");
+}

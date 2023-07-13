@@ -1,0 +1,61 @@
+//
+// Component: CheckoutPaymentMethod
+//
+
+$_gutter-y: math.div($Grid-gutter, 2);
+$_gutter-x: math.div($Grid-gutter, 2);
+$_radio-width: $FormToggle-size;
+$_radius: $Border-radius;
+
+.CheckoutPaymentMethod\: {
+  min-height: 50px;
+
+  // Block: head
+  // ---------------------------------------------------------------------------
+  &head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: $_gutter-y 0 $_gutter-y ($_gutter-x + $_radio-width);
+    margin: 0;
+
+    // Element: head -> text
+    // -------------------------------------------------------------------------
+    &__text {
+      // SubElement: head -> text -> name
+      // -----------------------------------------------------------------------
+      &Name {
+      }
+
+      // SubElement: head -> text -> desc
+      // -----------------------------------------------------------------------
+      &Desc {
+      }
+    }
+  }
+
+  // Block: body
+  // ---------------------------------------------------------------------------
+  &body {
+    padding-left: $_gutter-x + $_radio-width;
+  }
+
+  // tweaks to the radio button displayed beside the option head
+  // ---------------------------------------------------------------------------
+  .formToggle {
+    display: block;
+    width: 100%;
+
+    &.radio {
+      margin: 0;
+    }
+
+    .dfn {
+      position: absolute;
+      top: 50%;
+      margin-top: -(math.div($FormToggle-size, 2));
+      left: 0;
+    }
+  }
+}

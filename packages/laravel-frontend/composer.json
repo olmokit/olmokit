@@ -1,0 +1,46 @@
+{
+  "name": "olmo/laravel-frontend",
+  "description": "Laravel package to build frontend Olmo based applications",
+  "type": "library",
+  "license": "ISC",
+  "authors": [
+    {
+      "name": "Acanto",
+      "email": "info@acanto.net",
+      "homepage": "https://acanto.agency/"
+    }
+  ],
+  "support": {
+    "source": "https://github.com/olmokit/olmo-laravel-frontend.git"
+  },
+  "require": {
+    "php": "^8.1",
+    "fideloper/proxy": "^4.2",
+    "guzzlehttp/guzzle": "^7.2",
+    "laravel/framework": "^9.19",
+    "laravel/tinker": "^2.7",
+    "renatomarinho/laravel-page-speed": "^2.1",
+    "silber/page-cache": "^1",
+    "nunomaduro/collision": "^6.1",
+    "intervention/image": "^2.5",
+    "spatie/crawler": "^7.1",
+    "swayok/alternative-laravel-cache": "^6.1",
+    "swayok/cache-filesystem-adapter": "*"
+  },
+  "autoload": {
+    "files": [
+      "src/Helpers/globals.php",
+      "src/Illuminate/Foundation/helpers.php"
+    ],
+    "classmap": [],
+    "psr-4": {
+      "LaravelFrontend\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "$schema": "https://getcomposer.org/schema.json"
+}

@@ -1,0 +1,30 @@
+//
+// Component: ItemCard
+//
+
+.ItemCard\: {
+  // &.is-wished {
+  // }
+
+  // &.is-not-wished {
+  // }
+
+  &.is-in-cart {
+  }
+
+  &.is-not-in-cart {
+  }
+
+  // &:not([data-wishlist-ready]) [data-wishlist-when],
+  // &:not([data-wishlist-status="loading"]) [data-wishlist-when="loading"],
+  // &[data-wishlist-value="false"] [data-wishlist-when="true"],
+  // &[data-wishlist-value="true"] [data-wishlist-when="false"] {
+  //   display: none;
+  // }
+
+  &:not([data-cart-status="loading"]) [data-cart-when="loading"],
+  &[data-cart-value="false"] [data-cart-when="true"],
+  &[data-cart-value="true"] [data-cart-when="false"] {
+    display: none;
+  }
+}

@@ -1,0 +1,11 @@
+//
+// @fileOverview
+//
+// Everything in this is always available in the global scope (using
+// `sass-resource-loader` in webpack). Note that here the order matters.
+//
+
+// My mixin
+// -----------------------------------------------------------------------------
+@mixin my-mixin() {
+}

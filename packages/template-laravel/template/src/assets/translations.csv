@@ -1,0 +1,71 @@
+code,en,it
+locale.it,Ita,Ita
+locale.en,Eng,Eng
+Header.home,Home,Home
+Header.contacts,Contacts,Contatti
+auth.login.form.email.label, Email
+auth.login.form.password.label, Password
+auth.login.form.submit.label, Log in
+auth.login.ok, Signed in successfully
+auth.login.required, All fields are required
+auth.login.wrongpassword, The password is not correct
+auth.login.unexisting, These credentials do not match our records
+auth.login.inactive, Your account still needs to be activated
+auth.login.fail, There were problems signing you in
+auth.register.ok, "Signed up successfully, check your email to activate your account"
+auth.register.fail, Something went wrong
+auth.register.invalid, Some fields are not valid
+auth.register.blacklisted, "Too many attempts: this email is black listed"
+auth.register.existing, An account with this email already exists
+auth.activate.verified, Thanks for verifying your email
+auth.activate.invalid, "Sorry, your email could not be verified"
+auth.password-change.form.password.label, Current password
+auth.password-change.form.newpassword.label, New password
+auth.password-change.form.newpassword_confirm.label, Confirm new password
+auth.password-change.form.submit.label, Submit
+auth.password-change.ok, Password changed successfully
+auth.password-change.fail, Something went wrong trying to change your password
+auth.password-change.required, All fields are required
+auth.password-change.nomatch, New password and confirmation do not match
+auth.password-change.wrongpassword, Your old password is not correct
+auth.password-change.unauthorised, "You do not have sufficient permissions, try to log in again"
+auth.password-recovery.form.email.label, Email
+auth.password-recovery.form.submit.label, Submit
+auth.password-recovery.ok, "Please, check your email and click the link to reset your password"
+auth.password-recovery.invalid, Invalid email 
+auth.password-recovery.required, Email is required
+auth.password-recovery.unexisting, This email does not match our records
+auth.password-recovery.fail, Something went wrong trying to recover your password
+auth.password-reset.form.password.label, New password
+auth.password-reset.form.password_confirm.label, Confirm password
+auth.password-reset.form.submit.label, Submit
+auth.password-reset.ok, Your new password has been saved successfully
+auth.password-reset.fail, Something went wrong trying to reset your password
+auth.password-reset.required, All fields are required
+auth.password-reset.nomatch, New password and confirmation do not match
+auth.password-reset.unauthorised, "Something went wrong, check the password reset link or try to reset your password again"
+auth.profile.ok, Account information updated successfully
+auth.profile.fail, There were problems saving your account information
+auth.profile.unauthorised, "Something went wrong, you probably need to log in again"
+address.billing.form.submit.label,Save
+address.shipping.form.submit.label,Save
+address.edit.ok,Address details saved successfully
+address.edit.fail,Failed to edit address details
+address.add.ok,Address details saved successfully
+address.add.fail,Failed to edit address details
+checkout.details.shippingmethod.required,Shipping method is required
+checkout.details.addresses.shipping.required,Shipping address is required
+checkout.details.addresses.billing.required,Billing address is required
+checkout.details.shippingmethod.fail,Failed to save your shipping details
+checkout.details.addresses.fail,Failed to save your addresses details
+checkout.details.ok,Shipping details saved successfully
+checkout.payment.required,Payment method is required
+checkout.payment.fail,Failed to select a payment method
+checkout.payment.ok,Payment method selected successfully
+checkout.summary.fail,Failed to process your order
+checkout.summary.ok,Your order has been placed successfully
+cookies.text,"This website uses cookies. You accept the use of cookies by clicking “OK” or continuing browsing the website. Please, read our <a href=""https://www.atlasconcordeusa.com/en/privacy-policy/"" target=""_blank"" rel=""noopener"">Privacy Policy</a> to know more about our use of your information."
+cookies.ok,OK
+503.title,We are temporarily down.
+503.text,Getting back online soon. Try to reload the page in a few minutes.
+503.cta,""

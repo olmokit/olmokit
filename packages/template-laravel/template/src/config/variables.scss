@@ -1,0 +1,95 @@
+//
+// @fileOverview
+//
+// Everything in this is always available in the global scope (using
+// `sass-resource-loader` in webpack). Note that here the order matters.
+//
+
+// Project helpers
+// -----------------------------------------------------------------------------
+
+// Core overrides
+// -----------------------------------------------------------------------------
+$enable-responsive-font-sizes: false;
+$Optimization-font-swap: true;
+// $Typography-font-weight: 400;
+// $Typography-font-size: 16px;
+// $Typography-font-sans-custom: "Barlow";
+// $Typography-font-serif-custom: "SourceCodePro";
+// $Typography-headings-line-height: 1.2;
+// $Typography-headings-font-weight: bold;
+$Colors: (
+  white: #ffffff,
+  black: #000225,
+);
+$Color-links: Color(black);
+$Color-body: Color(black);
+$Color-body-bg: Color(white);
+$Spacing: (
+  mobile: (
+    sm: 10px,
+    md: 20px,
+    lg: 40px,
+  ),
+  tablet: (
+    sm: 15px,
+    md: 35px,
+    lg: 75px,
+  ),
+  desktop: (
+    sm: 20px,
+    md: 50px,
+    lg: 100px,
+  ),
+);
+$Grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1440px,
+);
+$Grid-gutter: 30px;
+$Container-widths: (
+  md: 740px + $Grid-gutter,
+  lg: 870px + $Grid-gutter,
+  xl: 1140px + $Grid-gutter,
+  xxl: 1440px,
+);
+$Container-boxed-breakpoint: xxl;
+// $Header__logo-height-uncollapsed: 64px;
+// $Header__logo-height: 43px;
+// $Header__logo-width-uncollapsed: 228px;
+// $Header__logo-width: 155px;
+// $Header__brand-padding-mobile-y: 23px;
+// $Header-height-uncollapsed: $Header__logo-height-uncollapsed + 36px + 36px;
+// $Header-height: $Header__logo-height + $Header__brand-padding-mobile-y +
+// $Header--light-bg: Color(white);
+// $Header--dark-bg: Color(black);
+// $Hamburger__bar-width: 25px;
+// $Hamburger__bar-height: 3px;
+// $Buttons-padding-y: 6px;
+// $Buttons-padding-x: 30px;
+// $Buttons-border-thickness: 1px;
+// $Buttons-border-radius: 20px;
+// $Buttons-font-size: 12px;
+// $Buttons-font-weight: 400;
+// $Buttons-text-transform: uppercase;
+// $Forms-color: Color(black);
+// $Glide__arrow-spacer-x: -20px;
+// $Glide__arrow-size: 18px;
+// $Glide__arrow-color: #fff;
+// $Glide__bullet-clickable-width: 20px;
+// $Glide__bullet-clickable-height: 40px;
+// $Glide__bullet-bg: transparent;
+// $Glide__bullet-bg--hover: false;
+// $Glide__bullet-bg--active: #fff;
+// $Glide__bullet-border: true;
+// $Glide__bullet-border-width: 1px;
+// $Glide__bullet-border-color: #fff;
+// $Glide__bullet-border-color--hover: #fff;
+// $Glide__bullet-border-color--active: #fff;
+// $Forms-invalid-color: #df7c7c;
+// Project components and other variables to make always available
+// -----------------------------------------------------------------------------

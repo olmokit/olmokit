@@ -1,0 +1,12 @@
+//
+// Route: <%= route.slug %>
+//
+// This file is compiled as a standalone entrypoint and it is included by
+// default in its blade template. In this way the style written in this file
+// will always remain scoped helping to avoid unintended cascading effects.
+//
+
+// .route-<%= route.slug %>\: {}
+
+.mysection\: {
+}
