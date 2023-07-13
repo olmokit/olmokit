@@ -24,7 +24,7 @@ class Application extends Base
       DIRECTORY_SEPARATOR .
       'olmo' .
       DIRECTORY_SEPARATOR .
-      'frontend';
+      'laravel-frontend';
 
     $this->bindPathsInContainer();
 
