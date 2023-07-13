@@ -13,13 +13,10 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=16"
   },
   "files": [
     "template",
     "template.json"
-  ],
-  "dependencies": {
-    "@olmokit/cli": "latest"
-  }
+  ]
 }

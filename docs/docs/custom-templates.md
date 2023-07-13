@@ -10,7 +10,7 @@ You'll notice that Custom Templates are always named in the format `template-lar
 Scoped templates are also supported, under the name `@[scope-name]/template-laravel` or `@[scope-name]/template-laravel-[template-name]`, which can be installed via `@[scope]` and `@[scope]/[template-name]` respectively.
 
 ```sh
-npx @olmokit/create-laravel-app myproject --template [template-name]
+npx @olmokit/create-app myproject --template [template-name]
 ```
 
 ## Finding custom templates
@@ -48,7 +48,7 @@ template-laravel-[template-name]/
 To test a template locally, pass the file path to the directory of your template source using the `file:` prefix.
 
 ```sh
-npx @olmokit/create-laravel-app myproject --template file:../path/to/your/template/template-laravel-[template-name]
+npx @olmokit/create-app myproject --template file:../path/to/your/template/template-laravel-[template-name]
 ```
 
 ### The `template` folder

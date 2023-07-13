@@ -18,7 +18,7 @@ Build and globally link all packages with:
 pnpm dev
 ```
 
-Now in your test project bootstrapped with `@olmokit/create-laravel-app` you can run `npx olmo link` to use the globally symlinked packages from your machine.
+Now in your test project bootstrapped with `@olmokit/create-app` you can run `npx olmo link` to use the globally symlinked packages from your machine.
 
 ### Publish packages
 

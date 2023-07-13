@@ -34,9 +34,7 @@
       "@olmokit/components/*": ["packages/components/*"],
       "@olmokit/core": ["packages/core/index.ts"],
       "@olmokit/core/*": ["packages/core/*"],
-      "@olmokit/create-laravel-app": [
-        "packages/create-laravel-app/src/index.ts"
-      ],
+      "@olmokit/create-app": ["packages/create-app/src/index.ts"],
       "@olmokit/dom": ["packages/dom/index.ts"],
       "@olmokit/dom/*": ["packages/dom/*"],
       "@olmokit/use": ["packages/use/index.ts"],

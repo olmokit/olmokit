@@ -4,7 +4,7 @@
 
 > For all the documentation refer to the [Olmokit Docs](https://olmokit.gitlab.io/olmokit/)
 
-This is the official base template for [Create Laravel App](https://gitlab.com/olmokit/olmokit/packages/create-laravel-app).
+This is the official base template for [Create Laravel App](https://gitlab.com/olmokit/olmokit/packages/create-app).
 
 If you don't specify a template (for example, `--template typescript`), this template will be used by default.
 

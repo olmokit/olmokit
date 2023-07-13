@@ -6,12 +6,12 @@ title: Getting Started
 ## Quick Start
 
 ```sh
-npx @olmokit/create-laravel-app myproject
+npx @olmokit/create-app myproject
 cd myproject
 npm start
 ```
 
-Running `npx @olmokit/create-laravel-app myproject` command will create a directory called `myproject` inside the current folder. Inside that directory, it will generate the initial project structure and install the transitive dependencies.
+Running `npx @olmokit/create-app myproject` command will create a directory called `myproject` inside the current folder. Inside that directory, it will generate the initial project structure and install the transitive dependencies.
 
 ### Get Started Immediately
 
@@ -33,7 +33,7 @@ If you don't select a template, we'll create your project with our base template
 Templates are always named in the format `template-laravel-[template-name]`, however you only need to provide the `[template-name]` to the creation command.
 
 ```sh
-npx @olmokit/create-laravel-app myproject --template [template-name]
+npx @olmokit/create-app myproject --template [template-name]
 ```
 
 > You can find a list of available templates by searching for ["template-laravel-\*"](https://www.npmjs.com/search?q=template-laravel-*) on npm.

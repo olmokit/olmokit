@@ -45,26 +45,30 @@ export default function bootstrap(
   templateName?: string
 ) {
   const appPackage = require(join(appPath, "package.json"));
-  const useYarn = existsSync(join(appPath, "yarn.lock"));
+  const packageManager = existsSync(join(appPath, "pnpm-lock.yaml"))
+    ? "pnpm"
+    : existsSync(join(appPath, "yarn.lock"))
+    ? "yarn"
+    : "npm";
 
   if (!templateName) {
     console.log("");
     console.error(
       `A template was not provided. This is likely because you're using an outdated version of ${chalk.cyan(
-        "@olmokit/create-laravel-app"
+        "@olmokit/create-app"
       )}.`
     );
     console.error(
       `Please note that global installs of ${chalk.cyan(
-        "@olmokit/create-laravel-app"
+        "@olmokit/create-app"
       )} are no longer supported.`
     );
     console.error(
       `You can fix this by running ${chalk.cyan(
-        "npm uninstall -g @olmokit/create-laravel-app"
+        "npm uninstall -g @olmokit/create-app"
       )} or ${chalk.cyan(
-        "yarn global remove @olmokit/create-laravel-app"
-      )} before using ${chalk.cyan("@olmokit/create-laravel-app")} again.`
+        "yarn global remove @olmokit/create-app"
+      )} before using ${chalk.cyan("@olmokit/create-app")} again.`
     );
     return;
   }
@@ -160,17 +164,15 @@ export default function bootstrap(
   }
 
   // modifies README.md commands based on user used package manager.
-  if (useYarn) {
-    try {
-      const readme = readFileSync(join(appPath, "README.md"), "utf8");
-      writeFileSync(
-        join(appPath, "README.md"),
-        readme.replace(/(npm run |npm )/g, "yarn "),
-        "utf8"
-      );
-    } catch (err) {
-      // Silencing the error. As it fall backs to using default npm commands.
-    }
+  try {
+    const readme = readFileSync(join(appPath, "README.md"), "utf8");
+    writeFileSync(
+      join(appPath, "README.md"),
+      readme.replace(/(npm run |npm )/g, `${packageManager} "`),
+      "utf8"
+    );
+  } catch (err) {
+    // Silencing the error. As it fall backs to using default npm commands.
   }
 
   // Initialize git repo
@@ -186,7 +188,11 @@ export default function bootstrap(
   let remove;
   let args;
 
-  if (useYarn) {
+  if (packageManager === "pnpm") {
+    command = "pnpm";
+    remove = "uninstall";
+    args = ["install"];
+  } else if (packageManager === "yarn") {
     command = "yarnpkg";
     remove = "remove";
     args = ["add"];
@@ -255,7 +261,7 @@ export default function bootstrap(
     (inGitRepo() || initializedGit) &&
     tryGitCommit(
       appPath,
-      `Initialize project using template '${templateName}' for @olmokit/create-laravel-app`
+      `Initialize project using template '${templateName}' for @olmokit/create-app`
     )
   ) {
     console.log();
@@ -273,16 +279,13 @@ export default function bootstrap(
   }
 
   // run proper init task automatically
-  execSync("olmo init");
-
-  // Change displayed command to yarn instead of yarnpkg
-  const displayedCommand = useYarn ? "yarn" : "npm";
-
-  const commandExistsSync = require("command-exists").sync;
+  execSync("npx olmo init");
 
   // run composer
-  if (commandExistsSync("composer")) {
+  try {
     execSync(`composer install --no-interaction --no-progress`);
+  } catch (e) {
+    // doesnt' matter
   }
 
   // run valet
@@ -304,7 +307,11 @@ export default function bootstrap(
   );
   console.log();
   console.log("Inside this new directory you can run several commands:");
-  console.log(chalk.cyan(`  ${displayedCommand} ${useYarn ? "" : "run "}help`));
+  console.log(
+    chalk.cyan(
+      `  ${packageManager === "npm" ? "npx" : packageManager} olmo help`
+    )
+  );
   console.log("    Show all available commands.");
   console.log();
   // if (valetLinked) {

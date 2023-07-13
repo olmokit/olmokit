@@ -9,7 +9,7 @@
 It is recomended to start a project by running:
 
 ```console
-npx @olmokit/create-laravel-app myproject
+npx @olmokit/create-app myproject
 cd myproject
 npm start
 ```
