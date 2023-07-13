@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/template-laravel",
-  "version": "0.0.2-alpha.1",
+  "version": "0.0.2",
   "description": "The base template for Create Laravel App.",
   "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "license": "ISC",
