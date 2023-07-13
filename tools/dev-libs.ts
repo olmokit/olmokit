@@ -23,7 +23,7 @@ import { type Lib as LibBase, editJSONfile, self } from "./helpers.js";
 
 const libsConfig: LibConfig[] = [
   { name: "browser", type: "module", exports: ["esm"], minify: true },
-  { name: "cli", type: "module", exports: "none", minify: true },
+  { name: "cli", type: "module", exports: "none", minify: false },
   { name: "cli-utils", type: "module", exports: ["esm"], minify: true },
   { name: "components", type: "module", exports: ["esm"], minify: true },
   { name: "core", type: "module", exports: ["esm"], minify: true },
