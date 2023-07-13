@@ -17,7 +17,7 @@
           }
         ],
         "commands": [
-          "mkdir p ./dist/packages",
+          "mkdir -p ./dist/packages",
           "rsync -a ./packages/laravel-frontend ./dist/packages --exclude vendor --exclude project.json --exclude .gitignore"
         ],
         "parallel": false

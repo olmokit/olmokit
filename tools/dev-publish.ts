@@ -48,9 +48,12 @@ export const publish = () =>
       );
 
       // build libs
-      await oraPromise($`nx run-many --all --targets=build`, {
-        text: `Build all libs with updated version`,
-      });
+      await oraPromise(
+        $({ stdio: "inherit" })`nx run-many --all --targets=build`,
+        {
+          text: `Build all libs with updated version`,
+        }
+      );
 
       // prepublish libs
       await Promise.all(

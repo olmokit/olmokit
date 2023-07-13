@@ -17,7 +17,7 @@
           }
         ],
         "commands": [
-          "mkdir p ./dist/packages",
+          "mkdir -p ./dist/packages",
           "rsync -a ./packages/template-laravel ./dist/packages --exclude project.json"
         ],
         "parallel": false
