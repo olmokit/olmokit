@@ -12,13 +12,13 @@ Clone this repo locally and install dependencies running
 pnpm i
 ```
 
-Link all packages with:
+Build and globally link all packages with:
 
 ```bash
-pnpm dev link
+pnpm dev
 ```
 
-Now in your test project bootstrapped with `@olmokit/create-laravel-app` you can run `pnpm dev link` to use the globally symlinked packages from your machine.
+Now in your test project bootstrapped with `@olmokit/create-laravel-app` you can run `npx olmo link` to use the globally symlinked packages from your machine.
 
 ### Publish packages
 
@@ -27,8 +27,6 @@ First commit and push your local work. Then, never manually bump package version
 ```bash
 pnpm dev publish
 ```
-
-It uses `lerna` under the hood, the follow its interactive tool to semver each modified package.
 
 NB: The only file you might need to manually bump is [`./packages/template-laravel/template/composer.json`](/-/tree/main/packages/template-laravel/template/composer.json) with the latest `olmo/laravel-frontend` version. This is probably required only for **major** semver version changes and it is likely better to keep a non-strict version here as its only purpose it is to bootstrap the project with the latest available major release.
 
