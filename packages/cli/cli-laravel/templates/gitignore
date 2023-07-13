@@ -4,6 +4,7 @@
 /config/env.php
 /app/
 /bootstrap/
+/public/.build
 /public/index.php
 /public/assets/
 /public/favicon.ico
