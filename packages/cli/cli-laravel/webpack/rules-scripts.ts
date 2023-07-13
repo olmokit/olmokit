@@ -13,9 +13,12 @@ export default () => {
       resolve: {
         fullySpecified: false,
       },
-      // FIXME: excluding all node_modules but ours as they break compilation
-      // dure to the missing `.js` imports
-      exclude: new RegExp(`node_modules(?!/(${meta.orgScope})).*`),
+      // NOTE: excluding all node_modules but ours as they break compilation
+      // dure to the missing `.js` imports. This regex accounts for deeply
+      // nested pnpm node_modules paths. Note, eslint is not right here, that
+      // slash makes a difference. Tests at https://regex101.com/r/a25mZe/1
+      // eslint-disable-next-line no-useless-escape
+      exclude: new RegExp(`node_modules(?!.*\/(${meta.orgScope})).*`),
       use: {
         // `.swcrc` can be used to configure swc
         loader: require.resolve("swc-loader"),
