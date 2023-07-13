@@ -7,7 +7,7 @@ import type { CliLaravel } from "../pm.js";
 export const gitignore: CliLaravel.Task = async ({ ctx }) => {
   return runIfDevAndMissingFile(
     join(ctx.project.root, ".gitignore"),
-    filer("gitignore", {
+    () => filer("gitignore", {
       base: paths.self.templates,
       rename: ".gitignore",
       dest: ctx.project.root,

@@ -1,6 +1,7 @@
 import { createRequire } from "node:module";
 import type { Options as SWCOptions } from "@swc/core";
 import type { RuleSetRule } from "webpack";
+import { meta } from "../../meta.js";
 
 const require = createRequire(import.meta.url);
 
@@ -14,7 +15,9 @@ export default () => {
       },
       // FIXME: excluding the node_modules would break compilation as there are
       // imports without the `.js` extensions inside and outside our packages
-      // exclude: /(node_modules)/,
+      exclude: /(node_modules)/,
+      // process our internal packages
+      include: new RegExp(`node_modules(?!/(${meta.orgScope})).*`),
       use: {
         // `.swcrc` can be used to configure swc
         loader: require.resolve("swc-loader"),

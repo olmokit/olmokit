@@ -13,7 +13,7 @@ import type { CliLaravel } from "../pm.js";
 const configureEditor: CliLaravel.Task = ({ ctx }) =>
   runIfDevAndMissingFile(
     join(ctx.project.root, "/.vscode/settings.json"),
-    filer(".vscode/settings.json", {
+    () => filer(".vscode/settings.json", {
       base: paths.self.templates,
       data: {
         prefix: "${dirty} ",

@@ -16,6 +16,7 @@ const optimization = (config: CliLaravel.Config) => ({
           // extractComments is not yet supported
           new TerserPlugin<SwcOptions>({
             minify: TerserPlugin.swcMinify,
+            // exclude: /(video.js)/,
             terserOptions: {
               compress: {
                 drop_console: process.env.APP_ENV !== "dev",

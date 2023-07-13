@@ -1,5 +1,4 @@
 import { existsSync, lstatSync } from "node:fs";
-import { isPromise } from "node:util/types";
 import type { Config } from "./types.js";
 
 /**
@@ -72,7 +71,7 @@ export function removeTrailingSlashes(url: string) {
  */
 export async function runIfDevAndMissingFile(
   filePath: string,
-  target: Promise<void> | (() => Promise<void>)
+  target: () => Promise<void>
 ) {
   if (process.env["NODE_ENV"] === "development") {
     let alreadyExists = false;
@@ -85,9 +84,6 @@ export async function runIfDevAndMissingFile(
     } catch (err) {}
 
     if (!alreadyExists) {
-      if (isPromise(target)) {
-        return target;
-      }
       return await target();
     }
   }
