@@ -7,13 +7,13 @@
     "libsDir": "packages"
   },
   "tasksRunnerOptions": {
-    "default": {
+    "_default": {
       "runner": "nx/tasks-runners/default",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     },
-    "_default": {
+    "default": {
       "runner": "nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
