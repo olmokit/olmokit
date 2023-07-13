@@ -160,7 +160,7 @@ async function publishLib(lib: Lib, release: Release) {
           branch: "main",
           dotfiles: true,
           repo: lib.composerJson.support.source,
-          tag: lib.version,
+          tag: release.version,
           push: true,
           message: `chore(release): v${release.version}`,
         },
