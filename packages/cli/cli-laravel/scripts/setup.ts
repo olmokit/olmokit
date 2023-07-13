@@ -54,7 +54,7 @@ setupMachineIP.meta = {
   title: "Looking for this machine IP",
   ownLog: ["end"],
   whether: () => {
-    return !ci.isCI;
+    return ci.isCI;
   },
 };
 
@@ -100,7 +100,7 @@ setupApisIPs.meta = {
   title: "Set up APIs IPs addresses",
   ownLog: ["end"],
   whether: () => {
-    return !ci.isCI;
+    return ci.isCI;
   },
 };
 

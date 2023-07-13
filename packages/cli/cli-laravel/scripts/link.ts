@@ -74,7 +74,10 @@ async function tryNodeLink({ ctx, log, ora, chalk }: CliLaravel.TaskArg) {
 function tryComposerLink({ ctx, log, chalk }: CliLaravel.TaskArg) {
   const name = "olmo/laravel-frontend";
   const nameLog = chalk.bold(name);
-  const src = join(ctx.project.root, "../olmokit/packages/laravel-frontend");
+  const src = join(
+    ctx.project.root,
+    "../../Olmo/olmokit/packages/laravel-frontend"
+  );
   const dest = join(ctx.project.root, "/vendor/", name);
 
   if (existsSync(src)) {
@@ -82,9 +85,9 @@ function tryComposerLink({ ctx, log, chalk }: CliLaravel.TaskArg) {
       rimrafSync(dest);
     }
     symlinkSync(src, dest);
-    log.success(`Symlinked composer package ${nameLog}`);
+    log.success(`  Symlinked composer package ${nameLog}`);
   } else {
-    log.warn(`Could not link composer package ${nameLog}`);
+    log.warn(`  Could not link composer package ${nameLog}`);
   }
 }
 
