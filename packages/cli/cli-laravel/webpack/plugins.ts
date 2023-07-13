@@ -54,6 +54,8 @@ export default (config: CliLaravel.Config) => {
         chunkFilename: getOutputName("chunk", "css"),
         ignoreOrder: true,
       }),
+      // TODO: check if this is still needed or if the postcss-sort-media-queries
+      // in the rules-styles is enough
       // new PostCSSAssetsPlugin({
       //   test: /\.css$/,
       //   log: false,
