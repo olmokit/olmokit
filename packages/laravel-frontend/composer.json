@@ -27,7 +27,6 @@
     "swayok/alternative-laravel-cache": "^6.1",
     "swayok/cache-filesystem-adapter": "*"
   },
-
   "autoload": {
     "files": [
       "src/Helpers/globals.php",
