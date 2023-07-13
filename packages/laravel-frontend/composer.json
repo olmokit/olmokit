@@ -17,7 +17,7 @@
     "php": "^8.1",
     "fideloper/proxy": "^4.2",
     "guzzlehttp/guzzle": "^7.2",
-    "laravel/framework": "^8",
+    "laravel/framework": "^9.19",
     "laravel/tinker": "^2.7",
     "renatomarinho/laravel-page-speed": "^2.1",
     "silber/page-cache": "^1",
@@ -27,6 +27,7 @@
     "swayok/alternative-laravel-cache": "^6.1",
     "swayok/cache-filesystem-adapter": "*"
   },
+
   "autoload": {
     "files": [
       "src/Helpers/globals.php",
