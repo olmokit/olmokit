@@ -1,0 +1,31 @@
+{
+  "name": "@olmokit/create-app",
+  "version": "0.0.21",
+  "description": "Create Laravel apps with no build configuration.",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:olmokit/olmokit.git",
+    "directory": "packages/create-app"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "index.js"
+  ],
+  "bin": {
+    "create-app": "./index.js"
+  },
+  "scripts": {
+    "pre": "mkdir -p ../../dist/packages/create-app/ && cp ./package.json ../../dist/packages/create-app/package.json && cp ./README.md ../../dist/packages/create-app/README.md",
+    "post": "cp ./dist/index.js ../../dist/packages/create-app/index.js && rm -r ./dist",
+    "compile": "ncc build ./index.ts -o ./dist/ --minify --no-cache --no-source-map-register",
+    "dev": "pnpm pre && ncc build ./index.ts -w -o ../../dist/packages/create-app/",
+    "build": "pnpm pre && pnpm compile && pnpm post"
+  }
+}
