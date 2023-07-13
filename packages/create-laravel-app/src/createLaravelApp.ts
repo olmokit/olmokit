@@ -37,6 +37,10 @@ import { tryGitInit } from "./git.js";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const packageJson = {
   name: "@olmokit/create-laravel-app",
   version: "0.0.3",

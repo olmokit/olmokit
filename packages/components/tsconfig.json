@@ -3,10 +3,7 @@
   "compilerOptions": {
     "module": "ESNext"
   },
-  "files": [
-    "../../@types/globals.d.ts",
-    "../core/globals.d.ts"
-  ],
+  "files": ["../../@types/globals.d.ts", "../core/globals.d.ts"],
   "include": [],
   "references": [
     {

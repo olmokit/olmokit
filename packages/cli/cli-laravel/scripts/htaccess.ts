@@ -12,9 +12,8 @@ import type { CliLaravel } from "../pm.js";
  */
 async function maybeCreateFile(name: string) {
   const filename = name ? `.htaccess.${name}` : ".htaccess";
-  await runIfDevAndMissingFile(
-    join(paths.frontend.dest.public, filename),
-    () => filer(filename, {
+  await runIfDevAndMissingFile(join(paths.frontend.dest.public, filename), () =>
+    filer(filename, {
       base: paths.self.templates,
       dest: paths.frontend.dest.public,
     })
