@@ -211,7 +211,7 @@ export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
           .makeOptionMandatory()
       )
       .addOption(
-        new Option("-m, --mode", "Deploy upload mode")
+        new Option("-m, --mode <mode>", "Deploy upload mode")
           .choices(["ftp", "ssh"])
           .default("ftp")
           .makeOptionMandatory()
