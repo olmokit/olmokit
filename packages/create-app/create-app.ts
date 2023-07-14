@@ -407,10 +407,11 @@ function run(
             args: nodeArgs,
           },
           [root, appName, verbose, originalDirectory, templateName],
-          `
-        import bootstrap from "${packageName}/cli-laravel/bootstrap";
-        bootstrap.apply(null, JSON.parse(process.argv[1]));
-      `
+          `await import("${packageName}/cli-laravel/bootstrap").apply(null, JSON.parse(process.argv[1]));`
+          //     `
+          //   import bootstrap from "${packageName}/cli-laravel/bootstrap";
+          //   bootstrap.apply(null, JSON.parse(process.argv[1]));
+          // `
           //     `
           //   var bootstrap = require('${packageName}/cli-laravel/bootstrap');
           //   bootstrap.apply(null, JSON.parse(process.argv[1]));
