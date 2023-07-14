@@ -6,6 +6,9 @@
 
 ```console
 npx @olmokit/create-app myproject
+# or
+pnpm dlx @olmokit/create-app myproject
+
 cd myproject
 npm start
 ```
