@@ -397,14 +397,10 @@ function run(
         checkNodeVersion(packageName);
         setCaretRangeForRuntimeDeps(packageName);
 
-        const pnpPath = resolve(process.cwd(), ".pnp.js");
-
-        const nodeArgs = existsSync(pnpPath) ? ["--require", pnpPath] : [];
-
         await executeNodeScript(
           {
             cwd: process.cwd(),
-            args: nodeArgs,
+            args: [],
           },
           [root, appName, verbose, originalDirectory, templateName],
           // `(import("${packageName}/cli-laravel/bootstrap").then((m) => m)).apply(null, JSON.parse(process.argv[1]));`
