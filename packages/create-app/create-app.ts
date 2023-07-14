@@ -39,6 +39,8 @@ import { tryGitInit } from "./git.js";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const thisPkgName = "@olmokit/create-app";
 let projectName: string;
 
@@ -72,6 +74,7 @@ export function init() {
       "--template <path-to-template>",
       "specify a template for the created project"
     )
+    .allowUnknownOption()
     .addOption(
       new Option(
         "-p --package-manager <pkgm>",
@@ -80,7 +83,6 @@ export function init() {
         .choices(["pnpm", "npm", "yarn"])
         .default(getDefaultPackageManager())
     )
-    .allowUnknownOption()
     .on("--help", () => {
       console.log(
         `    Only ${chalk.magenta("<project-directory>")} is required.`
@@ -302,7 +304,6 @@ function createApp(
 
   // init git here, so husky install does not break
   if (tryGitInit(root)) {
-    console.log();
     console.log("Initialized a git repository.");
   }
 
@@ -980,12 +981,12 @@ function executeNodeScript(
 }
 
 function getDefaultPackageManager(): CommandOptions["packageManager"] {
-  if (shouldUsePnpm()) return "pnpm";
-  if (shouldUseYarn()) return "yarn";
+  if (canUsePnpm()) return "pnpm";
+  if (canUseYarn()) return "yarn";
   return "npm";
 }
 
-function shouldUsePnpm() {
+function canUsePnpm() {
   try {
     execSync("pnpm -v", { stdio: "ignore" });
     return true;
@@ -994,7 +995,7 @@ function shouldUsePnpm() {
   }
 }
 
-function shouldUseYarn() {
+function canUseYarn() {
   try {
     execSync("yarnpkg --version", { stdio: "ignore" });
     return true;
