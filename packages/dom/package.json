@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/dom",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "type": "module",
   "exports": {
     ".": {
