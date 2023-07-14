@@ -19,13 +19,16 @@
   },
   "exports": {
     ".": {
-      "import": "./index.js"
+      "import": "./index.js",
+      "require": "./index.js"
     },
     "./cli-laravel/bootstrap": {
-      "import": "./cli-laravel/bootstrap.js"
+      "import": "./cli-laravel/bootstrap.js",
+      "require": "./cli-laravel/bootstrap.js"
     },
     "./cli-laravel": {
-      "import": "./cli-laravel/index.js"
+      "import": "./cli-laravel/index.js",
+      "require": "./cli-laravel/index.js"
     }
   }
 }

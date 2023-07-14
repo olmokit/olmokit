@@ -971,6 +971,8 @@ function executeNodeScript(
 }
 
 function getDefaultPackageManager(): CommandOptions["packageManager"] {
+  // FIXME: forcing pnpm as the mechanism does not seem to work
+  return "pnpm";
   if (canUsePnpm()) return "pnpm";
   if (canUseYarn()) return "yarn";
   return "npm";
