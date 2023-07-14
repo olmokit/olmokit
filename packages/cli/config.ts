@@ -8,7 +8,17 @@ import type { Config } from "./types";
  * get the final {@link Config} object
  */
 export async function getConfig(
-  custom: Config.CustomMaybeExtended,
+  custom: Config.CustomMaybeExtended = {
+    type: "laravel",
+    env: {
+      branches: {
+        dev: "dev",
+        staging: "staging",
+        production: "production",
+      },
+      vars: {},
+    },
+  },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   { spinner, taskr }: CliBootArg
 ): Promise<Config.Internal> {
@@ -26,7 +36,7 @@ export async function getConfig(
 
   spinner.text = "Validate configuration";
 
-  const errors = await validateConfig(custom, internal);
+  const errors = validateConfig(custom, internal);
 
   if (errors.length) {
     for (let i = 0; i < errors.length; i++) {

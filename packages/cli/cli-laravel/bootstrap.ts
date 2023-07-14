@@ -16,7 +16,7 @@ import chalk from "chalk";
 import spawn from "cross-spawn";
 import { copySync, moveSync } from "fs-extra";
 import { inGitRepo, tryGitCommit, tryGitInit } from "@olmokit/cli-utils/git";
-import { paths } from "../paths/index.js";
+import { paths } from "./paths/index.js";
 
 const require = createRequire(import.meta.url);
 

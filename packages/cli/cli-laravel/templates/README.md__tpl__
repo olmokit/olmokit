@@ -9,7 +9,7 @@ git clone <%= repo.ssh %>
 cd <%= repo.name %>
 pnpm i
 composer i
-olmo start
+npx olmo start
 ```
 
 ## Urls

@@ -24,13 +24,14 @@ export const link = () =>
       console.log();
       await linkGlobally(libs, opts);
 
-      // console.log();
-      // ora({
-      //   text: `Now link those packages in one another...`,
-      //   ...oraOpts,
-      // }).stopAndPersist();
-      // console.log();
-      // linkRecursively(libs, opts);
+      // NOTE: maybe linking recursively is only needed with pnpm
+      console.log();
+      ora({
+        text: `Now link those packages in one another...`,
+        ...oraOpts,
+      }).stopAndPersist();
+      console.log();
+      linkRecursively(libs, opts);
     });
 
 async function linkGlobally(libs: LibNpm[], opts: Options) {

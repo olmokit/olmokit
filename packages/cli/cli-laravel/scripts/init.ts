@@ -9,14 +9,8 @@ devPre.meta = { title: "Update build information" };
 
 export const init: CliLaravel.TaskGroup = {
   meta: {
-    title: ":auto",
-    whether: ({ log }) => {
-      if (ci.isCI) {
-        log.info("'init' does not need to run on CI environments");
-        return false;
-      }
-      return true;
-    },
+    title: ":no",
+    whether: () => (ci.isCI ? false : true),
   },
   children: [
     () => import("./clean.js").then((mod) => mod.clean),

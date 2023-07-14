@@ -3,10 +3,34 @@ import { join } from "node:path";
 import { copy } from "fs-extra";
 import { filer } from "@olmokit/cli-utils/filer";
 import type { TaskrLog } from "@olmokit/cli-utils/taskr";
-import { getHeaderAutogeneration } from "../../helpers-getters.js";
+import {
+  getHeaderAutogeneration,
+  runIfDevAndMissingFile,
+} from "../../helpers-getters.js";
 import { checkRoutesConsistency } from "../helpers/route.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
+
+const checkOlmoConfig: CliLaravel.Task = async ({ ctx }) => {
+  await runIfDevAndMissingFile(join(ctx.project.root, "olmo.ts"), () =>
+    filer("olmo.ts__tpl__", {
+      base: paths.self.templates,
+      dest: ctx.project.root,
+      rename: "olmo.ts",
+      data: {
+        randomWord: generateRandomWord(["a", "c", "e", "g", "i", "m", "s"], 8),
+      },
+    })
+  );
+  await runIfDevAndMissingFile(join(ctx.project.root, ".olmo.ts"), () =>
+    filer(".olmo.ts__tpl__", {
+      base: paths.self.templates,
+      dest: ctx.project.root,
+      rename: ".olmo.ts",
+    })
+  );
+};
+checkOlmoConfig.meta = { title: "Ensure olmo.ts files" };
 
 /**
  * Create dummy files that are usually required to run the website locally,
@@ -52,9 +76,6 @@ const checkConfig: CliLaravel.Task = async () => {
       {
         fallback: paths.laravel.tpl.config,
         dest: paths.frontend.dest.config,
-        // }, {
-        //   fallback: paths.laravel.tpl.config,
-        //   dest: paths.frontend.dest.config
       },
     ].map(async ({ fallback, dest }) => {
       await copy(fallback, dest, { overwrite: false });
@@ -70,7 +91,8 @@ checkRoutes.meta = { title: "Check routes consistency" };
 
 export const check: CliLaravel.TaskGroup = {
   meta: { /* subject: "check", */ title: "Preliminary checks" },
-  children: [checkAutomatedPartials, checkConfig, checkRoutes],
+  children: [checkAutomatedPartials, checkConfig, checkOlmoConfig, checkRoutes],
+  parallel: true,
 };
 
 type FilesExistFile = {
@@ -127,4 +149,14 @@ export function filesExist(
   }
 
   return unexisting;
+}
+
+/**
+ * @borrows https://stackoverflow.com/a/69960578/1938970
+ */
+function generateRandomWord(arr: string[], length: number) {
+  return Array.from(
+    { length },
+    () => arr[Math.floor(Math.random() * arr.length)]
+  ).join("");
 }

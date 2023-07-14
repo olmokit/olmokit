@@ -3,7 +3,7 @@ import { existsSync, symlinkSync } from "node:fs";
 import { join } from "node:path";
 import { $ } from "execa";
 import { rimrafSync } from "rimraf";
-import { getProjectDependencies } from "../../getProjectDependencies.js";
+import { getProjectDependencies } from "../../helpers-getters.js";
 import { meta } from "../../meta.js";
 // import { getPackageManagerCommand } from "@olmokit/cli-utils/package-manager";
 import type { CliLaravel } from "../pm.js";

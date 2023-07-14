@@ -47,13 +47,17 @@ function lazyJiti({ spinner, taskr }: CliBootArg) {
 }
 
 export function loadConfig(path: string, cliBootArg: CliBootArg) {
-  const config = (function () {
-    try {
-      return path ? require(path) : {};
-    } catch (e) {
-      return lazyJiti(cliBootArg)(path);
-    }
-  })();
+  try {
+    const config = (function () {
+      try {
+        return path ? require(path) : {};
+      } catch (e) {
+        return lazyJiti(cliBootArg)(path);
+      }
+    })();
 
-  return config.default || config;
+    return config.default || config;
+  } catch (e) {
+    return;
+  }
 }

@@ -1,5 +1,5 @@
 import { TaskrInstance } from "@olmokit/cli-utils/taskr.js";
-import { getVariadicArguments } from "../../getVariadicArguments.js";
+import { getVariadicArguments } from "../../helpers-getters.js";
 import {
   checkRoutesConsistency,
   generateRouteSource,

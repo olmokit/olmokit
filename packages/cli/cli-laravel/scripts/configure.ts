@@ -7,9 +7,13 @@ import { getProjectJsGlobals } from "../helpers/index.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 
-/**
- * Create .vscode folder with settings.json if missing
- */
+const configurePackageManager: CliLaravel.Task = ({ ctx }) =>
+  filer(".npmrc", {
+    base: paths.self.templates,
+    dest: ctx.project.root,
+  });
+configurePackageManager.meta = { title: "Package manager settings" };
+
 const configureEditor: CliLaravel.Task = ({ ctx }) =>
   runIfDevAndMissingFile(join(ctx.project.root, "/.vscode/settings.json"), () =>
     filer(".vscode/settings.json", {
@@ -46,9 +50,6 @@ const configureJsTypes: CliLaravel.Task = async ({ ctx }) => {
 };
 configureJsTypes.meta = { title: "globals.d.ts definitions" };
 
-/**
- * Create JavaScript/TypeScript configuration base file in project's source
- */
 const configureJsConfig: CliLaravel.Task = async ({ ctx }) => {
   // FIXME: generate the tsconfig paths dynamically in sync with webpack aliases
   await filer("tsconfig.json__tpl__", {
@@ -64,6 +65,11 @@ configureJsConfig.meta = { title: "tsconfig.json" };
 
 export const configure: CliLaravel.TaskGroup = {
   meta: { title: "Configure basic files" },
-  children: [configureEditor, configureJsTypes, configureJsConfig],
+  children: [
+    configurePackageManager,
+    configureEditor,
+    configureJsTypes,
+    configureJsConfig,
+  ],
   parallel: true,
 };

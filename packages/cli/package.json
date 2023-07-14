@@ -21,8 +21,8 @@
     ".": {
       "import": "./index.js"
     },
-    "./scripts/bootstrap": {
-      "import": "./scripts/bootstrap.js"
+    "./cli-laravel/bootstrap": {
+      "import": "./cli-laravel/bootstrap.js"
     },
     "./cli-laravel": {
       "import": "./cli-laravel/index.js"

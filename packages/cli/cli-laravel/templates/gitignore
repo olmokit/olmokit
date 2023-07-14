@@ -1,9 +1,9 @@
 ### @olmokit/cli ###
 .olmo.ts
 .env
-/config/env.php
 /app/
 /bootstrap/
+/config/env.php
 /public/.build
 /public/index.php
 /public/assets/

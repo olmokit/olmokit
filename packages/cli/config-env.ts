@@ -16,6 +16,7 @@ export const defaultEnvVars = {
    */
   APP_URL: "",
   /**
+   * @default false
    * @category App
    * @note This uses the same name as Laravel's env variables
    */
@@ -34,6 +35,7 @@ export const defaultEnvVars = {
    */
   CMS_API_STORAGE: "",
   /**
+   * @default true
    * @category CMS
    */
   CMS_API_CACHE: true as boolean,
@@ -42,10 +44,12 @@ export const defaultEnvVars = {
    */
   AUTH_API_URL: "",
   /**
+   * @default true
    * @category Auth
    */
   AUTH_API_CACHE: true as boolean,
   /**
+   * @default false
    * @category Auth
    */
   AUTH_REGISTER_LOGIN: false as boolean,
@@ -62,14 +66,17 @@ export const defaultEnvVars = {
    */
   HOOKS_ALLOWED_PARAM: "",
   /**
+   * @default 80
    * @category Images
    */
-  IMG_COMPRESSION_QUALITY: 75,
+  IMG_COMPRESSION_QUALITY: 80,
   /**
+   * @default 75
    * @category Images
    */
   IMG_COMPRESSION_QUALITY_WEBP: 75,
   /**
+   * @default false
    * @category Images
    */
   IMG_PRETTY_URLS: false as boolean,
@@ -78,11 +85,18 @@ export const defaultEnvVars = {
    */
   CI_VISIT_MODE: undefined as undefined | false | "php" | "node",
   /**
+   * Either `false` or a comma separated `string` (no spaces) with the cache
+   * tag names to clean on deploy end hook.
+   * TODO: allow this to be declared as an array of string, then doing the parsing
+   * to a simple comma separated string in {@link applyEnvVars}
+   *
+   * @default false
    * @category CI
    */
-  CI_CLEAR_CACHE: false as boolean,
+  CI_CLEAR_CACHE: false as false | "",
   /**
    * Select the CDN to use for frontend static assets (only `s3` for now)
+   *
    * @feature CDN
    * @category CDN
    */
@@ -95,7 +109,7 @@ export const defaultEnvVars = {
    * @category CDN/S3
    * @note This uses the same name as Laravel's env variables
    */
-  AWS_URL: false as string | false,
+  AWS_URL: "",
   /**
    * @example "XXXXXXXXXXXXXXXXXXXX"
    * @category CDN/S3
@@ -129,22 +143,27 @@ export const defaultEnvVars = {
   /**
    * Analyses the webpack bundles
    *
+   * @default false
    * @category dev
    */
   DEV_ANALYZE: false,
   /**
+   * @default false
    * @category dev
    */
   DEV_SKIP_CMS_ROUTES_CHECK: false,
   /**
+   * @default false
    * @category dev
    */
   DEV_SOURCEMAPS: false,
   /**
+   * @default false
    * @category dev
    */
   DEV_WEBPACK_DEBUG: false,
   /**
+   * @default false
    * @category dev
    */
   DEV_WEBPACK_CACHE: false,
@@ -242,6 +261,7 @@ type ProcessedEnvVars<
 
 /**
  * Logic that merges the env variables overridden in the hidden `.olmo.ts` file
+ *
  */
 function processConfigEnvVars<
   TVars extends Config.EnvVars,
@@ -258,7 +278,8 @@ function processConfigEnvVars<
   ] as (keyof TVars)[];
   return allKeys.reduce(
     (map, varName) => {
-      const rawValue = varsOverride?.[varName] ?? vars[varName];
+      const rawValue = vars[varName];
+      const rawValueOverride = varsOverride?.[varName];
 
       if (typeof rawValue !== "undefined") {
         const value = getEnvVarValue(rawValue, envsMap, currentEnvName);
@@ -269,6 +290,12 @@ function processConfigEnvVars<
         if (typeof value.map !== "undefined") {
           map.byVarNameMap[varName] = value.map;
         }
+      }
+
+      // NOTE: The overrides only act on the current variables not on the map
+      // by env name
+      if (typeof rawValueOverride !== "undefined") {
+        map.current[varName] = rawValueOverride;
       }
 
       return map;
@@ -296,11 +323,7 @@ export function getConfigEnv(
   custom: Config.CustomMaybeExtended,
   project: Config.Internal["project"]
 ): Config.Internal["env"] {
-  const envsMap = custom.env.branches || {
-    dev: "dev",
-    staging: "staging",
-    production: "production",
-  };
+  const envsMap = custom.env.branches;
   const currentEnvName = custom.envNameToInheritFrom || determineCurrentEnv();
 
   const configurableVars = processConfigEnvVars<ConfigurableEnvVars>(
@@ -348,25 +371,7 @@ export function getConfigEnv(
     varsByVarNameMap,
     vars,
   };
-  // return buildConfigEnv(envsMap, configurableVars, extraVars, automaticEnvVars);
 }
-
-// function buildConfigEnv<TEnvsMap extends Config.EnvsMap, TVars extends Config.EnvVars>(envsMap: TEnvsMap, ...processed: ProcessedEnvVars<TEnvsMap, TVars>[]) {
-//   const varsByVarNameMap = processed.reduce((map, single) => ({
-//       ...map,
-//       ...single.byVarNameMap
-//   }), {} as Config.EnvVarsByVarName<TEnvsMap, TVars>)
-//   const vars = processed.reduce((map, single) => ({
-//       ...map,
-//       ...single.current
-//   }), {} as TVars)
-//   return {
-//     nameToBranchMap: envsMap,
-//     names: Object.keys(envsMap),
-//     varsByVarNameMap,
-//     vars,
-//   };
-// }
 
 /**
  * Return all env variables values by var name grouped by env name
@@ -377,8 +382,7 @@ export function getEnvVarsByEnvName(config: Pick<Config.Internal, "env">) {
     const varValuesByEnvName = varsByVarNameMap[varName];
     Object.keys(varValuesByEnvName).forEach((envName) => {
       map[envName] = map[envName] || {};
-      map[envName][varName] =
-        map[envName][varName] || varValuesByEnvName[envName];
+      map[envName][varName] = varValuesByEnvName[envName];
     });
     return map;
   }, {} as Config.EnvVarsByEnvName<Config.EnvsMap, Config.Internal["env"]["vars"]>);

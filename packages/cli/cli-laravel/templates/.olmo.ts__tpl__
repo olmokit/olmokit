@@ -1,0 +1,9 @@
+import olmo from "./olmo";
+
+export default olmo.extend("dev", {
+  env: {
+    vars: {
+      APP_URL: "http://myclient.test",
+    },
+  },
+});

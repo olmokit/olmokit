@@ -1,0 +1,44 @@
+import { createConfig } from "@olmokit/cli";
+
+export default createConfig({
+  type: "laravel",
+  env: {
+    branches: {
+      dev: "dev",
+      production: "production",
+    },
+    vars: {
+      APP_URL: {
+        dev: "https://myclient.mycompany.dev",
+        production: "https://www.myclient.com",
+      },
+      CMS_API_URL: {
+        dev: "https://api.myclient.mycompany.dev/api",
+        production: "https://api.myclient.com/api",
+      },
+      CMS_API_STORAGE: "https://storage.myclient.com/public",
+      OLMOFORMS_TOKEN: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      HOOKS_ALLOWED_PARAM: "<%= randomWord %>",
+      IMG_COMPRESSION_QUALITY: 80,
+      IMG_COMPRESSION_QUALITY_WEBP: 75,
+      CDN: false,
+      AWS_URL: "https://storage.myclient.com",
+      AWS_ACCESS_KEY_ID: "XXXXXXXXXXXXXXXXXXX",
+      AWS_SECRET_ACCESS_KEY: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      AWS_DEFAULT_REGION: "eu-south-1",
+      AWS_BUCKET: "myclient-com-assets",
+      AWS_USE_PATH_STYLE_ENDPOINT: false,
+    },
+    extraVars: {},
+  },
+  favicons: {
+    background: "#ffffff",
+    theme_color: "#ffffff",
+  },
+  httpAuth: {
+    authUserFile: "/home/mycompanyrv/public_html/.htpasswd",
+    matchUrlPart: ".mycompany.",
+    username: "mycompany",
+    password: "mycompany",
+  },
+});

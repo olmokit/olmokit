@@ -1,8 +1,8 @@
 import { join } from "path";
-import { TaskrInstance } from "@olmokit/cli-utils/taskr.js";
+import type { TaskrInstance } from "@olmokit/cli-utils/taskr.js";
 import { generate } from "../../generate.js";
 import { getNameVariants } from "../../getNameVariants.js";
-import { getVariadicArguments } from "../../getVariadicArguments.js";
+import { getVariadicArguments } from "../../helpers-getters.js";
 import { paths } from "../paths/index.js";
 
 /**

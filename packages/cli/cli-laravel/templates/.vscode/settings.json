@@ -5,6 +5,7 @@
     "*.lock": true,
     ".gitignore": true,
     ".npmignore": true,
+    ".npmrc": true,
     ".husky": true,
     ".env": true,
     "tsconfig.json": true,

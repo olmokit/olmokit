@@ -28,9 +28,7 @@ async function cliConfig() {
   const pathPublic = join(cwd, "olmo.ts");
 
   if (!existsSync(pathPublic)) {
-    spinner.stop();
-    taskr.log.branded.error("Missing 'olmo.ts` file :/");
-    process.exit(1);
+    taskr.log.branded.error("Missing 'olmo.ts` file, a stub is being created");
   }
   const [loadConfig, getConfig, applyEnvVars] = await Promise.all([
     (await import("./config-load.js")).loadConfig,
@@ -53,16 +51,6 @@ async function cliConfig() {
  * The CLI starting point
  */
 export async function cli() {
-  // const Command = (await import("commander")).Command;
-  // const program = taskr
-  //   .pm(new Command())
-  //   .name("olmo")
-  //   .description("CLI to manage Olmo based applications.")
-  //   .option("-x --xxx", "Test early option")
-  //   .parse();
-
-  // console.log("program.options", program.options)
-
   const config = await cliConfig();
   const type = config.type;
   const Command = (await import("commander")).Command;
