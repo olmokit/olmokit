@@ -286,6 +286,7 @@ function createApp(
     private: true,
     name: `${appName}`,
     version: "0.0.1",
+    type: "module",
   };
   writeFileSync(
     join(root, "package.json"),
