@@ -35,6 +35,10 @@ import { tryGitInit } from "./git.js";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const thisPkgName = "@olmokit/create-app";
 let projectName: string;
 
@@ -68,11 +72,13 @@ export function init() {
       "--template <path-to-template>",
       "specify a template for the created project"
     )
-    .option(
+    .addOption(
       new Option(
-        "-p --package-manager",
+        "-p --package-manager <pkgm>",
         "Choose which package manager to use"
-      ).defaultValue(getDefaultPackageManager())
+      )
+        .choices(["pnpm", "npm", "yarn"])
+        .default(getDefaultPackageManager())
     )
     .allowUnknownOption()
     .on("--help", () => {
