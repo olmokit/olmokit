@@ -14,7 +14,7 @@ import { EOL } from "node:os";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
 import spawn from "cross-spawn";
-import { copySync, moveSync } from "fs-extra";
+import fsExtra from "fs-extra";
 import { inGitRepo, tryGitCommit, tryGitInit } from "@olmokit/cli-utils/git";
 import { paths } from "./paths/index.js";
 
@@ -155,7 +155,7 @@ export default function bootstrap(
   // Copy the files for the user
   const templateDir = join(templatePath, "template");
   if (existsSync(templateDir)) {
-    copySync(templateDir, appPath);
+    fsExtra.copySync(templateDir, appPath);
   } else {
     console.error(
       `Could not locate supplied template: ${chalk.green(templateDir)}`
@@ -252,7 +252,7 @@ export default function bootstrap(
   } else {
     // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
     // See: https://github.com/npm/npm/issues/1862
-    moveSync(join(appPath, "gitignore"), join(appPath, ".gitignore"));
+    fsExtra.moveSync(join(appPath, "gitignore"), join(appPath, ".gitignore"));
     appendFileSync(join(appPath, ".gitignore"), gitignoreBase);
   }
 

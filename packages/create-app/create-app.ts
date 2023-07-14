@@ -403,16 +403,7 @@ function run(
             args: [],
           },
           [root, appName, verbose, originalDirectory, templateName],
-          // `(import("${packageName}/cli-laravel/bootstrap").then((m) => m)).apply(null, JSON.parse(process.argv[1]));`
           `import('${packageName}/cli-laravel/bootstrap').then(module => { module.default.apply(null, JSON.parse(process.argv[1])); });`
-          // `
-          //   import bootstrap from "${packageName}/cli-laravel/bootstrap.js";
-          //   bootstrap.apply(null, JSON.parse(process.argv[1]));
-          // `
-          //     `
-          //   var bootstrap = require('${packageName}/cli-laravel/bootstrap');
-          //   bootstrap.apply(null, JSON.parse(process.argv[1]));
-          // `
         );
       })
       .catch((reason) => {
