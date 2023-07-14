@@ -404,12 +404,7 @@ function run(
           },
           [root, appName, verbose, originalDirectory, templateName],
           // `(import("${packageName}/cli-laravel/bootstrap").then((m) => m)).apply(null, JSON.parse(process.argv[1]));`
-          `
-import { createRequire } from "node:module";
-const require = createRequire(import.meta.url);
-const bootstrap = require('${packageName}/cli-laravel/bootstrap');
-bootstrap.apply(null, JSON.parse(process.argv[1]));
-`
+          `import('${packageName}/cli-laravel/bootstrap').then(module => { module.default.apply(null, JSON.parse(process.argv[1])); });`
           // `
           //   import bootstrap from "${packageName}/cli-laravel/bootstrap.js";
           //   bootstrap.apply(null, JSON.parse(process.argv[1]));
