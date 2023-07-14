@@ -407,9 +407,13 @@ function run(
           },
           [root, appName, verbose, originalDirectory, templateName],
           `
-        var bootstrap = require('${packageName}/cli-laravel/bootstrap');
+        import bootstrap from "${packageName}/cli-laravel/bootstrap";
         bootstrap.apply(null, JSON.parse(process.argv[1]));
       `
+          //     `
+          //   var bootstrap = require('${packageName}/cli-laravel/bootstrap');
+          //   bootstrap.apply(null, JSON.parse(process.argv[1]));
+          // `
         );
       })
       .catch((reason) => {
