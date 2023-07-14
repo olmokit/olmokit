@@ -407,8 +407,8 @@ function run(
           },
           [root, appName, verbose, originalDirectory, templateName],
           `
-        var init = require('${packageName}/cli-laravel/bootstrap.js');
-        init.apply(null, JSON.parse(process.argv[1]));
+        var bootstrap = require('${packageName}/cli-laravel/bootstrap');
+        bootstrap.apply(null, JSON.parse(process.argv[1]));
       `
         );
       })
