@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/create-app",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "description": "Create Olmo based Laravel apps.",
   "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "license": "ISC",
