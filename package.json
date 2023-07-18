@@ -8,6 +8,7 @@
     "type": "git",
     "url": "git@gitlab.com:olmokit/olmokit.git"
   },
+  "type": "module",
   "scripts": {
     "dev": "ts-node tools/dev.ts",
     "start": "nx run-many --targets=watch --all",
@@ -15,13 +16,12 @@
     "lint": "nx run-many --targets=lint --all",
     "postinstall": "husky install && pnpm dev build",
     "format": "prettier **/*.{js,json,ts,tsx,css,scss,md,yml,yaml,php} --write",
-    "watch-docs": "cd docs && npm start",
+    "docs": "nx run docs:watch",
     "docs:core:dom--readme": "documentation readme core/dom/index.ts --section API",
     "docs:core:dom--doc": "documentation build core/dom/index.ts --output docs/docs/core/dom.md --format md --markdown-toc false",
     "docs:core:dom": "pnpm docs:core:dom--readme && pnpm docs:core:dom--doc",
     "docs:core": "documentation build core/**/*.{js,ts} --output docs/docs/core/API.md --format md --markdown-toc false"
   },
-  "type": "module",
   "lint-staged": {
     "**/*.{js,json,ts,tsx,css,scss,md,yml,yaml,php}": "prettier --write"
   },

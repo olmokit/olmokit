@@ -32,7 +32,7 @@ deploy-to-dev:
   only:
     - master
   script:
-    - olmo deploy --env dev --mode ftp --folder ./myproject --host dev03.acanto.net --username myusername --password mypassword
+    - olmo deploy --env dev --mode ftp --folder ./myproject --host dev.mycompany.com --username myusername --password mypassword
 
 # Deploy to production environment (via ftp):
 deploy-to-dev:

@@ -12,6 +12,10 @@ packages-todo/template-laravel/vendor/
 packages-todo/laravel-frontend/vendor/
 packages/core/glide/fork/
 
+# Docs fenerated files
+.docusaurus
+.cache-loader
+
 # Created by https://www.toptal.com/developers/gitignore/api/sass,linux,macos,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=sass,linux,macos,windows
 

@@ -50,11 +50,7 @@ Continuing from the above example your template in `src/components/ProductDetail
 
 ```html
 <div class="ProductDetail:">
-  @fragment('product')
-    I will appear only when this component is used as a 'product' fragment
-  @elsefragment
-    I will appear only when this component is <b>not</b> used as a 'product'  fragment
-  @endfragment
+  @fragment('product') I will appear only when this component is used as a 'product' fragment @elsefragment I will appear only when this component is <b>not</b> used as a 'product' fragment @endfragment
   <p>I will appear in both cases</p>
 </div>
 ```
@@ -96,7 +92,7 @@ class MyController extends Fragment
 {
   public function get(Request $request)
   {
-    $data = ['some', 'data', 'from', 'anywhere'];
+    $data = ["some", "data", "from", "anywhere"];
 
     return response()->json($data);
   }
@@ -119,8 +115,8 @@ class MyController extends Fragment
 use Illuminate\Support\Facades\Route;
 use resources\fragments\MyController;
 
-Route::get('myendpoint', [MyController::class, 'get']);
-Route::post('myendpoint', [MyController::class, 'post']);
+Route::get("myendpoint", [MyController::class, "get"]);
+Route::post("myendpoint", [MyController::class, "post"]);
 ```
 
 3. Consume the endpoints in your JavaScripts using the ajax utilities:

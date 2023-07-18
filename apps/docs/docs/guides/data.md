@@ -11,7 +11,6 @@ Usage, from any of your project JavaScript files:
 
 ```js
 import { globalConf } from "@olmokit/core/data";
-import { globalConf } from "@olmokit/core/data";
 
 console.log(globalConf);
 ```
@@ -32,7 +31,6 @@ Usage, from any of your project JavaScript files:
 
 ```js
 import { globalData } from "@olmokit/core/data";
-import { globalData } from "@olmokit/core/data";
 
 console.log(globalData);
 ```
@@ -44,21 +42,18 @@ You can use `<x-data />` component from any route, component or any blade templa
 
 ### Using a custom `.env` variable
 
-1. `.env`:
+1. `olmo.ts`:
 
-```env
-MY_KEY=somevalue
+```js
+// ...config
+env: {
+  extraVars: {
+    MY_KEY: "myvalue";
+  }
+}
 ```
 
-2. `config/env.php` (create it if missing):
-
-```php
-<?php
-
-return [
-  "MY_KEY" => env("MY_KEY"),
-];
-```
+2. `config/env.php` and .`env` are automatically updated
 
 3. `src/routes/myroute.blade.php`:
 
@@ -69,7 +64,6 @@ return [
 4. `src/routes/index.js` (or any other js file):
 
 ```js
-import { globalData } from "@olmokit/core/data";
 import { globalData } from "@olmokit/core/data";
 
 console.log(globalData.myKey);
@@ -90,7 +84,6 @@ This will expose the user without its `token` or `token_active` on the client si
 2. `src/routes/index.js` (or any other js file):
 
 ```js
-import { globalData } from "@olmokit/core/data";
 import { globalData } from "@olmokit/core/data";
 
 console.log(globalData.user);

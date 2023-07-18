@@ -1,0 +1,48 @@
+{
+  "name": "docs",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/docs",
+  "projectType": "library",
+  "implicitDependencies": [],
+  "targets": {
+    "watch": {
+      "executor": "nx:run-script",
+      "options": {
+        "inputs": [
+          "{projectRoot}/docs/*.*",
+          "{projectRoot}/docs/**/*.*",
+          {
+            "externalDependencies": []
+          }
+        ],
+        "outputs": ["apps/docs/build"],
+        "script": "start"
+      }
+    },
+    "build": {
+      "executor": "nx:run-script",
+      "options": {
+        "inputs": [
+          "{projectRoot}/docs/*.*",
+          "{projectRoot}/docs/**/*.*",
+          {
+            "externalDependencies": []
+          }
+        ],
+        "outputs": ["apps/docs/build"],
+        "script": "build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/docs/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "nx:noop"
+    }
+  },
+  "tags": []
+}

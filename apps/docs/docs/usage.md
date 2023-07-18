@@ -6,17 +6,15 @@ sidebar_label: Usage
 
 ## Setup project
 
-After `pnpm i` run `olmo start`
+After `pnpm i` run `pnpm olmo start`
 
 ## Workflow commands
 
-From your root folder run `olmo help` to view the available commands and their description.
-
-![laravel-scripts-help](../static/img/screenshots/laravel-scripts-help-20201022.jpg)
+From your root folder run `pnpm olmo help` to view the available commands and their description.
 
 ## Generators
 
-Routes can be created at any time running `olmo route route-name` or `olmo route route-one,route-two` to add multiple routes, existing routes will not be overwritten, but be careful of using a new **unique route name**. Same works for components with `olmo component MyComponent`.
+Routes can be created at any time running `pnpm olmo route route-name` or `pnpm olmo route route-one,route-two` to add multiple routes, existing routes will not be overwritten, but be careful of using a new **unique route name**. Same works for components with `pnpm olmo component MyComponent`.
 
 ## Caveats
 

@@ -27,20 +27,19 @@ If you're interested in building a custom template, first take a look at how we'
 
 A template should have the following structure:
 
-```bash
-template-laravel-[template-name]/
-  README.md (for npm)
-  template.json
-  package.json
-  template/
-    .vscode/ (optional)
-    config/ (optional)
-      ...config files
-    src/
-      ...all files
-    composer.json
-    gitignore (optional)
-    README.md (optional, for projects created from this template)
+```yaml
+├── template-laravel-[template-name]/
+├── README.md
+├── template.json
+├── package.json
+├── template/
+  ├── config/ # (optional)
+  |   └── # ...config files
+  ├── src/
+  |   └── # ...all files
+  ├── composer.json
+  ├── gitignore # (optional)
+  ├── README.md # (optional, for projects created from this template)
 ```
 
 ### Testing a template

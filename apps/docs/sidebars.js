@@ -28,6 +28,7 @@ module.exports = {
         "guides/seo",
         "guides/time",
         "guides/translations",
+        "guides/working-without-api",
       ],
     },
     {
@@ -46,11 +47,11 @@ module.exports = {
         "core/skeleton",
       ],
     },
-    {
-      label: "Components",
-      type: "category",
-      items: [],
-    },
+    // {
+    //   label: "Components",
+    //   type: "category",
+    //   items: [],
+    // },
     {
       label: "Laravel Frontend",
       type: "category",
@@ -72,7 +73,11 @@ module.exports = {
     {
       label: "Advanced Usage",
       type: "category",
-      items: ["custom-templates", "gsap-and-private-packages"],
+      items: [
+        "custom-templates",
+        // FIXME: this page breaks docusaurus?
+        // "gsap-and-private-packages"
+      ],
     },
   ],
 };
