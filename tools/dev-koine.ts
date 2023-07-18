@@ -47,16 +47,6 @@ const localSyncs: LocalSync[] = [
   {
     name: "@koine",
     defs: [
-      // {
-      //   // FIXME: probably remove this, as this also lives in @olmokit/utils
-      //   from: "../../../KnitKode/koine/packages/utils/render.ts",
-      //   to: "../packages/core/render/index.ts",
-      // },
-      // {
-      //   from: "../../../KnitKode/koine/packages/dom",
-      //   to: "../packages/core/dom",
-      //   pattern: "/**/*.ts",
-      // },
       {
         from: "../../../KnitKode/koine/packages/dom",
         to: "../packages/dom",
@@ -67,12 +57,6 @@ const localSyncs: LocalSync[] = [
         to: "../packages/browser",
         pattern: "/**/*.ts",
       },
-      // FIXME: ask if we can move from @olmokit/core/dom to @olmokit/dom
-      // {
-      //   from: "../../../KnitKode/koine/packages/dom",
-      //   to: "../packages/dom",
-      //   pattern: "/**/*.ts",
-      // },
       {
         from: "../../../KnitKode/koine/packages/utils",
         to: "../packages/utils",
