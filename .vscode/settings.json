@@ -12,8 +12,8 @@
   },
   "window.title": "${dirty} @olmokit/olmokit - ${activeFolderMedium}",
   "workbench.colorCustomizations": {
-    "activityBar.background": "#7e4171",
-    "activityBar.foreground": "#fff"
+    "activityBar.background": "#2e1f2b",
+    "activityBar.foreground": "#FF52DE"
   },
   "files.associations": {
     "*.json__tpl__": "json",

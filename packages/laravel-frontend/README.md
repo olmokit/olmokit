@@ -1,6 +1,6 @@
 # Laravel Frontend
 
-[![composer](https://img.shields.io/packagist/v/olmo/laravel-frontend?include_prereleases&label=composer%3A%20packagist.org?style=flat-square&color=magenta)](https://packagist.org/packages/olmo/laravel-frontend)
+[![composer](https://img.shields.io/packagist/v/olmo/laravel-frontend?include_prereleases&label=composer%3A%20packagist.org?style=flat-square&color=FF52DE)](https://packagist.org/packages/olmo/laravel-frontend)
 
 > For all the documentation refer to the [Olmo docs](https://olmokit.github.io/olmokit).
 

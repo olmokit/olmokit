@@ -5,7 +5,7 @@ sidebar_label: Overview
 slug: /core
 ---
 
-![](https://img.shields.io/npm/v/@olmokit/core?style=flat-square&color=magenta&label=@olmokit/core%20|%20npm)
+![](https://img.shields.io/npm/v/@olmokit/core?style=flat-square&color=FF52DE&label=@olmokit/core%20|%20npm)
 
 For **core** elements we mean components that are very generic and of common use case. They are usually included repeatedly in the same page and across the same website. Their flexibility should allow to use them even without alteration across different projects. They should be in fact responsible of basic and common elements and UI like `forms`, `images`, `buttons`, `typography`, ecc. These components' templates are always automatically syncronised from the library [`@olmokit/core`](https://www.npmjs.com/package/@olmokit/core) with the command `olmo core` who places them directly in the gitignored `resources` folder.
 

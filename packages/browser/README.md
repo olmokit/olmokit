@@ -1,6 +1,6 @@
 # browser
 
-![npm (scoped)](https://img.shields.io/npm/v/@olmokit/browser?style=flat-square&color=magenta)
+![npm (scoped)](https://img.shields.io/npm/v/@olmokit/browser?style=flat-square&color=FF52DE)
 
 A set of multi-purpose low level utilities to interact with browsers APIs.
 

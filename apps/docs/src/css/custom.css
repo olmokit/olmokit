@@ -7,7 +7,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: magenta;
+  --ifm-color-primary: #ff52de;
   --ifm-color-primary-dark: rgb(148, 27, 83);
   --ifm-color-primary-darker: rgb(22, 22, 22);
   --ifm-color-primary-darkest: rgb(0, 0, 0);

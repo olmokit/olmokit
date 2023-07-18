@@ -20,6 +20,12 @@ pnpm dev
 
 Now in your test project bootstrapped with `@olmokit/create-app` you can run `npx olmo link` to use the globally symlinked packages from your machine.
 
+Develop the **docs** locally at [localhost:3000/olmokit](http://localhost:3000/olmokit) running
+
+```bash
+pnpm run docs
+```
+
 ### Publish packages
 
 First commit and push your local work. Then, never manually bump package versions, just run form the terminal:

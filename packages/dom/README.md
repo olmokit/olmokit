@@ -1,6 +1,6 @@
 # dom
 
-![npm (scoped)](https://img.shields.io/npm/v/@olmokit/dom?style=flat-square&color=magenta)
+![npm (scoped)](https://img.shields.io/npm/v/@olmokit/dom?style=flat-square&color=FF52DE)
 
 A set of multi-purpose low level utilities to interact with the DOM.
 
