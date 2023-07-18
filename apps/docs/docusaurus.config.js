@@ -16,7 +16,7 @@ module.exports = {
   favicon: "img/favicon.ico",
   organizationName: "olmokit", // Usually your GitHub org/user name.
   projectName: "olmokit", // Usually your repo name.
-  deploymentBranch: "main",
+  // deploymentBranch: "main",
   themeConfig:
     /** @type {import("@docusaurus/preset-classic").ThemeConfig} */
     ({

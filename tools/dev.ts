@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import { spawn, spawnSync } from "child_process";
+import ci from "ci-info";
 import { Command, Option, program } from "commander";
 import { koine } from "./dev-koine.js";
 import { libs } from "./dev-libs.js";
@@ -31,6 +32,9 @@ program
   // packages to npm registry
   .option("-w --watch", "Watch packages for changes")
   .action((options: Options) => {
+    if (ci.isCI) {
+      return;
+    }
     const { watch } = options;
     if (watch) {
       spawnSync("pnpm", ["dev", "link"], { stdio: "inherit" });
