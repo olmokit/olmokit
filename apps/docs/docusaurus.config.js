@@ -22,7 +22,7 @@ module.exports = {
     ({
       algolia: {
         appId: "TVD2J90Z93",
-        apiKey: "609b68baa2bff49faafc4417a569256f",
+        apiKey: "b78dd981d7eb3e6adda3d29fc326e8df",
         indexName: "olmokit_docs",
         // contextualSearch: true,
         // searchParameters: {},
