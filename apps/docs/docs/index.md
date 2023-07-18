@@ -1,6 +1,6 @@
 ---
 id: index
-title: Olmo
+title: OLMO kit
 sidebar_label: Introduction
 slug: /
 hide_table_of_contents: true
@@ -10,11 +10,11 @@ A set of multi-language packages to develop, deploy and mantain Olmo based Front
 
 - [`npm` packages](https://www.npmjs.com/org/olmokit)
 - [`composer` packages](https://packagist.org/packages/olmo)
-
-## Latest versions
-
-- `@olmokit/components` ![npm (scoped)](https://img.shields.io/npm/v/@olmokit/components?style=flat-square&color=EA2C65)
-- `@olmokit/core` ![npm (scoped)](https://img.shields.io/npm/v/@olmokit/core?style=flat-square&color=EA2C65)
-- `@olmokit/cli` ![npm (scoped)](https://img.shields.io/npm/v/@olmokit/cli?style=flat-square&color=539DCC)
-- `@olmokit/use` ![npm (scoped)](https://img.shields.io/npm/v/@olmokit/use?style=flat-square&color=EA2C65)
-- `olmo/laravel-frontend` ![composer (scoped)](https://img.shields.io/packagist/v/olmo/laravel-frontend?style=flat-square&color=53CCB6)
+- ![](https://img.shields.io/npm/v/@olmokit/cli?style=flat-square&color=magenta&label=@olmokit/cli%20|%20npm)
+- ![](https://img.shields.io/npm/v/@olmokit/browser?style=flat-square&color=magenta&label=@olmokit/browser%20|%20npm)
+- ![](https://img.shields.io/npm/v/@olmokit/core?style=flat-square&color=magenta&label=@olmokit/core%20|%20npm)
+- ![](https://img.shields.io/npm/v/@olmokit/dom?style=flat-square&color=magenta&label=@olmokit/dom%20|%20npm)
+- ![](https://img.shields.io/npm/v/@olmokit/components?style=flat-square&color=magenta&label=@olmokit/components%20|%20npm)
+- ![](https://img.shields.io/npm/v/@olmokit/use?style=flat-square&color=magenta&label=@olmokit/use%20|%20npm)
+- ![](https://img.shields.io/npm/v/@olmokit/utils?style=flat-square&color=magenta&label=@olmokit/utils%20|%20npm)
+- ![](https://img.shields.io/packagist/v/olmo/laravel-frontend?style=flat-square&color=magenta&label=olmo/laravel-frontend%20|%20composer)

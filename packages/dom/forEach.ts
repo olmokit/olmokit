@@ -3,8 +3,18 @@
  *
  * @param scope The optional `this` of the callback function
  */
-export function forEach<T extends HTMLElement, TScope = object>(
-  nodes: NodeListOf<T> | T[],
+export function forEach<TScope = object>(
+  nodes: HTMLElement[],
+  callback: (this: TScope, $element: HTMLElement, index: number) => any,
+  scope?: TScope
+): void;
+export function forEach<TScope = object>(
+  nodes: NodeListOf<HTMLElement> | HTMLElement[],
+  callback: (this: TScope, $element: HTMLElement, index: number) => any,
+  scope?: TScope
+): void;
+export function forEach<T extends Element, TScope = object>(
+  nodes: NodeListOf<T> | HTMLElement[],
   callback: (this: TScope, $element: T, index: number) => any,
   scope?: TScope
 ) {

@@ -14,13 +14,9 @@
     "start": "nx run-many --targets=watch --all",
     "build": "nx run-many --targets=build --all",
     "lint": "nx run-many --targets=lint --all",
-    "postinstall": "husky install && pnpm dev build",
+    "_postinstall": "husky install && pnpm dev build",
     "format": "prettier **/*.{js,json,ts,tsx,css,scss,md,yml,yaml,php} --write",
-    "docs": "nx run docs:watch",
-    "docs:core:dom--readme": "documentation readme core/dom/index.ts --section API",
-    "docs:core:dom--doc": "documentation build core/dom/index.ts --output docs/docs/core/dom.md --format md --markdown-toc false",
-    "docs:core:dom": "pnpm docs:core:dom--readme && pnpm docs:core:dom--doc",
-    "docs:core": "documentation build core/**/*.{js,ts} --output docs/docs/core/API.md --format md --markdown-toc false"
+    "docs": "nx run docs:watch"
   },
   "lint-staged": {
     "**/*.{js,json,ts,tsx,css,scss,md,yml,yaml,php}": "prettier --write"
@@ -46,7 +42,6 @@
     "ci-info": "^3.8.0",
     "clean-webpack-plugin": "^4.0.0",
     "cli-cursor": "^4.0.0",
-    "clsx": "^1.2.1",
     "commander": "^11.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "crawlee": "^3.4.0",
@@ -102,10 +97,8 @@
     "tar": "^6.1.15",
     "tempy": "^3.0.0",
     "terser-webpack-plugin": "^5.3.9",
-    "ts-debounce": "^4.0.0",
     "tslib": "^2.6.0",
     "type-fest": "^3.12.0",
-    "validate-npm-package-name": "^5.0.0",
     "video.js": "^8.3.0",
     "videojs-font": "^4.1.0",
     "webpack": "^5.88.1",
@@ -147,7 +140,6 @@
     "@types/semver": "^7.5.0",
     "@types/svg-sprite": "^0.0.34",
     "@types/tar": "^6.1.5",
-    "@types/validate-npm-package-name": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "@vercel/ncc": "^0.36.1",

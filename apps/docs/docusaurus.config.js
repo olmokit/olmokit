@@ -30,23 +30,27 @@ module.exports = {
         // algoliaOptions: { 'facetFilters': ["type:content"] },
         // debug: false,
       },
+      colorMode: {
+        defaultMode: "dark",
+        disableSwitch: false,
+        respectPrefersColorScheme: false,
+      },
+      prism: {
+        theme: require("prism-react-renderer/themes/github"),
+        darkTheme: require("prism-react-renderer/themes/dracula"),
+      },
       navbar: {
         // style: "dark",
-        title: "Olmo",
+        title: "OLMO kit",
         // logo: {
         //   alt: "Olmo Logo",
-        //   src: "img/logo--white.svg",
+        //   src: "img/logo.svg",
         //   srcDark: "img/logo--white.svg",
         // },
         items: [
           {
             href: "https://github.com/olmokit/olmokit",
-            label: "Source code",
-            position: "right",
-          },
-          {
-            to: "/showcase",
-            label: "Showcase",
+            label: "Source",
             position: "right",
           },
         ],
@@ -79,6 +83,49 @@ module.exports = {
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
+        },
+      }),
+    ],
+  ],
+  plugins: [
+    // @see https://www.npmjs.com/package/docusaurus-plugin-typedoc
+    [
+      "docusaurus-plugin-typedoc",
+      /** @type {Partial<import("typedoc").TypeDocOptions> & Partial<import("docusaurus-plugin-typedoc").PluginOptions>} */
+      ({
+        id: "browser",
+        entryPoints: ["../../packages/browser/index.ts"],
+        tsconfig: "../../packages/browser/tsconfig.lib.json",
+        out: "./libs/browser",
+        // @see https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#markdown-front-matter
+        frontmatter: {
+          // hide_title: true,
+        },
+      }),
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      /** @type {Partial<import("typedoc").TypeDocOptions> & Partial<import("docusaurus-plugin-typedoc").PluginOptions>} */
+      ({
+        id: "dom",
+        entryPoints: ["../../packages/dom/index.ts"],
+        tsconfig: "../../packages/dom/tsconfig.lib.json",
+        out: "./libs/dom",
+        frontmatter: {
+          // hide_title: true,
+        },
+      }),
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      /** @type {Partial<import("typedoc").TypeDocOptions> & Partial<import("docusaurus-plugin-typedoc").PluginOptions>} */
+      ({
+        id: "utils",
+        entryPoints: ["../../packages/utils/index.ts"],
+        tsconfig: "../../packages/utils/tsconfig.lib.json",
+        out: "./libs/utils",
+        frontmatter: {
+          // hide_title: true,
         },
       }),
     ],

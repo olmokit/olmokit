@@ -1,12 +1,14 @@
 ---
 title: Async behaviours
+# import ReactPlayer from "react-player";
+# import fragmentsReplaceSrc from '@site/static/screencasts/fragments-replace.webm';
 ---
 
 This document aims to explain various techniques and implementations of async behaviours in your frontend application.
 
 ## Basic async fragment replace
 
-<video src="../../static/screencasts/fragments-replace.webm" loop autoplay playsinline mute controls />
+<!-- <ReactPlayer url={fragmentsReplaceSrc} loop autoPlay playsInline mute="true" controls /> -->
 
 Let's say you have a component in `src/components/ProductDetail/` that you want to inject asynchronously into a route.
 
