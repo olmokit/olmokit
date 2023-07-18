@@ -69,8 +69,6 @@ export const assetsWatch: CliLaravel.Task = async ({
       resolve();
     };
 
-    // FIXME: shall we use await here or ok like this?
-    // await server.start();
     server
       .start()
       .then(() => {

@@ -66,8 +66,7 @@ export function Header(
    */
   function handleClickOutside(event: MouseEvent) {
     if (status === "expanded") {
-      // @ts-expect-error FIXME: components types
-      if (!$root.contains(event.target)) {
+      if (event.target instanceof Node && !$root.contains(event.target)) {
         collapse();
       }
     }

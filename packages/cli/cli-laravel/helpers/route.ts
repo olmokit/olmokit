@@ -137,8 +137,6 @@ function isExceptionRoute(routeName: string) {
 
 /**
  * Generate route source files and folder
- *
- * FIXME: the barba option won't work here
  */
 export function generateRouteSource(name: string, useBarba: boolean) {
   const data = {

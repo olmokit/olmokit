@@ -73,9 +73,6 @@ dependencies:
   clsx:
     specifier: ^1.2.1
     version: 1.2.1
-  command-exists:
-    specifier: ^1.2.9
-    version: 1.2.9
   commander:
     specifier: ^11.0.0
     version: 11.0.0
@@ -274,9 +271,6 @@ dependencies:
   workbox-webpack-plugin:
     specifier: ^7.0.0
     version: 7.0.0(webpack@5.88.1)
-  yargs-parser:
-    specifier: ^21.1.1
-    version: 21.1.1
 
 devDependencies:
   '@nx/eslint-plugin':
@@ -378,9 +372,6 @@ devDependencies:
   '@types/validate-npm-package-name':
     specifier: ^4.0.0
     version: 4.0.0
-  '@types/yargs-parser':
-    specifier: ^21.0.0
-    version: 21.0.0
   '@typescript-eslint/eslint-plugin':
     specifier: ^5.61.0
     version: 5.61.0(@typescript-eslint/parser@5.61.0)(eslint@8.44.0)(typescript@5.1.6)
@@ -7102,10 +7093,6 @@ packages:
   /comma-separated-tokens@2.0.3:
     resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
     dev: true
-
-  /command-exists@1.2.9:
-    resolution: {integrity: sha512-LTQ/SGc+s0Xc0Fu5WaKnR0YiygZkm9eKFvyS+fRsU7/ZWFF8ykFM6Pc9aCVf1+xasOOZpO3BAVgVrKvsqKHV7w==}
-    dev: false
 
   /commander@10.0.1:
     resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}

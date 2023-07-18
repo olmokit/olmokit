@@ -121,8 +121,6 @@ const ciClean: CliLaravel.CmdDeploy.Task = async ({ ctx }) => {
       join(paths.frontend.src.base),
     ],
     { glob: true }
-    // FIXME: check former `del` options were:
-    // { force: true, dot: true }
   );
 };
 ciClean.meta = { title: "Clean files that should not end up on the server" };

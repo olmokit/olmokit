@@ -24,7 +24,7 @@ export const svgicons: CliLaravel.Task = async ({ logger }) => {
   const spriter = new SVGSpriter({
     mode: {
       symbol: {
-        // @ts-expect-error FIXME: weird, check docs at https://github.com/svg-sprite/svg-sprite#a-standalone-sprite
+        // @ts-expect-error FIXME: types, weird, check docs at https://github.com/svg-sprite/svg-sprite#a-standalone-sprite
         inline: true,
       },
     },
