@@ -1,6 +1,20 @@
 {
   "name": "@olmokit/dom",
   "version": "0.0.44",
+  "description": "DOM utilities for Olmo based applications.",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:olmokit/olmokit.git",
+    "directory": "packages/dom"
+  },
+  "keywords": [
+    "olmo",
+    "olmokit",
+    "dom",
+    "koine"
+  ],
   "type": "module",
   "exports": {
     ".": {

@@ -1,8 +1,8 @@
 # Olmo
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1dfb471aa62649a29ffd71d1f386e7fe)](https://www.codacy.com/gl/olmokit/olmokit/dashboard?utm_source=gitlab.com&utm_medium=referral&utm_content=olmokit/olmokit&utm_campaign=Badge_Grade) [![pipelines](https://gitlab.com/olmokit/olmokit/badges/main/pipeline.svg)](https://gitlab.com/olmokit/olmokit/-/pipelines)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1dfb471aa62649a29ffd71d1f386e7fe)](https://www.codacy.com/gl/olmokit/olmokit/dashboard)
 
-Monorepo for the whole Olmo Kit, offical documentation at [olmokit.gitlab.io/olmokit](https://olmokit.gitlab.io/olmokit)
+Monorepo for the whole Olmo Kit, offical documentation at [olmokit.github.io/olmokit](https://olmokit.github.io/olmokit)
 
 ## Contribute
 

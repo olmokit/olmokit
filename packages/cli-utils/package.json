@@ -1,6 +1,19 @@
 {
   "name": "@olmokit/cli-utils",
   "version": "0.0.44",
+  "description": "Utils for Olmo's CLI.",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:olmokit/olmokit.git",
+    "directory": "packages/cli-utils"
+  },
+  "keywords": [
+    "olmo",
+    "olmokit",
+    "cli"
+  ],
   "exports": {
     ".": {
       "import": "./index.js"

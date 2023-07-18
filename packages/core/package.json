@@ -1,7 +1,19 @@
 {
   "name": "@olmokit/core",
   "version": "0.0.44",
+  "description": "Core elements for Olmo based applications.",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:olmokit/olmokit.git",
+    "directory": "packages/core"
+  },
   "type": "module",
+  "keywords": [
+    "olmo",
+    "olmokit"
+  ],
   "dependencies": {
     "videojs-font": "^4.1.0",
     "date-fns": "^2.30.0"

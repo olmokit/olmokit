@@ -1,6 +1,6 @@
 # core
 
-![npm (scoped)](https://img.shields.io/npm/v/@olmokit/core?style=flat-square&color=EA2C65)
+![npm (scoped)](https://img.shields.io/npm/v/@olmokit/core?style=flat-square&color=magenta)
 
 > For all the documentation refer to the [Olmo docs](https://olmokit.github.io/olmokit)
 
@@ -13,10 +13,3 @@
 - For masonry like grid [infiniteGrid](https://naver.github.io/egjs-infinitegrid/#home) seems ok.
 - For simple SSR components abstraction see [gia](https://github.com/giantcz/gia)
 - For SPA like behaviour try [Stimulus](https://github.com/stimulusjs/stimulus) with [Turbolinks](https://github.com/turbolinks/turbolinks)
-
-### TODO
-
-- Aggiungere descrizione del modulo visibile quando fai hover sull import in vscode: `/// <reference path='./index.d.ts' />`
-- use new `isType` functions where appropriate
-- Maybe use https://www.npmjs.com/package/throttle-debounce instead of lodash ones
-- Incorporate autocomplete in library as abstraction

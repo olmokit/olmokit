@@ -17,13 +17,13 @@ npx @olmokit/create-app myproject --template [template-name]
 
 We ship one template by default:
 
-- [`template-laravel`](https://gitlab.com/olmokit/olmokit/-/tree/main/packages/template-laravel)
+- [`template-laravel`](https://github.com/olmokit/olmokit/-/tree/main/packages/template-laravel)
 
 However, you can find other templates by searching for ["template-laravel-\*"](https://www.npmjs.com/search?q=template-laravel-*) on npm.
 
 ## Building a template
 
-If you're interested in building a custom template, first take a look at how we've built [`template-laravel`](https://gitlab.com/olmokit/olmokit/-/tree/main/packages/template-laravel).
+If you're interested in building a custom template, first take a look at how we've built [`template-laravel`](https://github.com/olmokit/olmokit/-/tree/main/packages/template-laravel).
 
 A template should have the following structure:
 

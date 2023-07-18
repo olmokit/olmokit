@@ -794,7 +794,7 @@ class Helpers
   /**
    * Get current route name without locale, either if that is included (e.g. `en.singlepage`) or not (single language websites).
    *
-   * TODO: use it also at https://gitlab.com/olmokit/olmokit/-/blob/master/packages/laravel-frontend/src/App/Controllers/Base.php#L402
+   * TODO: use it also at https://github.com/olmokit/olmokit/-/blob/master/packages/laravel-frontend/src/App/Controllers/Base.php#L402
    */
   public static function getCurrentRouteName()
   {

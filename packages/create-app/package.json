@@ -1,17 +1,18 @@
 {
   "name": "@olmokit/create-app",
   "version": "0.0.44",
-  "description": "Create Laravel apps with no build configuration.",
+  "description": "Create Olmo based Laravel apps.",
   "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:olmokit/olmokit.git",
+    "url": "git@github.com:olmokit/olmokit.git",
     "directory": "packages/create-app"
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "keywords": [
+    "olmo",
+    "olmokit"
+  ],
   "engines": {
     "node": ">=16"
   },

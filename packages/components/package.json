@@ -1,6 +1,18 @@
 {
   "name": "@olmokit/components",
   "version": "0.0.44",
+  "description": "Components for Olmo based applications.",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:olmokit/olmokit.git",
+    "directory": "packages/components"
+  },
+  "keywords": [
+    "olmo",
+    "olmokit"
+  ],
   "type": "module",
   "sideEffects": [
     "**/*.scss",

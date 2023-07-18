@@ -8,6 +8,9 @@ hide_table_of_contents: true
 
 A set of multi-language packages to develop, deploy and mantain Olmo based Frontend applications.
 
+- [`npm` packages](https://www.npmjs.com/org/olmokit)
+- [`composer` packages](https://packagist.org/packages/olmo)
+
 ## Latest versions
 
 - `@olmokit/components` ![npm (scoped)](https://img.shields.io/npm/v/@olmokit/components?style=flat-square&color=EA2C65)

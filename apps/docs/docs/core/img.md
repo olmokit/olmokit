@@ -2,7 +2,7 @@
 title: img
 ---
 
-Images starting with version `laravel-frontend@0.3.7` use [pretty urls, see issue](https://gitlab.com/olmokit/olmokit/-/issues/23). This is not a breaking change, pretty urls are enabled by default when using the `olmo` CmsApi. This default enabling can be overridden only at a global level for all images in your project through the env variable `IMG_PRETTY_URLS=true` or `IMG_PRETTY_URLS=false`. Leave that undefined (commented) is recommended.
+Images starting with version `laravel-frontend@0.3.7` use [pretty urls, see issue](https://github.com/olmokit/olmokit/-/issues/23). This is not a breaking change, pretty urls are enabled by default when using the `olmo` CmsApi. This default enabling can be overridden only at a global level for all images in your project through the env variable `IMG_PRETTY_URLS=true` or `IMG_PRETTY_URLS=false`. Leave that undefined (commented) is recommended.
 
 ## Usage
 

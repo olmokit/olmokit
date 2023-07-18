@@ -25,7 +25,7 @@ _([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7
 
 ### Selecting a template
 
-At the time of writing the default and also only available starter template is a basic [`template-laravel`](https://gitlab.com/olmokit/olmokit/-/tree/main/packages/template-laravel/template). We might have in a future more specific starter configurations according to common projects typologies.
+At the time of writing the default and also only available starter template is a basic [`template-laravel`](https://github.com/olmokit/olmokit/-/tree/main/packages/template-laravel/template). We might have in a future more specific starter configurations according to common projects typologies.
 
 You can select a custom template by appending `--template [template-name]` to the creation command.
 

@@ -19,20 +19,20 @@ Data from CMS API is always cached until an [appropriate hook](./Hooks) is not i
 
 ### Content
 
-> [`{CMS_API_URL}/api/{locale}/page`](https://gitlab.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/page.json) > [`{CMS_API_URL}/api/{locale}/collection`](https://gitlab.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/collection.json) > [`{CMS_API_URL}/api/{locale}/collection/single`](https://gitlab.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/collectionsingle.json)
+> [`{CMS_API_URL}/api/{locale}/page`](https://github.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/page.json) > [`{CMS_API_URL}/api/{locale}/collection`](https://github.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/collection.json) > [`{CMS_API_URL}/api/{locale}/collection/single`](https://github.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/collectionsingle.json)
 
 Samples of data to retrieve content for pages, collections and collections' items. Each of this JSON is equal in its structure, and they are here just to show different use cases. Each of them has in the root object three required keys:
 
 - `"route"`: groups meta data regarding the requested route, key by key:
-  - `"id"`: the route id should correspond to one of the `routes` defined in the [`{CMS_API_URL}/api/structure`](https://gitlab.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/page.json) endpoint
+  - `"id"`: the route id should correspond to one of the `routes` defined in the [`{CMS_API_URL}/api/structure`](https://github.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/page.json) endpoint
   - `"locale"`: the current locale with which the route is served
   - `"slug"`: a key value pair where the _key_ is the **locale** and the _value_ is the localised **slug**
-- `"seo"`: groups route specific seo related data (check a [sample JSON](https://gitlab.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/page.json) for specific values)
-- `"analytics"`: groups route specific analytics data (check a [sample JSON](https://gitlab.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/page.json) for specific values)
+- `"seo"`: groups route specific seo related data (check a [sample JSON](https://github.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/page.json) for specific values)
+- `"analytics"`: groups route specific analytics data (check a [sample JSON](https://github.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/page.json) for specific values)
 
 ### Structure
 
-> [`{CMS_API_URL}/api/structure`](https://gitlab.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/structure.json)
+> [`{CMS_API_URL}/api/structure`](https://github.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/src/Cms/samples/structure.json)
 
 Sample of data to retrieve the current structural information of the website for now we have three main sections:
 

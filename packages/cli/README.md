@@ -1,39 +1,10 @@
 # cli
 
-![npm (scoped)](https://img.shields.io/npm/v/@olmokit/cli?style=flat-square&color=EA2C65)
+![npm (scoped)](https://img.shields.io/npm/v/@olmokit/cli?style=flat-square&color=magenta)
 
 > For all the documentation refer to the [Olmo docs](https://olmokit.github.io/olmokit)
 
-## Installation
-
-It is recomended to start a project by running:
-
-```console
-npx @olmokit/create-app myproject
-cd myproject
-npm start
-```
-
-## Laravel
-
-## Available commands
-
-From your root folder run `olmo help` to view the available commands and their description.
-
 ## Development
-
-### TODO
-
-- [] Environments might be made configurable through a custom `config.environments` value in the package.json, where each key is the environment `name` and the value is its `branch`, the default values would be:
-
-```json
-  "config": {
-    "environments": {
-      "dev": "master",
-      "staging": "staging",
-      "production": "production"
-    },
-```
 
 - [x] Run `php artisan view:clear && composer dump` after generate component and after `core` (not needed with `ps-4` autoloading mechanism)
 - [] autogenerate dummy `translations.csv` files based on cms api response in case they miss

@@ -128,7 +128,7 @@ Refer to [Laravel documentation](https://laravel.com/docs/8.x/structure#the-boot
 
 ## config
 
-The config directory contains all of your application's configuration files, see [Laravel documentation](https://laravel.com/docs/8.x/structure#the-config-directory). Unlike standard laravel you usually do not have many files here, but actually just one `config/laravel-frontend.php` as [Laravel Frontend](laravel-frontend/index.md) will already includes all the typical config files you need. If something outside `laravel-frontend` need to be overriden in your project, for instance to add some custom cached `env` variables, you can create the same config file (with the same name, e.g. `config/env.php`) and override or add just the keys you want, without redeclaring the ones already present. Your file will be merged on top of the default one provided by [Laravel Frontend](laravel-frontend/index.md). See [all configuration files in the source code](https://gitlab.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/config).
+The config directory contains all of your application's configuration files, see [Laravel documentation](https://laravel.com/docs/8.x/structure#the-config-directory). Unlike standard laravel you usually do not have many files here, but actually just one `config/laravel-frontend.php` as [Laravel Frontend](laravel-frontend/index.md) will already includes all the typical config files you need. If something outside `laravel-frontend` need to be overriden in your project, for instance to add some custom cached `env` variables, you can create the same config file (with the same name, e.g. `config/env.php`) and override or add just the keys you want, without redeclaring the ones already present. Your file will be merged on top of the default one provided by [Laravel Frontend](laravel-frontend/index.md). See [all configuration files in the source code](https://github.com/olmokit/olmokit/-/tree/main/packages/laravel-frontend/config).
 
 ## public
 
@@ -191,7 +191,7 @@ The `scss` files here (`functions.scss`, `mixins.scss`, `variables.scss`, `place
 
 ### src/fragments
 
-In the `routes.php` you can define your custom routes and async endpoints (with the same degree of freedom you would have in the standard `routes/web.php` and `routes/api.php` of a [typical Laravel installation](https://laravel.com/docs/8.x/structure#the-routes-directory)). You are free to implement custom controllers and services here, all `php` files will be copied as they are, without renaming, to the `resources/fragments` folder. so the php namespace for each file here will be [`resources\fragments`](https://gitlab.com/olmokit/olmokit/-/blob/main/packages/template-laravel/template/src/fragments/routes.php#L4).
+In the `routes.php` you can define your custom routes and async endpoints (with the same degree of freedom you would have in the standard `routes/web.php` and `routes/api.php` of a [typical Laravel installation](https://laravel.com/docs/8.x/structure#the-routes-directory)). You are free to implement custom controllers and services here, all `php` files will be copied as they are, without renaming, to the `resources/fragments` folder. so the php namespace for each file here will be [`resources\fragments`](https://github.com/olmokit/olmokit/-/blob/main/packages/template-laravel/template/src/fragments/routes.php#L4).
 
 ### src/middlwares
 

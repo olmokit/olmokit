@@ -1,27 +1,17 @@
 {
   "name": "@olmokit/use",
   "version": "0.0.44",
-  "type": "module",
-  "sideEffects": [
-    "**/*.scss",
-    "forms/checkbox/*.js",
-    "forms/file/*.js",
-    "forms/group/*.js",
-    "forms/input/*.js",
-    "forms/label/*.js",
-    "forms/radio/*.js",
-    "forms/select/*.js",
-    "forms/textarea/*.js",
-    "forms/toggle/*.js",
-    "forms/variant/*.js",
-    "glide/arrows/**",
-    "glide/bullets/**",
-    "glide/**",
-    "lazy/**",
-    "polyfills/**",
-    "responsive/block/**",
-    "responsive/only/**",
-    "video/**",
-    "zacc/**"
-  ]
+  "description": "Features scaffolder for Olmo based applications.",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:olmokit/olmokit.git",
+    "directory": "packages/use"
+  },
+  "keywords": [
+    "olmo",
+    "olmokit"
+  ],
+  "type": "module"
 }

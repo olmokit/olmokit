@@ -6,7 +6,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:olmokit/olmokit.git"
+    "url": "git@github.com:olmokit/olmokit.git"
   },
   "type": "module",
   "scripts": {

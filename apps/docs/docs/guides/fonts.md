@@ -26,7 +26,7 @@ $Typography-font-sans-custom: "Montserrat";
 These are the 4 steps to use custom fonts in your project:
 
 1. First put your font files (even just `.ttf` format) in `src/assets/fonts`
-2. In file `src/utils/fonts.scss` import your fonts with the [`Font-face` sass mixin](https://gitlab.com/olmokit/olmokit/-/tree/main/core/scss/mixins/_fonts.scss), e.g.:
+2. In file `src/utils/fonts.scss` import your fonts with the [`Font-face` sass mixin](https://github.com/olmokit/olmokit/-/tree/main/core/scss/mixins/_fonts.scss), e.g.:
 
 ```scss
 @include Font-face(Barlow, "Barlow-Regular", normal, normal, ttf);

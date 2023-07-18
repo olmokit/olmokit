@@ -1,6 +1,19 @@
 {
   "name": "@olmokit/utils",
   "version": "0.0.44",
+  "description": "Low level utilities for Olmo based applications.",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:olmokit/olmokit.git",
+    "directory": "packages/utils"
+  },
+  "keywords": [
+    "olmo",
+    "olmokit",
+    "koine"
+  ],
   "type": "module",
   "exports": {
     ".": {

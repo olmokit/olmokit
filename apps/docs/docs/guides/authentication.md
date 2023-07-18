@@ -44,7 +44,7 @@ In your frontend application you should anyway protect your routes with the `aut
 
 ## Frontend configuration
 
-You can tweak the authentication system configuration from your `/config/laravel-frontend.php`, under the `auth` key, you can see the updated list of defaults directly [from the source code here](https://gitlab.com/olmokit/olmokit/-/blob/main/packages/laravel-frontend/config/laravel-frontend.php#L4).
+You can tweak the authentication system configuration from your `/config/laravel-frontend.php`, under the `auth` key, you can see the updated list of defaults directly [from the source code here](https://github.com/olmokit/olmokit/-/blob/main/packages/laravel-frontend/config/laravel-frontend.php#L4).
 
 ### `routesMap`
 
@@ -76,7 +76,7 @@ All the authentication related forms are already provided by the `@olmokit/core/
 
 ## Translations
 
-Most of the translations happen on the CMS. Some default status messages and system forms fields are instead [defined as strings](translations.md). You can find in the [source code of the standard laravel template](https://gitlab.com/olmokit/olmokit/-/blob/main/packages/template-laravel/template/src/assets/translations.csv#L8) the updated list of string required strings for a complete authentication flow, they are all prefixed with `auth.`.
+Most of the translations happen on the CMS. Some default status messages and system forms fields are instead [defined as strings](translations.md). You can find in the [source code of the standard laravel template](https://github.com/olmokit/olmokit/-/blob/main/packages/template-laravel/template/src/assets/translations.csv#L8) the updated list of string required strings for a complete authentication flow, they are all prefixed with `auth.`.
 
 ## JavaScript authentication helpers
 
