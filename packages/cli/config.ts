@@ -32,6 +32,7 @@ export async function getConfig(
     httpAuth,
     project,
     env,
+    useBarba: !!custom.useBarba,
   };
 
   spinner.text = "Validate configuration";

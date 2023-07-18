@@ -4,11 +4,15 @@ import {
   checkRoutesConsistency,
   generateRouteSource,
 } from "../helpers/route.js";
+import { CliLaravel } from "../pm.js";
 
 /**
  * Generate route
  */
-export async function generateRoute(args: string[], taskr: TaskrInstance) {
+export async function generateRoute(
+  args: string[],
+  taskr: TaskrInstance<CliLaravel.Config>
+) {
   const names = getVariadicArguments(args);
 
   taskr.log.success(
@@ -19,8 +23,8 @@ export async function generateRoute(args: string[], taskr: TaskrInstance) {
 
   for (let i = 0; i < names.length; i++) {
     taskr.log.info(names[i], "", "  ");
-    generateRouteSource(names[i]);
+    generateRouteSource(names[i], taskr.ctx.useBarba);
   }
 
-  await checkRoutesConsistency(taskr.log);
+  await checkRoutesConsistency(taskr.log, taskr.ctx.useBarba);
 }

@@ -1,7 +1,6 @@
 import { join } from "node:path";
 import { paramCase, pascalCase } from "change-case";
 import { filer } from "@olmokit/cli-utils/filer";
-import { getCliOption } from "../helpers/cli.js";
 import { getLibraries } from "../helpers/libraries.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
@@ -17,20 +16,10 @@ export const core: CliLaravel.Task = async ({ ctx, spinner, chalk }) => {
     return;
   }
 
-  const opt = getCliOption();
-  const optNames = opt ? opt.split(",") : "all";
   const pkgInfo = (name?: string) =>
     `"${coreLibrary.name}${name ? "/" + name : ""}" v${
       coreLibrary.packageJson?.version
     }`;
-
-  const optNamesMap =
-    optNames === "all"
-      ? {}
-      : optNames.reduce((obj, name) => {
-          obj[name] = true;
-          return obj;
-        }, {} as Record<string, true>);
 
   // TODO: improve this fragile typing
   const folders = coreLibrary.packageJson?.config?.["core-sync"] as string[];
@@ -39,14 +28,12 @@ export const core: CliLaravel.Task = async ({ ctx, spinner, chalk }) => {
 
   for (let i = 0; i < folders.length; i++) {
     const name = folders[i];
-    if (optNames === "all" || optNamesMap[name]) {
-      items.push({
-        dir: join(coreLibrary.path, "/" + name),
-        name,
-      });
-      if (!names.includes(name)) {
-        names.push(name);
-      }
+    items.push({
+      dir: join(coreLibrary.path, "/" + name),
+      name,
+    });
+    if (!names.includes(name)) {
+      names.push(name);
     }
   }
 
@@ -88,15 +75,7 @@ export const core: CliLaravel.Task = async ({ ctx, spinner, chalk }) => {
     }),
   ]);
 
-  let msg = "";
-  if (optNames === "all") {
-    msg = `Synced with ${pkgInfo()}`;
-  } else {
-    msg = `Synced element${names.length > 1 ? "s" : ""} from ${pkgInfo()}`;
-    msg += `: ${chalk.cyanBright(names.join(", "))}`;
-  }
-
   // spinner.succeed(msg);
-  spinner.text = msg;
+  spinner.text = `Synced with ${pkgInfo()}`;
 };
 core.meta = { title: "Sync core components templates" };

@@ -5,7 +5,6 @@ import type { TaskrLog } from "@olmokit/cli-utils/taskr";
 import { generate } from "../../generate.js";
 import { getNameVariants } from "../../getNameVariants.js";
 import { paths } from "../paths/index.js";
-import { getCliOptionsMap } from "./cli.js";
 import { type CmsResponseDataStructure, cmsGetStructure } from "./cms.js";
 
 /**
@@ -60,7 +59,7 @@ async function getRoutesNamesFromSource() {
  * 1) routes determined by the source code folder structure
  * 2) routes defined in the CMS
  */
-export async function checkRoutesConsistency(log: TaskrLog) {
+export async function checkRoutesConsistency(log: TaskrLog, useBarba: boolean) {
   if (!shouldCheckRoutes()) {
     return;
   }
@@ -108,7 +107,7 @@ export async function checkRoutesConsistency(log: TaskrLog) {
 
       for (let i = 0; i < missingSources.length; i++) {
         log(missingSources[i], "", `  ${i + 1}. `);
-        generateRouteSource(missingSources[i]);
+        generateRouteSource(missingSources[i], useBarba);
       }
 
       log.warn(
@@ -141,17 +140,16 @@ function isExceptionRoute(routeName: string) {
  *
  * FIXME: the barba option won't work here
  */
-export function generateRouteSource(name: string) {
+export function generateRouteSource(name: string, useBarba: boolean) {
   const data = {
     route: getNameVariants(name),
     isExceptionRoute: isExceptionRoute(name),
   };
-  const { barba } = getCliOptionsMap();
 
   generate({
     name,
     data,
-    srcFolder: join(paths.self.templates, "route" + (barba ? "-barba" : "")),
+    srcFolder: join(paths.self.templates, "route" + (useBarba ? "-barba" : "")),
     destFolder: paths.frontend.src.routes,
   });
 }

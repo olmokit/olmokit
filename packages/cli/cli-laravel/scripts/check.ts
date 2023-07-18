@@ -84,8 +84,8 @@ const checkConfig: CliLaravel.Task = async () => {
 };
 checkConfig.meta = { title: "Check confguration files" };
 
-const checkRoutes: CliLaravel.Task = async ({ log }) => {
-  await checkRoutesConsistency(log);
+const checkRoutes: CliLaravel.Task = async ({ ctx, log }) => {
+  await checkRoutesConsistency(log, ctx.useBarba);
 };
 checkRoutes.meta = { title: "Check routes consistency" };
 

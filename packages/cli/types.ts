@@ -39,6 +39,11 @@ export namespace Config {
       password?: string;
     };
     /**
+     * When `true` the `route` generator commands will use templates adapted
+     * for barba.js
+     */
+    useBarba?: boolean;
+    /**
      * Environment configuration
      */
     env: {
@@ -95,83 +100,87 @@ export namespace Config {
    * a shared one, as the two configs are quite different and have different
    * purposes
    */
-  export type Internal = Pick<Custom, "type" | "favicons" | "httpAuth"> & {
-    /**
-     * Environment information
-     */
-    env: {
+  export type Internal = Pick<Custom, "type" | "favicons" | "httpAuth"> &
+    Pick<Required<Custom>, "useBarba"> & {
       /**
-       * @inheritdoc {@link Custom}
+       * Environment information
        */
-      nameToBranchMap: Custom<EnvsMap>["env"]["branches"];
+      env: {
+        /**
+         * @inheritdoc {@link Custom}
+         */
+        nameToBranchMap: Custom<EnvsMap>["env"]["branches"];
+        /**
+         * @inheritdoc {@link Custom}
+         */
+        names: (keyof Custom<EnvsMap>["env"]["branches"])[];
+        /**
+         * All env variables values by env name grouped by var name
+         *
+         * @example
+         * {
+         *   MYVAR: {
+         *     dev: "a",
+         *     prod: "b"
+         *   },
+         *   MYVAR2: {
+         *     dev: "1",
+         *     prod: "2"
+         *   }
+         * }
+         */
+        varsByVarNameMap: EnvVarsByVarName<
+          EnvsMap,
+          PredefinedEnvVars & EnvVars
+        >;
+        /**
+         * All current env variables flattened
+         */
+        vars: PredefinedEnvVars & EnvVars;
+      };
       /**
-       * @inheritdoc {@link Custom}
+       * Meta information about the project using the CLI
        */
-      names: (keyof Custom<EnvsMap>["env"]["branches"])[];
-      /**
-       * All env variables values by env name grouped by var name
-       *
-       * @example
-       * {
-       *   MYVAR: {
-       *     dev: "a",
-       *     prod: "b"
-       *   },
-       *   MYVAR2: {
-       *     dev: "1",
-       *     prod: "2"
-       *   }
-       * }
-       */
-      varsByVarNameMap: EnvVarsByVarName<EnvsMap, PredefinedEnvVars & EnvVars>;
-      /**
-       * All current env variables flattened
-       */
-      vars: PredefinedEnvVars & EnvVars;
-    };
-    /**
-     * Meta information about the project using the CLI
-     */
-    project: {
-      /** The **project**'s root folder (a.k.a. the `process.cwd()`) */
-      root: string;
-      /** The **project**'s `node_modules` path (used by `npm/pnpm/yarn` packages) */
-      nodeModules: string;
-      /** The **project**'s `.env` path */
-      envPath: string;
-      /**
-       * The project's parsed `package.json`
-       */
-      packageJson: PackageJson & {
-        config: {
-          /**
-           * Project's start year
-           *
-           * NOTE: This property is enforced via the `pkg` task
-           *
-           * @default currentYear
-           */
-          startYear: number;
+      project: {
+        /** The **project**'s root folder (a.k.a. the `process.cwd()`) */
+        root: string;
+        /** The **project**'s `node_modules` path (used by `npm/pnpm/yarn` packages) */
+        nodeModules: string;
+        /** The **project**'s `.env` path */
+        envPath: string;
+        /**
+         * The project's parsed `package.json`
+         */
+        packageJson: PackageJson & {
+          config: {
+            /**
+             * Project's start year
+             *
+             * NOTE: This property is enforced via the `pkg` task
+             *
+             * @default currentYear
+             */
+            startYear: number;
+          };
+        };
+        /**
+         * The project **title** derived from `package.json#name`
+         */
+        title: string;
+        /**
+         * The project **slug** derived from `package.json#name`
+         */
+        slug: string;
+        /**
+         * The project **repo** information normalised from `package.json#repository`
+         */
+        repo: {
+          url: string;
+          ssh: string;
+          name: string;
         };
       };
-      /**
-       * The project **title** derived from `package.json#name`
-       */
-      title: string;
-      /**
-       * The project **slug** derived from `package.json#name`
-       */
-      slug: string;
-      /**
-       * The project **repo** information normalised from `package.json#repository`
-       */
-      repo: {
-        url: string;
-        ssh: string;
-        name: string;
-      };
     };
-  };
 
   /**
    * Basic unspecified envs map
