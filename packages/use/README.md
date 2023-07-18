@@ -2,7 +2,7 @@
 
 ![npm (scoped)](https://img.shields.io/npm/v/@olmokit/core?style=flat-square&color=EA2C65)
 
-> For all the documentation refer to the [Olmokit Docs](https://olmokit.gitlab.io/olmokit/)
+> For all the documentation refer to the [Olmo docs](https://olmokit.github.io/olmokit)
 
 ## Development
 

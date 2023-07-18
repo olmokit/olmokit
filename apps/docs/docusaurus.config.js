@@ -6,7 +6,7 @@ module.exports = {
   tagline:
     "A set of multi-language packages to develop, deploy and mantain Olmo based frontend applications.",
   url: "https://olmokit.github.io",
-  baseUrl: "/",
+  baseUrl: "/olmokit",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   i18n: {

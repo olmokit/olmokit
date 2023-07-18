@@ -21,7 +21,7 @@ Route::prefix('_/logs')
     Route::get('visit', [LogsController::class, 'logsVisit']);
   });
 
-// @see https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#hooks-endpoints
+// @see https://olmokit.github.io/olmokit/laravel-frontend/Hooks#hooks-endpoints
 Route::prefix('_/hooks')
   ->middleware('meta')
   ->group(function () {

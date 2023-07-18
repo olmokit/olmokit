@@ -40,7 +40,7 @@
 
 <h2>Hooks</h2>
 
-<p>📖 See docs <a href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks">laravel-frontend/Hooks</a>
+<p>📖 See docs <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks">laravel-frontend/Hooks</a>
   (<strong>click links with caution!</strong>)</p>
 
 <ul>
@@ -51,7 +51,7 @@
       href="/_/hooks/deploy/end{{ $param }}"
     >
       deploy/end
-    </a><small>: 📖 <a href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#deployend">docs</a></small>
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#deployend">docs</a></small>
   </li>
   <li class="group-title">Cache</h3>
   <li>
@@ -60,7 +60,7 @@
       href="/_/hooks/cache/clear{{ $param }}"
     >
       cache/clear
-    </a><small>: 📖 <a href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#cacheclear">docs</a></small>
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclear">docs</a></small>
   </li>
   <li>
     🔥 <a
@@ -68,7 +68,7 @@
       href="/_/hooks/cache/clear-system{{ $param }}"
     >
       cache/clear-system
-    </a><small>: 📖 <a href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#cacheclearsystem">docs</a></small>
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearsystem">docs</a></small>
   </li>
   <li>
     🔥 <a
@@ -76,7 +76,7 @@
       href="/_/hooks/cache/clear-data{{ $param }}"
     >
       cache/clear-data
-    </a><small>: 📖 <a href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#cachecleardata">docs</a></small>
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cachecleardata">docs</a></small>
   </li>
   <li>
     🔥 <a
@@ -85,7 +85,7 @@
     >
       cache/clear-structure
     </a><small>: 📖 <a
-        href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#cacheclearstructure">docs</a></small>
+        href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearstructure">docs</a></small>
   </li>
   <li>
     🔥 <a
@@ -93,7 +93,7 @@
       href="/_/hooks/cache/clear-custom{{ $param }}"
     >
       cache/clear-custom
-    </a><small>: 📖 <a href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#cacheclearcustom">docs</a></small>
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearcustom">docs</a></small>
   </li>
   <li>
     🔥 <a
@@ -101,7 +101,7 @@
       href="/_/hooks/cache/clear-models{{ $param }}"
     >
       cache/clear-models
-    </a><small>: 📖 <a href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#cacheclearmodels">docs</a>, clear
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearmodels">docs</a>, clear
       just one entry with <code>_/hooks/cache/clear-models/__name__{{ $param }}</code></small>
   </li>
   <li>
@@ -110,7 +110,7 @@
       href="/_/hooks/cache/clear-routes{{ $param }}"
     >
       cache/clear-routes
-    </a><small>: 📖 <a href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#cacheclearroutes">docs</a>, clear
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearroutes">docs</a>, clear
       just one entry with <code>_/hooks/cache/clear-routes/__id__{{ $param }}</code></small>
   </li>
   <li>
@@ -119,7 +119,7 @@
       href="/_/hooks/cache/clear-forms{{ $param }}"
     >
       cache/clear-forms
-    </a><small>: 📖 <a href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#cacheclearforms">docs</a>, clear
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearforms">docs</a>, clear
       just one entry with <code>_/hooks/cache/clear-forms/__id__{{ $param }}</code></small>
   </li>
   <li>
@@ -128,7 +128,7 @@
       href="/_/hooks/cache/clear-img{{ $param }}"
     >
       cache/clear-img
-    </a><small>: 📖 <a href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#cacheclearimg">docs</a></small>
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearimg">docs</a></small>
   </li>
   <li class="group-title">Visit</h3>
   <li>
@@ -137,7 +137,7 @@
       href="/_/hooks/visit{{ $param }}"
     >
       visit
-    </a><small>: 📖 <a href="https://olmokit.gitlab.io/olmokit/laravel-frontend/Hooks#visit">docs</a></small>
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#visit">docs</a></small>
   </li>
 </ul>
 
