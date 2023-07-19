@@ -37,10 +37,6 @@ type AssetsS3Options = {
    */
   logs?: string;
   /**
-   * A file path where to store the created `manifest-s3.json`, including the file name
-   */
-  manifest?: string;
-  /**
    * S3 options
    */
   s3: {
@@ -175,8 +171,6 @@ export const assetsS3: CliLaravel.Task = async ({
     await Promise.all(uploadables.map((uploadable) => upload(uploadable)));
 
     spinner.succeed(`Uploaded ${chalk.bold(succeded.length)} files`);
-
-    // await writeManifest();
   } catch (err) {
     spinner.fail("Upload failed");
     log.error("", "", "", err);
@@ -260,36 +254,6 @@ export const assetsS3: CliLaravel.Task = async ({
       } as const;
     }
   }
-
-  // turns out we don't really need to write a manifest as that can be exactly
-  // the same as the normal webpack manifest.json, the relative URLs would be
-  // the same
-  // async function writeManifest() {
-  //   const { manifest } = options;
-  //   if (manifest) {
-  //     if (!existsSync(manifest)) {
-  //       ensureDir(dirname(manifest));
-  //     }
-  //     const unsortedMap = succeded.reduce((map, uploadable) => {
-  //       map[uploadable.manifestKey] = uploadable.manifestValue;
-  //       return map;
-  //     }, {} as Record<Uploadable["manifestKey"], Uploadable["manifestValue"]>)
-  //     const sortedMap = Object.keys(unsortedMap)
-  //       .sort()
-  //       .reduce((map, _key) => {
-  //         const key = _key as keyof typeof unsortedMap;
-  //         map[key] = unsortedMap[key];
-  //         return map;
-  //       }, {} as Record<Uploadable["manifestKey"], Uploadable["manifestValue"]>)
-  //     const content = JSON.stringify(sortedMap, null, 2);
-  //     await writeFile(manifest, content, "utf-8");
-  //     spinner.succeed(
-  //       `Wrote manifest at ${chalk.italic(
-  //         relative(ctx.project.root, manifest)
-  //       )}`
-  //     );
-  //   }
-  // }
 };
 assetsS3.meta = {
   title: "Manage assets with S3",
