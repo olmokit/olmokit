@@ -21,9 +21,9 @@ module.exports = {
     /** @type {import("@docusaurus/preset-classic").ThemeConfig} */
     ({
       algolia: {
-        appId: "TVD2J90Z93",
-        apiKey: "b78dd981d7eb3e6adda3d29fc326e8df",
-        indexName: "olmokit_docs",
+        appId: "2FJHDUOHZY",
+        apiKey: "081e509af9fb2b6ea364c142df45282a",
+        // indexName: "olmokit_docs",
       },
       colorMode: {
         defaultMode: "dark",
