@@ -259,7 +259,7 @@ assetsS3.meta = {
   title: "Manage assets with S3",
   ownLog: ["start", "end"],
   whether: () => {
-    // FIXME: turn `true` into either a command option or a global "testing" flag
-    return process.env.CDN === "s3" && (ci.isCI || true);
+    // TODO: allow to run this from local machine too?
+    return process.env.CDN === "s3" && ci.isCI;
   },
 };
