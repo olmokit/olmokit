@@ -18,7 +18,8 @@ export default function ajax<T>(endpoint: string, options?: AjaxConfig) {
   url += parts[1] ? `/?${parts[1]}` : "/";
 
   // remove subsequent slashes
-  url = normaliseUrlPathname(url);
+  // FIXME: ensure trailing slash to make fragments work (maybe)
+  url = normaliseUrlPathname(url) + "/";
 
   return ajaxLaravel<T>(url, options);
 }
