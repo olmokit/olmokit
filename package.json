@@ -14,7 +14,7 @@
     "start": "nx run-many --targets=watch --all",
     "build": "nx run-many --targets=build --all",
     "lint": "nx run-many --targets=lint --all",
-    "_postinstall": "husky install && pnpm dev build",
+    "postinstall": "husky install && pnpm dev build",
     "format": "prettier **/*.{js,json,ts,tsx,css,scss,md,yml,yaml,php} --write",
     "docs": "nx run docs:watch"
   },
