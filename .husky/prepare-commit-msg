@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# DISABLED: for now it's just boring, maybe if we have more devs might become
+# useful, anyway we lint the commit so if you don't make it right git fails
+# exec < /dev/tty && node_modules/.bin/cz --hook || true

@@ -49,6 +49,6 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "README.md": "authors, citation*, codeowners, contributors, copying, credits, license*, maintainers, appveyor*, azure-pipelines*, crowdin*, dangerfile*, lint-staged*, pullapprove*, renovate*, stylelint*, tsdoc.*, tslint*, turbo*, typedoc*, vercel*, index.html, jasmine.*, tsdoc.*, pnpm*, yarn*, env-*, env.*, .*, *Dockerfile, *.toml, *.lock, *.preset.ts, *.preset.js, *.config.ts, *.config.js, *.md, *.txt, *.json"
+    "README.md": "authors, citation*, codeowners, contributors, copying, credits, license*, maintainers, appveyor*, azure-pipelines*, crowdin*, dangerfile*, lint-staged*, pullapprove*, renovate*, stylelint*, tsdoc.*, tslint*, turbo*, typedoc*, vercel*, index.html, jasmine.*, tsdoc.*, pnpm*, yarn*, env-*, env.*, .*, *Dockerfile, *.toml, *.lock, *.preset.ts, *.preset.js, *.config.ts, *.config.js, *.config.cjs, *.config.mjs, *.md, *.txt, *.json"
   }
 }
