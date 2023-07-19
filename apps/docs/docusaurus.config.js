@@ -23,7 +23,7 @@ module.exports = {
       algolia: {
         appId: "2FJHDUOHZY",
         apiKey: "081e509af9fb2b6ea364c142df45282a",
-        // indexName: "olmokit_docs",
+        indexName: "olmokit",
       },
       colorMode: {
         defaultMode: "dark",
