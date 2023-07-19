@@ -43,8 +43,8 @@ class Player extends Component
     $poster = ltrim($poster, '/');
 
     if ($local) {
-      $src = url('assets/media/' . $src);
-      $poster = url('assets/images/' . $poster);
+      $src = assets('media/' . $src);
+      $poster = assets('images/' . $poster);
     } else {
       $src = CmsApi::getMediaUrl($src);
       $poster = $poster ? CmsApi::getMediaUrl($poster) : false;

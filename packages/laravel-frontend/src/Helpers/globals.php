@@ -59,11 +59,13 @@ if (!function_exists('media')) {
    *
    * @see \LaravelFrontend\Cms\CmsApi::getMediaUrl
    * @param string $path
+   * @param string $source Either `storage` or nothing, when it is `storage` we use
+   * the `local` source from the structure->assets
    * @return string
    */
-  function media(string $path = ''): string
+  function media(string $path = '', string $source = ''): string
   {
-    return \LaravelFrontend\Cms\CmsApi::getMediaUrl($path);
+    return \LaravelFrontend\Cms\CmsApi::getMediaUrl($path, $source);
   }
 }
 

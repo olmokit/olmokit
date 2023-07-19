@@ -404,11 +404,17 @@ class CmsApi
    * desired full media URL.
    *
    * @param string $path Optional relative path to append to the media base URL
+   * @param string $source Default ``, when `storage` it picks the `local` key
+   * from the remote structure->assets object
    * @return string
    */
-  public static function getMediaUrl(string $path = ''): string
-  {
-    $url = rtrim(self::getAssets()['media'], '/');
+  public static function getMediaUrl(
+    string $path = '',
+    string $source = ''
+  ): string {
+    $key = $source == 'storage' ? 'local' : 'media';
+
+    $url = rtrim(self::getAssets()[$key], '/');
     if ($path) {
       $url .= '/' . ltrim($path, '/');
     }
