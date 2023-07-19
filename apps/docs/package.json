@@ -1,6 +1,5 @@
 {
   "name": "@olmokit/docs",
-  "version": "0.0.43",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
