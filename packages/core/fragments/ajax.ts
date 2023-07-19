@@ -12,14 +12,11 @@ import ajaxLaravel from "../ajax/laravel";
  */
 export default function ajax<T>(endpoint: string, options?: AjaxConfig) {
   const parts = endpoint.split("?");
-  let url = "/_/fragments/" + parts[0];
+  // ensure trailing slash
+  let url = normaliseUrlPathname("/_/fragments/" + parts[0]) + "/";
 
-  // add trailing slash
-  url += parts[1] ? `/?${parts[1]}` : "/";
-
-  // remove subsequent slashes
-  // FIXME: ensure trailing slash to make fragments work (maybe)
-  url = normaliseUrlPathname(url) + "/";
+  // add query params if needed
+  url += parts[1] ? `?${parts[1]}` : "";
 
   return ajaxLaravel<T>(url, options);
 }
