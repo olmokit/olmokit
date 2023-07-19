@@ -393,6 +393,7 @@ class CmsApi
 
     return [
       'media' => '/',
+      'local' => '/',
     ];
   }
 
