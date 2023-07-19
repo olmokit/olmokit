@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/utils",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "description": "Low level utilities for Olmo based applications.",
   "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "license": "ISC",
