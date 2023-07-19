@@ -24,11 +24,6 @@ module.exports = {
         appId: "TVD2J90Z93",
         apiKey: "b78dd981d7eb3e6adda3d29fc326e8df",
         indexName: "olmokit_docs",
-        // contextualSearch: true,
-        // searchParameters: {},
-        // inputSelector: "### REPLACE ME ####",
-        // algoliaOptions: { 'facetFilters': ["type:content"] },
-        // debug: false,
       },
       colorMode: {
         defaultMode: "dark",
@@ -79,7 +74,8 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           routeBasePath: "/",
-          editUrl: "https://github.com/olmokit/olmokit/edit/main/docs/",
+          editUrl:
+            "https://github.com/olmokit/olmokit/tree/main/apps/docs/docs/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -97,6 +93,8 @@ module.exports = {
         entryPoints: ["../../packages/browser/index.ts"],
         tsconfig: "../../packages/browser/tsconfig.lib.json",
         out: "./libs/browser",
+        excludeExternals: true,
+        // watch: true,
         // @see https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#markdown-front-matter
         frontmatter: {
           // hide_title: true,
@@ -111,6 +109,8 @@ module.exports = {
         entryPoints: ["../../packages/dom/index.ts"],
         tsconfig: "../../packages/dom/tsconfig.lib.json",
         out: "./libs/dom",
+        excludeExternals: true,
+        // watch: true,
         frontmatter: {
           // hide_title: true,
         },
@@ -124,6 +124,8 @@ module.exports = {
         entryPoints: ["../../packages/utils/index.ts"],
         tsconfig: "../../packages/utils/tsconfig.lib.json",
         out: "./libs/utils",
+        excludeExternals: true,
+        // watch: true,
         frontmatter: {
           // hide_title: true,
         },
