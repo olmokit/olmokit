@@ -102,7 +102,7 @@
     >
       cache/clear-models
     </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearmodels">docs</a>, clear
-      just one entry with <code>_/hooks/cache/clear-models/__name__{{ $param }}</code></small>
+      just one entry with <code>_/hooks/cache/clear-models/{name}{{ $param }}</code></small>
   </li>
   <li>
     🔥 <a
@@ -111,7 +111,7 @@
     >
       cache/clear-routes
     </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearroutes">docs</a>, clear
-      just one entry with <code>_/hooks/cache/clear-routes/__id__{{ $param }}</code></small>
+      just one entry with <code>_/hooks/cache/clear-routes/{id}{{ $param }}</code></small>
   </li>
   <li>
     🔥 <a
@@ -120,7 +120,7 @@
     >
       cache/clear-forms
     </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearforms">docs</a>, clear
-      just one entry with <code>_/hooks/cache/clear-forms/__id__{{ $param }}</code></small>
+      just one entry with <code>_/hooks/cache/clear-forms/{id}{{ $param }}</code></small>
   </li>
   <li>
     🔥 <a
