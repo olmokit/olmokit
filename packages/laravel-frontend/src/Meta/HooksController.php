@@ -304,7 +304,7 @@ class HooksController extends Controller
    */
   private function hasRichOutput()
   {
-    return !$this->isCalledFromConsole() || App::environment() === 'local';
+    return !$this->isCalledFromConsole() || config('env.DEVELOPMENT');
   }
 
   /**

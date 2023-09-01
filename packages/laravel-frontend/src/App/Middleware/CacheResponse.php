@@ -18,7 +18,7 @@ class CacheResponse extends BaseCacheResponse
     // 3) user is authenticated
     if (
       $request->getQueryString() ||
-      App::environment() === 'local' ||
+      config('env.DEVELOPMENT') ||
       AuthApi::check()
     ) {
       return false;

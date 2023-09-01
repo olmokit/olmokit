@@ -435,15 +435,15 @@ class CmsApi
     if ($structure && isset($structure['analytics'])) {
       $env = App::environment();
 
-      // env production:
-      if ($env === 'production' || $env === 'prod') {
-        $gtmHeader = $structure['analytics']['gtm_header_prod'] ?? '';
-        $gtmBody = $structure['analytics']['gtm_body_prod'] ?? '';
-      }
       // env local:
-      elseif ($env === 'local') {
+      if (config('env.DEVELOPMENT')) {
         $gtmHeader = '';
         $gtmBody = '';
+      }
+      // env production:
+      elseif ($env === 'production' || $env === 'prod') {
+        $gtmHeader = $structure['analytics']['gtm_header_prod'] ?? '';
+        $gtmBody = $structure['analytics']['gtm_body_prod'] ?? '';
       }
       // env staging | dev:
       else {

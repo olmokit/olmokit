@@ -490,7 +490,7 @@ class Base extends Controller
 
       return Redirect::to(
         formatUrlPath($homeUrlPath),
-        App::environment() === 'local' ? 307 : 301
+        config('env.DEVELOPMENT') ? 307 : 301
       );
     }
 

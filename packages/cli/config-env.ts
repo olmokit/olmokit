@@ -205,6 +205,16 @@ function getAutomaticEnvVars(
      */
     APP_ENV: envName,
     /**
+     * This mirrors in the php world the standard `process.env["NODE_ENV"]`
+     * global variable typical in nodejs environments. Therefore this only serves
+     * to distinguish whether the app is running in the local **development**
+     * environment vs. the built/compiled **production** environment. This lives
+     * alongside th standard laravel `APP_ENV` but is not to be confused with that
+     * as a developer might use for instance a _staging_ or _production_ `APP_ENV`
+     * while running in a _local_ environment while developing.
+     */
+    DEVELOPMENT: custom.hasHiddenConfig ? true : false,
+    /**
      * This is the URL pathname to prepend to all frontend assets, it might be
      * a longer pathname when using a CDN or a simple '/' otherwise or during
      * development

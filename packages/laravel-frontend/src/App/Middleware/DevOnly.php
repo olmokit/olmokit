@@ -16,7 +16,7 @@ class DevOnly
    */
   public function handle($request, Closure $next)
   {
-    if (App::environment() !== 'local') {
+    if (!config('env.DEVELOPMENT')) {
       abort(404);
     }
 

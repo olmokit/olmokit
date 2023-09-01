@@ -1,7 +1,7 @@
 @props([
     'data' => [],
 ])
-@if (App::environment() === 'local' && !empty($data))
+@if (config('env.DEVELOPMENT') && !empty($data))
   <script>
     window.__COREDEBUG = {!! json_encode($data, JSON_PRETTY_PRINT) !!}
   </script>

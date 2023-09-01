@@ -1,7 +1,7 @@
 @props([
     'formId' => '',
 ])
-@env('local')
+@if (config('env.DEVELOPMENT'))
 <x-link-outbound
   class="debugFormsBtn"
   href="/_/forms/debug/{{ $formId }}"
@@ -9,4 +9,4 @@
 >
   DEBUG FORM {{ $formId }}
 </x-link-outbound>
-@endenv
+@endif

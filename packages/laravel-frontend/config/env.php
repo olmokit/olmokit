@@ -3,6 +3,7 @@
  * All .env variables. This way it can be cached for speed
  */
 return [
+  'DEVELOPMENT' => env('DEVELOPMENT'),
   'CACHE_DRIVER' => env('CACHE_DRIVER'),
   'APP_NAME' => env('APP_NAME'),
   'APP_ENV' => env('APP_ENV'),

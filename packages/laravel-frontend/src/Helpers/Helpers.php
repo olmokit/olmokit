@@ -524,7 +524,7 @@ class Helpers
    */
   public static function getWebMiddleware()
   {
-    return App::environment() === 'local' ? 'web' : ['web-optimize', 'web'];
+    return config('env.DEVELOPMENT') ? 'web' : ['web-optimize', 'web'];
   }
 
   /**
