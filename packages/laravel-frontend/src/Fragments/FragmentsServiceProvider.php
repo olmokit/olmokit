@@ -33,7 +33,7 @@ class FragmentsServiceProvider extends ServiceProvider
 
       if (file_exists($fragmentsRoutes)) {
         Route::prefix('_/fragments')
-          ->middleware('web')
+          ->middleware(['web', 'seo.noindex'])
           ->group(function () {
             $this->loadRoutesFrom(fragments_path('routes.php'));
           });

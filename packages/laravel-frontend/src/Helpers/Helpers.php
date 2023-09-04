@@ -452,7 +452,7 @@ class Helpers
   {
     $router = app()->make('router');
     $routesMap = self::getRoutesMap();
-    $middleware = self::getWebMiddleware();
+    $middlewares = self::getWebMiddlewares();
 
     // dd($routesMap);
 
@@ -481,13 +481,13 @@ class Helpers
                   ->render();
               })
               ->name($name)
-              ->middleware($middleware);
+              ->middleware($middlewares);
             // normal routes instead get their class assigned upfront
           } elseif (!isset($data['inGroup'])) {
             $route = $router
               ->get($pattern, [$class, 'render'])
               ->name($name)
-              ->middleware($middleware);
+              ->middleware($middlewares);
           }
 
           // where...because we don't to match patterns that start
@@ -504,7 +504,7 @@ class Helpers
           $router
             ->get($pattern, [$class, 'render'])
             ->name($name)
-            ->middleware($middleware);
+            ->middleware($middlewares);
         }
       }
 
@@ -512,19 +512,19 @@ class Helpers
         $router
           ->get('/', [$home['class'], 'home'])
           ->name($home['id'])
-          ->middleware($middleware);
+          ->middleware($middlewares);
       }
     }
   }
 
   /**
-   * Get the right 'web' middeware according to the environment
+   * Get the right 'web' middewares according to the environment
    *
-   * @return string|string[]
+   * @return string[]
    */
-  public static function getWebMiddleware()
+  public static function getWebMiddlewares()
   {
-    return config('env.DEVELOPMENT') ? 'web' : ['web-optimize', 'web'];
+    return config('env.DEVELOPMENT') ? ['web'] : ['web-optimize', 'web'];
   }
 
   /**

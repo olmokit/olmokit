@@ -103,6 +103,10 @@ Determines if a request should be cached by [silber/page-cache](https://github.c
 
 Allows a request only to be reached during `local` development, otherwise it redirects to 404.
 
+### `seo.noindex`
+
+Prevents crawlers to index a certain route or routes group by setting the [needed HTTP headers](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag#xrobotstag)
+
 ### Creating custom middlewares
 
 In your `src/middlewares` folder (create it if you don't have it) you can create your custom middlewares classes. Each class should defined a property `$name` that can be:

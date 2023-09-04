@@ -103,6 +103,7 @@ class Kernel extends HttpKernel
     'meta' => [
       'throttle:60,1',
       \LaravelFrontend\Meta\MetaMiddleware::class,
+      \LaravelFrontend\App\Middleware\SeoNoindex::class,
       \Illuminate\Routing\Middleware\SubstituteBindings::class,
     ],
   ];
@@ -117,6 +118,7 @@ class Kernel extends HttpKernel
   protected $routeMiddleware = [
     'page-cache' => \LaravelFrontend\App\Middleware\CacheResponse::class,
     'dev.only' => \LaravelFrontend\App\Middleware\DevOnly::class,
+    'seo.noindex' => \LaravelFrontend\App\Middleware\SeoNoindex::class,
     'auth' => \LaravelFrontend\Auth\MiddlewareAuthOnly::class,
     'auth.activate' => \LaravelFrontend\Auth\MiddlewareActivate::class,
     'auth.unauthonly' => \LaravelFrontend\Auth\MiddlewareUnauthOnly::class,
