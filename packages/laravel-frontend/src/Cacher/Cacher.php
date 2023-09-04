@@ -200,4 +200,18 @@ class Cacher
   {
     Artisan::call('cacher:clear ' . CacherTags::img);
   }
+
+  /**
+   * Clear all 'translations` or single 'translations.{locale}' tagged cache
+   *
+   * @return void
+   */
+  public static function clearCacheTranslations(string $locale = '')
+  {
+    if ($locale) {
+      Artisan::call('cacher:clear ' . CacherTags::translation($locale));
+    } else {
+      Artisan::call('cacher:clear ' . CacherTags::translations);
+    }
+  }
 }

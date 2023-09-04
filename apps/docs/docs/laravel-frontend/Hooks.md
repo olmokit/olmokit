@@ -102,6 +102,18 @@ Clear all the [`forms` cache](./Cache.md#forms).
 
 Clear a single [`form` cache](./Cache.md#formsformid).
 
+### `/cache/clear-translations`
+
+> URL: `{APP_URL}/_/hooks/cache/clear-translations`
+
+Clear all the [`translations` cache](./Cache.md#translations).
+
+### `/cache/clear-translations/{locale}`
+
+> URL: `{APP_URL}/_/hooks/cache/clear-translations/{locale}`
+
+Clear a single [`locale`'s `translations` cache](./Cache.md#translationslocale).
+
 ### `/cache/clear-img`
 
 > URL: `{APP_URL}/_/hooks/cache/clear-img`

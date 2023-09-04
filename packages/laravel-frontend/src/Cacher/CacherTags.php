@@ -18,6 +18,8 @@ class CacherTags
 
   const img = 'img';
 
+  const translations = 'translations';
+
   public static function model(string $name = '')
   {
     return self::models . '.' . $name;
@@ -31,6 +33,11 @@ class CacherTags
   public static function form(string $id = '')
   {
     return self::forms . '.' . $id;
+  }
+
+  public static function translation(string $locale = '')
+  {
+    return self::translations . '.' . $locale;
   }
 
   // @see https://stackoverflow.com/a/7506608/1938970

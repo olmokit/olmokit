@@ -64,4 +64,14 @@ Route::prefix('_/hooks')
       HooksController::class,
       'clearForm',
     ]);
+
+    Route::get('cache/clear-translations', [
+      HooksController::class,
+      'clearTranslations',
+    ]);
+
+    Route::get('cache/clear-translations/{locale}', [
+      HooksController::class,
+      'clearTranslation',
+    ]);
   });

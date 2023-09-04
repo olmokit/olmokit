@@ -3,6 +3,8 @@
 namespace LaravelFrontend\I18n;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
+use LaravelFrontend\Cacher\CacherTags;
 use LaravelFrontend\Cms\CmsApi;
 use Illuminate\Http\Request;
 
@@ -119,9 +121,77 @@ class I18n
       return self::$translations;
     }
 
+    $local = [];
+    $remote = self::getRemoteTranslations();
+
+    if (empty($remote) || config('env.DEVELOPMENT')) {
+      $local = self::getLocalTranslations();
+    }
+
+    // during development merge the statically defined strings with the remote
+    // ones in order to avoid slowing down development due to newly inserted
+    // strings not yet available through the CMS, as well as allowing a easy
+    // initial development where the CMS provided data is not yet ready.
+
+    // TODO: here we could enhance this feature with an automatic notification
+    // system that informs developers of mismatches between locally/statically
+    // defined translations' keys and remotely defined ones
+    if (config('env.DEVELOPMENT')) {
+      $all = array_merge($local, $remote);
+      // $diff = array_diff_assoc($local, $remote);
+      // dd($diff);
+    } else {
+      $all = $remote;
+    }
+
+    self::$translations = $all;
+
+    return $all;
+  }
+
+  /**
+   * Get statically translated strings for current locale from local .csv file
+   *
+   * @return array
+   */
+  public static function getLocalTranslations(): array
+  {
     $data = [];
     $locale = App::getLocale();
+
+    // never use cache during development
+    if (config('env.DEVELOPMENT')) {
+      $data = self::parseLocalTranslations($locale);
+      // always use cache in production (whatever env...)
+    } else {
+      $cacheKey = "i18n.localTranslations.$locale";
+
+      if (Cache::has($cacheKey)) {
+        return Cache::get($cacheKey);
+      }
+
+      $data = self::parseLocalTranslations($locale);
+
+      Cache::tags([
+        CacherTags::data,
+        CacherTags::translations,
+        CacherTags::translation($locale),
+      ])->put($cacheKey, $data);
+    }
+
+    return $data;
+  }
+
+  /**
+   * Parse statically translated strings for current locale from local .csv file
+   *
+   * @return array
+   */
+  public static function parseLocalTranslations($locale = ''): array
+  {
+    $data = [];
     $filepath = resource_path('/translations.csv');
+
     if (!file_exists($filepath)) {
       exit(
         'LaravelFrontend: missing translation file at resources/translations.csv'
@@ -165,9 +235,18 @@ class I18n
       }
     }
 
-    self::$translations = $data;
-
     return $data;
+  }
+
+  /**
+   * Get remotely translated strings for current locale
+   *
+   * @return array
+   */
+  public static function getRemoteTranslations(): array
+  {
+    $data = CmsApi::getTranslations();
+    return $data ?? [];
   }
 
   /**

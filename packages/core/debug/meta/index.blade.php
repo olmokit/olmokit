@@ -130,6 +130,15 @@
       cache/clear-img
     </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearimg">docs</a></small>
   </li>
+  <li>
+    🔥 <a
+      class="url"
+      href="/_/hooks/cache/clear-translations{{ $param }}"
+    >
+      cache/clear-translations
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cachecleartranslations">docs</a>, clear
+      just one locale with <code>_/hooks/cache/clear-translations/{locale}{{ $param }}</code></small>
+  </li>
   <li class="group-title">Visit</h3>
   <li>
     🔥 <a

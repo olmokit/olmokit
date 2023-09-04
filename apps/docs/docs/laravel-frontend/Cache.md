@@ -14,6 +14,8 @@ Frontend cache is tagged with [swayok/alternative-laravel-cache](https://github.
 |   |   └── {routeId}
 │   └── forms
 |       └── {formId}
+│   └── translations
+|       └── {locale}
 └── img
 ```
 
@@ -68,3 +70,11 @@ It tags the forms specific caches created either by the internal Form manager or
 ### `img`
 
 Tag that identifies all images and their associated metadata produced by the frontend [Image](./Img.md) processor.
+
+### `translations`
+
+It tags all the string translations caches for all locales.
+
+### `translations.{locale}`
+
+It tags the stirng translations caches that match a specific `locale`.
