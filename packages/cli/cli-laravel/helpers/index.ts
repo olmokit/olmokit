@@ -62,7 +62,7 @@ export function getProjectJsGlobals(config: Pick<CliLaravel.Config, "env">) {
       name: "__ENV__",
       desc: "Current environment",
       // dynamically creates a tuple like "'development' | 'production'"
-      type: config.env.names.map((name) => `'${name}`).join(" | "),
+      type: config.env.names.map((name) => `'${name}'`).join(" | "),
       value: `"${process.env.APP_ENV}"`,
     },
     {

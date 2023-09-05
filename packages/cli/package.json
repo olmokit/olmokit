@@ -11,7 +11,8 @@
   },
   "type": "module",
   "bin": {
-    "olmo": "./bin/pm.js"
+    "olmo": "./bin/pm.js",
+    "olmo-dev": "./bin/pm-dev.js"
   },
   "dependencies": {
     "@swc/core": "1.3.64",
