@@ -5,6 +5,7 @@ import { runIfDevAndMissingFile } from "../../helpers-getters.js";
 import { meta } from "../../meta.js";
 import { project } from "../../project.js";
 import { getProjectJsGlobals } from "../helpers/index.js";
+import { libraries } from "../helpers/libraries.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 
@@ -57,13 +58,19 @@ const configureJsTypes: CliLaravel.Task = async ({ ctx }) => {
 };
 configureJsTypes.meta = { title: "globals.d.ts definitions" };
 
-const configureJsConfig: CliLaravel.Task = async ({ ctx }) => {
+const configureJsConfig: CliLaravel.Task = async () => {
+  const { core: coreLib } = libraries;
+  const files = [`./node_modules/${globalsDtsFiledir}/${globalsDtsFilename}`];
+  if (coreLib.exists) {
+    files.push(`./node_modules/${coreLib.name}/globals.d.ts`);
+  }
+
   // FIXME: generate the tsconfig paths dynamically in sync with webpack aliases
   await filer("tsconfig.json__tpl__", {
     base: paths.self.templates,
     data: {
       srcFolder: paths.frontend.src.folder,
-      globalsPath: `./node_modules/${globalsDtsFiledir}/${globalsDtsFilename}`,
+      files: files.map((path) => `    "${path}"`).join(",\n"),
     },
     rename: "tsconfig.json",
     dest: project.root,
