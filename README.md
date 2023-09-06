@@ -174,34 +174,3 @@ Using in `package.json`:
 ```
 
 does not work, `workbox-webpack-plugin` complains, follow the [related issue](https://github.com/GoogleChrome/workbox/issues/3200)
-
-## WIP FIXME: remove this
-
-`ls -l node_modules/@olmokit | egrep "^l"` gives:
-
-```
-ls -l node_modules/@olmokit | egrep "^l"
-lrwxrwxrwx 1 kuus kuus 78 Sep  4 18:54 browser -> ../.pnpm/@olmokit+browser@0.0.50_date-fns@2.30.0/node_modules/@olmokit/browser
-lrwxrwxrwx 1 kuus kuus 69 Sep  4 18:54 cli -> ../.pnpm/@olmokit+cli@0.0.50_postcss@8.4.25/node_modules/@olmokit/cli
-lrwxrwxrwx 1 kuus kuus 66 Sep  4 18:54 cli-utils -> ../.pnpm/@olmokit+cli-utils@0.0.50/node_modules/@olmokit/cli-utils
-lrwxrwxrwx 1 kuus kuus 68 Sep  4 18:54 components -> ../.pnpm/@olmokit+components@0.0.50/node_modules/@olmokit/components
-lrwxrwxrwx 1 kuus kuus 56 Sep  4 18:54 core -> ../.pnpm/@olmokit+core@0.0.50/node_modules/@olmokit/core
-lrwxrwxrwx 1 kuus kuus 54 Sep  4 18:54 dom -> ../.pnpm/@olmokit+dom@0.0.50/node_modules/@olmokit/dom
-lrwxrwxrwx 1 kuus kuus 86 Sep  4 18:54 use -> ../.pnpm/@olmokit+use@0.0.50_@swc+core@1.3.64_postcss@8.4.25/node_modules/@olmokit/use
-lrwxrwxrwx 1 kuus kuus 58 Sep  4 18:54 utils -> ../.pnpm/@olmokit+utils@0.0.50/node_modules/@olmokit/utils
-```
-
-after `pnpm olmo link` the same command `ls -l node_modules/@olmokit | egrep "^l"` gives:
-
-```
-lrwxrwxrwx 1 kuus kuus 46 Sep  4 18:33 browser -> ../../../../Olmo/olmokit/dist/packages/browser
-lrwxrwxrwx 1 kuus kuus 37 Sep  4 18:33 cli -> ../../../../Olmo/olmokit/packages/cli
-lrwxrwxrwx 1 kuus kuus 48 Sep  4 18:33 cli-utils -> ../../../../Olmo/olmokit/dist/packages/cli-utils
-lrwxrwxrwx 1 kuus kuus 49 Sep  4 18:33 components -> ../../../../Olmo/olmokit/dist/packages/components
-lrwxrwxrwx 1 kuus kuus 43 Sep  4 18:33 core -> ../../../../Olmo/olmokit/dist/packages/core
-lrwxrwxrwx 1 kuus kuus 42 Sep  4 18:33 dom -> ../../../../Olmo/olmokit/dist/packages/dom
-lrwxrwxrwx 1 kuus kuus 42 Sep  4 18:33 use -> ../../../../Olmo/olmokit/dist/packages/use
-lrwxrwxrwx 1 kuus kuus 44 Sep  4 18:33 utils -> ../../../../Olmo/olmokit/dist/packages/utils
-```
-
-to detect if a package is locally linked we can read the symbolic link target path of each package and check whether the second parent folder is `@olmokit` (**remote** package) or `packages` (**local** package)
