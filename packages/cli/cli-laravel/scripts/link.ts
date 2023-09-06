@@ -1,7 +1,8 @@
 import { execSync } from "node:child_process";
-import { existsSync, symlinkSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, lstatSync, symlinkSync } from "node:fs";
+import { join, sep } from "node:path";
 import { $ } from "execa";
+import { globSync } from "glob";
 import { rimrafSync } from "rimraf";
 import { getProjectDependencies } from "../../helpers-getters.js";
 import { meta } from "../../meta.js";
@@ -69,27 +70,74 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
 }
 
 /**
- * We just try to guess where is this package source on the machine of the
- * developer running it...TODO: probably we could better here
+ * We just try to find where is this package source on the machine of the
+ * developer running it...
  */
 function tryComposerLink({ log, chalk }: CliLaravel.TaskArg) {
   const name = "olmo/laravel-frontend";
   const nameLog = chalk.bold(name);
-  const src = join(
-    project.root,
-    "../../Olmo/olmokit/packages/laravel-frontend"
+  const src = findFolderUp(
+    "*/*/olmokit/packages/laravel-frontend",
+    project.root
+    // "*/packages/laravel-frontend",
+    // project.root,
+    // "olmokit"
   );
-  const dest = join(project.root, "/vendor/", name);
 
-  if (existsSync(src)) {
-    if (existsSync(dest)) {
+  if (src && existsSync(src)) {
+    const dest = join(project.root, "/vendor/", name);
+    if (existsSync(dest) || lstatSync(dest)) {
       rimrafSync(dest);
     }
+
     symlinkSync(src, dest);
+
     log.success(`  Symlinked composer package ${nameLog}`);
   } else {
     log.warn(`  Could not link composer package ${nameLog}`);
   }
+}
+
+function findFolderUp(
+  pathToFind: string,
+  startFromPath: string
+  // preferPathParent?: string
+): string {
+  const parent = join(startFromPath, "../");
+  const parentParts = parent.split(sep).filter(Boolean);
+  const matches = globSync(pathToFind, {
+    cwd: parent,
+    absolute: true,
+  });
+
+  if (matches && matches.length) {
+    return matches[0];
+    // let bestMatch = "";
+
+    // if (matches.length > 1 && preferPathParent) {
+    //   bestMatch =
+    //     matches.find((foundPath) => {
+    //       const foundPathParts = foundPath.split(sep).filter(Boolean);
+    //       const normalisedFountPath = foundPathParts.join("/");
+
+    //       if (
+    //         normalisedFountPath
+    //           .toLowerCase()
+    //           .endsWith(pathToFind.replace("*", preferPathParent))
+    //       ) {
+    //         return foundPath;
+    //       }
+    //       return false;
+    //     }) || "";
+    // }
+    // return bestMatch || matches[0];
+  }
+
+  if (parentParts.length) {
+    return findFolderUp(pathToFind, parent);
+  }
+
+  return "";
 }
 
 /**
