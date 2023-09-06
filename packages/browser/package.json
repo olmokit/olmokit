@@ -34,6 +34,12 @@
     "./isMobile": {
       "import": "./isMobile.js"
     },
+    "./listenUrlSearch": {
+      "import": "./listenUrlSearch.js"
+    },
+    "./listenUrlSearchParams": {
+      "import": "./listenUrlSearchParams.js"
+    },
     "./navigateToHash": {
       "import": "./navigateToHash.js"
     },

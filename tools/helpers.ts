@@ -54,7 +54,7 @@ type LibConfig = {
   /**
    * Set to explicit `"none"` to delete the key/value if found
    */
-  exports?: "none" | ("esm" | "cjs")[];
+  exports?: "asIs" | "none" | ("esm" | "cjs")[];
   minify?: boolean;
   /**
    * Which version of the package code to globally link
@@ -73,7 +73,7 @@ const libsConfig: LibConfig[] = [
   {
     slug: "cli",
     type: "module",
-    exports: "none",
+    exports: "asIs",
     minify: false,
     link: "dist",
   },

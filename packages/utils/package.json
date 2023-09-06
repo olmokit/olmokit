@@ -316,6 +316,9 @@
     "./normaliseUrlPathname": {
       "import": "./normaliseUrlPathname.js"
     },
+    "./objectFlip": {
+      "import": "./objectFlip.js"
+    },
     "./objectOmit": {
       "import": "./objectOmit.js"
     },

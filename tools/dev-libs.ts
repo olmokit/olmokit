@@ -80,7 +80,7 @@ function getLibExport(lib: Lib, name?: string, path?: string) {
 }
 
 async function writeLibExports(lib: Lib) {
-  if (typeof lib.exports === "undefined") {
+  if (typeof lib.exports === "undefined" || lib.exports === "asIs") {
     return;
   }
 
@@ -95,6 +95,8 @@ async function writeLibExports(lib: Lib) {
   // FIXME: once we have fully migrated to ts we can remove "js"
   const paths = await glob(lib.src + "/**/*.{js,ts,tsx,scss}", {
     ignore: [
+      // ignore node_modules
+      lib.src + "/node_modules/**/*",
       // ignore executables
       lib.src + "/bin/*.ts",
       // root index is already exported by `exports: { ".": { import: "./index.js" } }`

@@ -20,11 +20,11 @@
     ".": {
       "import": "./index.js"
     },
-    "./$all": {
-      "import": "./$all.js"
-    },
     "./$": {
       "import": "./$.js"
+    },
+    "./$all": {
+      "import": "./$all.js"
     },
     "./$each": {
       "import": "./$each.js"
