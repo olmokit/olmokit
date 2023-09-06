@@ -18,7 +18,7 @@ Clone this repo locally and install dependencies running
 pnpm i
 ```
 
-This will automatically run the `postinstall` script `pnpm dev` which builds and globally link all packages. In this way we ensure `dependencies` of each package are installed within the correct _pnpm link_ structure. From then on you can simply run `pnpm start` to start compiling a package in **watch mode**. You will be prompt to pick a single package to watch. <!-- (TODO: verify the following which is probably not needed as we have the `postinstall` script already): Note that if you add an external dependency to a package you probably need to re-run `pnpm dev` in order to include the new dependencies in the globally linked structure.-->
+This will automatically run the `postinstall` script which builds and globally link all packages. In this way we ensure `dependencies` of each package are installed within the correct _pnpm link_ structure. From then on you can simply run `pnpm start` to start compiling a package in **watch mode**. You will be prompt to pick a single package to watch. <!-- (TODO: verify the following which is probably not needed as we have the `postinstall` script already): Note that if you add an external dependency to a package you probably need to re-run `pnpm dev` in order to include the new dependencies in the globally linked structure.-->
 
 Now in your test project bootstrapped with `@olmokit/create-app` you can run `pnpm olmo link` to use the globally linked packages from your machine.
 
