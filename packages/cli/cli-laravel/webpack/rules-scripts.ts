@@ -30,12 +30,21 @@ export default () => {
               syntax: "typescript",
               dynamicImport: true,
             },
+            externalHelpers: true,
             loose: true,
-            minify: {
-              compress: true,
-              mangle: true,
-            },
+            minify:
+              process.env["NODE_ENV"] === "production"
+                ? {
+                    compress: true,
+                    mangle: true,
+                  }
+                : undefined,
             keepClassNames: false,
+            transform: {
+              react: {
+                runtime: "automatic",
+              },
+            },
           },
           minify: process.env["NODE_ENV"] === "production",
         } satisfies SWCOptions,
