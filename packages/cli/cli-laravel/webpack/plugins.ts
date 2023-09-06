@@ -4,7 +4,6 @@ import CaseSensitivePathsPlugin from "case-sensitive-paths-webpack-plugin";
 // import CleanWebpackPlugin from "clean-webpack-plugin";
 import CopyPlugin from "copy-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 // import PostCSSAssetsPlugin from "postcss-assets-webpack-plugin";
 import webpack from "webpack";
 import { WebpackManifestPlugin } from "webpack-manifest-plugin";
@@ -20,7 +19,6 @@ const require = createRequire(import.meta.url);
 export default (config: CliLaravel.Config) => {
   // shared basic plugins
   let plugins = [
-    new TsconfigPathsPlugin(),
     new CaseSensitivePathsPlugin(),
     new webpack.DefinePlugin(
       getProjectJsGlobals(config).reduce((output, def) => {

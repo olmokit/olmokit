@@ -78,13 +78,14 @@ async function devBuild(libSlug: string, linkAfterBuild?: boolean) {
         stdio: "inherit",
       });
 
-  if (linkAfterBuild) {
-    child.on("close", (code) => {
-      if (code === 0) {
-        spawn("pnpm", ["dev", "link"], { stdio: "inherit" });
-      }
-    });
-  }
+  // TODO: it seems we need to re-link after each build... check why
+  // if (linkAfterBuild) {
+  child.on("close", (code) => {
+    if (code === 0) {
+      spawn("pnpm", ["dev", "link"], { stdio: "inherit" });
+    }
+  });
+  // }
 }
 
 async function getOptionLib(

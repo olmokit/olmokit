@@ -4,6 +4,7 @@
  * After this you should go to the project you want to to test these local
  * libs and run `pnpm link --global {packageName}
  */
+import { spawnSync } from "node:child_process";
 import chalk from "chalk";
 import { Command } from "commander";
 import { $ } from "execa";
@@ -196,6 +197,9 @@ async function postpublish(release: Release) {
   await $`git tag -a ${tagName} -m ${"Release " + release.version}"`;
   // await $`git push origin ${tagName}`;
   await $`git push origin ${branchName.stdout} --tags`;
+
+  // TODO: it seems we need to re-link after each build... check why
+  spawnSync("pnpm", ["dev", "link"], { stdio: "inherit" });
 }
 
 async function promptRelease(subject, currentVersion: string) {

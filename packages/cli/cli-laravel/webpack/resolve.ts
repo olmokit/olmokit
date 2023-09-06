@@ -1,3 +1,4 @@
+import { TsconfigPathsPlugin } from "tsconfig-paths-webpack-plugin";
 import { Configuration } from "webpack";
 import { isUsingLocalLinkedNodeModule } from "../../helpers-getters.js";
 import { meta } from "../../meta.js";
@@ -35,5 +36,6 @@ export default (_config: CliLaravel.Config): Configuration["resolve"] => {
     modules,
     symlinks,
     extensions: [".ts", ".tsx", ".js", ".jsx"],
+    plugins: [new TsconfigPathsPlugin()],
   };
 };
