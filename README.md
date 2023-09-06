@@ -6,10 +6,6 @@ Monorepo for the whole Olmo Kit, offical documentation at [olmokit.github.io/olm
 
 ## Contribute
 
-### Pre-requisites
-
-- Install `ts-node` globally with `pnpm i -g ts-node`
-
 ### Develop locally
 
 Clone this repo locally and install dependencies running
