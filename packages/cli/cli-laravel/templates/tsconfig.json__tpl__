@@ -24,6 +24,9 @@
       "vendor": ["vendor/*"]
     }
   },
+  "files": [
+    "<%= globalsPath %>"
+  ],
   "include": [
     "<%= srcFolder %>"
   ]

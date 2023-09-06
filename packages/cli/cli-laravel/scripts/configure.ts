@@ -8,6 +8,12 @@ import { getProjectJsGlobals } from "../helpers/index.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 
+const globalsDtsFilename = `${meta.name
+  .replace(/@/g, "")
+  .replace(/\//g, "-")}.d.ts`;
+
+const globalsDtsFiledir = "@types";
+
 const configurePackageManager: CliLaravel.Task = () =>
   filer(".npmrc", {
     base: paths.self.templates,
@@ -45,8 +51,8 @@ const configureJsTypes: CliLaravel.Task = async ({ ctx }) => {
   await filer("globals.d.ts__tpl__", {
     base: paths.self.templates,
     data: { globals, packageName: meta.name, globalConfig },
-    rename: `${meta.name.replace(/@/g, "").replace(/\//g, "-")}.d.ts`,
-    dest: join(project.nodeModules, "/@types"),
+    rename: globalsDtsFilename,
+    dest: join(project.nodeModules, `/${globalsDtsFiledir}`),
   });
 };
 configureJsTypes.meta = { title: "globals.d.ts definitions" };
@@ -57,6 +63,7 @@ const configureJsConfig: CliLaravel.Task = async ({ ctx }) => {
     base: paths.self.templates,
     data: {
       srcFolder: paths.frontend.src.folder,
+      globalsPath: `./node_modules/${globalsDtsFiledir}/${globalsDtsFilename}`,
     },
     rename: "tsconfig.json",
     dest: project.root,
