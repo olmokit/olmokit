@@ -30,12 +30,18 @@ export default (_config: CliLaravel.Config): Configuration["resolve"] => {
     modules.push(core.pathNodeModules);
   }
 
+  const extensions = [".ts", ".tsx", ".js", ".jsx"];
+
   // console.log("symlinks", symlinks, "modules", modules)
 
   return {
     modules,
     symlinks,
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
-    plugins: [new TsconfigPathsPlugin()],
+    extensions,
+    plugins: [
+      new TsconfigPathsPlugin({
+        extensions,
+      }),
+    ],
   };
 };
