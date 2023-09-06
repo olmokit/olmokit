@@ -28,6 +28,7 @@ export default createConfig({
       AWS_DEFAULT_REGION: "eu-south-1",
       AWS_BUCKET: "myclient-com-assets",
       AWS_USE_PATH_STYLE_ENDPOINT: false,
+      APP_DEBUG: { dev: true, production: false },
     },
     extraVars: {},
   },
