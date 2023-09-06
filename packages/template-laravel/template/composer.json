@@ -3,7 +3,7 @@
   "type": "project",
   "repositories": [],
   "require": {
-    "olmo/laravel-frontend": "^0.0.43"
+    "olmo/laravel-frontend": "^0.0.51"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.6"

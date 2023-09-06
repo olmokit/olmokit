@@ -5,15 +5,15 @@
   "projectType": "library",
   "targets": {
     "watch": {
-      "watch": true,
       "executor": "@nx/js:swc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "watch": true,
+        "clean": false,
+        "skipTypeCheck": true,
         "outputPath": "dist/packages/dom",
         "main": "packages/dom/index.ts",
         "tsConfig": "packages/dom/tsconfig.lib.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "updateBuildableProjectDepsInPackageJson": true,
         "assets": ["packages/dom/*.md"]
       }
     },

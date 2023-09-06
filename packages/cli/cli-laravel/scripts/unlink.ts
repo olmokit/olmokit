@@ -13,8 +13,8 @@ import type { CliLaravel } from "../pm.js";
 // function getCandidatePackages({ ctx }: CliLaravel.TaskArg) {
 //   const globPath = `${meta.orgScope}/*`;
 
-//   return globSync(globPath, { cwd: ctx.project.nodeModules }).filter((file) => {
-//     const stat = lstatSync(join(ctx.project.nodeModules, file));
+//   return globSync(globPath, { cwd: project.nodeModules }).filter((file) => {
+//     const stat = lstatSync(join(project.nodeModules, file));
 //     return stat.isSymbolicLink();
 //   });
 // }

@@ -4,7 +4,7 @@ import {
   checkRoutesConsistency,
   generateRouteSource,
 } from "../helpers/route.js";
-import { CliLaravel } from "../pm.js";
+import type { CliLaravel } from "../pm.js";
 
 /**
  * Generate route

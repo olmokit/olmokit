@@ -1,11 +1,10 @@
 import type { Configuration } from "webpack-dev-server";
 import { isHttps, removeTrailingSlashes } from "../../helpers-getters.js";
 import { getPublicUrls } from "../helpers/index.js";
-import type { CliLaravel } from "../pm.js";
 import { getServerHost, getServerPort } from "./helpers.js";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function webpackConfigDevServer(config: CliLaravel.Config) {
+export function webpackConfigDevServer() {
   const configuration: Configuration = {
     devMiddleware: {
       publicPath: getPublicUrls().assets,

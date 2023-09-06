@@ -13,7 +13,7 @@ import { type LibNpm, self } from "./helpers.js";
 
 export const link = () =>
   new Command("link")
-    .description("Link libs with pnpm")
+    .description("Link libs globally")
     .action(async (opts: Options) => {
       const libs = self().libsNpm;
       const spinner = ora({
@@ -22,7 +22,7 @@ export const link = () =>
       });
       spinner.stopAndPersist();
       console.log();
-      await linkGlobally(libs, opts);
+      await linkLibsGlobally(libs, opts);
 
       // NOTE: maybe linking recursively is only needed with pnpm
       console.log();
@@ -31,53 +31,58 @@ export const link = () =>
         ...oraOpts,
       }).stopAndPersist();
       console.log();
-      linkRecursively(libs, opts);
+      await linkRecursively(libs, opts);
     });
 
-async function linkGlobally(libs: LibNpm[], opts: Options) {
-  await Promise.all(
-    libs.map(
-      (lib) =>
-        new Promise<void>((resolve, reject) => {
-          const spinner = ora({
-            text: `Link ${chalk.bold(lib.name)} globally`,
-            indent: 2,
-            ...oraOpts,
-          });
-          if (opts.verbose) {
-            spinner.suffixText = ` ran ${chalk.italic(
-              `pnpm link --global`
-            )} from ${chalk.italic(lib.packageJson.name)}`;
-          }
-
-          let cmd = "pnpm link --global";
-          if (opts.pkgm === "npm") {
-            cmd = "npm link";
-          }
-
-          exec(
-            cmd,
-            {
-              cwd: lib.dist,
-              // stdio: "inherit",
-            },
-            (err) => {
-              if (err) {
-                spinner.fail();
-                reject();
-              } else {
-                spinner.succeed();
-                resolve();
-              }
-            }
-          );
-        })
-    )
-  );
+async function linkLibsGlobally(libs: LibNpm[], opts: Options) {
+  // doing this in parallel does not work consistently
+  for (let i = 0; i < libs.length; i++) {
+    await linkLibGlobally(libs[i], opts);
+  }
 }
 
-function linkRecursively(libs: LibNpm[], opts: Options) {
-  libs.forEach((lib) => {
+async function linkLibGlobally(lib: LibNpm, opts: Options) {
+  return new Promise<void>((resolve, reject) => {
+    const spinner = ora({
+      text: `Link ${chalk.bold(lib.name)} globally`,
+      indent: 2,
+      ...oraOpts,
+    });
+
+    let cmd = "pnpm link --global";
+    if (opts.pkgm === "npm") {
+      cmd = "npm link --global";
+    }
+
+    if (opts.verbose) {
+      spinner.suffixText = ` ran ${chalk.italic(cmd)} from ${chalk.italic(
+        lib.packageJson.name
+      )}`;
+    }
+
+    exec(
+      cmd,
+      {
+        cwd: lib.linkPath,
+        // stdio: "inherit",
+      },
+      (err) => {
+        if (err) {
+          spinner.fail();
+          reject();
+        } else {
+          spinner.succeed();
+          resolve();
+        }
+      }
+    );
+  });
+}
+
+async function linkRecursively(libs: LibNpm[], opts: Options) {
+  for (let i = 0; i < libs.length; i++) {
+    const lib = libs[i];
+
     let internalDeps = lib.internalDeps;
     if (!internalDeps.length) {
       console.warn(
@@ -92,44 +97,51 @@ function linkRecursively(libs: LibNpm[], opts: Options) {
       );
     }
 
-    for (let i = 0; i < internalDeps.length; i++) {
-      const depName = internalDeps[i];
+    for (let j = 0; j < internalDeps.length; j++) {
+      await linkInternalDep(lib, internalDeps[j], opts);
+    }
+  }
+}
 
-      if (lib.name !== depName) {
-        const spinner = ora({
-          text: `In ${chalk.bold(lib.name)} link ${chalk.bold(depName)}`,
-          indent: 2,
-          ...oraOpts,
-        });
+async function linkInternalDep(lib: LibNpm, depName: string, opts: Options) {
+  return new Promise<void>((resolve, reject) => {
+    if (lib.name !== depName) {
+      const spinner = ora({
+        text: `In ${chalk.bold(lib.name)} link ${chalk.bold(depName)}`,
+        indent: 2,
+        ...oraOpts,
+      });
 
-        let cmd = "pnpm link --global";
-        if (opts.pkgm === "npm") {
-          cmd = "npm link";
-        }
-
-        if (opts.verbose) {
-          spinner.suffixText = `ran ${chalk.italic(
-            `${cmd} ${depName}`
-          )} from ${chalk.italic(lib.name)}`;
-        }
-
-        exec(
-          `${cmd} ${depName}`,
-          {
-            cwd: lib.dist,
-            // stdio: "inherit",
-          },
-          (err) => {
-            if (err) {
-              spinner.fail();
-              // reject();
-            } else {
-              spinner.succeed();
-              // resolve();
-            }
-          }
-        );
+      let cmd = "pnpm link --global";
+      if (opts.pkgm === "npm") {
+        cmd = "npm link --global";
       }
+
+      if (opts.verbose) {
+        spinner.suffixText = `ran ${chalk.italic(
+          `${cmd} ${depName}`
+        )} from ${chalk.italic(lib.name)}`;
+      }
+
+      exec(
+        `${cmd} ${depName}`,
+        {
+          cwd: lib.linkPath,
+          // stdio: opts.verbose ? "inherit" : "none",
+        },
+        (err) => {
+          if (err) {
+            spinner.fail();
+            // reject();
+            resolve();
+          } else {
+            spinner.succeed();
+            resolve();
+          }
+        }
+      );
+    } else {
+      resolve();
     }
   });
 }

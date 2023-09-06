@@ -20,7 +20,6 @@
   },
   "sideEffects": [
     "**/*.scss",
-    "icon/**",
     "forms/checkbox/*.js",
     "forms/file/*.js",
     "forms/group/*.js",
@@ -34,6 +33,8 @@
     "glide/arrows/**",
     "glide/bullets/**",
     "glide/**",
+    "icon/**",
+    "img/**",
     "lazy/**",
     "media/*.js",
     "polyfills/**",
@@ -42,41 +43,6 @@
     "video/**",
     "zacc/**"
   ],
-  "config": {
-    "core-sync": [
-      "address",
-      "analytics",
-      "auth",
-      "barba",
-      "cart",
-      "checkout",
-      "cookies",
-      "data",
-      "debug",
-      "dialog",
-      "dropdown",
-      "olmoforms",
-      "forms",
-      "fragments",
-      "helpers",
-      "glide",
-      "i18n",
-      "icon",
-      "iframe",
-      "img",
-      "lightbox",
-      "link",
-      "player",
-      "progress",
-      "seo",
-      "skeleton",
-      "svg",
-      "tabs",
-      "video",
-      "zacc",
-      "wishlist"
-    ]
-  },
   "exports": {
     ".": {
       "import": "./index.js"

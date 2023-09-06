@@ -1,6 +1,7 @@
 import { join } from "node:path";
 import editJsonFile, { type JsonEditor } from "edit-json-file";
 import { copy, ensureDir } from "fs-extra";
+import { project } from "../../project.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 import { PRETTIER_CONFIG, PRETTIER_PATH } from "./prettier.js";
@@ -65,9 +66,9 @@ function pkgPrettierConfig(pkg: JsonEditor) {
 /**
  * Copy husky configuration folder
  */
-async function huskyConfig({ ctx }: CliLaravel.TaskArg) {
+async function huskyConfig() {
   const src = join(paths.self.templates, "/.husky");
-  const dest = join(ctx.project.root, "/.husky");
+  const dest = join(project.root, "/.husky");
 
   await ensureDir(dest);
 
@@ -91,14 +92,14 @@ function isCustomised(existing?: any, _default?: any) {
   return true;
 }
 
-export const pkg: CliLaravel.Task = async ({ ctx, arg }) => {
-  const pkg = editJsonFile(join(ctx.project.root, "package.json"), {
+export const pkg: CliLaravel.Task = async () => {
+  const pkg = editJsonFile(join(project.root, "package.json"), {
     stringify_eol: true,
   });
 
   pkgSetup(pkg);
   pkgBrowserslistConfig(pkg);
   pkgPrettierConfig(pkg);
-  await huskyConfig(arg);
+  await huskyConfig();
 };
 pkg.meta = { title: "Ensure correct package.json file" };

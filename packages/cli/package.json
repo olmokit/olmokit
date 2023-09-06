@@ -24,6 +24,7 @@
     "sass-loader": "^13.3.2",
     "sass-resources-loader": "^2.2.5",
     "swc-loader": "^0.2.3",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
     "webpack": "^5.88.1"
   },
   "keywords": [

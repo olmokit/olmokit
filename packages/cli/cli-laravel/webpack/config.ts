@@ -1,6 +1,7 @@
 import path from "node:path";
 import ci from "ci-info";
 import type { Configuration } from "webpack";
+import { project } from "../../project.js";
 import { getPublicUrls } from "../helpers/index.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
@@ -39,15 +40,15 @@ export function webpackConfig(config: CliLaravel.Config) {
       chunkFilename: getOutputName("chunk", "js"),
     },
     entry: webpackEntry(),
-    optimization: webpackOptimization(config),
+    optimization: webpackOptimization(),
     resolve: webpackResolve(config),
     // persistent cache during CI builds on filesystem
     cache: ci.isCI
       ? {
           // FIXME: check this how it would work with pnpm
           type: "filesystem",
-          cacheDirectory: path.join(config.project.nodeModules, "/.cache"),
-          // cacheDirectory: path.join(config.project.root, "/.npm/.cache-webpack"),
+          cacheDirectory: path.join(project.nodeModules, "/.cache"),
+          // cacheDirectory: path.join(project.root, "/.npm/.cache-webpack"),
         }
       : // during dev webpack cache is opt-in, one must explictly set the
       // appropriate env variable to false, otherwise we set here `true` which
@@ -55,18 +56,15 @@ export function webpackConfig(config: CliLaravel.Config) {
       process.env.DEV_WEBPACK_CACHE
       ? {
           type: "filesystem",
-          name: `${config.project.packageJson.name}-${process.env.APP_ENV}`,
-          version: config.project.packageJson.version,
+          name: `${project.packageJson.name}-${process.env.APP_ENV}`,
+          version: project.packageJson.version,
         }
       : {
           type: "memory",
         },
     snapshot: {
       // add path for caching on CI
-      managedPaths: [
-        config.project.nodeModules,
-        path.join(config.project.root, "/.npm"),
-      ],
+      managedPaths: [project.nodeModules, path.join(project.root, "/.npm")],
     },
     // for webpack-dev-server
     infrastructureLogging: {
@@ -99,9 +97,9 @@ export function webpackConfig(config: CliLaravel.Config) {
     },
     module: {
       rules: [
-        ...webpackRulesAssets(config),
+        ...webpackRulesAssets(),
         ...webpackRulesScripts(),
-        ...webpackRulesStyles(config),
+        ...webpackRulesStyles(),
       ],
     },
     plugins: webpackPlugins(config),

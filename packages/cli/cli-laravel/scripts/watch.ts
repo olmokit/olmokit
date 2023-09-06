@@ -1,5 +1,6 @@
 import { join } from "node:path";
 import { createWatcher } from "../../createWatcher.js";
+import { project } from "../../project.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 import { clear } from "./clean.js";
@@ -9,12 +10,12 @@ import { svgicons } from "./svgicons.js";
 /**
  * Styles and scripts are instead watched by webpack in the `assets.js` task
  */
-export const watch: CliLaravel.Task = ({ ctx, log, chalk, runTask }) => {
+export const watch: CliLaravel.Task = ({ log, chalk, runTask }) => {
   return new Promise<void>((resolve) => {
     const taskOptions = { still: true };
 
     const watchers = [
-      createWatcher(join(ctx.project.envPath), true)
+      createWatcher(join(project.envPath), true)
         .on("change", () => runTask(clear, taskOptions))
         .on("unlink", () =>
           log.error(`You must have an '.env' file in your root project folder`)

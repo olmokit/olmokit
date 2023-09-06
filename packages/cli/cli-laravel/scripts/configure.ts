@@ -3,27 +3,28 @@ import { basename, join } from "node:path";
 import { filer } from "@olmokit/cli-utils/filer";
 import { runIfDevAndMissingFile } from "../../helpers-getters.js";
 import { meta } from "../../meta.js";
+import { project } from "../../project.js";
 import { getProjectJsGlobals } from "../helpers/index.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 
-const configurePackageManager: CliLaravel.Task = ({ ctx }) =>
+const configurePackageManager: CliLaravel.Task = () =>
   filer(".npmrc", {
     base: paths.self.templates,
-    dest: ctx.project.root,
+    dest: project.root,
   });
 configurePackageManager.meta = { title: "Package manager settings" };
 
-const configureEditor: CliLaravel.Task = ({ ctx }) =>
-  runIfDevAndMissingFile(join(ctx.project.root, "/.vscode/settings.json"), () =>
+const configureEditor: CliLaravel.Task = () =>
+  runIfDevAndMissingFile(join(project.root, "/.vscode/settings.json"), () =>
     filer(".vscode/settings.json", {
       base: paths.self.templates,
       data: {
         prefix: "${dirty} ",
-        packageName: basename(ctx.project.root), // pkg.name
+        packageName: basename(project.root), // pkg.name
         suffix: " - ${activeFolderMedium}",
       },
-      dest: ctx.project.root,
+      dest: project.root,
     })
   );
 configureEditor.meta = { title: "IDE settings" };
@@ -45,7 +46,7 @@ const configureJsTypes: CliLaravel.Task = async ({ ctx }) => {
     base: paths.self.templates,
     data: { globals, packageName: meta.name, globalConfig },
     rename: `${meta.name.replace(/@/g, "").replace(/\//g, "-")}.d.ts`,
-    dest: join(ctx.project.nodeModules, "/@types"),
+    dest: join(project.nodeModules, "/@types"),
   });
 };
 configureJsTypes.meta = { title: "globals.d.ts definitions" };
@@ -58,7 +59,7 @@ const configureJsConfig: CliLaravel.Task = async ({ ctx }) => {
       srcFolder: paths.frontend.src.folder,
     },
     rename: "tsconfig.json",
-    dest: ctx.project.root,
+    dest: project.root,
   });
 };
 configureJsConfig.meta = { title: "tsconfig.json" };

@@ -19,7 +19,7 @@ type ComposerJson = {
   require: Record<string, string>;
 };
 
-type LibShared = {
+type LibShared = LibConfig & {
   src: string;
   dist: string;
   slug: string;
@@ -27,6 +27,7 @@ type LibShared = {
   version: string;
   deps: Record<string, string>;
   internalDeps: string[];
+  linkPath: string;
 };
 
 export type LibNpm = LibShared & {
@@ -44,8 +45,96 @@ const require = createRequire(import.meta.url);
 
 export type Lib = LibNpm | LibComposer;
 
+type LibConfig = {
+  slug: string;
+  /**
+   * Set to explicit `"none"` to delete the key/value if found
+   */
+  type?: "none" | "module" | "commonjs";
+  /**
+   * Set to explicit `"none"` to delete the key/value if found
+   */
+  exports?: "none" | ("esm" | "cjs")[];
+  minify?: boolean;
+  /**
+   * Which version of the package code to globally link
+   */
+  link?: "source" | "dist";
+};
+
+const libsConfig: LibConfig[] = [
+  {
+    slug: "browser",
+    type: "module",
+    exports: ["esm"],
+    minify: true,
+    link: "dist",
+  },
+  {
+    slug: "cli",
+    type: "module",
+    exports: "none",
+    minify: false,
+    link: "dist",
+  },
+  {
+    slug: "cli-utils",
+    type: "module",
+    exports: ["esm"],
+    minify: true,
+    link: "dist",
+  },
+  {
+    slug: "components",
+    type: "module",
+    exports: ["esm"],
+    minify: true,
+    link: "dist",
+  },
+  {
+    slug: "core",
+    type: "module",
+    exports: ["esm"],
+    minify: true,
+    link: "dist",
+  },
+  {
+    slug: "create-app",
+    type: "none",
+    exports: "none",
+    link: "dist",
+  },
+  {
+    slug: "dom",
+    type: "module",
+    exports: ["esm"],
+    minify: true,
+    link: "dist",
+  },
+  {
+    slug: "template-laravel",
+    type: "none",
+    exports: "none",
+    link: "dist",
+  },
+  {
+    slug: "use",
+    type: "module",
+    exports: "none",
+    link: "dist",
+  },
+  {
+    slug: "utils",
+    type: "module",
+    exports: ["esm"],
+    minify: true,
+    link: "dist",
+  },
+];
+
 export const self = () => {
   const root = join(__dirname, "../");
+  const tools = join(__dirname, ".");
   const packageJsonPath = join(root, "package.json");
   const packageJson = require(packageJsonPath) as PackageJson;
   const scope = packageJson.name.split("/")[0];
@@ -53,6 +142,7 @@ export const self = () => {
 
   return {
     root,
+    tools,
     packageJsonPath,
     scope,
     packageJson,
@@ -81,6 +171,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
     (globSync(join(__dirname, "../packages/*")) || [])
       .map((src) => {
         const slug = basename(src);
+        const config = libsConfig.find((config) => config.slug === slug);
         const dist = join(__dirname, "../dist/packages/", slug);
         let packager: Lib["packager"];
         let packageJson = {} as PackageJson;
@@ -88,6 +179,8 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
         let deps = {};
         let internalDeps: string[] = [];
         let name = "";
+        const linkPath =
+          config?.link === "source" ? src : config?.link === "dist" ? dist : "";
 
         // packager: "npm"
         try {
@@ -123,6 +216,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
         } catch (e) {}
 
         return {
+          ...(config || {}),
           packager,
           src,
           dist,
@@ -133,6 +227,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
           internalDeps,
           packageJson,
           composerJson,
+          linkPath,
         };
       })
       // filter as we might have empty temporary folders picked up by the packages/* glob

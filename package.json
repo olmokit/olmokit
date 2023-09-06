@@ -10,11 +10,11 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "ts-node tools/dev.ts",
-    "start": "nx run-many --targets=watch --all",
-    "build": "nx run-many --targets=build --all",
+    "dev": "ts-node-transpile-only tools/dev.ts",
+    "start": "ts-node tools/dev.ts -- start",
+    "build": "ts-node tools/dev.ts -- build",
     "lint": "nx run-many --targets=lint --all",
-    "postinstall": "husky install && pnpm dev build",
+    "postinstall": "husky install && pnpm dev postinstall",
     "format": "prettier **/*.{js,json,ts,tsx,css,scss,md,yml,yaml,php} --write",
     "docs": "nx run docs:watch"
   },

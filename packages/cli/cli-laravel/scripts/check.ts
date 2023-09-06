@@ -7,25 +7,26 @@ import {
   getHeaderAutogeneration,
   runIfDevAndMissingFile,
 } from "../../helpers-getters.js";
+import { project } from "../../project.js";
 import { checkRoutesConsistency } from "../helpers/route.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 
-const checkOlmoConfig: CliLaravel.Task = async ({ ctx }) => {
-  await runIfDevAndMissingFile(join(ctx.project.root, "olmo.ts"), () =>
+const checkOlmoConfig: CliLaravel.Task = async () => {
+  await runIfDevAndMissingFile(join(project.root, "olmo.ts"), () =>
     filer("olmo.ts__tpl__", {
       base: paths.self.templates,
-      dest: ctx.project.root,
+      dest: project.root,
       rename: "olmo.ts",
       data: {
         randomWord: generateRandomWord(["a", "c", "e", "g", "i", "m", "s"], 8),
       },
     })
   );
-  await runIfDevAndMissingFile(join(ctx.project.root, ".olmo.ts"), () =>
+  await runIfDevAndMissingFile(join(project.root, ".olmo.ts"), () =>
     filer(".olmo.ts__tpl__", {
       base: paths.self.templates,
-      dest: ctx.project.root,
+      dest: project.root,
       rename: ".olmo.ts",
     })
   );

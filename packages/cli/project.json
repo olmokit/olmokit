@@ -9,14 +9,13 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "watch": true,
+        "clean": false,
+        "skipTypeCheck": true,
         "outputPath": "dist/packages/cli",
         "main": "packages/cli/index.ts",
         "tsConfig": "packages/cli/tsconfig.lib.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "updateBuildableProjectDepsInPackageJson": true,
         "assets": [
           "packages/cli/*.md",
-          "packages/cli/**/*.cjs",
           "packages/cli/*/*.json",
           "packages/cli/**/templates/**/*"
         ]
@@ -33,7 +32,6 @@
         "updateBuildableProjectDepsInPackageJson": true,
         "assets": [
           "packages/cli/*.md",
-          "packages/cli/**/*.cjs",
           "packages/cli/*/*.json",
           "packages/cli/**/templates/**/*"
         ]

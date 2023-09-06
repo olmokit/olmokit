@@ -1,7 +1,10 @@
 import { join } from "node:path";
 import { createWatcher } from "../../createWatcher.js";
+import { meta } from "../../meta.js";
+import { libraries } from "../helpers/libraries.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
+import { processCoreLibrary } from "./core.js";
 import {
   tplComponents,
   tplFragments,
@@ -16,6 +19,8 @@ export const tplWatch: CliLaravel.Task = async ({ log, chalk, runTask }) => {
   return new Promise<void>((resolve) => {
     const { src } = paths.frontend;
     const taskOptions = { still: true };
+    const { workspaceRoot } = meta;
+    const { core } = libraries;
 
     const watchers = [
       createWatcher(join(src.components, "/**/*.php")).on("all", () =>
@@ -40,6 +45,25 @@ export const tplWatch: CliLaravel.Task = async ({ log, chalk, runTask }) => {
         runTask(tplUtils, taskOptions)
       ),
     ];
+
+    if (core.locallyLinked && workspaceRoot) {
+      const { elements, info, syncer } = processCoreLibrary((lib, name) => {
+        // target and sync php files from source, not from the `dist` folder
+        // they should be the same anyway
+        const dirInDevRepo = join(workspaceRoot, "/packages/", lib.slug);
+
+        return join(dirInDevRepo, name);
+      });
+
+      elements.forEach((el) => {
+        watchers.push(
+          createWatcher(join(el.dir, "/**/*.php")).on("all", () => {
+            syncer(el);
+            log(`Synced with ${info()}`);
+          })
+        );
+      });
+    }
 
     const handleExit = async () => {
       await Promise.all(watchers.map((watcher) => watcher.close()));

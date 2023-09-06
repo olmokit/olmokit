@@ -1,6 +1,5 @@
 import type { CliBootArg } from "./cli.js";
 import { getConfigEnv } from "./config-env.js";
-import { getConfigProject } from "./config-project.js";
 import type { Config } from "./types";
 
 /**
@@ -19,18 +18,15 @@ export async function getConfig(
       vars: {},
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  { spinner, taskr }: CliBootArg
+  { spinner }: CliBootArg
 ): Promise<Config.Internal> {
   const { type = "laravel", favicons, httpAuth } = custom;
-  const project = getConfigProject();
-  const env = getConfigEnv(custom, project);
+  const env = getConfigEnv(custom);
 
   const internal: Config.Internal = {
     type,
     favicons,
     httpAuth,
-    project,
     env,
     useBarba: !!custom.useBarba,
   };
@@ -61,7 +57,7 @@ type ConfigError = {
  * TODO: Here we could validate all AWS related variables and log mis-configurations
  */
 function validateConfig(
-  custom: Config.CustomMaybeExtended,
+  _custom: Config.CustomMaybeExtended,
   internal: Config.Internal
   /* , cliBootArg: CliBootArg */
 ) {

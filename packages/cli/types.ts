@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import type { Command } from "commander";
 import type { FaviconOptions } from "favicons";
-import type { PackageJson } from "type-fest";
 import type { TaskrInstance } from "@olmokit/cli-utils/taskr";
 import type { ConfigurableEnvVars, PredefinedEnvVars } from "./config-env";
 
@@ -137,48 +136,6 @@ export namespace Config {
          * All current env variables flattened
          */
         vars: PredefinedEnvVars & EnvVars;
-      };
-      /**
-       * Meta information about the project using the CLI
-       */
-      project: {
-        /** The **project**'s root folder (a.k.a. the `process.cwd()`) */
-        root: string;
-        /** The **project**'s `node_modules` path (used by `npm/pnpm/yarn` packages) */
-        nodeModules: string;
-        /** The **project**'s `.env` path */
-        envPath: string;
-        /**
-         * The project's parsed `package.json`
-         */
-        packageJson: PackageJson & {
-          config: {
-            /**
-             * Project's start year
-             *
-             * NOTE: This property is enforced via the `pkg` task
-             *
-             * @default currentYear
-             */
-            startYear: number;
-          };
-        };
-        /**
-         * The project **title** derived from `package.json#name`
-         */
-        title: string;
-        /**
-         * The project **slug** derived from `package.json#name`
-         */
-        slug: string;
-        /**
-         * The project **repo** information normalised from `package.json#repository`
-         */
-        repo: {
-          url: string;
-          ssh: string;
-          name: string;
-        };
       };
     };
 

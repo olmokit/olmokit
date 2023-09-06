@@ -2,6 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import ci from "ci-info";
 import { configDotenv } from "dotenv";
 import { filer } from "@olmokit/cli-utils/filer";
+import { project } from "../../project.js";
 import { getBaseUrl, getInternalIps } from "../helpers/index.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
@@ -55,8 +56,8 @@ function addIpsToHooks(allowedIps: string[], currentValue = "") {
  * general, especially in the CI, but it is probably there when building the
  * website locally.
  */
-const envSetupModify: CliLaravel.Task = async ({ ctx }) => {
-  let content = await readFile(ctx.project.envPath, { encoding: "utf-8" });
+const envSetupModify: CliLaravel.Task = async () => {
+  let content = await readFile(project.envPath, { encoding: "utf-8" });
 
   // add hooks allowed ips only during ci deployment
   if (ci.isCI) {
@@ -88,7 +89,7 @@ const envSetupModify: CliLaravel.Task = async ({ ctx }) => {
     content += `\nDEV_WDS_URL=${getBaseUrl()}\n`;
   }
 
-  await writeFile(ctx.project.envPath, content);
+  await writeFile(project.envPath, content);
 };
 envSetupModify.meta = { title: "tweak .env file" };
 

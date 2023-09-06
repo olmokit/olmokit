@@ -1,54 +1,55 @@
 import { join } from "node:path";
 import { paramCase, pascalCase } from "change-case";
+import { globSync } from "glob";
 import { filer } from "@olmokit/cli-utils/filer";
-import { getLibraries } from "../helpers/libraries.js";
+import { type Library, libraries } from "../helpers/libraries.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 
-/**
- * Core, sync core templates
- */
-export const core: CliLaravel.Task = async ({ ctx, spinner, chalk }) => {
-  const { core: coreLibrary } = getLibraries(ctx);
+type CoreElement = { dir: string; name: string };
 
-  if (!coreLibrary.exists) {
-    spinner.warn("There is no core library installed!");
-    return;
-  }
+export function processCoreLibrary(
+  getBase: (library: Library, elementName: string) => string
+) {
+  const { core: lib } = libraries;
+  const elements: CoreElement[] = [];
+  const info = (name?: string) =>
+    lib
+      ? lib.locallyLinked
+        ? `${lib.name}${name ? `/${name}` : ``}@local-version`
+        : `${lib.name}${name ? `/${name}` : ``}@${lib.packageJson?.version}`
+      : "";
 
-  const pkgInfo = (name?: string) =>
-    `"${coreLibrary.name}${name ? "/" + name : ""}" v${
-      coreLibrary.packageJson?.version
-    }`;
+  if (lib.exists) {
+    const folders = globSync("*", {
+      cwd: lib.src,
+      withFileTypes: true,
+    })
+      .filter((path) => path.isDirectory() && path.name !== "node_modules")
+      .map((path) => path.name);
 
-  // TODO: improve this fragile typing
-  const folders = coreLibrary.packageJson?.config?.["core-sync"] as string[];
-  const items: { dir: string; name: string }[] = [];
-  const names: string[] = [];
-
-  for (let i = 0; i < folders.length; i++) {
-    const name = folders[i];
-    items.push({
-      dir: join(coreLibrary.path, "/" + name),
-      name,
-    });
-    if (!names.includes(name)) {
-      names.push(name);
+    for (let i = 0; i < folders.length; i++) {
+      const name = folders[i];
+      elements.push({
+        dir: getBase(lib, name),
+        name,
+      });
     }
   }
 
-  // console.log("items", items);
-
-  await Promise.all([
-    items.map(async (item) => {
+  return {
+    ...lib,
+    elements,
+    info,
+    syncer: async (el: CoreElement) => {
       return await filer("**/*.php", {
-        base: item.dir,
+        base: el.dir,
         glob: {
-          ignore: join(item.dir, "/(node_modules|examples)/**/*.php"),
+          ignore: join(el.dir, "/(node_modules|examples)/**/*.php"),
         },
         append: ({ basename }) => {
           if (basename.endsWith(".blade.php")) {
-            return `\n{{-- Synced with "${pkgInfo(item.name)} --}}`;
+            return `\n{{-- Synced with ${info(el.name)} --}}`;
           }
           return;
         },
@@ -57,9 +58,9 @@ export const core: CliLaravel.Task = async ({ ctx, spinner, chalk }) => {
           let name = "";
           // path dirname is e.g. "forms" or "."
           if (!dir || dir === ".") {
-            name = isBlade ? item.name : pascalCase(item.name);
+            name = isBlade ? el.name : pascalCase(el.name);
           } else {
-            name = isBlade ? `${item.name}-` : pascalCase(item.name);
+            name = isBlade ? `${el.name}-` : pascalCase(el.name);
             name += isBlade ? paramCase(dir) : pascalCase(dir);
           }
           if (isBlade) {
@@ -72,10 +73,28 @@ export const core: CliLaravel.Task = async ({ ctx, spinner, chalk }) => {
         },
         dest: paths.frontend.dest.core,
       });
-    }),
-  ]);
+    },
+  };
+}
+
+/**
+ * Core, sync core templates
+ */
+export const core: CliLaravel.Task = async ({ spinner }) => {
+  const { elements, info, syncer } = processCoreLibrary((lib, name) =>
+    join(lib.path, name)
+  );
+
+  if (!elements.length) {
+    spinner.warn("There is no core library installed!");
+    return;
+  }
+
+  // console.log("elements", elements);
+
+  await Promise.all(elements.map(syncer));
 
   // spinner.succeed(msg);
-  spinner.text = `Synced with ${pkgInfo()}`;
+  spinner.text = `Synced with ${info()}`;
 };
 core.meta = { title: "Sync core components templates" };

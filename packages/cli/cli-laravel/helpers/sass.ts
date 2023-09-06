@@ -1,10 +1,10 @@
 import { existsSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
+import { project } from "../../project.js";
 import { paths } from "../paths/index.js";
-import type { CliLaravel } from "../pm.js";
 import { getPublicUrls } from "./index.js";
 // eslint-disable-next-line import/order
-import { type Libraries, getLibraries } from "./libraries.js";
+import { type Libraries, libraries } from "./libraries.js";
 
 /**
  * Get SASS shared resources
@@ -15,15 +15,14 @@ import { type Libraries, getLibraries } from "./libraries.js";
  * The order of the array is crucial here to enable SASS overriding defaults
  * behaviour.
  */
-export function getSassSharedResources(config: CliLaravel.Config) {
-  const libraries = getLibraries(config);
+export function getSassSharedResources() {
   const importFromLibrary = (
     lib: keyof Libraries,
     module: string,
     filename: string
   ) =>
     join(
-      config.project.nodeModules,
+      project.nodeModules,
       `${libraries[lib].name}/${module}/_${filename}.scss`
     );
   const importFromProject = (filename: string) =>
@@ -87,13 +86,12 @@ export function getSassSharedResources(config: CliLaravel.Config) {
  * but keeps them under the node_modules inside the symlinked library's folder
  * (e.g. in `./node_modules/@olmokit/core/node_modules)
  */
-export function getSassIncludePaths(config: CliLaravel.Config) {
-  const { core: coreLibrary } = getLibraries(config);
-  const includePaths = [resolve(config.project.nodeModules)];
+export function getSassIncludePaths() {
+  const includePaths = [resolve(project.nodeModules)];
 
   // FIXME: is this working? not even sure if still needed
-  if (coreLibrary.pathNodeModules) {
-    includePaths.push(resolve(coreLibrary.pathNodeModules));
+  if (libraries.core.pathNodeModules) {
+    includePaths.push(resolve(libraries.core.pathNodeModules));
   }
 
   return includePaths;

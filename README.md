@@ -18,18 +18,14 @@ Clone this repo locally and install dependencies running
 pnpm i
 ```
 
-Build and globally link all packages with:
+This will automatically run the `postinstall` script `pnpm dev` which builds and globally link all packages. In this way we ensure `dependencies` of each package are installed within the correct _pnpm link_ structure. From then on you can simply run `pnpm start` to start compiling a package in **watch mode**. You will be prompt to pick a single package to watch. <!-- (TODO: verify the following which is probably not needed as we have the `postinstall` script already): Note that if you add an external dependency to a package you probably need to re-run `pnpm dev` in order to include the new dependencies in the globally linked structure.-->
 
-```bash
-pnpm dev
-```
-
-Now in your test project bootstrapped with `@olmokit/create-app` you can run `npx olmo link` to use the globally symlinked packages from your machine.
+Now in your test project bootstrapped with `@olmokit/create-app` you can run `pnpm olmo link` to use the globally linked packages from your machine.
 
 Develop the **docs** locally at [localhost:3000/olmokit](http://localhost:3000/olmokit) running
 
 ```bash
-pnpm run docs
+pnpm docs
 ```
 
 ### Publish packages
@@ -40,8 +36,6 @@ First commit and push your local work. Then, never manually bump package version
 pnpm dev publish
 ```
 
-NB: The only file you might need to manually bump is [`./packages/template-laravel/template/composer.json`](/-/tree/main/packages/template-laravel/template/composer.json) with the latest `olmo/laravel-frontend` version. This is probably required only for **major** semver version changes and it is likely better to keep a non-strict version here as its only purpose it is to bootstrap the project with the latest available major release.
-
 ### Dev notes
 
 - Switch between php versions on linux `sudo update-alternatives --set php /usr/bin/php` (then press tab for autocomlete options).
@@ -49,6 +43,7 @@ NB: The only file you might need to manually bump is [`./packages/template-larav
 #### TODO:
 
 - **preview**: via URL param only applied to the base controller of each Laravel Route
+- maybe implement [JamieMason/syncpack](https://github.com/JamieMason/syncpack) for this monorepo
 
 #### FIXME: Migration notes
 
@@ -91,6 +86,10 @@ import { debounce } from "@olmokit/utils";
 
 import { transitionBarbaCurtain } from "@acanto/core/transitions";
 import { transitionsBarbaCurtain } from "@acanto/core/transitions";
+
+import { $$ } from "@acanto/core/dom";
+import { $all } from "@olmokit/dom";
+// also replace the usages of the $$ function
 
 import { initSwiper } from "@acanto/core/swiper";
 import { swiperInit } from "@olmokit/core/swiper";

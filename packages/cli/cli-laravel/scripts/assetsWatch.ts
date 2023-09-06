@@ -24,7 +24,7 @@ export const assetsWatch: CliLaravel.Task = async ({
 
   return new Promise<void>((resolve, reject) => {
     const compiler = webpack(webpackConfig(ctx));
-    const server = new webpackDevServer(webpackConfigDevServer(ctx), compiler);
+    const server = new webpackDevServer(webpackConfigDevServer(), compiler);
     const firstCompilationPromise = Defer();
     let hasFinishedFirstCompilation = false;
     let spinnerCompile: ReturnType<typeof ora>;

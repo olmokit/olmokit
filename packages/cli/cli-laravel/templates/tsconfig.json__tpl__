@@ -13,6 +13,8 @@
     "noUnusedParameters": true,
     "baseUrl": "./<%= srcFolder %>",
     "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"],
       "assets": ["assets/*"],
       "components": ["components/*"],
       "config": ["config/*"],

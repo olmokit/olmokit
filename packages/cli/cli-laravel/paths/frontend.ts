@@ -1,4 +1,5 @@
 import { join } from "node:path";
+import { project } from "../../project.js";
 
 const srcFolder = "src";
 const destFolder = "resources";
@@ -26,7 +27,7 @@ const destRelativePaths = {
   manifest: `/${destFolders.assets}/manifest.json`,
 };
 
-const root = process.cwd(); // config.project.root
+const root = project.root;
 const destPublic = join(root, publicFolder);
 const destPath = join(root, destFolder);
 const srcPath = join(root, srcFolder);

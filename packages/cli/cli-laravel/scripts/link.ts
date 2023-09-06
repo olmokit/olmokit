@@ -5,6 +5,7 @@ import { $ } from "execa";
 import { rimrafSync } from "rimraf";
 import { getProjectDependencies } from "../../helpers-getters.js";
 import { meta } from "../../meta.js";
+import { project } from "../../project.js";
 // import { getPackageManagerCommand } from "@olmokit/cli-utils/package-manager";
 import type { CliLaravel } from "../pm.js";
 
@@ -17,11 +18,11 @@ import type { CliLaravel } from "../pm.js";
  *
  * TODO: support `npm` and `yarn`?
  */
-async function tryNodeLink({ ctx, log, ora, chalk }: CliLaravel.TaskArg) {
+async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
   // const pkm = getPackageManagerCommand();
   // const candidatesGloballyLinked = execSync(pkm.list + " -g")
   const candidatesDeps = getProjectDependencies(
-    ctx.project.packageJson,
+    project.packageJson,
     meta.orgScope
   );
   const candidatesGloballyLinked = execSync("pnpm list -g")
@@ -71,14 +72,14 @@ async function tryNodeLink({ ctx, log, ora, chalk }: CliLaravel.TaskArg) {
  * We just try to guess where is this package source on the machine of the
  * developer running it...TODO: probably we could better here
  */
-function tryComposerLink({ ctx, log, chalk }: CliLaravel.TaskArg) {
+function tryComposerLink({ log, chalk }: CliLaravel.TaskArg) {
   const name = "olmo/laravel-frontend";
   const nameLog = chalk.bold(name);
   const src = join(
-    ctx.project.root,
+    project.root,
     "../../Olmo/olmokit/packages/laravel-frontend"
   );
-  const dest = join(ctx.project.root, "/vendor/", name);
+  const dest = join(project.root, "/vendor/", name);
 
   if (existsSync(src)) {
     if (existsSync(dest)) {
@@ -91,6 +92,9 @@ function tryComposerLink({ ctx, log, chalk }: CliLaravel.TaskArg) {
   }
 }
 
+/**
+ * List linked packages from curent project with `pnpm list -g --parseable`
+ */
 export const link: CliLaravel.Task = async (arg) => {
   await tryNodeLink(arg);
   tryComposerLink(arg);

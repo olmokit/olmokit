@@ -9,6 +9,8 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "watch": true,
+        "clean": false,
+        "skipTypeCheck": true,
         "outputPath": "dist/packages/cli-utils",
         "main": "packages/cli-utils/index.ts",
         "tsConfig": "packages/cli-utils/tsconfig.lib.json",

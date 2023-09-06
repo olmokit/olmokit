@@ -1,5 +1,6 @@
 import { existsSync, lstatSync } from "node:fs";
 import type { PackageJson } from "type-fest";
+import { project } from "./project.js";
 import type { Config } from "./types.js";
 
 /**
@@ -20,8 +21,8 @@ function getNow() {
   return ddmmyyyy + " " + hhmmss;
 }
 
-export const getBanner = (config: Config.Internal) => {
-  const pkg = config.project.packageJson;
+export const getBanner = () => {
+  const pkg = project.packageJson;
   const thisYear = new Date().getFullYear();
   const startYear = pkg.config?.startYear ?? thisYear;
   const endYear = thisYear > startYear ? "-" + thisYear : "";
@@ -30,7 +31,7 @@ export const getBanner = (config: Config.Internal) => {
     `` +
     `/*! ` +
     `Copyright (c) ${startYear}${endYear} ${pkg.author} | ` +
-    `${config.project.title} v${pkg.version} (${
+    `${project.title} v${pkg.version} (${
       process.env.APP_URL
     }, last change on: ${getNow()}) ` +
     `*/`

@@ -4,6 +4,7 @@ import {
   // AutomaticEnvVars,
   updateEnvVars,
 } from "./config-env.js";
+import { project } from "./project.js";
 import type { Config } from "./types.js";
 
 type BuildData = {
@@ -11,20 +12,18 @@ type BuildData = {
   publicUrl: string; // AutomaticEnvVars["PUBLIC_URL"];
 };
 
-export function configBuild(
-  config: Pick<Config.Internal, "type" | "project">
-): BuildData;
+export function configBuild(config: Pick<Config.Internal, "type">): BuildData;
 export function configBuild(
   config: Config.Internal,
   data: BuildData
 ): BuildData;
 export function configBuild(
-  config: Pick<Config.Internal, "type" | "project"> | Config.Internal,
+  config: Pick<Config.Internal, "type"> | Config.Internal,
   data?: BuildData
 ) {
   // TODO: this path is maybe too specific to laravel, we might make this
   // contextual to the CLI type or part of an extension mechanism
-  const filepath = join(config.project.root, "public/.build");
+  const filepath = join(project.root, "public/.build");
 
   if (data) {
     // write

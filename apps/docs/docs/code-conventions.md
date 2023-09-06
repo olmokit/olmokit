@@ -59,4 +59,4 @@ etc.
 
 ### Regarding the use of colon
 
-In **SCSS** the `:` needs to be escaped by a backslash as such `Mycomponent\:`, while in **JS** using the `$` or `$$` or `escape` functions to deal with DOM selectors the colon `:` is automatically escaped. Otherwise it needs to be escaped as such `querySelector(".Mycomponent\\:")`.
+In **SCSS** the `:` needs to be escaped by a backslash as such `Mycomponent\:`, while in **JS** using the `$` or `$all` or `escape` functions to deal with DOM selectors the colon `:` is automatically escaped. Otherwise it needs to be escaped as such `querySelector(".Mycomponent\\:")`.

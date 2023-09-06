@@ -1,7 +1,8 @@
 import { join } from "node:path";
+import { project } from "../../project.js";
 import { pathsSelf } from "./self.js";
 
-const root = process.cwd(); // config.project.root
+const root = project.root;
 const tplPath = join(pathsSelf.templates, "laravel-frontend");
 const libPath = join(root, "vendor", "olmo/laravel-frontend");
 const appPath = root;

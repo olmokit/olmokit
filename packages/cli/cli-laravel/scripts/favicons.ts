@@ -3,6 +3,7 @@ import { join } from "node:path";
 import deepmerge from "deepmerge";
 import faviconsLib, { type FaviconOptions } from "favicons";
 import { getHeaderAutogeneration } from "../../helpers-getters.js";
+import { project } from "../../project.js";
 import { getPublicUrls } from "../helpers/index.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
@@ -10,9 +11,9 @@ import type { CliLaravel } from "../pm.js";
 function getFaviconsOpts(config: CliLaravel.Config): Partial<FaviconOptions> {
   return deepmerge<Partial<FaviconOptions>>(
     {
-      appName: config.project.title, // Your application's name. `string`
-      appDescription: "", // config.project.packageJson.description, // Your application's description. `string`
-      version: config.project.packageJson.version, // Your application's version string. `string`
+      appName: project.title, // Your application's name. `string`
+      appDescription: "", // project.packageJson.description, // Your application's description. `string`
+      version: project.packageJson.version, // Your application's version string. `string`
       // url: process.env.APP_URL,
       // appShortName: null, // Your application's short_name. `string`. Optional. If not set, appName will be used
       // developerName: null, // Your (or your developer's) name. `string`

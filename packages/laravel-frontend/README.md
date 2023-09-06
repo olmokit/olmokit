@@ -4,7 +4,7 @@
 
 > For all the documentation refer to the [Olmo docs](https://olmokit.github.io/olmokit).
 
-This package is automatically mirrored as a standalone repository to [GitHub](https://github.com/olmokit/olmo-laravel-frontend) through [a script in olmokit](../../tools/dev-publish.ts). Composer installs `olmo/laravel-frontend` through the [packagist.org's package](https://packagist.org/packages/olmo/laravel-frontend) which points to the mirrored repository.
+This package is automatically mirrored as a standalone repository to [GitHub](https://github.com/olmokit/olmo-laravel-frontend) through [a script in olmokit](https://github.com/olmokit/olmokit/blob/main/tools/dev-publish.ts#L153-L175). Composer installs `olmo/laravel-frontend` through the [packagist.org's package](https://packagist.org/packages/olmo/laravel-frontend) which points to the mirrored repository.
 
 ## Development
 

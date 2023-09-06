@@ -1,9 +1,7 @@
 import type { RuleSetRule } from "webpack";
 import { paths } from "../paths/index.js";
-import type { CliLaravel } from "../pm.js";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default (config: CliLaravel.Config) => {
+export default () => {
   const rules: RuleSetRule[] = [
     {
       test: /\.(woff2?|ttf|otf|eot)$/,

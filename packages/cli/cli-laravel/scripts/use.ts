@@ -7,6 +7,7 @@ import { copy } from "fs-extra";
 import { globSync } from "glob";
 import prompts from "prompts";
 import { meta } from "../../meta.js";
+import { project } from "../../project.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 
@@ -388,13 +389,13 @@ If you like you might rename these middlewares in your project and re-run ${chal
  * Get available features by globbing the node_modules that match the `use-`
  * naming convention
  */
-function getAvailableFeatures({ ctx }: CliLaravel.TaskArg): FeatureMetadata[] {
+function getAvailableFeatures(): FeatureMetadata[] {
   const globPath = `${meta.orgScope}/use/*`;
 
   return globSync(globPath, {
-    cwd: ctx.project.nodeModules,
+    cwd: project.nodeModules,
     withFileTypes: true,
-    ignore: join(ctx.project.nodeModules, "/**/node_modules"),
+    ignore: join(project.nodeModules, "/**/node_modules"),
   })
     .filter((globPath) => globPath.isDirectory())
     .map((globPath) => {
@@ -430,7 +431,7 @@ function getAvailableFeatures({ ctx }: CliLaravel.TaskArg): FeatureMetadata[] {
  * Run the `use` command
  */
 export const use: CliLaravel.Task = async ({ cliCursor, arg }) => {
-  const features = getAvailableFeatures(arg);
+  const features = getAvailableFeatures();
 
   cliCursor.show();
 

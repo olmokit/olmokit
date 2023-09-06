@@ -1,5 +1,6 @@
 import { join } from "node:path";
 import { rimraf } from "rimraf";
+import { project } from "../../project.js";
 import { execArtisan } from "../helpers/execArtisan.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
@@ -7,8 +8,8 @@ import type { CliLaravel } from "../pm.js";
 /**
  * Clean storage and public
  */
-const cleanStorageAndPublic: CliLaravel.Task = async ({ ctx }) => {
-  const root = ctx.project.root;
+const cleanStorageAndPublic: CliLaravel.Task = async () => {
+  const root = project.root;
 
   await rimraf([
     join(root, "bootstrap/cache/**/*"),

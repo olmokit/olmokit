@@ -12,11 +12,10 @@ import {
   getSassIncludePaths,
   getSassSharedResources,
 } from "../helpers/sass.js";
-import type { CliLaravel } from "../pm.js";
 
 const require = createRequire(import.meta.url);
 
-export default (config: CliLaravel.Config) => {
+export default () => {
   const rules: RuleSetRule[] = [
     {
       // sideEffects: true,
@@ -89,7 +88,7 @@ export default (config: CliLaravel.Config) => {
             additionalData: getSassAdditionalData(),
             // webpackImporter: false,
             sassOptions: {
-              includePaths: getSassIncludePaths(config),
+              includePaths: getSassIncludePaths(),
               // fiber: require("fibers"),
               quietDeps: true,
             },
@@ -98,7 +97,7 @@ export default (config: CliLaravel.Config) => {
         {
           loader: require.resolve("sass-resources-loader"),
           options: {
-            resources: getSassSharedResources(config),
+            resources: getSassSharedResources(),
             hoistUseStatements: true,
           },
         },

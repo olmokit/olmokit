@@ -7,6 +7,7 @@ import { rimraf } from "rimraf";
 import { filer } from "@olmokit/cli-utils/filer";
 import type { TaskrLog } from "@olmokit/cli-utils/taskr";
 import { normaliseUrl, removeTrailingSlashes } from "../../helpers-getters.js";
+import { project } from "../../project.js";
 import { touchFiles } from "../../touchFiles.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
@@ -61,15 +62,15 @@ ciComposer.meta = { title: "Run composer" };
 /**
  * Zip the vendor folder
  */
-const ciComposerZip: CliLaravel.CmdDeploy.Task = ({ ctx, log }) =>
+const ciComposerZip: CliLaravel.CmdDeploy.Task = ({ log }) =>
   new Promise<void>((resolve, reject) => {
     // create a file to stream archive data to.
-    const output = createWriteStream(join(ctx.project.root, "vendor.zip"));
+    const output = createWriteStream(join(project.root, "vendor.zip"));
     const archive = archiver("zip", { zlib: { level: 9 } });
 
     output.on("close", async () => {
       // now delete the vendor folder so that it does not get synced to the server
-      await rimraf(join(ctx.project.root, "vendor"));
+      await rimraf(join(project.root, "vendor"));
 
       log.success("Created vendor.zip and deleted vendor folder");
 
@@ -92,7 +93,7 @@ const ciComposerZip: CliLaravel.CmdDeploy.Task = ({ ctx, log }) =>
       throw err;
     });
 
-    archive.directory(join(ctx.project.root, "vendor/"), false);
+    archive.directory(join(project.root, "vendor/"), false);
 
     archive.pipe(output);
     archive.finalize();
@@ -102,8 +103,8 @@ ciComposerZip.meta = { title: "Zip composer packages" };
 /**
  * Clean files that should not end up on the server
  */
-const ciClean: CliLaravel.CmdDeploy.Task = async ({ ctx }) => {
-  const root = ctx.project.root;
+const ciClean: CliLaravel.CmdDeploy.Task = async () => {
+  const root = project.root;
   await rimraf(
     [
       join(root, ".env.*"),

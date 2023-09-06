@@ -19,17 +19,7 @@ import { glob } from "glob";
 import { oraPromise } from "ora";
 import { PackageJson, TsConfigJson } from "type-fest";
 import { oraOpts } from "./dev.js";
-import { type Lib as LibBase, editJSONfile, self } from "./helpers.js";
-
-const libsConfig: LibConfig[] = [
-  { name: "browser", type: "module", exports: ["esm"], minify: true },
-  { name: "cli", type: "module", exports: "none", minify: false },
-  { name: "cli-utils", type: "module", exports: ["esm"], minify: true },
-  { name: "components", type: "module", exports: ["esm"], minify: true },
-  { name: "core", type: "module", exports: ["esm"], minify: true },
-  { name: "dom", type: "module", exports: ["esm"], minify: true },
-  { name: "utils", type: "module", exports: ["esm"], minify: true },
-];
+import { type Lib, editJSONfile, self } from "./helpers.js";
 
 // FIXME: to fix in swc? just exclude `SystemjsConfig` because it does not extends `BaseModuleConfig`
 type SWCConfig = Omit<_SWCConfig, "module"> & {
@@ -41,7 +31,7 @@ export const libs = () =>
     .description("Manage libs exports/bundling")
     .action(async () => {
       await Promise.all(
-        libsConfig.map(mergeLibData).map(async (lib) => {
+        self().libs.map(async (lib) => {
           const suffixText = chalk.dim(`${lib.name}`);
 
           await oraPromise(writeLibExports(lib), {
@@ -66,21 +56,6 @@ export const libs = () =>
 
       console.log();
     });
-
-type LibConfig = {
-  name: string;
-  /**
-   * Set to explicit `"none"` to delete the key/value if found
-   */
-  type?: "none" | "module" | "commonjs";
-  /**
-   * Set to explicit `"none"` to delete the key/value if found
-   */
-  exports?: "none" | ("esm" | "cjs")[];
-  minify?: boolean;
-};
-
-type Lib = LibBase & LibConfig;
 
 function getLibExport(lib: Lib, name?: string, path?: string) {
   name = name ? `./${name}` : ".";
@@ -189,7 +164,7 @@ async function ensurePackageVersion(lib: Lib) {
   });
 }
 
-function overrideByLibType<T, L extends NonNullable<LibConfig["type"]>>(
+function overrideByLibType<T, L extends NonNullable<Lib["type"]>>(
   option: T,
   libType: L,
   override: Record<L, NonNullable<T>>
@@ -254,13 +229,4 @@ async function setLibOptions(lib: Lib) {
       }
     }
   );
-}
-
-function mergeLibData(lib: LibConfig): Lib {
-  const { libsMap, scope } = self();
-  const libBase = libsMap[`${scope}/${lib.name}`];
-  if (libBase) {
-    return { ...libBase, ...lib };
-  }
-  throw Error(`Trying to process unexisting lib "${lib.name}"`);
 }
