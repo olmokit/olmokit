@@ -159,11 +159,11 @@ class I18n
     $data = [];
     $locale = App::getLocale();
 
-    // never use cache during development
     if (config('env.DEVELOPMENT')) {
+      // never use cache during development
       $data = self::parseLocalTranslations($locale);
-      // always use cache in production (whatever env...)
     } else {
+      // always use cache in production (whatever env...)
       $cacheKey = "i18n.localTranslations.$locale";
 
       if (Cache::has($cacheKey)) {
