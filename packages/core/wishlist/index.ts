@@ -1,7 +1,6 @@
 import { Emitter } from "@olmokit/utils/Emitter";
 import { isUndefined } from "@olmokit/utils/isUndefined";
-// FIXME: somehow the deeper import does not work
-import { $$ } from "@olmokit/dom";
+import { $all } from "@olmokit/dom";
 import { addClass } from "@olmokit/dom/addClass";
 import { forEach } from "@olmokit/dom/forEach";
 import { listen } from "@olmokit/dom/listen";
@@ -154,7 +153,7 @@ export function eachWishlistBtn(
   callback: ($btn: HTMLButtonElement) => any
 ) {
   const $elements = toArray(
-    $$(`[data-${ATTR_BTN}]`, $item)
+    $all(`[data-${ATTR_BTN}]`, $item)
   ) as unknown as HTMLButtonElement[];
   $elements.forEach(callback);
   return $elements;
@@ -245,7 +244,7 @@ export function removeFromWishlist(data: Pick<Wishlist.Item, "id">) {
  * element with a `data-...-ready` attribute.
  */
 export function hydrateWishlist(rooter?: Rooter) {
-  forEach($$(`[data-${ATTR_ITEM}]`, getScopedRoot(rooter)), ($item) => {
+  forEach($all(`[data-${ATTR_ITEM}]`, getScopedRoot(rooter)), ($item) => {
     const { id } = getItemData($item);
     if (store[id]) {
       markAsWished($item);

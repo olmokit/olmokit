@@ -36,7 +36,10 @@ export { forin } from "./forin";
 export { gbToBytes } from "./gbToBytes";
 export { getEmptyArray } from "./getEmptyArray";
 export { getKeys } from "./getKeys";
-export { getMediaQueryWidthResolvers } from "./getMediaQueryWidthResolvers";
+export {
+  type GetMediaQueryWidthResolversBreakpoints,
+  getMediaQueryWidthResolvers,
+} from "./getMediaQueryWidthResolvers";
 export { getMediaQueryWidthTailwindScreens } from "./getMediaQueryWidthTailwindScreens";
 export { getNonce } from "./getNonce";
 export { getParamAmong } from "./getParamAmong";
@@ -110,6 +113,7 @@ export { moveSortableArrayItemByKey } from "./moveSortableArrayItemByKey";
 export { noop } from "./noop";
 export { normaliseUrlPathname } from "./normaliseUrlPathname";
 export { normaliseUrl } from "./normaliseUrl";
+export { objectFlip } from "./objectFlip";
 export { objectPick } from "./objectPick";
 export { objectOmit } from "./objectOmit";
 export { parseCookie } from "./parseCookie";
@@ -173,7 +177,6 @@ export type {
   RequireAtLeastOne,
   RequireExactlyOne,
   RequireAllOrNone,
-  RemoveIndexSignature,
   PartialDeep,
   ReadonlyDeep,
   LiteralUnion,

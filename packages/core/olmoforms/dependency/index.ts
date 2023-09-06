@@ -1,6 +1,5 @@
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
 import { $ } from "@olmokit/dom/$";
+import { $all } from "@olmokit/dom/$all";
 import { forEach } from "@olmokit/dom/forEach";
 import { getDataAttr } from "@olmokit/dom/getDataAttr";
 import { on } from "@olmokit/dom/on";
@@ -23,7 +22,7 @@ function disableElement(el: HTMLElement, dep: HTMLInputElement) {
 export default function Dependency(rootSelector = ".ofForm:") {
   const $root = $(rootSelector);
   const $form = $<HTMLFormElement>(".of:", $root);
-  const $els = $$<HTMLFormElement>(".of:el", $form);
+  const $els = $all<HTMLFormElement>(".of:el", $form);
   const $formid = getDataAttr($form, "id");
 
   forEach($els, (el) => {

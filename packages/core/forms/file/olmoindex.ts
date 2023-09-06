@@ -2,9 +2,8 @@
 // @ts-nocheck
 import axios from "axios";
 import { uuid } from "@olmokit/utils/uuid";
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
 import { $ } from "@olmokit/dom/$";
+import { $all } from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
 import { forEach } from "@olmokit/dom/forEach";
 import { getDataAttr } from "@olmokit/dom/getDataAttr";
@@ -40,7 +39,7 @@ export function Uploadfile(rootSelector = ".ofForm:") {
     data,
   };
 
-  forEach($$(".file"), ($rootupload) => {
+  forEach($all(".file"), ($rootupload) => {
     const $input = $(".formControl", $rootupload);
     const $fileName = $(".fileName", $rootupload);
 

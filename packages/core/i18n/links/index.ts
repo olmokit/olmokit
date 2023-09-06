@@ -1,6 +1,5 @@
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
 import { $ } from "@olmokit/dom/$";
+import { $all } from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
 import { forEach } from "@olmokit/dom/forEach";
 import { getDataAttr } from "@olmokit/dom/getDataAttr";
@@ -20,7 +19,7 @@ export function I18nLinks(rootSelector = "") {
    * Build a map associating a locale to its link, this will be used to swap
    * the links on route change
    */
-  forEach<HTMLAnchorElement>($$("[data-locale]", $root), ($link) => {
+  forEach<HTMLAnchorElement>($all("[data-locale]", $root), ($link) => {
     const locale = getDataAttr($link, "locale");
     if (locale) domMap[locale] = $link;
   });

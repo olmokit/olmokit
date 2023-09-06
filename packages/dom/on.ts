@@ -1,4 +1,4 @@
-// import noop from "@olmokit/utils/noop"; FIXME: build breaks with this import
+// import { noop } from "@olmokit/utils"; FIXME: build breaks with this import
 import off from "./off";
 import type {
   AnyDOMEvent,

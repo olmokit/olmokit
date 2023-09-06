@@ -1,5 +1,5 @@
 import { $ } from "@olmokit/dom/$";
-import { $$ } from "@olmokit/dom/$$";
+import { $all } from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
 import { emitEvent } from "@olmokit/dom/emitEvent";
 import { forEach } from "@olmokit/dom/forEach";
@@ -190,7 +190,7 @@ export default function scrollSpy(selector, options = {}) {
    */
   function setup() {
     // Get all nav items
-    const navItems = $$(selector);
+    const navItems = $all(selector);
 
     // Create data array
     data = [];

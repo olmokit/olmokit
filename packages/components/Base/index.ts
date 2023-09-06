@@ -1,7 +1,6 @@
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
-import forEach from "@olmokit/dom/forEach";
-import isNodeList from "@olmokit/dom/isNodeList";
+import { $all } from "@olmokit/dom/$all";
+import { forEach } from "@olmokit/dom/forEach";
+import { isNodeList } from "@olmokit/dom/isNodeList";
 
 /**
  * Base component class to extend, it makes sure that the root selector
@@ -77,7 +76,7 @@ export class BaseComponent {
     }
     // initialised with string selector
     else if (typeof selectorOrElement === "string" || this.rootSelector) {
-      const elements = $$(selectorOrElement || this.rootSelector);
+      const elements = $all(selectorOrElement || this.rootSelector);
 
       if (isNodeList(elements) && elements.length) {
         forEach(elements, (element) => {

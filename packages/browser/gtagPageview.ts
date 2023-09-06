@@ -1,4 +1,4 @@
-import isUndefined from "@olmokit/utils/isUndefined";
+import { isUndefined } from "@olmokit/utils";
 
 export type GtmPageviewArgs = [
   page_path?: string,

@@ -14,8 +14,7 @@ import { Emitter } from "@olmokit/utils/Emitter";
 import { getUrlQueryParams } from "@olmokit/utils/getUrlQueryParams";
 import { isUndefined } from "@olmokit/utils/isUndefined";
 import { updateLinkParams } from "@olmokit/utils/updateLinkParams";
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
+import { $all } from "@olmokit/dom/$all";
 import { $each } from "@olmokit/dom/$each";
 import { forEach } from "@olmokit/dom/forEach";
 import { getDataAttr } from "@olmokit/dom/getDataAttr";
@@ -111,7 +110,7 @@ const ATTR_ITEM_LINK = "item-link";
  */
 export function eachItem(callback: ($item: HTMLElement) => any) {
   const $elements = toArray(
-    $$(`[data-${ATTR_ITEM_ID}]`)
+    $all(`[data-${ATTR_ITEM_ID}]`)
   ) as unknown as HTMLElement[];
   $elements.forEach(callback);
   return $elements;
@@ -126,7 +125,7 @@ export function eachItemWithId(
   callback: ($item: HTMLElement) => any
 ) {
   const $elements = toArray(
-    $$(`[data-${ATTR_ITEM_ID}="${id}"]`)
+    $all(`[data-${ATTR_ITEM_ID}="${id}"]`)
   ) as unknown as HTMLElement[];
   $elements.forEach(callback);
   return $elements;
@@ -210,7 +209,7 @@ export function Item(
    */
   function eachPropertyElement(callback: ($el: AnyFormHTMLElement) => void) {
     const $elements = toArray(
-      $$(`[data-${ATTR_ITEM_PROPERTY}]`, $root)
+      $all(`[data-${ATTR_ITEM_PROPERTY}]`, $root)
     ) as unknown as AnyFormHTMLElement[];
     $elements.forEach(callback);
   }
@@ -220,7 +219,7 @@ export function Item(
    */
   function eachQuantityElement(callback: ($el: AnyFormHTMLElement) => void) {
     const $elements = toArray(
-      $$(`[data-${ATTR_ITEM_QUANTITY}]`, $root)
+      $all(`[data-${ATTR_ITEM_QUANTITY}]`, $root)
     ) as unknown as AnyFormHTMLElement[];
     $elements.forEach(callback);
   }
@@ -230,7 +229,7 @@ export function Item(
    */
   function eachLinkElement(callback: ($el: HTMLAnchorElement) => void) {
     const $elements = toArray(
-      $$(`[data-${ATTR_ITEM_LINK}]`, $root)
+      $all(`[data-${ATTR_ITEM_LINK}]`, $root)
     ) as unknown as HTMLAnchorElement[];
     $elements.forEach(callback);
   }
@@ -385,7 +384,7 @@ export function Item(
    */
   function resetPropertyExceptPivot(current, interact) {
     if (interact) {
-      const allProperties = $$(`[data-${ATTR_ITEM_PROPERTY}]`, $root);
+      const allProperties = $all(`[data-${ATTR_ITEM_PROPERTY}]`, $root);
       forEach(allProperties, (element) => {
         if (element.name != syncUrlClear && current.name == syncUrlClear) {
           element.value = "";
@@ -593,7 +592,7 @@ export function initItems<TRoot extends HTMLElement = HTMLElement>(
   options?: Item.Options,
   product?: Item.Product
 ) {
-  const $items = $$(`[data-${ATTR_ITEM_ID}]`, getScopedRoot<TRoot>(rooter));
+  const $items = $all(`[data-${ATTR_ITEM_ID}]`, getScopedRoot<TRoot>(rooter));
   forEach($items, ($item, index) => {
     Item($item, options, product, $items.length, index, typepage);
   });

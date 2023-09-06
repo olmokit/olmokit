@@ -1,4 +1,4 @@
-import isServer from "@olmokit/utils/isServer";
+import { isServer } from "@olmokit/utils";
 
 /**
  * @category detect

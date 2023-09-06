@@ -1,6 +1,8 @@
-import getUrlHashParams from "@olmokit/utils/getUrlHashParams";
-import type { AnyQueryParams } from "@olmokit/utils/location";
-import mergeUrlQueryParams from "@olmokit/utils/mergeUrlQueryParams";
+import {
+  type AnyQueryParams,
+  getUrlHashParams,
+  mergeUrlQueryParams,
+} from "@olmokit/utils";
 import { navigateToHashParams } from "./navigateToHashParams";
 
 /**

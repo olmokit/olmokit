@@ -2,8 +2,7 @@ import { Emitter } from "@olmokit/utils/Emitter";
 import { isNumber } from "@olmokit/utils/isNumber";
 import { isUndefined } from "@olmokit/utils/isUndefined";
 import { objectOmit } from "@olmokit/utils/objectOmit";
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
+import { $all } from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
 import { forEach } from "@olmokit/dom/forEach";
 import { listen } from "@olmokit/dom/listen";
@@ -268,7 +267,7 @@ export function eachCartAddBtn(
   callback: ($btn: HTMLButtonElement) => any
 ) {
   const $elements = toArray(
-    $$(`[data-${ATTR_BTN_ADD}]`, $item)
+    $all(`[data-${ATTR_BTN_ADD}]`, $item)
   ) as unknown as HTMLButtonElement[];
   $elements.forEach(callback);
   return $elements;
@@ -290,7 +289,7 @@ export function eachCartAddBtn(
  */
 export function eachCartItemsQuantity(callback: ($btn: HTMLElement) => any) {
   const $elements = toArray(
-    $$(`[data-${ATTR_ITEMS_QUANTITY}]`)
+    $all(`[data-${ATTR_ITEMS_QUANTITY}]`)
   ) as unknown as HTMLElement[];
   $elements.forEach(callback);
   return $elements;
@@ -427,7 +426,7 @@ export function removeCartDiscount() {
  * element with a `data-...-ready` attribute.
  */
 export function hydrateCart(rooter?: Rooter) {
-  forEach($$(`[data-${ATTR_ITEM}]`, getScopedRoot(rooter)), ($item) => {
+  forEach($all(`[data-${ATTR_ITEM}]`, getScopedRoot(rooter)), ($item) => {
     const { id } = getItemData($item);
     if (store[id]) {
       markAsInCart($item);
@@ -556,7 +555,7 @@ export function initCart(rooter?: Rooter) {
   // the above is not really needed, we might have the `isUserOrGuest` condition
   // returning false if a user is logged out and has not yet added an item to
   // the cart
-  // forEach($$(`[data-${ATTR_ITEM}]`, getScopedRoot(rooter)), ($item) => {
+  // forEach($all(`[data-${ATTR_ITEM}]`, getScopedRoot(rooter)), ($item) => {
   //   setDataAttr($item, ATTR_READY, "true");
   // });
 }

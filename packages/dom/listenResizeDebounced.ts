@@ -1,4 +1,4 @@
-import debounce from "@olmokit/utils/debounce";
+import { debounce } from "@olmokit/utils";
 import listenResize from "./listenResize";
 
 /**
@@ -14,8 +14,7 @@ export const listenResizeDebounced = (
 export default listenResizeDebounced;
 
 // EXP: with too complex overload signature...
-// import debounce from "@olmokit/utils/debounce";
-// import isUndefined from "@olmokit/utils/isUndefined";
+// import { debounce, isUndefined } from "@olmokit/utils";
 // import listenResize from "./listenResize";
 
 // /**

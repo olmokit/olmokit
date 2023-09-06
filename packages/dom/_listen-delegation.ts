@@ -7,7 +7,7 @@
  *
  * @fileoverview
  */
-import isString from "@olmokit/utils/isString";
+import { isString } from "@olmokit/utils";
 import escapeSelector from "./escapeSelector";
 import type { AnyDOMEvent, AnyDOMEventTarget, AnyDOMEventType } from "./types";
 

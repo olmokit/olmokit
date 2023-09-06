@@ -1,6 +1,5 @@
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
 import { $ } from "@olmokit/dom/$";
+import { $all } from "@olmokit/dom/$all";
 import { $each } from "@olmokit/dom/$each";
 import { addClass } from "@olmokit/dom/addClass";
 import { forEach } from "@olmokit/dom/forEach";
@@ -79,7 +78,7 @@ export function replaceFragments(fragments: Fragments, data?: object) {
   const map: Record<string, NodeListOf<HTMLElement>> = {};
 
   for (const id in fragments) {
-    const $roots = $$(`[data-fragment-id="${id}"]`);
+    const $roots = $all(`[data-fragment-id="${id}"]`);
     const view = fragments[id];
 
     map[id] = $roots;

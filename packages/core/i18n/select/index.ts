@@ -1,7 +1,6 @@
 // import { post } from "@olmokit/core/ajax/laravel";
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
 import { $ } from "@olmokit/dom/$";
+import { $all } from "@olmokit/dom/$all";
 import { forEach } from "@olmokit/dom/forEach";
 import { off } from "@olmokit/dom/off";
 import { on } from "@olmokit/dom/on";
@@ -12,7 +11,7 @@ import { on } from "@olmokit/dom/on";
  * @param rootSelector Selector to scope the intialisation
  */
 export function I18nSelect(rootSelector = "") {
-  const $forms = $$<HTMLFormElement>(
+  const $forms = $all<HTMLFormElement>(
     `${rootSelector ? rootSelector + " " : ""}.i18nSelect`
   );
   const unbinders: { el: HTMLSelectElement; fn: (event: Event) => void }[] = [];
@@ -20,7 +19,7 @@ export function I18nSelect(rootSelector = "") {
   forEach<HTMLFormElement>($forms, ($form) => {
     const $select = $<HTMLSelectElement>(".formControl", $form);
     const current = $select.value;
-    // const $options = $$(".selectOption", $select);
+    // const $options = $all(".selectOption", $select);
 
     unbinders.push({ el: $select, fn: handleChange });
 

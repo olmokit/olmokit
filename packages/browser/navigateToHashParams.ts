@@ -1,6 +1,8 @@
-import buildUrlQueryString from "@olmokit/utils/buildUrlQueryString";
-import getUrlHashPathname from "@olmokit/utils/getUrlHashPathname";
-import type { AnyQueryParams } from "@olmokit/utils/location";
+import {
+  type AnyQueryParams,
+  buildUrlQueryString,
+  getUrlHashPathname,
+} from "@olmokit/utils";
 
 /**
  * It updates the `location.hash` with the given query params, it uses `location.hash`

@@ -1,6 +1,5 @@
-// FIXME: somehow the $$ deeper import does not work
 import { Emitter } from "@olmokit/utils/Emitter";
-import { $$ } from "@olmokit/dom";
+import { $all } from "@olmokit/dom/$all";
 import { forEach } from "@olmokit/dom/forEach";
 import { getDataAttr } from "@olmokit/dom/getDataAttr";
 import { listen } from "@olmokit/dom/listen";
@@ -78,10 +77,10 @@ function setStatus(
   status: "loading" | "done",
   btnAttr: string
 ) {
-  forEach($$(`[data-${ATTR_ID}="${id}"]`), ($item) => {
+  forEach($all(`[data-${ATTR_ID}="${id}"]`), ($item) => {
     setDataAttr($item, ATTR_STATUS, status);
 
-    forEach($$(`[data-${btnAttr}]`, $item), ($btn) => {
+    forEach($all(`[data-${btnAttr}]`, $item), ($btn) => {
       if (status === "loading") {
         $btn.setAttribute("disabled", "true");
       } else {

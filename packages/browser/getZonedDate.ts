@@ -1,5 +1,5 @@
 import utcToZonedTime from "date-fns-tz/utcToZonedTime";
-import isBrowser from "@olmokit/utils/isBrowser";
+import { isBrowser } from "@olmokit/utils";
 
 /**
  * It returns a `Date` object from a date `string` adjusted on the user timeZone,

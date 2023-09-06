@@ -1,9 +1,11 @@
-import decode from "@olmokit/utils/decode";
-import encode from "@olmokit/utils/encode";
-import isBrowser from "@olmokit/utils/isBrowser";
-import isNullOrUndefined from "@olmokit/utils/isNullOrUndefined";
-import noop from "@olmokit/utils/noop";
-import on from "@olmokit/dom/on";
+import {
+  decode,
+  encode,
+  isBrowser,
+  isNullOrUndefined,
+  noop,
+} from "@olmokit/utils";
+import { on } from "@olmokit/dom";
 import storage from "./storage";
 
 /**

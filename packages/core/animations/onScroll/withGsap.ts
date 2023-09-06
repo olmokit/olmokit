@@ -1,7 +1,6 @@
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
+import { $all } from "@olmokit/dom/$all";
 import { forEach } from "@olmokit/dom/forEach";
 import { getDataAttr } from "@olmokit/dom/getDataAttr";
 import "./withGsap.scss";
@@ -40,7 +39,7 @@ export function animateOnScrollWithGsap(
   animation: ($element: HTMLElement, direction: 1 | -1) => any,
   $root?: HTMLElement
 ) {
-  const $triggers = $$(`[data-onscroll="${name}"]`, $root);
+  const $triggers = $all(`[data-onscroll="${name}"]`, $root);
 
   /**
    * Animate, it wraps and call the given callback with the right arguments

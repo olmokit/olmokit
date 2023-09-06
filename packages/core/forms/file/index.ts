@@ -1,12 +1,11 @@
 import { isString } from "@olmokit/utils/isString";
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
 import { $ } from "@olmokit/dom/$";
+import { $all } from "@olmokit/dom/$all";
 import { forEach } from "@olmokit/dom/forEach";
 import { on } from "@olmokit/dom/on";
 import { setDataAttr } from "@olmokit/dom/setDataAttr";
 
-forEach($$(".file"), ($root) => {
+forEach($all(".file"), ($root) => {
   const $input = $<HTMLInputElement>(".formControl", $root);
   const $fileName = $(".fileName", $root);
 

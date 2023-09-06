@@ -1,6 +1,8 @@
-import buildUrlQueryString from "@olmokit/utils/buildUrlQueryString";
-import isBrowser from "@olmokit/utils/isBrowser";
-import type { AnyQueryParams } from "@olmokit/utils/location";
+import {
+  type AnyQueryParams,
+  buildUrlQueryString,
+  isBrowser,
+} from "@olmokit/utils";
 
 /**
  * Redirect to url with params {optionally}, removes eventual trailing question

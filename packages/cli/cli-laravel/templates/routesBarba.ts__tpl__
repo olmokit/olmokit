@@ -1,5 +1,5 @@
 import type { ITransitionData } from "@barba/core";
-import { $$, forEach } from "@olmokit/dom";
+import { $all, forEach } from "@olmokit/dom";
 
 /**
  * Swap route style
@@ -11,7 +11,7 @@ function swapRoutesStyle(data: ITransitionData) {
   }
 
   // enable only the next route's style tag
-  forEach($$("[data-route-style]"), $style => {
+  forEach($all("[data-route-style]"), $style => {
     if ($style.getAttribute("data-route-style") === nextId) {
       if (process.env["NODE_ENV"] !== "production") {
         console.info("routesBarba: enabling style for" + nextId);

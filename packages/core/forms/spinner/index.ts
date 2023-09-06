@@ -1,6 +1,5 @@
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
 import { $ } from "@olmokit/dom/$";
+import { $all } from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
 import { forEach } from "@olmokit/dom/forEach";
 import { off } from "@olmokit/dom/off";
@@ -18,7 +17,7 @@ import "./index.scss";
 export function spinners() {
   const spinners: ReturnType<typeof Spinner>[] = [];
 
-  forEach($$(".spinner"), ($spinner) => {
+  forEach($all(".spinner"), ($spinner) => {
     if ($spinner) {
       const spinner = Spinner($spinner);
       spinners.push(spinner);

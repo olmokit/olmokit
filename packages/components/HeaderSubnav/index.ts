@@ -1,6 +1,5 @@
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
 import { $ } from "@olmokit/dom/$";
+import { $all } from "@olmokit/dom/$all";
 import { forEach } from "@olmokit/dom/forEach";
 import { Dropdown } from "@olmokit/core/dropdown";
 import "./index.scss";
@@ -11,7 +10,7 @@ import "./index.scss";
 export function HeaderSubnav(headerSelector = ".Header:") {
   const $header = $(headerSelector);
 
-  forEach($$(".dropdown", $header), ($dropdown) => {
+  forEach($all(".dropdown", $header), ($dropdown) => {
     Dropdown($dropdown, {
       namespace: "HS",
       fillGaps: [$header],

@@ -1,5 +1,5 @@
 import { LiteralUnion } from "type-fest";
-import type { AnythingFalsy } from "@olmokit/utils/types";
+import type { AnythingFalsy } from "@olmokit/utils";
 
 export type AnyDOMEventTarget = Window | Document | HTMLElement | Element;
 

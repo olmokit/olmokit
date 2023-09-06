@@ -1,6 +1,5 @@
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
 import { $ } from "@olmokit/dom/$";
+import { $all } from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
 import { forEach } from "@olmokit/dom/forEach";
 import { off } from "@olmokit/dom/off";
@@ -11,7 +10,7 @@ import type { AnyFormHTMLElement } from "../types";
 export default function FormsVariantOutlined(rootSelector: string) {
   const $inputs: AnyFormHTMLElement[] = [];
 
-  forEach($$(rootSelector), (root) => {
+  forEach($all(rootSelector), (root) => {
     const label = $<HTMLLabelElement>(".formLabel", root);
 
     // TODO: decide wether to leave this in or not, it's a misuse of the library

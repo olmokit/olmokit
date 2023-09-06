@@ -1,4 +1,4 @@
-import debounce from "@olmokit/utils/debounce";
+import { debounce } from "@olmokit/utils";
 import { listenScroll } from "./listenScroll";
 
 /**

@@ -1,5 +1,4 @@
-import isBrowser from "@olmokit/utils/isBrowser";
-import isString from "@olmokit/utils/isString";
+import { isBrowser, isString } from "@olmokit/utils";
 
 /**
  * @category storage

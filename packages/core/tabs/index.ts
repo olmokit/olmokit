@@ -1,6 +1,5 @@
 import { getUrlQueryParams } from "@olmokit/utils/getUrlQueryParams";
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
+import $all from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
 import { forEach } from "@olmokit/dom/forEach";
 import { getDataAttr } from "@olmokit/dom/getDataAttr";
@@ -57,12 +56,12 @@ export function Tabs(param: string, { initialTabId, onChange }: TabsProps) {
     const rootTabs = `[data-${ATTR_TABS}="${param}"]`;
     const rootPanels = `[data-${ATTR_PANELS}="${param}"]`;
 
-    forEach($$(`${rootTabs} [data-${ATTR_TAB}]`), ($tab) => {
+    forEach($all(`${rootTabs} [data-${ATTR_TAB}]`), ($tab) => {
       const id = getDataAttr($tab, ATTR_TAB);
       if (id) map[id] = { $tab };
     });
 
-    forEach($$(`${rootPanels} [data-${ATTR_PANEL}]`), ($panel) => {
+    forEach($all(`${rootPanels} [data-${ATTR_PANEL}]`), ($panel) => {
       const id = getDataAttr($panel, ATTR_PANEL);
       if (id) {
         map[id] = map[id] || {};

@@ -1,4 +1,4 @@
-import throttle from "@olmokit/utils/throttle";
+import { throttle } from "@olmokit/utils";
 import { listenScroll } from "./listenScroll";
 
 /**

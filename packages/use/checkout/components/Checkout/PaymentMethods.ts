@@ -1,4 +1,4 @@
-import { $, $$, forEach, getDataAttr } from "@olmokit/dom";
+import { $, $all, forEach, getDataAttr } from "@olmokit/dom";
 import { Collapsable } from "@olmokit/core/collapsable";
 import "@olmokit/core/forms/radio";
 import { CheckoutPaymentMethod } from "./PaymentMethod";
@@ -13,7 +13,7 @@ type ValueOf<T> = T[keyof T];
  */
 export function CheckoutPaymentMethods($form: HTMLFormElement) {
   const $root = $(".CheckoutPaymentMethods:", $form);
-  const $methods = $$<HTMLDivElement>(".CheckoutPaymentMethod:", $root);
+  const $methods = $all<HTMLDivElement>(".CheckoutPaymentMethod:", $root);
   const map: Partial<Checkout.Payment.MethodsMap> = {};
 
   forEach($methods, initPaymentMethod);

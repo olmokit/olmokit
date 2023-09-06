@@ -1,6 +1,6 @@
-export { $$ } from "./$$";
-export { $each } from "./$each";
 export { $ } from "./$";
+export { $all } from "./$all";
+export { $each } from "./$each";
 export { addClass } from "./addClass";
 export { calculateFixedOffset } from "./calculateFixedOffset";
 export { createElement } from "./createElement";
@@ -44,4 +44,9 @@ export { siblings } from "./siblings";
 export { toArray } from "./toArray";
 export { unlisten } from "./unlisten";
 
-export type { AnyDOMEventTarget, AnyDOMEventTargetLoose } from "./types";
+export type {
+  AnyDOMEventTarget,
+  AnyDOMEventTargetLoose,
+  AnyDOMEventType,
+  AnyDOMEvent,
+} from "./types";

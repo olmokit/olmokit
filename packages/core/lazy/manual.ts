@@ -1,7 +1,6 @@
 import { isString } from "@olmokit/utils/isString";
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
 import { $ } from "@olmokit/dom/$";
+import { $all } from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
 import { forEach } from "@olmokit/dom/forEach";
 import { getDataAttr } from "@olmokit/dom/getDataAttr";
@@ -42,7 +41,7 @@ export function preloadImages(
   { sel, attr = "src" }: LazyManualOptions = {}
 ) {
   const map: LazyPreloadImagesMap = {};
-  const $images = $$(
+  const $images = $all(
     sel || `.${lazyClass}`,
     isString(rooter) ? $<HTMLElement>(rooter) : rooter
   );

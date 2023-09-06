@@ -5,8 +5,7 @@ import videojs from "video.js";
 import { isString } from "@olmokit/utils";
 import { $ } from "@olmokit/dom/$";
 import { $each } from "@olmokit/dom/$each";
-// FIXME: somehow the $$ deeper import does not work
-// import { $$ } from "@olmokit/dom";
+// import { $all } from "@olmokit/dom/$all";
 import "../media";
 import "./index.scss";
 

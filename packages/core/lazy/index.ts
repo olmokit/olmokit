@@ -10,8 +10,7 @@
  * @see https://github.com/verlok/lazyload#to-polyfill-or-not-to-polyfill-intersectionobserver
  */
 // import LazyLoad from "vanilla-lazyload";
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
+import { $all } from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
 import { forEach } from "@olmokit/dom/forEach";
 import { getDataAttr } from "@olmokit/dom/getDataAttr";
@@ -380,12 +379,12 @@ const getElements = (
   options: LazyLoadOptions
 ) =>
   purgeProcessedElements(
-    toArray(elements || $$(options.selector, options.container))
+    toArray(elements || $all(options.selector, options.container))
   );
 
 const retryLazyLoad = (instance: LazyLoadInstance) => {
   const options = instance._s;
-  const errorElements = $$("." + options.classError, options.container);
+  const errorElements = $all("." + options.classError, options.container);
   forEach(errorElements, (element: HTMLElement) => {
     removeClass(element, options.classError);
     resetWasProcessedData(element);

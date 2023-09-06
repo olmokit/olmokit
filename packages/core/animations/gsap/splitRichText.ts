@@ -1,12 +1,11 @@
 import { SplitText } from "gsap/all";
-// FIXME: somehow the $$ deeper import does not work
-import { $$ } from "@olmokit/dom";
+import { $all } from "@olmokit/dom/$all";
 
 /**
  * Split RTE block of text wit inner HTML
  */
 export function splitRichText(selector: string | HTMLElement) {
-  const element = typeof selector === "string" ? $$(selector) : selector;
+  const element = typeof selector === "string" ? $all(selector) : selector;
 
   if (element instanceof NodeList) {
     for (let i = 0, l = element.length; i < l; i++) {

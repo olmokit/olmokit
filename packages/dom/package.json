@@ -20,8 +20,8 @@
     ".": {
       "import": "./index.js"
     },
-    "./$$": {
-      "import": "./$$.js"
+    "./$all": {
+      "import": "./$all.js"
     },
     "./$": {
       "import": "./$.js"
