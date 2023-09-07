@@ -73,13 +73,19 @@ export const publish = () =>
 
       // publish libs
       await Promise.all(
-        self().libs.map(async (lib) =>
-          oraPromise(publishLib(lib, release), {
-            ...oraOpts,
+        self().libs.map(async (lib) => {
+          const spinner = ora({
             text: `Publish ${chalk.bold(lib.packager)} package`,
             suffixText: chalk.dim(`${lib.name}`),
-          })
-        )
+          }).start();
+          const res = await publishLib(lib, release);
+
+          if (res) {
+            spinner.succeed();
+          } else {
+            spinner.fail();
+          }
+        })
       );
 
       // postpublish (at the level of this repo (not each libs))
@@ -145,13 +151,14 @@ async function prepublishLib(lib: Lib, release: Release) {
 
 async function publishLib(lib: Lib, release: Release) {
   if (lib.packager === "npm") {
-    await $({
+    const { exitCode } = await $({
       cwd: lib.dist,
       reject: false,
-      stdio: "inherit",
+      // stdio: "inherit",
     })`npm publish --access public`;
+    return exitCode === 0;
   } else if (lib.packager === "composer") {
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<boolean>((resolve, reject) => {
       ghpagesPublish(
         lib.dist,
         {
@@ -163,11 +170,7 @@ async function publishLib(lib: Lib, release: Release) {
           message: `chore(release): v${release.version}`,
         },
         (err) => {
-          if (err) {
-            reject();
-          } else {
-            resolve();
-          }
+          resolve(!err);
         }
       );
     });
