@@ -10,6 +10,7 @@ import {
 } from "../packages/cli-utils/index.js";
 
 type LibShared = LibConfig & {
+  scope: string;
   src: string;
   dist: string;
   slug: string;
@@ -210,6 +211,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
 
         return {
           ...(config || {}),
+          scope,
           packager,
           src,
           dist,

@@ -8,7 +8,12 @@ import ora, { oraPromise } from "ora";
 import { join } from "path";
 import { exit } from "process";
 import semver from "semver";
-import { editJsonFile, isGitDirty } from "../packages/cli-utils/index.js";
+import {
+  PackageJson,
+  editJsonFile,
+  getNpmDependenciesNames,
+  isGitDirty,
+} from "../packages/cli-utils/index.js";
 import { type Options, oraOpts } from "./dev.js";
 import { type Lib, self } from "./helpers.js";
 
@@ -137,12 +142,30 @@ async function bumbLib(lib: Lib, release: Release) {
 }
 
 /**
+ * Here we update the `asterisk` used by @nx/eslint in internal monorepo
+ * dependencies to the actual version we are going to release.
+ * TODO: check why nx does not do this automatically.
+ * @resources
+ * - https://github.com/pnpm/pnpm/issues/6463
+ *
  * We specify the version in the `composer.json` in the **src** of the package
  * but we remove it from the **dist** file following what is suggested in the
  * [composer docs](https://getcomposer.org/doc/04-schema.md#version).
  */
 async function prepublishLib(lib: Lib, release: Release) {
-  if (lib.packager === "composer") {
+  if (lib.packager === "npm") {
+    await editJsonFile<PackageJson>(lib.dist, "package.json", (data) => {
+      getNpmDependenciesNames(data, lib.scope).forEach(({ name }) => {
+        ["dependencies", "devDependencies", "peerDependencies"].forEach(
+          (key) => {
+            if (data?.[key]?.[name]) {
+              data[key][name] = release.version;
+            }
+          },
+        );
+      });
+    });
+  } else if (lib.packager === "composer") {
     await editJsonFile([lib.src, lib.dist], "composer.json", (data) => {
       delete data.version;
     });
