@@ -1,7 +1,7 @@
 import { execSync } from "node:child_process";
 import { get } from "node:https";
 import type { PackageJson as _PackageJson } from "type-fest";
-import { editJsonFile } from "./editJsonFile";
+import { editJsonFile } from "./editJsonFile.js";
 
 export type PackageJson = _PackageJson;
 

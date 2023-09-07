@@ -1,5 +1,5 @@
 import { get } from "node:https";
-import { editJsonFile } from "./editJsonFile";
+import { editJsonFile } from "./editJsonFile.js";
 
 export type ComposerJson = {
   name: string;
