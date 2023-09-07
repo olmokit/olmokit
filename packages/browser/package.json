@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/browser",
-  "version": "0.0.59",
+  "version": "0.0.60",
   "description": "Browser utilities for Olmo based applications.",
   "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "license": "ISC",

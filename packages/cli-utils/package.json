@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/cli-utils",
-  "version": "0.0.59",
+  "version": "0.0.60",
   "description": "Utils for Olmo's CLI.",
   "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "license": "ISC",
