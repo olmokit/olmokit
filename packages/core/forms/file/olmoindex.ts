@@ -1,11 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import axios from "axios";
 import { uuid } from "@olmokit/utils/uuid";
 import { $ } from "@olmokit/dom/$";
-import { $all } from "@olmokit/dom/$all";
+import { $each } from "@olmokit/dom/$each";
 import { addClass } from "@olmokit/dom/addClass";
-import { forEach } from "@olmokit/dom/forEach";
 import { getDataAttr } from "@olmokit/dom/getDataAttr";
 import { on } from "@olmokit/dom/on";
 import { setDataAttr } from "@olmokit/dom/setDataAttr";
@@ -17,8 +14,7 @@ import { globalConf } from "../../data";
  * Uploader variables
  */
 let counter = 0;
-let _file = "";
-// let _size = "";
+let _file: File | string = ""; // not sure how this can be a string
 let _totalCount = 0;
 let fileGuid = "";
 let _fileID = "";
@@ -40,12 +36,12 @@ export function Uploadfile(_rootSelector = ".ofForm:") {
   //   data,
   // };
 
-  forEach($all(".file"), ($rootupload) => {
-    const $input = $(".formControl", $rootupload);
+  $each(".file", ($rootupload) => {
+    const $input = $<HTMLInputElement>(".formControl", $rootupload);
     const $fileName = $(".fileName", $rootupload);
 
     on($input, "change", () => {
-      if ($input.files.length) {
+      if ($input.files?.length) {
         const file = $input.files[0];
         $fileName.textContent = file.name;
 
@@ -59,32 +55,34 @@ export function Uploadfile(_rootSelector = ".ofForm:") {
   });
 }
 
-export function sizeChecker(file) {
+export function sizeChecker(file: File) {
   const size = file.size;
   const $file = $(".file");
-  const sizeLimit = $(".fileSize", $file).value;
+  const sizeLimit = $<HTMLInputElement>(".fileSize", $file).value;
   if (size > parseInt(sizeLimit)) {
     addClass($file, "invalid");
   }
 }
 
-export function Uploader(rootSelector?: string) {
+export function Uploader(rootSelector: string) {
   const $root = $(rootSelector);
   const $form = $(".of:", $root);
-  const formid = getDataAttr($form, "id");
+  const formid = getDataAttr($form, "id") as string;
   const $file = $(".file");
-  const $input = $(".formControl", $file);
+  const $input = $(".formControl", $file) as HTMLInputElement;
 
-  return new Promise(function (resolve) {
-    const file = $input.files[0];
+  return new Promise<number>(function (resolve) {
+    const file = $input.files?.[0];
 
-    createFileContext(file);
-    resolve(1);
+    if (file) {
+      createFileContext(file);
+      resolve(1);
+    }
   })
     .then(function (result) {
       console.log("step", result); // 1
 
-      return new Promise((resolve) => {
+      return new Promise<number>((resolve) => {
         uploadChunk($input, formid).then(() => resolve(result * 2));
       });
     })
@@ -94,9 +92,8 @@ export function Uploader(rootSelector?: string) {
     });
 }
 
-const createFileContext = (file) => {
+const createFileContext = (file: File) => {
   _file = file;
-  _size = _file.size;
   _totalCount =
     _file.size % chunkSize === 0
       ? _file.size / chunkSize
@@ -109,7 +106,7 @@ const createFileContext = (file) => {
   fileGuid = _fileID;
 };
 
-const uploadChunk = async ($input, formid) => {
+const uploadChunk = async ($input: HTMLInputElement, formid: string) => {
   const uploadCompleted = async () => {
     try {
       const response = await axios.post(
@@ -134,12 +131,14 @@ const uploadChunk = async ($input, formid) => {
         setDataAttr($input, "filename", data.path);
         return true;
       }
+      return false;
     } catch (error) {
       console.log("error", error);
+      return false;
     }
   };
 
-  const uploadChunks = async (chunk) => {
+  const uploadChunks = async (chunk: string | Blob) => {
     try {
       const response = await axios.post(
         globalConf.cmsApiUrl + "/_/form/uploadchunks?fileName=" + fileGuid,
