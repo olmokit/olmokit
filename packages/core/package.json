@@ -2,22 +2,17 @@
   "name": "@olmokit/core",
   "version": "0.0.60",
   "description": "Core elements for Olmo based applications.",
-  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
-  "license": "ISC",
+  "keywords": [
+    "olmo",
+    "olmokit"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:olmokit/olmokit.git",
     "directory": "packages/core"
   },
-  "type": "module",
-  "keywords": [
-    "olmo",
-    "olmokit"
-  ],
-  "dependencies": {
-    "videojs-font": "^4.1.0",
-    "date-fns": "^2.30.0"
-  },
+  "license": "ISC",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "sideEffects": [
     "**/*.scss",
     "forms/checkbox/*.js",
@@ -43,6 +38,7 @@
     "video/**",
     "zacc/**"
   ],
+  "type": "module",
   "exports": {
     ".": {
       "import": "./index.js"
@@ -1052,5 +1048,22 @@
     "./zacc/withCheckbox": {
       "import": "./zacc/withCheckbox.js"
     }
+  },
+  "dependencies": {
+    "@barba/core": "^2.9.7",
+    "@olmokit/browser": "*",
+    "@olmokit/dom": "*",
+    "@olmokit/utils": "*",
+    "@swc/helpers": "^0.5.2",
+    "@terwanerik/scrolltrigger": "^1.0.5",
+    "aos": "^2.3.4",
+    "axios": "^1.5.0",
+    "date-fns": "^2.30.0",
+    "gsap": "^3.12.2",
+    "loadjs": "4.3.0-rc1",
+    "object-fit-images": "^3.2.4",
+    "swiper": "^10.2.0",
+    "video.js": "^8.5.2",
+    "videojs-font": "^4.1.0"
   }
 }

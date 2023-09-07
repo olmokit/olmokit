@@ -56,18 +56,18 @@ process.env.NODE_ENV = "development";
 
 export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
   commands: [
-    new Command("a").description("FIXME: remove me").action(async () => {
-      await import("../development.js").then((mod) => {
-        console.log("test me!");
-        mod.isUsingLinkedPackages();
-      });
-    }),
+    // new Command("a").description("FIXME: remove me").action(async () => {
+    //   await import("../development.js").then((mod) => {
+    //     console.log("test me!");
+    //     mod.isUsingLinkedPackages();
+    //   });
+    // }),
     new Command("start")
       .description("Start the dev server")
       .aliases(["dev", "s"])
       .action(async () => {
         await taskr.runAction(() =>
-          import("./scripts/dev.js").then((mod) => mod.dev)
+          import("./scripts/dev.js").then((mod) => mod.dev),
         );
       }),
     new Command("build")
@@ -77,7 +77,7 @@ export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
       })
       .action(async () => {
         await taskr.runAction(() =>
-          import("./scripts/build.js").then((mod) => mod.build)
+          import("./scripts/build.js").then((mod) => mod.build),
         );
       }),
     new Command("component")
@@ -86,7 +86,7 @@ export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
       .argument("<name...>")
       .addHelpText(
         "after",
-        "Accept multiple components' names separated by space or string. E.g.: header footer card"
+        "Accept multiple components' names separated by space or string. E.g.: header footer card",
       )
       .action(async (names: string[]) => {
         const generateComponent = await import(
@@ -100,11 +100,11 @@ export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
       .argument("<name...>")
       .addHelpText(
         "after",
-        "Accept multiple routes' names separated by space or string. E.g.: home about contact"
+        "Accept multiple routes' names separated by space or string. E.g.: home about contact",
       )
       .action(async (names: string[]) => {
         const generateRoute = await import("./scripts/generateRoute.js").then(
-          (mod) => mod.generateRoute
+          (mod) => mod.generateRoute,
         );
         generateRoute(names, taskr);
       }),
@@ -112,31 +112,31 @@ export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
       .description("Copy core blade templates from @olmokit/core library")
       .action(() =>
         taskr.runAction(() =>
-          import("./scripts/core.js").then((mod) => mod.core)
-        )
+          import("./scripts/core.js").then((mod) => mod.core),
+        ),
       ),
     new Command("use")
       .description("Bootstraps and scaffold an olmo feature")
       .action(async () => {
         // TODO: use command
         await taskr.runAction(() =>
-          import("./scripts/use.js").then((mod) => mod.use)
+          import("./scripts/use.js").then((mod) => mod.use),
         );
       }),
     new Command("update")
       .description("Update the installed Olmo packages to their latest version")
       .action(async () => {
         await taskr.runAction(() =>
-          import("./scripts/update.js").then((mod) => mod.update)
+          import("./scripts/update.js").then((mod) => mod.update),
         );
       }),
     new Command("format")
       .description(
-        "Prettify js, scss, md and php files (it is done automatically before every commit)"
+        "Prettify js, scss, md and php files (it is done automatically before every commit)",
       )
       .aliases(["prettier", "f"])
       .option("-d, --dry-run", "When active it will not modify your files.")
-      .action(async (options) => {
+      .action(async () => {
         // FIXME: finish here the options passing to the prettier task
         // console.log("format command options", options);
         const prettier = (await import("./scripts/prettier.js")).prettier;
@@ -146,37 +146,37 @@ export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
       .description("Clean storage and page cache")
       .action(async () => {
         await taskr.runAction(() =>
-          import("./scripts/clean.js").then((mod) => mod.clean)
+          import("./scripts/clean.js").then((mod) => mod.clean),
         );
       }),
     new Command("clear")
       .description("Clear Laravel local caches")
       .action(async () => {
         await taskr.runAction(() =>
-          import("./scripts/clean.js").then((mod) => mod.clear)
+          import("./scripts/clean.js").then((mod) => mod.clear),
         );
       }),
     new Command("wipe")
       .description(
-        "Wipe out everything: Laravel caches, storage and all compiled files"
+        "Wipe out everything: Laravel caches, storage and all compiled files",
       )
       .action(() =>
         taskr.runAction(() =>
-          import("./scripts/clean.js").then((mod) => mod.wipe)
-        )
+          import("./scripts/clean.js").then((mod) => mod.wipe),
+        ),
       ),
     new Command("link")
       .description("Link local packages (for olmo contributors only)")
       .action(async () => {
         await taskr.runAction(() =>
-          import("./scripts/link.js").then((mod) => mod.link)
+          import("./scripts/link.js").then((mod) => mod.link),
         );
       }),
     new Command("unlink")
       .description("Unlink local packages (for olmo contributors only)")
       .action(async () => {
         await taskr.runAction(() =>
-          import("./scripts/unlink.js").then((mod) => mod.unlink)
+          import("./scripts/unlink.js").then((mod) => mod.unlink),
         );
       }),
     new Command("init")
@@ -184,12 +184,12 @@ export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
       .description("This is automatically ran on 'postinstall' hook")
       .action(() =>
         taskr.runAction(() =>
-          import("./scripts/init.js").then((mod) => mod.init)
-        )
+          import("./scripts/init.js").then((mod) => mod.init),
+        ),
       ),
     new Command("visit")
       .description(
-        "Visit all website URLs, it uses the current env, or a specific one can be given as argument"
+        "Visit all website URLs, it uses the current env, or a specific one can be given as argument",
       )
       .action(async () => {
         const visit = (await import("./scripts/visit.js")).visit;
@@ -200,15 +200,15 @@ export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
       .description("Builds the svg icons")
       .action(() =>
         taskr.runAction(() =>
-          import("./scripts/svgicons.js").then((mod) => mod.svgicons)
-        )
+          import("./scripts/svgicons.js").then((mod) => mod.svgicons),
+        ),
       ),
     new Command("favicons")
       .description("Builds the favicons")
       .action(() =>
         taskr.runAction(() =>
-          import("./scripts/favicons.js").then((mod) => mod.favicons)
-        )
+          import("./scripts/favicons.js").then((mod) => mod.favicons),
+        ),
       ),
     new Command("deploy")
       .description("This is meant to be used only by the CI")
@@ -218,53 +218,53 @@ export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
       .addOption(
         new Option(
           "-e, --env <name>",
-          "The environment to deploy (should match the branch associated to the deploy script in the ci.yml file)"
+          "The environment to deploy (should match the branch associated to the deploy script in the ci.yml file)",
         )
           .default(guessCurrentEnv(taskr.ctx))
-          .makeOptionMandatory()
+          .makeOptionMandatory(),
       )
       .addOption(
         new Option("-m, --mode <mode>", "Deploy upload mode")
           .choices(["ftp", "ssh"])
           .default("ftp")
-          .makeOptionMandatory()
+          .makeOptionMandatory(),
       )
       .addOption(
         new Option(
           "-f, --folder <folder>",
-          "The folder on the server where to deploy, starting from root"
-        ).makeOptionMandatory()
+          "The folder on the server where to deploy, starting from root",
+        ).makeOptionMandatory(),
       )
       .addOption(
         new Option(
           "-t, --host <host>",
-          "When in `--mode ftp` is the ftp host (as url e.g. `dev.mycompany.net` or IP address). When in `--mode ssh` is the server address (e.g. `ubuntu@myconfig.mycompany.net`)"
-        ).makeOptionMandatory()
+          "When in `--mode ftp` is the ftp host (as url e.g. `dev.mycompany.net` or IP address). When in `--mode ssh` is the server address (e.g. `ubuntu@myconfig.mycompany.net`)",
+        ).makeOptionMandatory(),
       )
       .addOption(new Option("-u, --username <name>", "Ftp username"))
       .addOption(
         new Option(
           "-p, --password <pwd>",
-          "Ftp password or `sshpass -p {password}`"
-        ).makeOptionMandatory()
+          "Ftp password or `sshpass -p {password}`",
+        ).makeOptionMandatory(),
       )
       .addOption(
         new Option(
           "-s, --sshkeyvar <var>",
-          "SSH key variable name, it must be a CI variable name like `MY_CI_VAR` set on git from https://gitlab.com/myproject/-/settings/ci_cd"
-        )
+          "SSH key variable name, it must be a CI variable name like `MY_CI_VAR` set on git from https://gitlab.com/myproject/-/settings/ci_cd",
+        ),
       )
       .addOption(
         new Option(
           "-po, --port <port>",
-          "Port to connect (used in SSH deploys sometimes)"
-        ).makeOptionMandatory()
+          "Port to connect (used in SSH deploys sometimes)",
+        ).makeOptionMandatory(),
       )
       .addOption(
         new Option(
           "-a, --auth <auth>",
-          "This is needed when deploying on an http protected domain from an external runner, e.g. from gitlab.com"
-        )
+          "This is needed when deploying on an http protected domain from an external runner, e.g. from gitlab.com",
+        ),
       )
       .action(async (options: CliLaravel.CmdDeploy.Options) => {
         const { isCI, name } = await import("ci-info");

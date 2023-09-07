@@ -2,18 +2,18 @@
   "name": "@olmokit/utils",
   "version": "0.0.60",
   "description": "Low level utilities for Olmo based applications.",
-  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:olmokit/olmokit.git",
-    "directory": "packages/utils"
-  },
   "keywords": [
     "olmo",
     "olmokit",
     "koine"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:olmokit/olmokit.git",
+    "directory": "packages/utils"
+  },
+  "license": "ISC",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "type": "module",
   "exports": {
     ".": {
@@ -439,5 +439,9 @@
     "./without": {
       "import": "./without.js"
     }
+  },
+  "dependencies": {
+    "@swc/helpers": "^0.5.2",
+    "type-fest": "^4.3.1"
   }
 }

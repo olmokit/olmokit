@@ -18,7 +18,7 @@ import { Command } from "commander";
 import { glob } from "glob";
 import { oraPromise } from "ora";
 import { PackageJson, TsConfigJson } from "type-fest";
-import { editJsonFile } from "@olmokit/cli-utils";
+import { editJsonFile } from "../packages/cli-utils/index.js";
 import { oraOpts } from "./dev.js";
 import { type Lib, self } from "./helpers.js";
 
@@ -54,7 +54,7 @@ export const libs = () =>
               suffixText,
               text: "Set lib 'module' type",
             });
-          })
+          }),
       );
 
       console.log();
@@ -150,7 +150,7 @@ async function writeLibExports(lib: Lib) {
     },
     {
       [defaultExp.name]: defaultExp.obj,
-    } as Record<string, object>
+    } as Record<string, object>,
   );
 
   await editJsonFile([lib.dist, lib.src], "package.json", (data) => {
@@ -172,7 +172,7 @@ async function ensurePackageVersion(lib: Lib) {
 function overrideByLibType<T, L extends NonNullable<Lib["type"]>>(
   option: T,
   libType: L,
-  override: Record<L, NonNullable<T>>
+  override: Record<L, NonNullable<T>>,
 ) {
   option = override[libType];
 }
@@ -232,6 +232,6 @@ async function setLibOptions(lib: Lib) {
       } else {
         data.type = lib.type;
       }
-    }
+    },
   );
 }

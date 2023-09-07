@@ -2,16 +2,22 @@
   "name": "@olmokit/use",
   "version": "0.0.60",
   "description": "Features scaffolder for Olmo based applications.",
-  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
-  "license": "ISC",
+  "keywords": [
+    "olmo",
+    "olmokit"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:olmokit/olmokit.git",
     "directory": "packages/use"
   },
-  "keywords": [
-    "olmo",
-    "olmokit"
-  ],
-  "type": "module"
+  "license": "ISC",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
+  "type": "module",
+  "dependencies": {
+    "@olmokit/cli": "*",
+    "@olmokit/core": "*",
+    "@olmokit/dom": "*",
+    "@swc/helpers": "^0.5.2"
+  }
 }

@@ -24,8 +24,6 @@
         "outputPath": "dist/packages/browser",
         "main": "packages/browser/index.ts",
         "tsConfig": "packages/browser/tsconfig.lib.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "updateBuildableProjectDepsInPackageJson": true,
         "assets": ["packages/browser/*.md"]
       }
     },
@@ -37,7 +35,10 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/browser/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/browser/**/*.ts",
+          "packages/browser/package.json"
+        ]
       }
     }
   },

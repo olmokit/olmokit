@@ -8,7 +8,7 @@ import ora, { oraPromise } from "ora";
 import { join } from "path";
 import { exit } from "process";
 import semver from "semver";
-import { editJsonFile, isGitDirty } from "@olmokit/cli-utils";
+import { editJsonFile, isGitDirty } from "../packages/cli-utils/index.js";
 import { type Options, oraOpts } from "./dev.js";
 import { type Lib, self } from "./helpers.js";
 
@@ -23,14 +23,14 @@ export const publish = () =>
 
       ora().info(
         `${chalk.italic("Single version policy")} ${chalk.dim(
-          "all packages will be published with the same version"
-        )}`
+          "all packages will be published with the same version",
+        )}`,
       );
 
       // ask for release
       const { release } = await promptRelease(
         "Olmo packages",
-        self().packageJson.version
+        self().packageJson.version,
       );
 
       // bump libs src
@@ -40,8 +40,8 @@ export const publish = () =>
             ...oraOpts,
             text: "Bump package version",
             suffixText: chalk.dim(`${lib.name}`),
-          })
-        )
+          }),
+        ),
       );
 
       // build libs
@@ -55,8 +55,8 @@ export const publish = () =>
             ...oraOpts,
             text: `Pre-publish ${chalk.bold(lib.packager)} package`,
             suffixText: chalk.dim(`${lib.name}`),
-          })
-        )
+          }),
+        ),
       );
 
       // commit files
@@ -67,7 +67,7 @@ export const publish = () =>
           })`git commit -am ${`chore(release): v${release.version}`}`,
           {
             text: `Commit files edited during release`,
-          }
+          },
         );
       }
 
@@ -85,7 +85,7 @@ export const publish = () =>
           } else {
             spinner.fail();
           }
-        })
+        }),
       );
 
       // postpublish (at the level of this repo (not each libs))
@@ -131,7 +131,7 @@ async function bumbLib(lib: Lib, release: Release) {
       (data) => {
         data.require = data.require || {};
         data.require["olmo/laravel-frontend"] = `^${release.version}`;
-      }
+      },
     );
   }
 }
@@ -171,7 +171,7 @@ async function publishLib(lib: Lib, release: Release) {
         },
         (err) => {
           resolve(!err);
-        }
+        },
       );
     });
   }
@@ -219,13 +219,13 @@ async function promptRelease(subject, currentVersion: string) {
 
 function createReleaseTypeChoice(
   releaseType: semver.ReleaseType,
-  currentVersion: string
+  currentVersion: string,
 ) {
   const newVersion = semver.inc(currentVersion, releaseType, "alpha", "1");
 
   return {
     name: `${releaseType} ${chalk.dim(
-      chalk.bold(currentVersion) + " -> " + chalk.bold(newVersion)
+      chalk.bold(currentVersion) + " -> " + chalk.bold(newVersion),
     )}`,
     value: { type: releaseType, version: newVersion },
   };

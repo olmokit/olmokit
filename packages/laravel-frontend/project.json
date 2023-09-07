@@ -5,9 +5,6 @@
   "projectType": "library",
   "implicitDependencies": [],
   "targets": {
-    "watch": {
-      "executor": "nx:noop"
-    },
     "build": {
       "executor": "nx:run-commands",
       "options": {
@@ -22,12 +19,6 @@
         ],
         "parallel": false
       }
-    },
-    "lint": {
-      "executor": "nx:noop"
-    },
-    "test": {
-      "executor": "nx:noop"
     }
   },
   "tags": []

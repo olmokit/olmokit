@@ -2,19 +2,19 @@
   "name": "@olmokit/dom",
   "version": "0.0.60",
   "description": "DOM utilities for Olmo based applications.",
-  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:olmokit/olmokit.git",
-    "directory": "packages/dom"
-  },
   "keywords": [
     "olmo",
     "olmokit",
     "dom",
     "koine"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:olmokit/olmokit.git",
+    "directory": "packages/dom"
+  },
+  "license": "ISC",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "type": "module",
   "exports": {
     ".": {
@@ -158,5 +158,10 @@
     "./unlisten": {
       "import": "./unlisten.js"
     }
+  },
+  "dependencies": {
+    "@olmokit/utils": "*",
+    "@swc/helpers": "^0.5.2",
+    "type-fest": "^4.3.1"
   }
 }

@@ -7,7 +7,7 @@ import {
   type PackageJson,
   getComposerDependenciesNames,
   getNpmDependenciesNames,
-} from "@olmokit/cli-utils";
+} from "../packages/cli-utils/index.js";
 
 type LibShared = LibConfig & {
   src: string;
@@ -139,12 +139,15 @@ export const self = () => {
     libs,
     libsNpm: libs.filter((lib) => lib.packager === "npm") as LibNpm[],
     libsComposer: libs.filter(
-      (lib) => lib.packager === "composer"
+      (lib) => lib.packager === "composer",
     ) as LibComposer[],
-    libsMap: libs.reduce((map, lib) => {
-      map[lib.name] = lib;
-      return map;
-    }, {} as Record<Lib["name"], Lib>),
+    libsMap: libs.reduce(
+      (map, lib) => {
+        map[lib.name] = lib;
+        return map;
+      },
+      {} as Record<Lib["name"], Lib>,
+    ),
   };
 };
 
@@ -179,10 +182,18 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
             packager = "npm";
             name = packageJson.name!;
             internalDeps = getNpmDependenciesNames(packageJson, scope).map(
-              (dep) => dep.name
+              (dep) => dep.name,
             );
           }
-        } catch (e) {}
+        } catch (e) {
+          try {
+            packageJson = require(join(src, "/package.json")) as PackageJson;
+            if (packageJson) {
+              packager = "npm";
+              name = packageJson.name!;
+            }
+          } catch (e) {}
+        }
 
         // packager: "composer"
         try {
@@ -192,7 +203,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
             name = composerJson.name!;
             internalDeps = getComposerDependenciesNames(
               composerJson,
-              "olmo" // FIXME: scope here is `olmokit` instead of `olmo`
+              "olmo", // FIXME: scope here is `olmokit` instead of `olmo`
             ).map((dep) => dep.name);
           }
         } catch (e) {}

@@ -7,8 +7,8 @@
 export { swiperInit } from "./init";
 export { swiperNavigationOptions } from "./navigation";
 // FIXME: imports are included in the bundle anyway?
+export { Swiper } from "swiper";
 export {
-  Swiper,
   // Virtual,
   // Keyboard,
   // Autoplay,
@@ -25,7 +25,7 @@ export {
   // History,
   // HashNavigation,
   A11y,
-} from "swiper";
+} from "swiper/modules";
 // EffectCube,
 // EffectFlip,
 // EffectCoverflow

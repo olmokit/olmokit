@@ -33,11 +33,11 @@
         "script": "build"
       }
     },
-    "lint": {
+    "_FIXME:lint with CJS": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/docs/**/*.ts"]
+        "lintFilePatterns": ["apps/docs/**/*.ts", "apps/docs/package.json"]
       }
     },
     "test": {

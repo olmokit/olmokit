@@ -1,6 +1,4 @@
-import { Agent } from "node:https";
-import axios, { type AxiosResponse } from "axios";
-import chalk from "chalk";
+import { Agent, get } from "node:https";
 import type { TaskrLog } from "@olmokit/cli-utils/taskr";
 import { removeTrailingSlashes } from "../../helpers-getters.js";
 
@@ -11,7 +9,7 @@ type CmsApiRequestOpts = {
   useCache?: boolean;
 };
 
-const cache: Record<string, Promise<AxiosResponse<any>>> = {};
+const cache: Record<string, Promise<any>> = {};
 
 /**
  * The CMS data returned for the routes API
@@ -31,14 +29,31 @@ export type CmsResponseDataStructure = {
   }[];
 };
 
-/**
- * API axios instance
- */
-const cmsApi = axios.create({
-  httpsAgent: new Agent({
-    rejectUnauthorized: false,
-  }),
-});
+function apiGet<T>(endpoint: string) {
+  return new Promise<T>((resolve, reject) => {
+    get(
+      endpoint,
+      {
+        agent: new Agent({
+          rejectUnauthorized: false,
+        }),
+      },
+      (res) => {
+        if (res.statusCode === 200) {
+          let body = "";
+          res.on("data", (data) => (body += data));
+          res.on("end", () => {
+            resolve(JSON.parse(body));
+          });
+        } else {
+          reject();
+        }
+      },
+    ).on("error", () => {
+      reject();
+    });
+  });
+}
 
 /**
  * Get API data (from CMS)
@@ -46,7 +61,7 @@ const cmsApi = axios.create({
 function cmsApiGet<TData extends object>(
   endpoint: string,
   customOptions: Partial<CmsApiRequestOpts>,
-  log: TaskrLog
+  log: TaskrLog,
 ) {
   const opts: CmsApiRequestOpts = {
     subject: "data",
@@ -59,27 +74,29 @@ function cmsApiGet<TData extends object>(
 
   if (hasCache) {
     log.success(
-      chalk.dim.italic(`Retrieving ${opts.subject} from CMS local cache.`)
+      log.chalk.dim.italic(`Retrieving ${opts.subject} from CMS local cache.`),
     );
-    return cache[endpoint] as Promise<AxiosResponse<TData, any>>;
+    return cache[endpoint] as Promise<TData>;
   }
 
   log.info(
-    chalk.dim.italic(`Retrieving ${opts.subject} from CMS API ${url}...`)
+    log.chalk.dim.italic(`Retrieving ${opts.subject} from CMS API ${url}...`),
   );
-  const promise = cmsApi.get<TData>(url);
+  const promise = apiGet<TData>(url);
 
   promise.then(
     () => {
-      log.success(chalk.dim.italic(`Successfully retrieved ${opts.subject}`));
+      log.success(
+        log.chalk.dim.italic(`Successfully retrieved ${opts.subject}`),
+      );
     },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (_error) => {
       log.error(
-        chalk.dim.italic(`Failed retrieving ${opts.subject}`)
+        log.chalk.dim.italic(`Failed retrieving ${opts.subject}`),
         // error
       );
-    }
+    },
   );
 
   if (!hasCache) {
@@ -96,7 +113,7 @@ export async function cmsGetStructure(log: TaskrLog) {
       useCache: true,
       subject: "structure",
     },
-    log
+    log,
   );
   return res;
 }

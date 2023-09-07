@@ -41,8 +41,7 @@
       "@olmokit/use": ["packages/use/index.ts"],
       "@olmokit/use/*": ["packages/use/*"],
       "@olmokit/utils": ["packages/utils/index.ts"],
-      "@olmokit/utils/*": ["packages/utils/*"],
-      "@olmokit/webpack-plugin-s3": ["packages/webpack-plugin-s3/index.ts"]
+      "@olmokit/utils/*": ["packages/utils/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

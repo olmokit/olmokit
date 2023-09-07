@@ -35,7 +35,7 @@ export function getFormData(form: HTMLFormElement): object {
   // Loop through each field in the form
   for (let i = 0; i < form.elements.length; i++) {
     const element = form.elements[i] as AnyFormHTMLElement;
-    const { name, value, type, disabled, checked } = element;
+    const { name, value, type, checked /* disabled, */ } = element;
 
     if (
       !name ||
@@ -83,7 +83,7 @@ export function getFormData(form: HTMLFormElement): object {
  */
 export function prefillFromElement(
   element: HTMLElement,
-  $formRoot: HTMLElement | Document | null
+  $formRoot: HTMLElement | Document | null,
 ) {
   const raw = getDataAttr(element, "prefill");
 

@@ -100,12 +100,7 @@ type Uploadable = {
  *``` 
  * TODO: we might do this automatically via the API from this CLI
  */
-export const assetsS3: CliLaravel.Task = async ({
-  ctx,
-  log,
-  spinner,
-  chalk,
-}) => {
+export const assetsS3: CliLaravel.Task = async ({ log, spinner, chalk }) => {
   const options: AssetsS3Options = {
     base: paths.frontend.dest.public,
     glob: `/${paths.frontend.dest.folders.assets}/**/*.*`,
@@ -241,7 +236,7 @@ export const assetsS3: CliLaravel.Task = async ({
           Body: createReadStream(srcAbsolute),
           Key: dest,
           ContentType: mime.getType(dest) ?? undefined,
-        })
+        }),
       );
       return {
         ok: true,

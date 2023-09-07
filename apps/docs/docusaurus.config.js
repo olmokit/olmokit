@@ -30,10 +30,11 @@ module.exports = {
         disableSwitch: false,
         respectPrefersColorScheme: false,
       },
-      prism: {
-        theme: require("prism-react-renderer/themes/github"),
-        darkTheme: require("prism-react-renderer/themes/dracula"),
-      },
+      // FIXME: these do not work anymore with `prism-react-renderer@^2`
+      // prism: {
+      //   theme: require("prism-react-renderer/themes/github"),
+      //   darkTheme: require("prism-react-renderer/themes/dracula"),
+      // },
       navbar: {
         // style: "dark",
         title: "OLMO kit",

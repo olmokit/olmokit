@@ -50,7 +50,7 @@ pnpm dev publish
   - https://stackoverflow.com/a/75068601/1938970
   - https://github.com/nrwl/nx/issues/1542#issuecomment-508806609
 - Maybe fork [nx-composer](https://github.com/automattic/nx-composer)
-- I've manually added "videojs-font" to [core's deps](./packages/core/package.json), that is not right, but I am afraid otherwise that dep willb e taken out from production/publishable build
+- I've manually added "videojs-font" to [core's deps](./packages/core/package.json), that is not right, but I am afraid otherwise that dep will be taken out from production/publishable build
 - Look at [`addDependenciesToPackageJson`](https://github.com/nrwl/nx/blob/master/packages/devkit/src/utils/package-json.ts#L134) and [`installPackagesTask`](https://github.com/nrwl/nx/blob/master/packages/devkit/src/tasks/install-packages-task.ts#L17) to dynamically add and install dependencies
 - To use `vite` as an alternative to webppack see official laravel [vite-plugin source](https://github.com/laravel/vite-plugin/blob/main/src/index.ts)
 - Using `"@swc/core": "^1.3.68"` was causing exported strings from ts files to be inlined in the file resulting in missing exports from files that were importing from there, reverting to `"@swc/core": "1.3.64"` fixed the issue. But we should align to the latest version.

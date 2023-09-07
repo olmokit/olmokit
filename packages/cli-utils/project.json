@@ -31,7 +31,10 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/cli-utils/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/cli-utils/**/*.ts",
+          "packages/cli-utils/package.json"
+        ]
       }
     },
     "test": {

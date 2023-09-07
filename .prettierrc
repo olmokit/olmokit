@@ -4,6 +4,7 @@
     "@trivago/prettier-plugin-sort-imports",
     "@shufo/prettier-plugin-blade"
   ],
+  "tabWidth": 2,
   "overrides": [
     {
       "files": "*.php",
@@ -12,10 +13,7 @@
       }
     },
     {
-      "files": [
-        "*.blade.php"
-      ],
-      // https://github.com/shufo/prettier-plugin-blade#options
+      "files": ["*.blade.php"],
       "options": {
         "parser": "blade",
         "tabWidth": 2,

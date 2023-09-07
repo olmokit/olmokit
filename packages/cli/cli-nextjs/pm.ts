@@ -17,7 +17,7 @@ export namespace CliNextjs {
   export type TaskArg = TaskrTaskArg<Config>;
 }
 
-export const pm: Cli.Creator<CliNextjs.Config> = ({ program, taskr }) => ({
+export const pm: Cli.Creator<CliNextjs.Config> = () => ({
   commands: [
     new Command("start")
       .description("Start the dev server")

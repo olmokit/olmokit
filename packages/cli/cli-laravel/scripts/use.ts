@@ -59,7 +59,7 @@ export abstract class Feature {
     const { title, version } = info;
 
     console.log(
-      `Using ${chalk.bold(chalk.cyanBright(title))} v${chalk.bold(version)}...`
+      `Using ${chalk.bold(chalk.cyanBright(title))} v${chalk.bold(version)}...`,
     );
 
     this.run();
@@ -97,7 +97,7 @@ export abstract class Feature {
   _startLog(subject: string) {
     console.log(`
 Manage ${chalk.cyanBright(this.info.title)}'s ${chalk.bold(
-      chalk.blue(subject)
+      chalk.blue(subject),
     )}...`);
   }
 
@@ -149,7 +149,7 @@ Manage ${chalk.cyanBright(this.info.title)}'s ${chalk.bold(
     if (map.existing.length) {
       console.log(
         chalk.white(`
-Routes ${chalk.bold(map.existing.join(", "))} already exist in your project.`)
+Routes ${chalk.bold(map.existing.join(", "))} already exist in your project.`),
       );
     }
 
@@ -180,7 +180,7 @@ Routes ${chalk.bold(map.existing.join(", "))} already exist in your project.`)
         // ... or it cannot have it, in that case we just use `olmo route`
         // to automatically create them
         const withoutScaffolding = response.toCreate.filter(
-          (name: string) => !withScaffolding.includes(name)
+          (name: string) => !withScaffolding.includes(name),
         );
 
         withScaffolding.forEach((name) => {
@@ -197,7 +197,7 @@ Routes ${chalk.bold(map.existing.join(", "))} already exist in your project.`)
         console.log(
           chalk.white(`
 Created missing routes ${chalk.bold(response.toCreate.join(", "))}
-`)
+`),
         );
       }
 
@@ -205,13 +205,13 @@ Created missing routes ${chalk.bold(response.toCreate.join(", "))}
       // selected them via the prompts CLI interface
       if (response.toCreate.length < map.missing.length) {
         const stillMissing = map.missing.filter(
-          (name) => !response.toCreate.includes(name)
+          (name) => !response.toCreate.includes(name),
         );
 
         console.log(
           chalk.redBright(`
 The following routes are still missing: ${chalk.bold(stillMissing.join(", "))}
-`)
+`),
         );
       }
     }
@@ -251,14 +251,14 @@ The following routes are still missing: ${chalk.bold(stillMissing.join(", "))}
       console.log(`
 ${chalk.white(
   `Components ${chalk.bold(
-    map.existing.join(", ")
-  )} already exist in your project.`
+    map.existing.join(", "),
+  )} already exist in your project.`,
 )}
 ${chalk.dim(`The homonym ${chalk.bold(
-  this.info.name
+  this.info.name,
 )}'s feature components will not be copied over now.
 If you like you might rename these components in your project and re-run ${chalk.bold(
-  "olmo use"
+  "olmo use",
 )}`)}`);
     }
 
@@ -296,8 +296,8 @@ If you like you might rename these components in your project and re-run ${chalk
 
         console.log(
           chalk.white(
-            `Created components ${chalk.bold(response.toCreate.join(", "))}`
-          )
+            `Created components ${chalk.bold(response.toCreate.join(", "))}`,
+          ),
         );
       }
     }
@@ -337,14 +337,14 @@ If you like you might rename these components in your project and re-run ${chalk
       console.log(`
 ${chalk.white(
   `Middlewares ${chalk.bold(
-    map.existing.join(", ")
-  )} already exist in your project.`
+    map.existing.join(", "),
+  )} already exist in your project.`,
 )}
 ${chalk.dim(`The homonym ${chalk.bold(
-  this.info.name
+  this.info.name,
 )}'s feature middleware will not be copied over now.
 If you like you might rename these middlewares in your project and re-run ${chalk.bold(
-  "olmo use"
+  "olmo use",
 )}`)}`);
     }
 
@@ -375,8 +375,8 @@ If you like you might rename these middlewares in your project and re-run ${chal
 
         console.log(
           chalk.white(
-            `Created middlewares ${chalk.bold(response.toCreate.join(", "))}`
-          )
+            `Created middlewares ${chalk.bold(response.toCreate.join(", "))}`,
+          ),
         );
       }
     }
@@ -430,7 +430,7 @@ function getAvailableFeatures(): FeatureMetadata[] {
 /**
  * Run the `use` command
  */
-export const use: CliLaravel.Task = async ({ cliCursor, arg }) => {
+export const use: CliLaravel.Task = async ({ cliCursor }) => {
   const features = getAvailableFeatures();
 
   cliCursor.show();
@@ -453,7 +453,7 @@ export const use: CliLaravel.Task = async ({ cliCursor, arg }) => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const Feature = require(initialiser);
       new Feature(
-        features.filter((meta) => meta.initialiser === initialiser)[0]
+        features.filter((meta) => meta.initialiser === initialiser)[0],
       );
     });
   }

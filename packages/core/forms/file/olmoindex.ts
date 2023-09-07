@@ -18,7 +18,7 @@ import { globalConf } from "../../data";
  */
 let counter = 0;
 let _file = "";
-let _size = "";
+// let _size = "";
 let _totalCount = 0;
 let fileGuid = "";
 let _fileID = "";
@@ -28,16 +28,17 @@ let chunkCount = 0;
 let beginingOfTheChunk = 0;
 let endOfTheChunk = chunkSize;
 
-export function Uploadfile(rootSelector = ".ofForm:") {
-  const $root = $(rootSelector);
-  const $form = $(".of:", $root);
-  const formid = getDataAttr($form, "id");
-  const data = getDataAttr($form, "action");
-  const instance = {
-    $root,
-    $form,
-    data,
-  };
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function Uploadfile(_rootSelector = ".ofForm:") {
+  // const $root = $(rootSelector);
+  // const $form = $(".of:", $root);
+  // const formid = getDataAttr($form, "id");
+  // const data = getDataAttr($form, "action");
+  // const instance = {
+  //   $root,
+  //   $form,
+  //   data,
+  // };
 
   forEach($all(".file"), ($rootupload) => {
     const $input = $(".formControl", $rootupload);
@@ -48,7 +49,7 @@ export function Uploadfile(rootSelector = ".ofForm:") {
         const file = $input.files[0];
         $fileName.textContent = file.name;
 
-        const theSize = sizeChecker(file);
+        // const theSize = sizeChecker(file);
         /**
          * Use this for debugging porpuse
          */
@@ -74,7 +75,7 @@ export function Uploader(rootSelector?: string) {
   const $file = $(".file");
   const $input = $(".formControl", $file);
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     const file = $input.files[0];
 
     createFileContext(file);
@@ -83,7 +84,7 @@ export function Uploader(rootSelector?: string) {
     .then(function (result) {
       console.log("step", result); // 1
 
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         uploadChunk($input, formid).then(() => resolve(result * 2));
       });
     })
@@ -124,7 +125,7 @@ const uploadChunk = async ($input, formid) => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       const data = response.data;
       if (data.isSuccess) {
@@ -147,7 +148,7 @@ const uploadChunk = async ($input, formid) => {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       const data = response.data;
       if (data.isSuccess) {
@@ -157,7 +158,7 @@ const uploadChunk = async ($input, formid) => {
           console.log("Process is complete, counter", counter);
           await uploadCompleted();
         } else {
-          const percentage = (counter / chunkCount) * 100;
+          // const percentage = (counter / chunkCount) * 100;
           await fileUpload();
           // setProgress(percentage);
         }

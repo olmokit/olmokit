@@ -2,18 +2,18 @@
   "name": "@olmokit/browser",
   "version": "0.0.60",
   "description": "Browser utilities for Olmo based applications.",
-  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:olmokit/olmokit.git",
-    "directory": "packages/browser"
-  },
   "keywords": [
     "olmo",
     "olmokit",
     "koine"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:olmokit/olmokit.git",
+    "directory": "packages/browser"
+  },
+  "license": "ISC",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "type": "module",
   "exports": {
     ".": {
@@ -70,5 +70,10 @@
     "./storageClient": {
       "import": "./storageClient.js"
     }
+  },
+  "dependencies": {
+    "@olmokit/dom": "*",
+    "@olmokit/utils": "*",
+    "date-fns-tz": "^2.0.0"
   }
 }

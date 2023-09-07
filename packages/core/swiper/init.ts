@@ -1,6 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { A11y, Lazy, Swiper, SwiperOptions } from "swiper";
+import { Swiper } from "swiper";
+import { A11y, Lazy } from "swiper/modules";
+import type { SwiperOptions } from "swiper/types";
 import { $ } from "@olmokit/dom/$";
 import { listenResize } from "@olmokit/dom/listenResize";
 import { lazyClass, lazyClassSuccess } from "../lazy";
@@ -17,7 +19,7 @@ type SwiperOptionsExtended = SwiperOptions & {
 export function swiperInit(
   selector: string,
   options: SwiperOptionsExtended = {},
-  customComponents = []
+  customComponents = [],
 ) {
   const defaultOptions = {
     lazy: {

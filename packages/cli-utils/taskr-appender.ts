@@ -83,7 +83,7 @@ process.stdout.on("resize", () => {
 });
 
 function createModel(
-  logAboveSpinners: boolean
+  logAboveSpinners: boolean,
 ): [(logMessage: LogMessage) => Model, () => Model] {
   const model: Model = new List<ModelItem>() as Model;
   const itemById: { [key: number]: ModelItem } = Object.create(null);
@@ -160,7 +160,7 @@ function createModel(
   function putIntoChildren(
     itemParentId: number,
     begin: ModelItem,
-    end: ModelItem
+    end: ModelItem,
   ) {
     let parent = itemById[itemParentId];
     if (!parent) {
@@ -176,7 +176,7 @@ function createModel(
     appendRange(
       getLastLeaf(parent) as ListNode,
       begin as ListNode,
-      end as ListNode
+      end as ListNode,
     );
     parent.lastLeaf = begin;
     model.spinning += begin.status || 0;
@@ -229,7 +229,7 @@ function createCanvas(
   spinner: Spinner,
   color: TaskrColor,
   formatter: Formatter,
-  ident: number
+  ident: number,
 ) {
   draftlog(console);
   (draftlog as never as DraftlogConfig).defaults.canReWrite = false;
@@ -280,8 +280,8 @@ function createCanvas(
                 tag: item.tag,
               },
               prefix,
-              ident * stack.length
-            )
+              ident * stack.length,
+            ),
           );
           if (
             subitems.length > 1 &&
@@ -314,7 +314,7 @@ function createCanvas(
     while (key < updaters.length) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (updaters[key++] as (message?: any, ...optionalParams: any[]) => void)(
-        ""
+        "",
       );
     }
   }
@@ -333,9 +333,9 @@ function createAppender(
   color: TaskrColor,
   formatter: Formatter,
   logAboveSpinners: boolean,
-  ident: number
+  ident: number,
 ) {
-  let interval: NodeJS.Timer | undefined;
+  let interval: NodeJS.Timeout | undefined;
 
   const [updateModel, getModel] = createModel(logAboveSpinners);
   const renderModel = createCanvas(spinner, color, formatter, ident);
@@ -350,8 +350,8 @@ function createAppender(
     if (spinning && !interval) {
       interval = setInterval(
         updateSpinners,
-        spinner.interval
-      ) as unknown as NodeJS.Timer;
+        spinner.interval,
+      ) as unknown as NodeJS.Timeout;
       interval.unref(); // unref immidiately just in case
     } else if (!spinning && interval) {
       clearInterval(interval);
@@ -385,12 +385,12 @@ const line = {
 const createFormatter = (
   colors: ColorFormatters,
   symbols: Symbols,
-  tagFactory: (tag: string) => string
+  tagFactory: (tag: string) => string,
 ) => {
   return (
     { loglevel, message, context, action, tag }: LogMessage,
     usePrefix?: string | boolean,
-    identation = 0
+    identation = 0,
   ): string => {
     const prefix =
       usePrefix === true
@@ -433,8 +433,8 @@ export function createTaskrAppender(color: TaskrColor, symbols: Symbols) {
           setMinLevel(logLevel: LogLevel) {
             minLogLevel = logLevel;
           },
-        } // eslint-disable-line indent
-      )
+        }, // eslint-disable-line indent
+      ),
     );
   }
 }

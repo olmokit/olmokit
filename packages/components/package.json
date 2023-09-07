@@ -67,5 +67,11 @@
     "./HeaderSubnav": {
       "import": "./HeaderSubnav/index.js"
     }
+  },
+  "dependencies": {
+    "@olmokit/dom": "*",
+    "@olmokit/core": "*",
+    "@olmokit/utils": "*",
+    "@swc/helpers": "^0.5.2"
   }
 }

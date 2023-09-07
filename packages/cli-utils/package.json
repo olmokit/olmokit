@@ -2,18 +2,19 @@
   "name": "@olmokit/cli-utils",
   "version": "0.0.60",
   "description": "Utils for Olmo's CLI.",
-  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:olmokit/olmokit.git",
-    "directory": "packages/cli-utils"
-  },
   "keywords": [
     "olmo",
     "olmokit",
     "cli"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:olmokit/olmokit.git",
+    "directory": "packages/cli-utils"
+  },
+  "license": "ISC",
+  "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./index.js"
@@ -43,5 +44,22 @@
       "import": "./taskr.js"
     }
   },
-  "type": "module"
+  "dependencies": {
+    "@niceties/logger": "^1.1.12",
+    "@olmokit/utils": "*",
+    "@slimlib/list": "^1.0.8",
+    "@swc/helpers": "^0.5.2",
+    "chalk": "^5.3.0",
+    "ci-info": "^3.8.0",
+    "cli-cursor": "^4.0.0",
+    "commander": "^11.0.0",
+    "comment-json": "^4.2.3",
+    "draftlog": "^1.0.13",
+    "fs-extra": "^11.1.1",
+    "glob": "^10.3.4",
+    "lodash.template": "^4.5.0",
+    "ora": "^7.0.1",
+    "semver": "^7.5.4",
+    "type-fest": "^4.3.1"
+  }
 }

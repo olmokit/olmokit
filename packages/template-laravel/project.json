@@ -5,9 +5,6 @@
   "projectType": "library",
   "implicitDependencies": [],
   "targets": {
-    "watch": {
-      "executor": "nx:noop"
-    },
     "build": {
       "executor": "nx:run-commands",
       "options": {
@@ -22,16 +19,6 @@
         ],
         "parallel": false
       }
-    },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["packages/template-laravel/**/*.ts"]
-      }
-    },
-    "test": {
-      "executor": "nx:noop"
     }
   },
   "tags": []

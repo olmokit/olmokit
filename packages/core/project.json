@@ -31,8 +31,6 @@
         "outputPath": "dist/packages/core",
         "main": "packages/core/index.ts",
         "tsConfig": "packages/core/tsconfig.lib.json",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "updateBuildableProjectDepsInPackageJson": true,
         "assets": [
           "packages/core/*.md",
           "packages/core/**/*.d.ts",
@@ -51,7 +49,10 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/core/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/core/**/*.ts",
+          "packages/core/package.json"
+        ]
       }
     }
   },
