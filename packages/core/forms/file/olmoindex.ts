@@ -1,4 +1,3 @@
-import axios from "axios";
 import { uuid } from "@olmokit/utils/uuid";
 import { $ } from "@olmokit/dom/$";
 import { $each } from "@olmokit/dom/$each";
@@ -109,22 +108,27 @@ const createFileContext = (file: File) => {
 const uploadChunk = async ($input: HTMLInputElement, formid: string) => {
   const uploadCompleted = async () => {
     try {
-      const response = await axios.post(
-        globalConf.cmsApiUrl + "/_/form/uploadcomplete",
-        {},
-        {
-          params: {
+      const response = await fetch(
+        globalConf.cmsApiUrl +
+          "/_/form/uploadcomplete?" +
+          new URLSearchParams({
             public: "false",
             fileName: fileGuid,
             trueName: _fileTreuName,
             foldersName: "olmoemail/attachments/form-" + formid + "/",
-          },
+          }).toString(),
+        {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
         },
       );
-      const data = response.data;
+      const data = (await response.json()) as {
+        isSuccess?: boolean;
+        filename: string;
+        path: string;
+      };
       if (data.isSuccess) {
         console.log("done");
         setDataAttr($input, "filecontent", data.filename);
@@ -140,16 +144,22 @@ const uploadChunk = async ($input: HTMLInputElement, formid: string) => {
 
   const uploadChunks = async (chunk: string | Blob) => {
     try {
-      const response = await axios.post(
+      const response = await fetch(
         globalConf.cmsApiUrl + "/_/form/uploadchunks?fileName=" + fileGuid,
-        chunk,
         {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
+          body: chunk,
         },
       );
-      const data = response.data;
+      const data = (await response.json()) as {
+        isSuccess?: boolean;
+        filename: string;
+        path: string;
+        errorMessage?: string;
+      };
       if (data.isSuccess) {
         beginingOfTheChunk = endOfTheChunk;
         endOfTheChunk = endOfTheChunk + chunkSize;
