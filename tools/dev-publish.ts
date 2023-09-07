@@ -1,9 +1,3 @@
-/**
- * @file
- *
- * After this you should go to the project you want to to test these local
- * libs and run `pnpm link --global {packageName}
- */
 import { spawnSync } from "node:child_process";
 import chalk from "chalk";
 import { Command } from "commander";
@@ -14,17 +8,18 @@ import ora, { oraPromise } from "ora";
 import { join } from "path";
 import { exit } from "process";
 import semver from "semver";
+import { editJsonFile, isGitDirty } from "@olmokit/cli-utils";
 import { type Options, oraOpts } from "./dev.js";
-import { type Lib, editJsonFile, self } from "./helpers.js";
+import { type Lib, self } from "./helpers.js";
 
 export const publish = () =>
   new Command("publish")
     .description("Publish packages")
     .action(async (opts: Options) => {
-      // if (iGitDirty()) {
-      //   ora().fail("You have uncommited work. Cannot proceed.");
-      //   exit(1);
-      // }
+      if (isGitDirty()) {
+        ora().fail("You have uncommited work. Cannot proceed.");
+        exit(1);
+      }
 
       ora().info(
         `${chalk.italic("Single version policy")} ${chalk.dim(
@@ -97,21 +92,6 @@ type Release = {
 };
 
 /**
- * @resources
- * - [node-is-git-dirty](https://github.com/JPeer264/node-is-git-dirty)
- * - [SO thread](https://stackoverflow.com/q/3878624/1938970)
- */
-function iGitDirty() {
-  try {
-    const { stdout } = $.sync`git status --short`;
-
-    return stdout.length;
-  } catch (e) {
-    return false;
-  }
-}
-
-/**
  * We bump the version only in **src** relying on a subsequent `nx build` to
  * retain the correct version in the generated **dist**. Following
  * a single version policy this does not seem necessary but actually `nx` gives
@@ -163,7 +143,7 @@ async function prepublishLib(lib: Lib, release: Release) {
 
 async function publishLib(lib: Lib, release: Release) {
   if (lib.packager === "npm") {
-    // await $({ cwd: lib.dist })`npm publish --access public`;
+    await $({ cwd: lib.dist })`npm publish --access public`;
   } else if (lib.packager === "composer") {
     return new Promise<void>((resolve, reject) => {
       ghpagesPublish(

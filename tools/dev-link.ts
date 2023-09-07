@@ -1,9 +1,3 @@
-/**
- * @file
- *
- * After this you should go to the project you want to to test these local
- * libs and run `pnpm link --global {packageName}
- */
 import { exec } from "node:child_process";
 import chalk from "chalk";
 import { Command } from "commander";

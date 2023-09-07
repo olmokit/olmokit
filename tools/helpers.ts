@@ -1,23 +1,13 @@
-import { readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
-import { EOL } from "node:os";
 import { basename, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import json from "comment-json";
 import { globSync } from "glob";
-import type { PackageJson } from "type-fest";
-
-type ComposerJson = {
-  name: string;
-  support: {
-    /**
-     * The repository absolute URL where lives the built artifact.
-     * Used by composer packagist publishing/versioning system.
-     */
-    source: string;
-  };
-  require?: Record<string, string>;
-};
+import {
+  type ComposerJson,
+  type PackageJson,
+  getComposerDependenciesNames,
+  getNpmDependenciesNames,
+} from "@olmokit/cli-utils";
 
 type LibShared = LibConfig & {
   src: string;
@@ -25,7 +15,7 @@ type LibShared = LibConfig & {
   slug: string;
   name: string;
   version: string;
-  deps: Record<string, string>;
+  // deps: Record<string, string>;
   internalDeps: string[];
   linkPath: string;
 };
@@ -176,7 +166,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
         let packager: Lib["packager"];
         let packageJson = {} as PackageJson;
         let composerJson = {} as ComposerJson;
-        let deps = {};
+        // let deps = {};
         let internalDeps: string[] = [];
         let name = "";
         const linkPath =
@@ -188,17 +178,10 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
           if (packageJson) {
             packager = "npm";
             name = packageJson.name!;
-            const {
-              dependencies = {},
-              devDependencies = {},
-              peerDependencies = {},
-            } = packageJson;
-            deps = { ...dependencies, ...devDependencies, ...peerDependencies };
-            internalDeps = Object.keys(deps).filter((depName) =>
-              depName.startsWith(scope)
+            internalDeps = getNpmDependenciesNames(packageJson, scope).map(
+              (dep) => dep.name
             );
           }
-          // console.log(name, "internalDeps", internalDeps);
         } catch (e) {}
 
         // packager: "composer"
@@ -207,11 +190,10 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
           if (composerJson) {
             packager = "composer";
             name = composerJson.name!;
-            const { require: composerRequire = {} } = composerJson;
-            deps = { ...composerRequire };
-            internalDeps = Object.keys(require).filter((depName) =>
-              depName.startsWith(scope)
-            );
+            internalDeps = getComposerDependenciesNames(
+              composerJson,
+              "olmo" // FIXME: scope here is `olmokit` instead of `olmo`
+            ).map((dep) => dep.name);
           }
         } catch (e) {}
 
@@ -223,7 +205,6 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
           slug,
           name,
           version,
-          deps,
           internalDeps,
           packageJson,
           composerJson,
@@ -232,43 +213,5 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
       })
       // filter as we might have empty temporary folders picked up by the packages/* glob
       .filter((lib) => lib.name)
-  );
-}
-
-/**
- * Edit JSON file (mutable)
- *
- * @param root One or multiple root for the json file to edit
- * @param fileName The json file name
- * @param mutator A function that **mutates** the data
- */
-export async function editJsonFile<TData = any>(
-  root: string | string[],
-  fileName: string,
-  mutator: (data: TData) => void
-) {
-  const roots = Array.isArray(root) ? root : [root];
-
-  await Promise.all(
-    roots.map(async (root) => {
-      const filePath = join(root, fileName);
-
-      try {
-        const fileContent = await readFile(filePath, { encoding: "utf-8" });
-        // const fileJSON = JSON.parse(fileContent);
-        const jsonContent = json.parse(fileContent) as TData;
-        mutator(jsonContent);
-        // const fileNewContent = JSON.stringify(jsonContent, null, 2);
-        const fileNewContent = json.stringify(jsonContent, null, 2);
-
-        if (fileNewContent) {
-          await writeFile(filePath, fileNewContent + EOL);
-        }
-      } catch (err) {
-        console.log("editJsonFile failed for:", filePath);
-        // throw e;
-        return;
-      }
-    })
   );
 }

@@ -18,8 +18,9 @@ import { Command } from "commander";
 import { glob } from "glob";
 import { oraPromise } from "ora";
 import { PackageJson, TsConfigJson } from "type-fest";
+import { editJsonFile } from "@olmokit/cli-utils";
 import { oraOpts } from "./dev.js";
-import { type Lib, editJsonFile, self } from "./helpers.js";
+import { type Lib, self } from "./helpers.js";
 
 // FIXME: to fix in swc? just exclude `SystemjsConfig` because it does not extends `BaseModuleConfig`
 type SWCConfig = Omit<_SWCConfig, "module"> & {
@@ -31,27 +32,29 @@ export const libs = () =>
     .description("Manage libs exports/bundling")
     .action(async () => {
       await Promise.all(
-        self().libs.map(async (lib) => {
-          const suffixText = chalk.dim(`${lib.name}`);
+        self()
+          .libs.filter((lib) => lib.packager === "npm" && lib.packageJson)
+          .map(async (lib) => {
+            const suffixText = chalk.dim(`${lib.name}`);
 
-          await oraPromise(writeLibExports(lib), {
-            ...oraOpts,
-            suffixText,
-            text: "Write exports",
-          });
+            await oraPromise(writeLibExports(lib), {
+              ...oraOpts,
+              suffixText,
+              text: "Write exports",
+            });
 
-          await oraPromise(ensurePackageVersion(lib), {
-            ...oraOpts,
-            suffixText,
-            text: "Ensure package version",
-          });
+            await oraPromise(ensurePackageVersion(lib), {
+              ...oraOpts,
+              suffixText,
+              text: "Ensure package version",
+            });
 
-          await oraPromise(setLibOptions(lib), {
-            ...oraOpts,
-            suffixText,
-            text: "Set lib 'module' type",
-          });
-        })
+            await oraPromise(setLibOptions(lib), {
+              ...oraOpts,
+              suffixText,
+              text: "Set lib 'module' type",
+            });
+          })
       );
 
       console.log();
