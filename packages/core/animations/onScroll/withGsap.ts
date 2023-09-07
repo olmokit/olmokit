@@ -30,9 +30,9 @@ export function killScrollTriggers() {
  * and provides a `data-onscroll` HTML api to reuse the same animations
  * declaratively in the HTML.
  *
- * @param {string} name The animation name
- * @param {($element: HTMLElement, direction: 1 | -1) => any} animation The custom animation callback
- * @param {HTMLElement} [$root=document] The root selector from where starting to grab animated elements
+ * @param name The animation name
+ * @param animation The custom animation callback
+ * @param [$root=document] The root selector from where starting to grab animated elements
  */
 export function animateOnScrollWithGsap(
   name: string,

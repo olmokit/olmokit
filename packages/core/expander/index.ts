@@ -5,14 +5,24 @@ import { on } from "@olmokit/dom/on";
 import { setVendorCSS } from "@olmokit/dom/setVendorCSS";
 import "./index.scss";
 
+export type ExpanderOptions = {
+  /**
+   * @default "lines"
+   */
+  mode?: "lines" | "height";
+  max?: number;
+  oneWay?: boolean;
+  duration?: number;
+};
+
 /**
  * Expand or collapse an element either by a set of max lines or by a given
  * height. It supports multiple breakpoints values.
  * We give as an assumption that given breakpoints are already sorted mobile
  * first.
  *
- * @param {HTMLElement} [$root]. Element containing the text node to clamp.
- * @param {Object} options. Options to pass to the clamper.
+ * @param $root Element containing the text node to clamp.
+ * @param options Options to pass to the clamper.
  * 
  * @usage
 ```
@@ -30,9 +40,9 @@ expander($(".expandable"), {
 });
 ```
  */
-export default function expander(
-  $root,
-  { mode = "lines", max, oneWay, duration = 400 }
+export function expander(
+  $root: HTMLElement,
+  { mode = "lines", max, oneWay, duration = 400 }: ExpanderOptions
 ) {
   const $body = $("[expander-body]", $root);
   const $toggle = $("[expander-toggle]", $root);
@@ -79,8 +89,6 @@ export default function expander(
 
   /**
    * Determine if the content body is collapsed, that is if has an hidden overflow
-   *
-   * @returns {boolean}
    */
   function checkCollapsedDOMState() {
     return $body.scrollHeight > $body.offsetHeight;
@@ -91,10 +99,9 @@ export default function expander(
    * than the given maximum height. Toggle state attribute and toggle DOM
    * element according to this.
    *
-   * @returns {boolean}
    */
-  function checkThatIsExpandable(maxHeight) {
-    let isIt = expandedHeight > getMaxHeight(maxHeight);
+  function checkThatIsExpandable(maxHeight: number): boolean {
+    const isIt = expandedHeight > getMaxHeight(maxHeight);
 
     if (isIt !== isExpandable) {
       $root.setAttribute("expander-expandable", isIt ? "true" : "false");
@@ -164,7 +171,7 @@ export default function expander(
    * Returns the maximum height a given element should have based on the line-
    * height of the text and the given clamp value.
    */
-  function getMaxHeight(maxLinesOrHeight) {
+  function getMaxHeight(maxLinesOrHeight: number) {
     // if mode is height just use the given height, no calculations to do,
     // in "lines" mode instead compute the height based on the number of lines
     if (mode === "lines") {
@@ -181,10 +188,9 @@ export default function expander(
    *
    * Taken from clamp.js:
    * @see https://github.com/josephschmitt/Clamp.js
-   * @returns {number}
    */
-  function getLineHeight(elem) {
-    let value = getStyleValue(elem, "line-height");
+  function getLineHeight(elem: HTMLElement) {
+    const value = getStyleValue(elem, "line-height");
     if (value === "normal") {
       // Normal line heights vary from browser to browser. The spec recommends
       // a value between 1.0 and 1.2 of the font size. Using 1.1 to split the diff.
@@ -196,7 +202,7 @@ export default function expander(
   /**
    * Handle keyboard enter or space
    */
-  function handleEnter(event) {
+  function handleEnter(event: KeyboardEvent) {
     if (event.keyCode === 13 || event.keyCode === 32) {
       toggle();
     }
@@ -239,3 +245,5 @@ export default function expander(
   // public API
   // return {}
 }
+
+export default expander;

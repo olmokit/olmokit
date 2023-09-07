@@ -1,3 +1,4 @@
+import { isFunction, isString } from "@olmokit/utils";
 import { $ } from "@olmokit/dom/$";
 import { $all } from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
@@ -11,8 +12,33 @@ import { listenScroll } from "@olmokit/dom/listenScroll";
 import { removeClass } from "@olmokit/dom/removeClass";
 import "../../../polyfills/closest";
 
-const defaults = {
-  header: "", // selector for a fixed/absolute header that adds to the offset
+export type ScrollSpyOptions = {
+  /**
+   * Selector for a fixed/absolute header that adds to the offset
+   */
+  header: string;
+  /**
+   * @default "is-active"
+   */
+  navClass: string;
+  /**
+   * @default "is-active"
+   */
+  contentClass: string;
+  offset: number | (() => number | string);
+  reflow: boolean;
+  events: boolean;
+  onSetup?: null | ((areas: ScrollSpyArea[]) => void);
+};
+
+type ScrollSpyArea = {
+  idx: number;
+  nav: HTMLElement;
+  content: HTMLElement;
+};
+
+const defaults: ScrollSpyOptions = {
+  header: "",
   navClass: "is-active",
   contentClass: "is-active",
   offset: 0,
@@ -23,15 +49,15 @@ const defaults = {
 
 /**
  * Sort content from first to last in the DOM
- * @param {Array} data The content areas
+ * @param data The content areas
  */
-function sortContents(data) {
+function sortContents(data: ScrollSpyArea[]) {
   if (data) {
     data
-      .sort(function (item1, item2) {
-        var offset1 = getOffsetTop(item1.content);
-        var offset2 = getOffsetTop(item2.content);
-        if (offset1 < offset2) return -1;
+      .sort((item1, item2) => {
+        if (getOffsetTop(item1.content) < getOffsetTop(item2.content)) {
+          return -1;
+        }
         return 1;
       })
       .map((item, idx) => {
@@ -43,37 +69,36 @@ function sortContents(data) {
 
 /**
  * Get the offset to use for calculating position
- * @param {Object} settings The settings for this instantiation
- * @return {number} The number of pixels to offset the calculations
+ * @param settings The settings for this instantiation
+ * @return The number of pixels to offset the calculations
  */
-let headerEl;
+let headerEl: HTMLElement | undefined;
 
-function getOffset(settings) {
+function getOffset(settings: ScrollSpyOptions) {
+  const { header, offset } = settings;
   let headerOffset = 0;
-  if (settings.header) {
-    headerEl = headerEl || $(settings.header);
+
+  if (header) {
+    headerEl = headerEl || $<HTMLElement>(header);
     headerOffset = headerEl ? getHeight(headerEl) : 0;
   }
 
-  // if the offset is a function run it
-  if (typeof settings.offset === "function") {
-    return parseFloat(settings.offset()) + headerOffset;
-  }
+  let offsetSafe = isFunction(offset) ? offset() : offset;
+  offsetSafe = isString(offsetSafe) ? parseFloat(offsetSafe) : offsetSafe;
 
-  // Otherwise, return it as-is
-  return parseFloat(settings.offset) + headerOffset;
+  return offsetSafe + headerOffset;
 }
 
 /**
  * Determine if an element is in view
- * @param {Element} elem The element
- * @param {Object} settings The settings for this instantiation
- * @param {boolean} [bottom] If true, check if element is above bottom of viewport instead
- * @return {boolean} Returns true if element is in the viewport
+ * @param elem The element
+ * @param settings The settings for this instantiation
+ * @param [bottom] If `true`, check if element is above bottom of viewport instead
+ * @return Returns `true` if element is in the viewport
  */
-function isInView(elem, settings, bottom) {
-  var bounds = elem.getBoundingClientRect();
-  var offset = getOffset(settings);
+function isInView(elem: Element, settings: ScrollSpyOptions, bottom?: boolean) {
+  const bounds = elem.getBoundingClientRect();
+  const offset = getOffset(settings);
   if (bottom) {
     return (
       bounds.bottom <
@@ -85,7 +110,7 @@ function isInView(elem, settings, bottom) {
 
 /**
  * Check if at the bottom of the viewport
- * @return {boolean} If true, page is at the bottom of the viewport
+ * @return If `true`, page is at the bottom of the viewport
  */
 function isAtBottom() {
   if (window.innerHeight + window.pageYOffset >= getDocumentHeight())
@@ -95,77 +120,75 @@ function isAtBottom() {
 
 /**
  * Check if the last item should be used (even if not at the top of the page)
- * @param  {Object} item     The last item
- * @param  {Object} settings The settings for this instantiation
- * @return {boolean}         If true, use the last item
+ * @param item The last item
+ * @param settings The settings for this instantiation
+ * @return If `true`, use the last item
  */
-function useLastItem(item, settings) {
-  if (isAtBottom() && isInView(item.content, settings, true)) return true;
+function useLastItem(area: ScrollSpyArea, settings: ScrollSpyOptions) {
+  if (isAtBottom() && isInView(area.content, settings, true)) return true;
   return false;
 }
 
 /**
  * Get the active content
- * @param {Array}  data The content areas
- * @param {Object} settings The settings for this instantiation
- * @return {Object} The content area and matching navigation link
+ * @return The content area and matching navigation link
  */
-function getActive(data, settings) {
-  var last = data[data.length - 1];
-  if (useLastItem(last, settings)) return last;
-  for (var i = data.length - 1; i >= 0; i--) {
-    if (isInView(data[i].content, settings)) return data[i];
+function getActive(areas: ScrollSpyArea[], settings: ScrollSpyOptions) {
+  const last = areas[areas.length - 1];
+  if (useLastItem(last, settings)) {
+    return last;
   }
+
+  for (let i = areas.length - 1; i >= 0; i--) {
+    if (isInView(areas[i].content, settings)) {
+      return areas[i];
+    }
+  }
+  return;
 }
 
 /**
  * Deactivate a nav and content area
- * @param {Object} items The nav item and content to deactivate
- * @param {Object} settings The settings for this instantiation
  */
-function deactivate(items, settings) {
-  // Make sure there are items to deactivate
-  if (!items) return;
+function deactivate(settings: ScrollSpyOptions, area?: null | ScrollSpyArea) {
+  if (!area) return;
 
   // Get the parent list item
-  var li = items.nav.closest("li");
+  const li = area.nav.closest("li");
   if (!li) return;
 
   // Remove the active class from the nav and content
   removeClass(li, settings.navClass);
-  removeClass(items.content, settings.contentClass);
+  removeClass(area.content, settings.contentClass);
 
   // Emit a custom event
   emitEvent("scrollspy:deactivate", {
     li,
-    link: items.nav,
-    content: items.content,
+    link: area.nav,
+    content: area.content,
     settings: settings,
   });
 }
 
 /**
  * Activate a nav and content area
- * @param {Object} items The nav item and content to activate
- * @param {Object} settings The settings for this instantiation
  */
-function activate(items, settings) {
-  // Make sure there are items to activate
-  if (!items) return;
+function activate(settings: ScrollSpyOptions, area?: null | ScrollSpyArea) {
+  if (!area) return;
 
   // Get the parent list item
-  var li = items.nav.closest("li");
+  const li = area.nav.closest("li");
   if (!li) return;
 
   // Add the active class to the nav and content
   addClass(li, settings.navClass);
-  addClass(items.content, settings.contentClass);
+  addClass(area.content, settings.contentClass);
 
   // Emit a custom event
   emitEvent("scrollspy:active", {
     li,
-    link: items.nav,
-    content: items.content,
+    link: area.nav,
+    content: area.content,
     settings: settings,
   });
 }
@@ -176,35 +199,40 @@ function activate(items, settings) {
  * Manages in-page hash based navigation adding 'active' classes on links inside
  * the given navigation element.
  *
- * @param {String} selector The selector to use for navigation items
- * @param {Object} options User options and settings
+ * @param selector The selector to use for navigation items
+ * @param options User options and settings
  */
-export default function scrollSpy(selector, options = {}) {
-  let data, current, timeout, settings;
-  let continueFrame;
-  let scrollListener;
-  let resizeListener;
+export default function scrollSpy(
+  selector: string,
+  options: Partial<ScrollSpyOptions> = {}
+) {
+  let timeout: number | null;
+  let settings: ScrollSpyOptions;
+  let data: ScrollSpyArea[];
+  let current: ScrollSpyArea | null | undefined;
+  let continueFrame: boolean | undefined;
+  let scrollListener: () => void | undefined;
+  let resizeListener: () => void | undefined;
 
   /**
    * Set variables from DOM elements
    */
   function setup() {
     // Get all nav items
-    const navItems = $all(selector);
+    const navItems = $all<HTMLAnchorElement>(selector);
 
     // Create data array
     data = [];
 
     // Loop through each item, get it's matching content, and push to the array
-    forEach(navItems, function (navItem) {
+    forEach(navItems, (navItem, idx) => {
       // Get the content for the nav item
-      var content = document.getElementById(
-        decodeURIComponent(navItem.hash.substr(1))
-      );
+      const content = $("#" + decodeURIComponent(navItem.hash.substring(1)));
       if (!content) return;
 
       // Push to the data array
       data.push({
+        idx,
         nav: navItem,
         content: content,
       });
@@ -228,7 +256,7 @@ export default function scrollSpy(selector, options = {}) {
     // if there's no active content, deactivate and bail
     if (!active) {
       if (current) {
-        deactivate(current, settings);
+        deactivate(settings, current);
         current = null;
       }
       return;
@@ -238,8 +266,8 @@ export default function scrollSpy(selector, options = {}) {
     if (current && active.content === current.content) return;
 
     // Deactivate the current content and activate the new content
-    deactivate(current, settings);
-    activate(active, settings);
+    deactivate(settings, current);
+    activate(settings, active);
 
     // Update the currently active content
     current = active;
@@ -286,7 +314,7 @@ export default function scrollSpy(selector, options = {}) {
   function destroy() {
     // Undo DOM changes
     if (current) {
-      deactivate(current, settings);
+      deactivate(settings, current);
     }
 
     // Remove event listeners
@@ -297,11 +325,11 @@ export default function scrollSpy(selector, options = {}) {
     }
 
     // Reset variables
-    data = null;
+    data = [];
     current = null;
     timeout = null;
     continueFrame = false;
-    settings = null;
+    settings = { ...defaults };
   }
 
   /**

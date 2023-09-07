@@ -1,6 +1,6 @@
 import { isString } from "@olmokit/utils/isString";
 import { getDataAttr } from "@olmokit/dom/getDataAttr";
-import { onScroll } from "../../scroll/onScroll";
+import { type OnScroll, onScroll } from "../../scroll/onScroll";
 import { normaliseInitialiserOptions } from "../../scroll/onScroll/withScrollTrigger";
 import "./index.scss";
 
@@ -21,10 +21,8 @@ import "./index.scss";
  * declaratively in the HTML.
  *
  * @see https://github.com/terwanerik/ScrollTrigger
- *
- * @type {OnScroll.initaliser}
  */
-export function animateOnScroll(target, custom) {
+export const animateOnScroll: OnScroll.Initaliser = (target, custom) => {
   const { onin } = normaliseInitialiserOptions(custom);
 
   // data attribute API, TODO: not sure this is good
@@ -35,7 +33,7 @@ export function animateOnScroll(target, custom) {
    *
    * @type {OnScroll.options["onin"]}
    */
-  function callbackInAnimation(element) {
+  const callbackInAnimation: OnScroll.Options["onin"] = (element) => {
     const delay = getDataAttr(element, "delay") || 0;
 
     // call it in a timeout otherwise it is too fast, and the `onin`
@@ -43,15 +41,15 @@ export function animateOnScroll(target, custom) {
     setTimeout(
       () => {
         element.style.visibility = "visible";
-        onin(element);
+        onin?.(element);
       },
       delay ? parseInt(delay, 10) : 0
     );
-  }
+  };
 
   // final ScrollTrigger options to treat based on given options and mode
   const opts = {
-    onin: onin ? callbackInAnimation : null,
+    onin: onin ? callbackInAnimation : undefined,
     toggle: {
       class: {
         in: "is-in",
@@ -61,4 +59,4 @@ export function animateOnScroll(target, custom) {
   };
 
   return onScroll(target, opts);
-}
+};
