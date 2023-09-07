@@ -21,10 +21,10 @@ export const publish = () =>
   new Command("publish")
     .description("Publish packages")
     .action(async (opts: Options) => {
-      if (iGitDirty()) {
-        ora().fail("You have uncommited work. Cannot proceed.");
-        exit(1);
-      }
+      // if (iGitDirty()) {
+      //   ora().fail("You have uncommited work. Cannot proceed.");
+      //   exit(1);
+      // }
 
       ora().info(
         `${chalk.italic("Single version policy")} ${chalk.dim(
@@ -163,7 +163,7 @@ async function prepublishLib(lib: Lib, release: Release) {
 
 async function publishLib(lib: Lib, release: Release) {
   if (lib.packager === "npm") {
-    await $({ cwd: lib.dist })`npm publish --access public`;
+    // await $({ cwd: lib.dist })`npm publish --access public`;
   } else if (lib.packager === "composer") {
     return new Promise<void>((resolve, reject) => {
       ghpagesPublish(
