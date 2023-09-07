@@ -1,4 +1,4 @@
-import { uuid } from "@olmokit/utils";
+import { uuid } from "@olmokit/utils/uuid";
 import { $ } from "@olmokit/dom/$";
 import { emitEvent } from "@olmokit/dom/emitEvent";
 import { getHeight } from "@olmokit/dom/getHeight";

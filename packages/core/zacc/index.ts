@@ -1,4 +1,7 @@
-import { $, off, on, setVendorCSS } from "@olmokit/dom";
+import { $ } from "@olmokit/dom/$";
+import { off } from "@olmokit/dom/off";
+import { on } from "@olmokit/dom/on";
+import { setVendorCSS } from "@olmokit/dom/setVendorCSS";
 import "./index.scss";
 
 type ZaccHook = ($root: HTMLElement) => any;

@@ -1,6 +1,6 @@
 import { Emitter } from "@olmokit/utils/Emitter";
 import { isUndefined } from "@olmokit/utils/isUndefined";
-import { $all } from "@olmokit/dom";
+import { $all } from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
 import { forEach } from "@olmokit/dom/forEach";
 import { listen } from "@olmokit/dom/listen";

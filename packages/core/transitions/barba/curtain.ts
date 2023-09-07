@@ -1,6 +1,6 @@
 import { type ITransitionData } from "@barba/core";
 import { gsap } from "gsap";
-import { $ } from "@olmokit/dom";
+import { $ } from "@olmokit/dom/$";
 
 /**
  * Transition curtain effect for barba.js containers

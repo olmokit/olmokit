@@ -2,7 +2,7 @@
 // import videojs from "video.js/dist/alt/video.core.novtt";
 // import { VideoJsPlayerOptions, VideoJsPlayer } from "video.js/dist/types/player";
 import videojs from "video.js";
-import { isString } from "@olmokit/utils";
+import { isString } from "@olmokit/utils/isString";
 import { $ } from "@olmokit/dom/$";
 import { $each } from "@olmokit/dom/$each";
 // import { $all } from "@olmokit/dom/$all";

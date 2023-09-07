@@ -42,5 +42,6 @@
       "dont-discover": []
     }
   },
-  "$schema": "https://getcomposer.org/schema.json"
+  "$schema": "https://getcomposer.org/schema.json",
+  "version": "0.0.57"
 }
