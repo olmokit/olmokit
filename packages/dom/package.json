@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/dom",
-  "version": "0.0.58",
+  "version": "0.0.59",
   "description": "DOM utilities for Olmo based applications.",
   "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "license": "ISC",
