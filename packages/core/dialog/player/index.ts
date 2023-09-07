@@ -1,6 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { $ } from "@olmokit/dom/$";
+import type { Player as PlayerTypes } from "../../player/types";
 import { DialogAsync } from "../async";
 import "./index.scss";
 
@@ -83,8 +82,8 @@ export function openDialogPlayer({
 
   let hasPaused = false;
 
-  import("../player").then(({ Player }) => {
-    let playerInstance;
+  import("../../player").then(({ Player }) => {
+    let playerInstance: PlayerTypes.Instance["video"];
 
     DialogAsync(
       {
@@ -105,7 +104,7 @@ export function openDialogPlayer({
           playerInstance.pause();
           hasPaused = true;
         },
-      }
-    ).open();
+      },
+    )?.open();
   });
 }

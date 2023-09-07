@@ -5,9 +5,10 @@ import videojs from "video.js";
 import { isString } from "@olmokit/utils/isString";
 import { $ } from "@olmokit/dom/$";
 import { $each } from "@olmokit/dom/$each";
-// import { $all } from "@olmokit/dom/$all";
 import "../media";
 import "./index.scss";
+// import { $all } from "@olmokit/dom/$all";
+import type { Player as PlayerTypes } from "./types";
 
 // import { VideoJsPlayerOptions, VideoJsPlayer } from "video.js";
 // export * from "video.js";
@@ -25,11 +26,6 @@ type PlayerOptions = object;
 
 const defaultOptions = {
   liveui: false,
-};
-
-type PlayerInstance = {
-  $el: Element;
-  video: ReturnType<typeof videojs>;
 };
 
 /**
@@ -65,20 +61,20 @@ type PlayerInstance = {
 export function Player(
   rooter: string | Element | HTMLElement,
   options?: PlayerOptions,
-  ready?: () => any
-): PlayerInstance["video"];
+  ready?: () => any,
+): PlayerTypes.Instance["video"];
 export function Player(
   rooter?: undefined,
   options?: PlayerOptions,
-  ready?: () => any
-): PlayerInstance[];
+  ready?: () => any,
+): PlayerTypes.Instance[];
 export function Player(
   rooter?: string | Element | HTMLElement,
   options?: PlayerOptions,
-  ready?: () => any
+  ready?: () => any,
 ) {
   if (typeof rooter === "undefined") {
-    const instances: PlayerInstance[] = [];
+    const instances: PlayerTypes.Instance[] = [];
 
     $each(".video-js", ($el) => {
       instances.push({

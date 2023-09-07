@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { Swiper } from "swiper";
 import { A11y, Lazy } from "swiper/modules";
 import type { SwiperOptions } from "swiper/types";
@@ -31,7 +29,7 @@ export function swiperInit(
     },
   };
   const element = typeof selector === "string" ? $(selector) : selector;
-  let instance: Swiper;
+  let instance: Swiper | undefined;
 
   Swiper.use([A11y, Lazy, ...customComponents]);
 

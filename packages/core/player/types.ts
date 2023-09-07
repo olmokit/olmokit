@@ -1,3 +1,5 @@
+import videojs from "video.js";
+
 // FIXME: core types for videojs
 // import type { VideoJsPlayerOptions, VideoJsPlayer } from "video.js";
 type VideoJsPlayerOptions = any;
@@ -18,6 +20,11 @@ export namespace Player {
   export type Initialiser = (
     rooter?: string | HTMLElement | VideoJsPlayer,
     options?: Options,
-    ready?: () => void
+    ready?: () => void,
   ) => VideoJsPlayer;
+
+  export type Instance = {
+    $el: Element;
+    video: ReturnType<typeof videojs>;
+  };
 }
