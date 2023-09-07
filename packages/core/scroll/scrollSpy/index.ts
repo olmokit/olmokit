@@ -1,4 +1,5 @@
-import { isFunction, isString } from "@olmokit/utils";
+import { isFunction } from "@olmokit/utils/isFunction";
+import { isString } from "@olmokit/utils/isString";
 import { $ } from "@olmokit/dom/$";
 import { $all } from "@olmokit/dom/$all";
 import { addClass } from "@olmokit/dom/addClass";
