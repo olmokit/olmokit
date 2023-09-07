@@ -16,7 +16,7 @@ type ComposerJson = {
      */
     source: string;
   };
-  require: Record<string, string>;
+  require?: Record<string, string>;
 };
 
 type LibShared = LibConfig & {
@@ -242,7 +242,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
  * @param fileName The json file name
  * @param mutator A function that **mutates** the data
  */
-export async function editJSONfile<TData = any>(
+export async function editJsonFile<TData = any>(
   root: string | string[],
   fileName: string,
   mutator: (data: TData) => void
@@ -265,7 +265,7 @@ export async function editJSONfile<TData = any>(
           await writeFile(filePath, fileNewContent + EOL);
         }
       } catch (err) {
-        console.log("editJSONfile failed for:", filePath);
+        console.log("editJsonFile failed for:", filePath);
         // throw e;
         return;
       }

@@ -18,6 +18,15 @@
     ".": {
       "import": "./index.js"
     },
+    "./deps-composer": {
+      "import": "./deps-composer.js"
+    },
+    "./deps-npm": {
+      "import": "./deps-npm.js"
+    },
+    "./editJsonFile": {
+      "import": "./editJsonFile.js"
+    },
     "./filer": {
       "import": "./filer.js"
     },

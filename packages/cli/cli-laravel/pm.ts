@@ -123,6 +123,13 @@ export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
           import("./scripts/use.js").then((mod) => mod.use)
         );
       }),
+    new Command("update")
+      .description("Update the installed Olmo packages to their latest version")
+      .action(async () => {
+        await taskr.runAction(() =>
+          import("./scripts/update.js").then((mod) => mod.update)
+        );
+      }),
     new Command("format")
       .description(
         "Prettify js, scss, md and php files (it is done automatically before every commit)"

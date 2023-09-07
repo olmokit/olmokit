@@ -92,14 +92,11 @@
     "./animations": {
       "import": "./animations/index.js"
     },
-    "./animations/onScroll/gsap": {
-      "import": "./animations/onScroll/gsap/index.js"
+    "./animations/onScroll/index.scss": {
+      "import": "./animations/onScroll/index.scss"
     },
     "./animations/onScroll": {
       "import": "./animations/onScroll/index.js"
-    },
-    "./animations/onScroll/index.scss": {
-      "import": "./animations/onScroll/index.scss"
     },
     "./animations/onScroll/withGsap.scss": {
       "import": "./animations/onScroll/withGsap.scss"
@@ -314,11 +311,11 @@
     "./dropdown": {
       "import": "./dropdown/index.js"
     },
-    "./expander": {
-      "import": "./expander/index.js"
-    },
     "./expander/index.scss": {
       "import": "./expander/index.scss"
+    },
+    "./expander": {
+      "import": "./expander/index.js"
     },
     "./forms/_mixins.scss": {
       "import": "./forms/_mixins.scss"
@@ -806,11 +803,11 @@
     "./progress/_variables.scss": {
       "import": "./progress/_variables.scss"
     },
-    "./progress/linear": {
-      "import": "./progress/linear/index.js"
-    },
     "./progress/linear/index.scss": {
       "import": "./progress/linear/index.scss"
+    },
+    "./progress/linear": {
+      "import": "./progress/linear/index.js"
     },
     "./progress/loading.scss": {
       "import": "./progress/loading.scss"

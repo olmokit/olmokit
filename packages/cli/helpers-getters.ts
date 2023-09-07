@@ -1,7 +1,6 @@
 import { existsSync, lstatSync } from "node:fs";
 import type { PackageJson } from "type-fest";
 import { project } from "./project.js";
-import type { Config } from "./types.js";
 
 /**
  * Get now time information text

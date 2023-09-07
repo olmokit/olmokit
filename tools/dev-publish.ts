@@ -15,7 +15,7 @@ import { join } from "path";
 import { exit } from "process";
 import semver from "semver";
 import { type Options, oraOpts } from "./dev.js";
-import { type Lib, editJSONfile, self } from "./helpers.js";
+import { type Lib, editJsonFile, self } from "./helpers.js";
 
 export const publish = () =>
   new Command("publish")
@@ -122,22 +122,22 @@ function iGitDirty() {
  * policy toward an "independent" policy if needed.
  */
 async function bumbLib(lib: Lib, release: Release) {
-  await editJSONfile(self().root, "package.json", (data) => {
+  await editJsonFile(self().root, "package.json", (data) => {
     data.version = release.version;
   });
   if (lib.packager === "npm") {
-    await editJSONfile(lib.src, "package.json", (data) => {
+    await editJsonFile(lib.src, "package.json", (data) => {
       data.version = release.version;
     });
   } else if (lib.packager === "composer") {
-    await editJSONfile(lib.src, "composer.json", (data) => {
+    await editJsonFile(lib.src, "composer.json", (data) => {
       data.version = release.version;
     });
   }
 
   // NOTE: exception, this bump is a bit hacky, but hard to do better...
   if (lib.name === "laravel-frontend") {
-    await editJSONfile(
+    await editJsonFile(
       join(self().tools, "../packages/template-laravel/template"),
       "composer.json",
       (data) => {
@@ -155,7 +155,7 @@ async function bumbLib(lib: Lib, release: Release) {
  */
 async function prepublishLib(lib: Lib, release: Release) {
   if (lib.packager === "composer") {
-    await editJSONfile([lib.src, lib.dist], "composer.json", (data) => {
+    await editJsonFile([lib.src, lib.dist], "composer.json", (data) => {
       delete data.version;
     });
   }

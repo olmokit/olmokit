@@ -24,6 +24,21 @@ export function inGitRepo() {
   return isInGitRepository() || isInMercurialRepository();
 }
 
+/**
+ * @resources
+ * - [node-is-git-dirty](https://github.com/JPeer264/node-is-git-dirty)
+ * - [SO thread](https://stackoverflow.com/q/3878624/1938970)
+ */
+export function isGitDirty() {
+  try {
+    const stdout = execSync("git status --short", { stdio: "ignore" });
+
+    return !!stdout.length;
+  } catch (e) {
+    return false;
+  }
+}
+
 export function tryGitInit(cwd?: string) {
   const options: ExecSyncOptions = { stdio: "ignore" };
   if (cwd) options.cwd = cwd;
@@ -65,17 +80,4 @@ export function tryGitCommit(appPath: string, msg: string) {
     }
     return false;
   }
-}
-
-export function getLatestNpmPkgVersion(pkgName: string) {
-  const result = execSync(`npm view ${pkgName} --json`).toString();
-  let data;
-
-  try {
-    data = JSON.parse(result);
-  } catch (e) {
-    throw new Error(`Unable to find latest version of ${pkgName}`);
-  }
-
-  return data["dist-tags"]["latest"];
 }

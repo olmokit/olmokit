@@ -66,16 +66,3 @@ export function tryGitCommit(appPath: string, msg: string) {
     return false;
   }
 }
-
-export function getLatestNpmPkgVersion(pkgName: string) {
-  const result = execSync(`npm view ${pkgName} --json`).toString();
-  let data;
-
-  try {
-    data = JSON.parse(result);
-  } catch (e) {
-    throw new Error(`Unable to find latest version of ${pkgName}`);
-  }
-
-  return data["dist-tags"]["latest"];
-}

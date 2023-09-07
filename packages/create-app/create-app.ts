@@ -10,7 +10,7 @@ import {
   rmSync,
   writeFileSync,
 } from "node:fs";
-import { get } from "node:https";
+// import { get } from "node:https";
 import { EOL } from "node:os";
 import { basename, join, resolve } from "node:path";
 import { parse as urlParse } from "node:url";
@@ -202,7 +202,7 @@ export function init() {
   // blocked by a firewall, and packages are provided exclusively via a private
   // registry.
   // TODO: maybe restore all the below, but we can't inline the version atm...
-  // (checkForLatestVersion() as Promise<string | undefined>)
+  // (getNpmPkgLatestVersionWithHttp() as Promise<string | undefined>)
   //   .catch(() => {
   //     try {
   //       return execSync(`npm view ${thisPkgName} version`).toString().trim();
@@ -990,23 +990,23 @@ function canUseYarn() {
   }
 }
 
-function checkForLatestVersion() {
-  return new Promise((resolve, reject) => {
-    get(
-      "https://registry.npmjs.org/-/package/@olmokit/create-app/dist-tags",
-      (res) => {
-        if (res.statusCode === 200) {
-          let body = "";
-          res.on("data", (data) => (body += data));
-          res.on("end", () => {
-            resolve(JSON.parse(body).latest);
-          });
-        } else {
-          reject();
-        }
-      }
-    ).on("error", () => {
-      reject();
-    });
-  });
-}
+// function getNpmPkgLatestVersionWithHttp() {
+//   return new Promise((resolve, reject) => {
+//     get(
+//       "https://registry.npmjs.org/-/package/@olmokit/create-app/dist-tags",
+//       (res) => {
+//         if (res.statusCode === 200) {
+//           let body = "";
+//           res.on("data", (data) => (body += data));
+//           res.on("end", () => {
+//             resolve(JSON.parse(body).latest);
+//           });
+//         } else {
+//           reject();
+//         }
+//       }
+//     ).on("error", () => {
+//       reject();
+//     });
+//   });
+// }

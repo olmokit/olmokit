@@ -19,7 +19,7 @@ import { glob } from "glob";
 import { oraPromise } from "ora";
 import { PackageJson, TsConfigJson } from "type-fest";
 import { oraOpts } from "./dev.js";
-import { type Lib, editJSONfile, self } from "./helpers.js";
+import { type Lib, editJsonFile, self } from "./helpers.js";
 
 // FIXME: to fix in swc? just exclude `SystemjsConfig` because it does not extends `BaseModuleConfig`
 type SWCConfig = Omit<_SWCConfig, "module"> & {
@@ -85,7 +85,7 @@ async function writeLibExports(lib: Lib) {
   }
 
   if (lib.exports === "none") {
-    await editJSONfile([lib.dist, lib.src], "package.json", (data) => {
+    await editJsonFile([lib.dist, lib.src], "package.json", (data) => {
       delete data.exports;
     });
 
@@ -150,7 +150,7 @@ async function writeLibExports(lib: Lib) {
     } as Record<string, object>
   );
 
-  await editJSONfile([lib.dist, lib.src], "package.json", (data) => {
+  await editJsonFile([lib.dist, lib.src], "package.json", (data) => {
     data.exports = exports;
   });
 }
@@ -161,7 +161,7 @@ async function writeLibExports(lib: Lib) {
  * package does not specify a version in its package.json.
  */
 async function ensurePackageVersion(lib: Lib) {
-  await editJSONfile<PackageJson>(lib.src, "package.json", (data) => {
+  await editJsonFile<PackageJson>(lib.src, "package.json", (data) => {
     data.version = data.version || self().packageJson.version;
   });
 }
@@ -175,7 +175,7 @@ function overrideByLibType<T, L extends NonNullable<Lib["type"]>>(
 }
 
 async function setLibOptions(lib: Lib) {
-  await editJSONfile<SWCConfig>(lib.src, ".swcrc", (data) => {
+  await editJsonFile<SWCConfig>(lib.src, ".swcrc", (data) => {
     data.module = data.module || ({} as SWCConfig["module"]);
 
     if (lib.type !== "none") {
@@ -208,7 +208,7 @@ async function setLibOptions(lib: Lib) {
     data.exclude = Array.from(new Set([...exclude, "./*\\.d.ts"]));
   });
 
-  await editJSONfile<TsConfigJson>(lib.src, "tsconfig.json", (data) => {
+  await editJsonFile<TsConfigJson>(lib.src, "tsconfig.json", (data) => {
     if (lib.type && lib.type !== "none") {
       data.compilerOptions = data.compilerOptions || {};
       overrideByLibType(data.compilerOptions.module, lib.type, {
@@ -218,7 +218,7 @@ async function setLibOptions(lib: Lib) {
     }
   });
 
-  await editJSONfile<PackageJson>(
+  await editJsonFile<PackageJson>(
     [lib.src, lib.dist],
     "package.json",
     (data) => {
