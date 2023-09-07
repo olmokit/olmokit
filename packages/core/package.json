@@ -92,18 +92,6 @@
     "./animations": {
       "import": "./animations/index.js"
     },
-    "./animations/onScroll/gsap/in-bottom": {
-      "import": "./animations/onScroll/gsap/in-bottom.js"
-    },
-    "./animations/onScroll/gsap/in-left": {
-      "import": "./animations/onScroll/gsap/in-left.js"
-    },
-    "./animations/onScroll/gsap/in-right": {
-      "import": "./animations/onScroll/gsap/in-right.js"
-    },
-    "./animations/onScroll/gsap/in-top": {
-      "import": "./animations/onScroll/gsap/in-top.js"
-    },
     "./animations/onScroll/gsap": {
       "import": "./animations/onScroll/gsap/index.js"
     },
