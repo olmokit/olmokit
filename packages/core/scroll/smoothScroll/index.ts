@@ -7,6 +7,22 @@ import { on } from "@olmokit/dom/on";
 import "../../../polyfills/closest";
 import { scrollTo } from "../scrollTo";
 
+export type SmoothScrollOptions = {
+  selector: string;
+  header: string;
+  speed: number;
+  offset: number;
+  updateURL: boolean;
+  popstate: boolean;
+  events: boolean;
+  focus?: boolean;
+};
+
+type SmoothScrollHistoryState = {
+  smoothScroll?: string;
+  anchor?: HTMLAnchorElement | string | number;
+};
+
 const defaults = {
   selector: "[data-smooth]",
   header: "",
@@ -17,7 +33,7 @@ const defaults = {
   events: false,
 };
 
-function setHistory(options, instanceId) {
+function setHistory(options: SmoothScrollOptions, instanceId: string) {
   if (!history.replaceState || !options.updateURL || history.state) return;
 
   const hash = window.location.hash || "";
@@ -27,7 +43,7 @@ function setHistory(options, instanceId) {
     {
       smoothScroll: instanceId,
       anchor: hash ? hash : window.pageYOffset,
-    },
+    } satisfies SmoothScrollHistoryState,
     document.title,
     hash ? hash : window.location.href
   );
@@ -35,10 +51,14 @@ function setHistory(options, instanceId) {
 
 /**
  * Update the URL
- * @param  {HTMLElement | Number} anchor
- * @param  {Object} options
+ * @param anchor
+ * @param options
  */
-function updateURL(anchor, options, instanceId) {
+function updateURL(
+  anchor: HTMLElement | number,
+  options: SmoothScrollOptions,
+  instanceId: string
+) {
   if (typeof anchor === "number") return;
 
   // verify that pushState is supported and the updateURL option is enabled
@@ -52,36 +72,40 @@ function updateURL(anchor, options, instanceId) {
   );
 }
 
-export default function SmoothScroll(options = {}) {
-  let settings;
-  let anchor;
-  let toggle;
-  let headerEl;
-  let animation;
-  let instanceId = uuid();
+/**
+ * @borrows [cferdinandi/smooth-scroll](https://github.com/cferdinandi/smooth-scroll)
+ */
+export function smoothScroll(options: Partial<SmoothScrollOptions> = {}) {
+  let settings: SmoothScrollOptions;
+  let anchor: HTMLElement | number | null;
+  let toggle: HTMLAnchorElement | null;
+  let headerEl: HTMLElement | null;
+  const instanceId = uuid();
 
   /**
    * Cancel a scroll-in-progress
-   *
-   * @param {boolean} noEvent
-   * @param {HTMLElement | number} anchor
-   * @param {HTMLElement} toggle
-   * @returns
    */
-  function cancel(noEvent, anchor, toggle) {
-    cancelAnimationFrame(animation);
-    animation = null;
+  function cancel(
+    noEvent: boolean,
+    anchor: HTMLElement | number | null,
+    toggle: HTMLElement | null
+  ) {
     if (noEvent) return;
     if (settings.events) emitEvent("scrollCancel", { anchor, toggle });
   }
 
   /**
    * Start/stop the scrolling animation
-   * @param {HTMLElement | number} anchor The element or position to scroll to
-   * @param {HTMLElement} toggle The element that toggled the scroll event
-   * @param {Object} options
+   *
+   * @param anchor The element or position to scroll to
+   * @param toggle The element that toggled the scroll event
+   * @param options
    */
-  function scroll(anchor, toggle, options = {}) {
+  function scroll(
+    anchor: HTMLElement | number,
+    toggle: HTMLElement | null,
+    options = {}
+  ) {
     const _settings = { ...settings, ...options };
     const headerOffset = headerEl ? getHeight(headerEl) : 0;
 
@@ -105,10 +129,8 @@ export default function SmoothScroll(options = {}) {
 
   /**
    * If smooth scroll element clicked, animate scroll
-   *
-   * @param {MouseEvent} event
    */
-  function handleClick(event) {
+  function handleClick(event: MouseEvent) {
     // don't run if event was canceled but still bubbled up
     // by @mgreter - https://github.com/cferdinandi/smooth-scroll/pull/462/
     if (event.defaultPrevented) return;
@@ -117,7 +139,7 @@ export default function SmoothScroll(options = {}) {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey)
       return;
 
-    toggle = event.target.closest(settings.selector);
+    toggle = (event?.target as HTMLElement)?.closest(settings.selector);
 
     if (!toggle) return;
 
@@ -142,7 +164,7 @@ export default function SmoothScroll(options = {}) {
    * Animate scroll on popstate events
    */
   function handlePopstate() {
-    const { state } = history;
+    const state = history.state as SmoothScrollHistoryState;
     // stop if history.state doesn't exist (ex. if clicking on a broken anchor link).
     // fixes `Cannot read property 'smoothScroll' of null` error getting thrown.
     if (!state) return;
@@ -155,14 +177,14 @@ export default function SmoothScroll(options = {}) {
     }
 
     // get the anchor
-    let anchor = state.anchor;
-    if (typeof anchor === "string" && anchor) {
-      anchor = $(state.anchor);
-      if (!anchor) return;
-    }
+    const anchor = state.anchor;
+    const scrollAnchor =
+      anchor && typeof anchor === "string" ? $(anchor) : null;
 
-    // animate scroll to anchor link
-    scroll(anchor, null, { updateURL: false });
+    if (scrollAnchor) {
+      // animate scroll to anchor link
+      scroll(scrollAnchor, null, { updateURL: false });
+    }
   }
 
   /**
@@ -180,10 +202,9 @@ export default function SmoothScroll(options = {}) {
     cancel(false, anchor, toggle);
 
     // reset variables
-    settings = null;
+    settings = { ...defaults };
     anchor = null;
     toggle = null;
-    animation = null;
   }
 
   /**
@@ -197,7 +218,7 @@ export default function SmoothScroll(options = {}) {
     settings = { ...defaults, ...options };
 
     if (settings.header) {
-      headerEl = $(settings.header);
+      headerEl = $<HTMLElement>(settings.header);
     }
 
     // when a toggle is clicked, run the click handler
@@ -218,3 +239,5 @@ export default function SmoothScroll(options = {}) {
     destroy,
   };
 }
+
+export default smoothScroll;

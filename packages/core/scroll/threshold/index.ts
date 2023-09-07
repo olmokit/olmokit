@@ -4,19 +4,32 @@ import { getOffsetTop } from "@olmokit/dom/getOffsetTop";
 import { listenScroll } from "@olmokit/dom/listenScroll";
 import { removeClass } from "@olmokit/dom/removeClass";
 
-/**
- * @typedef {Object} thresholdInstance
- * @property {Function} destroy
- */
-
-/**
- * @typedef {Object} thresholdOptions
- * @property {HTMLElement} [target=document.body] - The element to apply classes
- * @property {string} [className="threshold"] - The className to add to the given element
- * @property {string} [suffixAbove="--above"] - The className suffix when the el is above
- * @property {string} [suffixBelow="--below"] - The className suffix when the el is below
- * @property {Function} [onchange] - On change callback
- */
+export type ScrollThresholdOptions = {
+  /**
+   * The element to apply classes
+   *
+   * @default document.body
+   */
+  target?: HTMLElement;
+  /**
+   * The `className` to add to the given element
+   */
+  className?: "threshold";
+  /**
+   * The `className` suffix when the element is above
+   * @default "--above"
+   */
+  suffixAbove?: string;
+  /**
+   * The `className` suffix when the element is below
+   * @default "--below"
+   */
+  suffixBelow?: string;
+  /**
+   * On change callback
+   */
+  onchange?: (isBelow: boolean) => void;
+};
 
 /**
  * Below threshold scroll utility
@@ -25,31 +38,30 @@ import { removeClass } from "@olmokit/dom/removeClass";
  * given target element according to the given threshold (either a number or a
  * DOM element)
  *
- * @param {number | HTMLElement} threshold Can be a number or a DOM element
- * @param {thresholdOptions} options
- * @returns {thresholdInstance}
+ * @param threshold Can be a number or a DOM element
+ * @param options
  */
 export function scrollThreshold(
-  threshold = 300,
+  threshold: number | HTMLElement = 300,
   {
     target = document.body,
     className = "threshold",
     suffixAbove = "--above",
     suffixBelow = "--below",
     onchange,
-  }
+  }: ScrollThresholdOptions
 ) {
-  let isBelow = false;
-  threshold =
+  const thresholdNr =
     typeof threshold === "number" ? threshold : getOffsetTop(threshold);
+  let isBelow = false;
 
   function check() {
-    if (!isBelow && window.pageYOffset > threshold) {
+    if (!isBelow && window.pageYOffset > thresholdNr) {
       removeClass(target, className + suffixAbove);
       addClass(target, className + suffixBelow);
       isBelow = true;
       if (onchange) onchange(isBelow);
-    } else if (isBelow && window.pageYOffset <= threshold) {
+    } else if (isBelow && window.pageYOffset <= thresholdNr) {
       addClass(target, className + suffixAbove);
       removeClass(target, className + suffixBelow);
       isBelow = false;
@@ -57,7 +69,7 @@ export function scrollThreshold(
     }
   }
 
-  // bind debounced on scroll
+  // bind on scroll
   const scrollHandler = listenScroll(check);
 
   // and check immediately
