@@ -145,7 +145,11 @@ async function prepublishLib(lib: Lib, release: Release) {
 
 async function publishLib(lib: Lib, release: Release) {
   if (lib.packager === "npm") {
-    await $({ cwd: lib.dist })`npm publish --access public`;
+    await $({
+      cwd: lib.dist,
+      reject: false,
+      stdio: "inherit",
+    })`npm publish --access public`;
   } else if (lib.packager === "composer") {
     return new Promise<void>((resolve, reject) => {
       ghpagesPublish(
