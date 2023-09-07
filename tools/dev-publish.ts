@@ -183,9 +183,14 @@ async function publishLib(lib: Lib, release: Release) {
 async function postpublish(release: Release) {
   const tagName = `v${release.version}`;
   const branchName = await $`git rev-parse --abbrev-ref HEAD`;
-  await $`git tag -a ${tagName} -m ${"Release " + release.version}"`;
-  // await $`git push origin ${tagName}`;
-  await $`git push origin ${branchName.stdout} --tags`;
+  const { exitCode } = await $({ reject: false })`git tag -a ${tagName} -m ${
+    "Release " + release.version
+  }"`;
+
+  if (exitCode === 0) {
+    // await $({ reject: false })`git push origin ${tagName}`;
+    await $({ reject: false })`git push origin ${branchName.stdout} --tags`;
+  }
 
   // TODO: it seems we need to re-link after each build... check why
   spawnSync("pnpm", ["dev", "link"], { stdio: "inherit" });
