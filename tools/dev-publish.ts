@@ -60,14 +60,16 @@ export const publish = () =>
       );
 
       // commit files
-      await oraPromise(
-        $({
-          stdio: "inherit",
-        })`git commit -am ${`chore(release): v${release.version}`}`,
-        {
-          text: `Commit files edited during release`,
-        }
-      );
+      if (isGitDirty()) {
+        await oraPromise(
+          $({
+            stdio: "inherit",
+          })`git commit -am ${`chore(release): v${release.version}`}`,
+          {
+            text: `Commit files edited during release`,
+          }
+        );
+      }
 
       // publish libs
       await Promise.all(
