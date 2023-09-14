@@ -162,25 +162,46 @@ export function getPostData<T extends { [key: string]: string }>(data: T) {
  * @see https://stackoverflow.com/q/11661187
  * @see https://vanillajstoolkit.com/helpers/serializearray/
  */
-export function getFormData(form: HTMLFormElement) {
+export function getFormData(form: HTMLFormElement): object {
   // Setup our serialized data
-  const output = {} as Record<string, string>;
+  const output: Record<string, string> = {};
 
   // Loop through each field in the form
   for (let i = 0; i < form.elements.length; i++) {
-    const element = form.elements[i];
-    const { name, value, type, disabled, checked } =
-      element as AnyFormHTMLElement;
+    const element = form.elements[i] as AnyFormHTMLElement;
+    const { name, value, type, checked /* disabled, */ } = element;
 
     if (
       !name ||
-      disabled ||
+      // FIXME: (This might be fixed in the API). we pass everything now, even
+      // `disabled` fields as the API still requires a value for them. We might
+      // need to disable them in JavaScript, for instance when we have dependent
+      // fields and when one is hidden should also be disabled to adjust the
+      // `tabindex`. So we skip the `disabled` check keeping commented the line:
+      // disabled ||
       type === "reset" ||
       type === "submit" ||
       type === "button"
     ) {
       continue;
-    } else if ((type !== "checkbox" && type !== "radio") || checked) {
+    }
+
+    // it reads two form data values from the same input, one is the file content
+    // encoded as data url, the other is the filename, its key will be the same
+    // with a `_name` suffix.
+    else if (type === "file") {
+      output[name] = getDataAttr(element, "filecontent") || "";
+      output[`${name}_name`] = getDataAttr(element, "filename") || "";
+    }
+    // normalise the checkbox value
+    /**
+     * This is a change
+     */
+    else if (type === "checkbox") {
+      output[name] = checked ? "true" : "false";
+    }
+    // type === 'file'
+    else if (type !== "radio" || checked) {
       output[name] = value;
     }
   }

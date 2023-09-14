@@ -27,8 +27,8 @@
     $_value = null;
     if (isset($field['value'])) {
         $_value = $field['value'];
-    } elseif (isset($field['default_value']) && $field['default_value'] !== '') {
-        $_value = $field['default_value'];
+    } elseif (isset($field['default']) && $field['default'] !== '') {
+        $_value = $field['default'];
     }
     
   @endphp
