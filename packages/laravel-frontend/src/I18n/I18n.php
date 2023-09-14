@@ -124,10 +124,6 @@ class I18n
     $local = [];
     $remote = self::getRemoteTranslations();
 
-    if (empty($remote) || config('env.DEVELOPMENT')) {
-      $local = self::getLocalTranslations();
-    }
-
     // during development merge the statically defined strings with the remote
     // ones in order to avoid slowing down development due to newly inserted
     // strings not yet available through the CMS, as well as allowing a easy
@@ -136,7 +132,8 @@ class I18n
     // TODO: here we could enhance this feature with an automatic notification
     // system that informs developers of mismatches between locally/statically
     // defined translations' keys and remotely defined ones
-    if (config('env.DEVELOPMENT')) {
+    if (empty($remote) || config('env.DEVELOPMENT')) {
+      $local = self::getLocalTranslations();
       $all = array_merge($local, $remote);
       // $diff = array_diff_assoc($local, $remote);
       // dd($diff);
