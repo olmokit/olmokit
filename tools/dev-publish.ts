@@ -186,6 +186,7 @@ async function publishLib(lib: Lib, release: Release) {
         lib.dist,
         {
           branch: "main",
+          // remote: "origin-ssh",
           dotfiles: true,
           repo: lib.composerJson.support.source,
           tag: release.version,
