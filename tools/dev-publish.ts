@@ -65,7 +65,8 @@ export const publish = () =>
       );
 
       // commit files
-      if (isGitDirty()) {
+      // if (isGitDirty()) {
+      if (release.type !== "asIs") {
         await oraPromise(
           $({
             stdio: "inherit",
