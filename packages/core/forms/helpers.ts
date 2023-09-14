@@ -162,9 +162,9 @@ export function getPostData<T extends { [key: string]: string }>(data: T) {
  * @see https://stackoverflow.com/q/11661187
  * @see https://vanillajstoolkit.com/helpers/serializearray/
  */
-export function getFormData(form: HTMLFormElement): object {
+export function getFormData(form: HTMLFormElement) {
   // Setup our serialized data
-  const output: Record<string, string> = {};
+  const output = {} as Record<string, string>;
 
   // Loop through each field in the form
   for (let i = 0; i < form.elements.length; i++) {
