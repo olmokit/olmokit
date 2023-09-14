@@ -14,7 +14,7 @@ import {
   getNpmDependenciesNames,
   isGitDirty,
 } from "../packages/cli-utils/index.js";
-import { type Options, oraOpts } from "./dev.js";
+import { type Options, getOptionLib, oraOpts } from "./dev.js";
 import { type Lib, self } from "./helpers.js";
 
 export const publish = () =>
@@ -26,11 +26,22 @@ export const publish = () =>
         exit(1);
       }
 
-      ora().info(
-        `${chalk.italic("Single version policy")} ${chalk.dim(
-          "all packages will be published with the same version",
-        )}`,
-      );
+      const versionPolicy = "single" as "single" | "independent";
+      const isSingleVersionPolicy = versionPolicy === "single";
+
+      if (isSingleVersionPolicy) {
+        ora().info(
+          `${chalk.italic("Single version policy")} ${chalk.dim(
+            "all packages will be published with the same version",
+          )}`,
+        );
+      }
+
+      const choosen = await getOptionLib(opts, true, true);
+      const allLibs = self().libs;
+      const selectedLibs = choosen
+        ? allLibs.filter((l) => l.slug === choosen)
+        : allLibs;
 
       // ask for release
       const { release } = await promptRelease(
@@ -40,7 +51,7 @@ export const publish = () =>
 
       // bump libs src
       await Promise.all(
-        self().libs.map(async (lib) =>
+        (isSingleVersionPolicy ? allLibs : selectedLibs).map(async (lib) =>
           oraPromise(bumbLib(lib, release), {
             ...oraOpts,
             text: "Bump package version",
@@ -55,7 +66,7 @@ export const publish = () =>
 
       // prepublish libs
       await Promise.all(
-        self().libs.map(async (lib) =>
+        (isSingleVersionPolicy ? allLibs : selectedLibs).map(async (lib) =>
           oraPromise(prepublishLib(lib, release), {
             ...oraOpts,
             text: `Pre-publish ${chalk.bold(lib.packager)} package`,
@@ -79,7 +90,7 @@ export const publish = () =>
 
       // publish libs
       await Promise.all(
-        self().libs.map(async (lib) => {
+        selectedLibs.map(async (lib) => {
           const spinner = ora({
             text: `Publish ${chalk.bold(lib.packager)} package`,
             suffixText: chalk.dim(`${lib.name}`),

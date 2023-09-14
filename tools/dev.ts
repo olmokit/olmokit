@@ -3,6 +3,7 @@ import { spawn } from "child_process";
 import ci from "ci-info";
 import { Command, Option, program } from "commander";
 import inquirer from "inquirer";
+import { LiteralUnion } from "type-fest";
 import { koine } from "./dev-koine.js";
 import { libs } from "./dev-libs.js";
 import { link } from "./dev-link.js";
@@ -28,7 +29,7 @@ program
   .addOption(
     new Option("-p, --pkgm <name>", "package manager")
       .choices(["pnpm", "npm"])
-      .default("pnpm")
+      .default("pnpm"),
   )
   .option("-v --verbose")
   .option("-w --watch", "Watch packages for changes")
@@ -38,13 +39,13 @@ program
       .aliases(["watch", "s", "w"])
       .action(async (options: Options) => {
         await devWatch(options);
-      })
+      }),
   )
   .addCommand(
     new Command("build").aliases(["b"]).action(async (options: Options) => {
       const lib = await getOptionLib(options, true, true);
       await devBuild(lib);
-    })
+    }),
   )
   .addCommand(
     new Command("postinstall").action(async (options: Options) => {
@@ -52,7 +53,7 @@ program
         const lib = await getOptionLib(options, false, true);
         await devBuild(lib, true);
       }
-    })
+    }),
   )
   .addCommand(link())
   .addCommand(unlink())
@@ -88,15 +89,15 @@ async function devBuild(libSlug: string, linkAfterBuild?: boolean) {
   // }
 }
 
-async function getOptionLib(
+export async function getOptionLib(
   options: Options,
   prompt?: boolean,
-  allowAll?: boolean
+  allowAll?: boolean,
 ) {
   // console.log("options", options);
-  let watchLib = options.lib || "";
+  let choosenLib = options.lib || "";
 
-  if (!watchLib && prompt) {
+  if (!choosenLib && prompt) {
     const choicesLibs = self().libs.map((lib) => ({
       name: lib.name,
       value: lib,
@@ -127,15 +128,15 @@ async function getOptionLib(
       },
     ]);
 
-    watchLib = res.lib.slug;
+    choosenLib = res.lib.slug;
   }
 
-  return watchLib;
+  return choosenLib as LiteralUnion<"", string>;
 }
 
 function optionLib() {
   return new Option("-l, --lib <lib>", "operate on a single library").choices(
-    self().libs.map((lib) => lib.slug)
+    self().libs.map((lib) => lib.slug),
   );
 }
 
