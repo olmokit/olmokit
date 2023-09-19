@@ -6,6 +6,7 @@ import {
   copyFileSync,
   existsSync,
   lstatSync,
+  readFileSync,
   readdirSync,
   rmSync,
   writeFileSync,
@@ -594,10 +595,7 @@ async function getPackageInfo(installPackage: string) {
     //   "package.json"
     // ]);
     //   .then((obj) => {
-    //     const { name, version } = require(join(
-    //       obj.tmpdir,
-    //       "package.json"
-    //     ));
+    //     const { name, version } = readJsonFile(join(obj.tmpdir, "package.json"));
     //     obj.cleanup();
     //     return { name, version };
     //   })
@@ -622,7 +620,7 @@ async function getPackageInfo(installPackage: string) {
     // git+https://github.com/mycompany/cli.git
     // git+ssh://github.com/mycompany/cli.git#v1.2.3
     return {
-      name: installPackage.match(/([^/]+)\.git(#.*)?$/)?.[1],
+      name: installPackage.match(/([^/]+)\.git(#.*)?$/)?.[1]!,
     };
   } else if (installPackage.match(/.+@/)) {
     // Do not match @scope/ when stripping off @version or @tag
@@ -635,8 +633,9 @@ async function getPackageInfo(installPackage: string) {
     if (!installPackagePath) {
       throw `Invalid installPackagePath`;
     }
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { name, version } = require(join(installPackagePath, "package.json"));
+    const { name, version } = readJsonFile(
+      join(installPackagePath, "package.json"),
+    );
     return { name, version };
   }
   return { name: installPackage };
@@ -691,6 +690,21 @@ function checkNpmVersion() {
 //   };
 // }
 
+function readJsonFile(jsonPath: string): {
+  name: string;
+  version?: string;
+  engines?: {
+    node?: string;
+  };
+} {
+  try {
+    const content = readFileSync(jsonPath, { encoding: "utf-8" });
+    return JSON.parse(content);
+  } catch (e) {
+    return { name: "" };
+  }
+}
+
 function checkNodeVersion(packageName: string) {
   const packageJsonPath = resolve(
     process.cwd(),
@@ -703,8 +717,7 @@ function checkNodeVersion(packageName: string) {
     return;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const packageJson = require(packageJsonPath);
+  const packageJson = readJsonFile(packageJsonPath);
   if (!packageJson.engines || !packageJson.engines.node) {
     return;
   }
@@ -794,8 +807,7 @@ function checkAppName(appName: string) {
 
 function setCaretRangeForRuntimeDeps(/* packageName: string */) {
   const packagePath = join(process.cwd(), "package.json");
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const packageJson = require(packagePath);
+  const packageJson = readJsonFile(packagePath);
 
   // if (typeof packageJson.dependencies === "undefined") {
   //   console.error(chalk.red("Missing dependencies in package.json"));
