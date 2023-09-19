@@ -11,11 +11,15 @@ import { meta } from "./meta.js";
  */
 export function isUsingLinkedPackage(nodeModulePath = "") {
   // will be e.g.: ../../../../Olmo/olmokit/dist/packages/cli
-  const packageTarget = readlinkSync(nodeModulePath);
-  const targetParts = packageTarget.split(sep);
-  const isLinked = targetParts.slice(-3, -1).join("/") === "dist/packages";
+  try {
+    const packageTarget = readlinkSync(nodeModulePath);
+    const targetParts = packageTarget.split(sep);
+    const isLinked = targetParts.slice(-3, -1).join("/") === "dist/packages";
 
-  return isLinked;
+    return isLinked;
+  } catch (e) {
+    return false;
+  }
 }
 
 export function isUsingLinkedPackages() {
