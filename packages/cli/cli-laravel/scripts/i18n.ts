@@ -13,7 +13,7 @@ export const i18nTranslations: CliLaravel.Task = async () => {
 i18nTranslations.meta = { title: "Copy the translations source file" };
 
 const i18nClear: CliLaravel.Task = async ({ ora }) => {
-  await execArtisan("view:clear", ora);
+  await execArtisan(["view:clear"], ora);
 };
 i18nClear.meta = { title: "Clear view cache to revive the translations file" };
 

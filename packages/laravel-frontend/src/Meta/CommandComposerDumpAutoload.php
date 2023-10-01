@@ -4,7 +4,9 @@ namespace LaravelFrontend\Meta;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
+// use Symfony\Component\Console\Attribute\AsCommand;
 
+// #[AsCommand(name: 'dump-autoload')]
 class CommandComposerDumpAutoload extends Command
 {
   /**

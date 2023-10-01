@@ -5,17 +5,17 @@ import type { TaskrOra } from "@olmokit/cli-utils/taskr";
 /**
  * Execute a `php artisan <name>` command
  */
-export async function execArtisan(command: string, ora: TaskrOra) {
+export async function execArtisan(commandAndArgs: string[], ora: TaskrOra) {
   const spinner = ora({
     text: `${chalk.dim("Run")} ${chalk.italic("php artisan")} ${chalk.bold(
-      command
+      commandAndArgs.join(" "),
     )}`,
     suffixText: "...",
   }).start();
 
   const { exitCode, stdout } = await $({ reject: false })`php ${[
     "artisan",
-    command,
+    ...commandAndArgs,
   ]}`;
 
   const commandLogs = stdout

@@ -4,7 +4,9 @@ namespace LaravelFrontend\Cacher;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
+// use Symfony\Component\Console\Attribute\AsCommand;
 
+// #[AsCommand(name: 'cacher:clear')]
 class CacherCommand extends Command
 {
   /**
@@ -12,7 +14,7 @@ class CacherCommand extends Command
    *
    * @var string
    */
-  protected $signature = 'cacher:clear {tag}';
+  protected $signature = 'cacher:clear {tag : The cacher tag to clear}';
 
   /**
    * The console command description.
