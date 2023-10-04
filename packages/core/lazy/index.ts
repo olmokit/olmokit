@@ -83,7 +83,7 @@ const purgeProcessedElements = (elements: HTMLElement[]) => {
 
 const purgeOneElement = (
   elements: HTMLElement[],
-  elementToPurge: HTMLElement
+  elementToPurge: HTMLElement,
 ) => {
   return elements.filter((element: HTMLElement) => element !== elementToPurge);
 };
@@ -101,8 +101,8 @@ const safeCallback = <TScope, TCallback extends (...args: any) => any>(
 };
 
 const updateLoadingCount = (instance: LazyLoadInstance, plusMinus: number) => {
-  instance._loadingCount += plusMinus;
-  if (instance._els.length === 0 && instance._loadingCount === 0) {
+  instance._l += plusMinus;
+  if (instance._e.length === 0 && instance._l === 0) {
     safeCallback(instance._s.onfinish, instance, instance);
   }
 };
@@ -120,7 +120,7 @@ const getSourceTags = (parentTag: HTMLElement) => {
 const setAttributeIfValue = (
   element: HTMLElement,
   attrName: string,
-  value?: null | string
+  value?: null | string,
 ) => {
   if (!value) {
     return;
@@ -193,7 +193,7 @@ const setSources = (element: HTMLElement, instance: LazyLoadInstance) => {
     // @ts-expect-error FIXME: core types
     setSourcesFunction(element);
     updateLoadingCount(instance, 1);
-    instance._els = purgeOneElement(instance._els, element);
+    instance._e = purgeOneElement(instance._e, element);
     return;
   }
   setSourcesBgImage(element);
@@ -206,7 +206,7 @@ const errorEventName = "error";
 const addEventListeners = (
   element: HTMLElement,
   loadHandler: (ev: Event) => void,
-  errorHandler: (ev: Event) => void
+  errorHandler: (ev: Event) => void,
 ) => {
   on(element, genericLoadEventName, loadHandler);
   on(element, mediaLoadEventName, loadHandler);
@@ -216,7 +216,7 @@ const addEventListeners = (
 const removeEventListeners = (
   element: HTMLElement,
   loadHandler: (ev: Event) => void,
-  errorHandler: (ev: Event) => void
+  errorHandler: (ev: Event) => void,
 ) => {
   off(element, genericLoadEventName, loadHandler);
   off(element, mediaLoadEventName, loadHandler);
@@ -226,7 +226,7 @@ const removeEventListeners = (
 const eventHandler = function (
   event: Event,
   success: boolean,
-  instance: LazyLoadInstance
+  instance: LazyLoadInstance,
 ) {
   const options = instance._s;
   const className = success ? options.classLoaded : options.classError;
@@ -243,7 +243,7 @@ const eventHandler = function (
 
 const addOneShotEventListeners = (
   element: HTMLElement,
-  instance: LazyLoadInstance
+  instance: LazyLoadInstance,
 ) => {
   const loadHandler = (event: Event) => {
     eventHandler(event, true, instance);
@@ -261,7 +261,7 @@ const managedTags = ["IMG", "IFRAME", "VIDEO"];
 const onEnter = (
   element: HTMLElement,
   entry: IntersectionObserverEntry,
-  instance: LazyLoadInstance
+  instance: LazyLoadInstance,
 ) => {
   const options = instance._s;
   safeCallback(options.onenter, instance, element, entry, instance);
@@ -274,7 +274,7 @@ const onEnter = (
 
 const revealAndUnobserve = (
   element: HTMLElement,
-  instance: LazyLoadInstance
+  instance: LazyLoadInstance,
 ) => {
   const observer = instance._O;
   revealElement(element, instance);
@@ -286,7 +286,7 @@ const revealAndUnobserve = (
 const onExit = (
   element: HTMLElement,
   entry: IntersectionObserverEntry,
-  instance: LazyLoadInstance
+  instance: LazyLoadInstance,
 ) => {
   const options = instance._s;
   safeCallback(options.onexit, instance, element, entry, instance);
@@ -322,7 +322,7 @@ const delayLoad = (element: HTMLElement, instance: LazyLoadInstance) => {
 const revealElement = (
   element: HTMLElement,
   instance: LazyLoadInstance,
-  force?: boolean
+  force?: boolean,
 ) => {
   const options = instance._s;
   if (!force && getWasProcessedData(element)) {
@@ -354,7 +354,7 @@ const setObserver = (instance: LazyLoadInstance) => {
     entries.forEach((entry) =>
       isIntersecting(entry)
         ? onEnter(entry.target as HTMLElement, entry, instance)
-        : onExit(entry.target as HTMLElement, entry, instance)
+        : onExit(entry.target as HTMLElement, entry, instance),
     );
   }, getObserverSettings(instance._s));
 };
@@ -365,7 +365,7 @@ const shouldUseNative = (options: LazyLoadOptions) =>
   options.useNative && "loading" in HTMLImageElement.prototype;
 
 const loadAllNative = (instance: LazyLoadInstance) => {
-  instance._els.forEach((element: HTMLElement) => {
+  instance._e.forEach((element: HTMLElement) => {
     if (nativeLazyTags.indexOf(element.tagName) === -1) {
       return;
     }
@@ -375,11 +375,11 @@ const loadAllNative = (instance: LazyLoadInstance) => {
 };
 
 const getElements = (
-  elements: NodeListOf<HTMLElement>,
-  options: LazyLoadOptions
+  options: LazyLoadOptions,
+  elements?: NodeListOf<HTMLElement>,
 ) =>
   purgeProcessedElements(
-    toArray(elements || $all(options.selector, options.container))
+    toArray(elements || $all(options.selector, options.container)),
   );
 
 const retryLazyLoad = (instance: LazyLoadInstance) => {
@@ -404,8 +404,8 @@ const setOnlineCheck = (instance: LazyLoadInstance) => {
 
 type LazyLoadInstance = {
   _s: LazyLoadOptions;
-  _els: HTMLElement[];
-  _loadingCount: number;
+  _e: HTMLElement[];
+  _l: number;
   _O: IntersectionObserver | null;
   update: (elements?: HTMLElement[]) => void;
 };
@@ -434,7 +434,7 @@ export type LazyLoadOptions = {
     | ((
         element: HTMLElement,
         entry: IntersectionObserverEntry,
-        instance: LazyLoadInstance
+        instance: LazyLoadInstance,
       ) => void);
   /** @default null */
   onexit:
@@ -442,7 +442,7 @@ export type LazyLoadOptions = {
     | ((
         element: HTMLElement,
         entry: IntersectionObserverEntry,
-        instance: LazyLoadInstance
+        instance: LazyLoadInstance,
       ) => void);
   /** @default null */
   onreveal: null | ((element: HTMLElement, instance: LazyLoadInstance) => void);
@@ -462,21 +462,33 @@ export type LazyLoadOptions = {
  * Very similar to https://github.com/verlok/lazyload
  */
 export class LazyLoad {
+  /**
+   * Settings/options
+   */
   _s: LazyLoadOptions;
-  _els: HTMLElement[];
-  _loadingCount: number;
+  /**
+   * HTML elements to be treeated as lazy
+   */
+  _e: HTMLElement[];
+  /**
+   * Loading count
+   */
+  _l: number;
+  /**
+   * The `IntersectionObserver` instance
+   */
   _O: IntersectionObserver | null;
 
   constructor(
     custom: Partial<LazyLoadOptions> = {},
-    elements?: NodeListOf<HTMLElement>
+    elements?: NodeListOf<HTMLElement>,
   ) {
     this._s = {
       ...defaultSettings,
       ...custom,
     };
-    this._els = [];
-    this._loadingCount = 0;
+    this._e = [];
+    this._l = 0;
     this._O = setObserver(this as LazyLoadInstance);
     this.update(elements);
     setOnlineCheck(this as LazyLoadInstance);
@@ -485,22 +497,18 @@ export class LazyLoad {
   update(elements?: NodeListOf<HTMLElement>) {
     const { _s: options, _O: observer } = this;
 
-    if (!elements) {
-      return;
-    }
-
-    this._els = getElements(elements, options);
+    this._e = getElements(options, elements);
     if (isBot || !this._O) {
       this.loadAll();
       return;
     }
     if (shouldUseNative(options)) {
       loadAllNative(this as LazyLoadInstance);
-      this._els = getElements(elements, options);
+      this._e = getElements(options, elements);
     }
 
     if (observer) {
-      this._els.forEach((element: HTMLElement) => {
+      this._e.forEach((element: HTMLElement) => {
         observer.observe(element);
       });
     }
@@ -510,12 +518,12 @@ export class LazyLoad {
     const { _O: observer } = this;
 
     if (observer) {
-      this._els.forEach((element: HTMLElement) => {
+      this._e.forEach((element: HTMLElement) => {
         observer.unobserve(element);
       });
       this._O = null;
     }
-    // this._els = null;
+    // this._e = null;
     // this._s = null;
   }
 
@@ -524,7 +532,7 @@ export class LazyLoad {
   }
 
   loadAll() {
-    this._els.forEach((element: HTMLElement) => {
+    this._e.forEach((element: HTMLElement) => {
       revealAndUnobserve(element, this as LazyLoadInstance);
     });
   }
