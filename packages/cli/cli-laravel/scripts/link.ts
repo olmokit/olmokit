@@ -9,12 +9,11 @@ import { join, sep } from "node:path";
 import { ensureDirSync } from "fs-extra";
 import { globSync } from "glob";
 import { rimraf, rimrafSync } from "rimraf";
-import { PackageJson } from "@olmokit/utils";
-import { getNpmDependenciesNameAndVersion } from "@olmokit/cli-utils";
+import type { PackageJson } from "@olmokit/utils";
 import {
-  getProjectDependencies,
-  getProjectPackageJson,
-} from "../../helpers-getters.js";
+  getNpmDependenciesNameAndVersion,
+  readJsonFile,
+} from "@olmokit/cli-utils";
 import { meta } from "../../meta.js";
 import { project } from "../../project.js";
 // import { getPackageManagerCommand } from "@olmokit/cli-utils/package-manager";
@@ -60,13 +59,13 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
 }
 
 async function linkInternalNodeLibsFrom(projectRoot: string) {
-  const packageJson = getProjectPackageJson(projectRoot);
+  const packageJson = readJsonFile<PackageJson>(projectRoot);
 
   if (!packageJson) {
     return [];
   }
 
-  const projectInternalDeps = getProjectDependencies(
+  const projectInternalDeps = getNpmDependenciesNameAndVersion(
     packageJson,
     meta.orgScope,
   );
@@ -79,7 +78,7 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
   const linked: LinkedLib[] = [];
 
   await Promise.all(
-    projectInternalDeps.list.map(async ({ name }) => {
+    projectInternalDeps.map(async ({ name }) => {
       const depPathInProject = join(project.nodeModules, meta.orgScope, name);
       const depPathInSource = join(workspaceRoot, "dist/packages", name);
 
@@ -105,12 +104,16 @@ async function gatherNodeLibsDeps(libs: LinkedLib[]) {
 
       if (existsSync(packageJsonPath)) {
         try {
-          const packageJson = require(packageJsonPath);
-          const libsDeps = getNpmDependenciesNameAndVersion(packageJson);
-          // filter out the inner dependencies, just keep the third party ones
-          otherDeps = otherDeps.concat(
-            libsDeps.filter((dep) => !dep.name.startsWith(meta.orgScope + "/")),
-          );
+          const packageJson = readJsonFile<PackageJson>(packageJsonPath);
+          if (packageJson) {
+            const libsDeps = getNpmDependenciesNameAndVersion(packageJson);
+            // filter out the inner dependencies, just keep the third party ones
+            otherDeps = otherDeps.concat(
+              libsDeps.filter(
+                (dep) => !dep.name.startsWith(meta.orgScope + "/"),
+              ),
+            );
+          }
         } catch (e) {}
       }
 

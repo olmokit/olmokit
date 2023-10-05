@@ -1,6 +1,4 @@
 import { existsSync, lstatSync } from "node:fs";
-import { join } from "node:path";
-import type { PackageJson } from "type-fest";
 import { project } from "./project.js";
 
 /**
@@ -127,60 +125,4 @@ export function getVariadicArguments(args: string[]) {
   }, [] as string[]);
 
   return Array.from(new Set(allArgs));
-}
-
-export function getProjectPackageJson(packageRoot: string) {
-  const packageJsonPath = join(packageRoot, "package.json");
-  if (existsSync(packageJsonPath)) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const packageJson = require(packageJsonPath) as PackageJson;
-
-    return packageJson;
-  }
-  return;
-}
-
-/**
- * Given a parsed `package.json` content it returns the *list* and *map* of all
- * its dependencies, optionally filtered by the given `scope` argument
- *
- * @param scope In the shape of `@${string}`
- */
-export function getProjectDependencies(pkg: PackageJson, scope?: `@${string}`) {
-  try {
-    const {
-      dependencies = {},
-      devDependencies = {},
-      peerDependencies = {},
-    } = pkg;
-    const all = { ...dependencies, ...devDependencies, ...peerDependencies };
-    const names = Object.keys(all);
-    const uniqueNames = [...new Set(names)];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    let list = uniqueNames.map((name) => ({ name, version: all[name]! }));
-    let map = all as Record<string, string>;
-
-    if (scope) {
-      list = list.filter(({ name }) => name.startsWith(scope));
-      map = list.reduce(
-        (map, dep) => {
-          map[dep.name] = dep.version;
-          return map;
-        },
-        {} as Record<string, string>,
-      );
-    }
-
-    return {
-      list,
-      map,
-    };
-  } catch (e) {
-    console.log(`getProjectDependencies`, e);
-  }
-
-  return {
-    list: [],
-    map: {},
-  };
 }

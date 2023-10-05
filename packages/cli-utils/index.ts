@@ -17,6 +17,7 @@ export {
 export { editJsonFile } from "./editJsonFile.js";
 export { inGitRepo, isGitDirty, tryGitInit, tryGitCommit } from "./git.js";
 export { filer, type FilerOptions, type FilerTranformerArg } from "./filer.js";
+export { readJsonFile } from "./readJsonFile.js";
 export {
   createTaskr,
   type Task,
