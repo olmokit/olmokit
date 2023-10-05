@@ -96,10 +96,8 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
     });
     await Promise.all(
       sourceLibs.map(async (name) => {
-        const depPathInProject = join(
-          project.nodeModules,
-          `${meta.orgScope}/${name}`,
-        );
+        const fullName = `${meta.orgScope}/${name}`;
+        const depPathInProject = join(project.nodeModules, fullName);
         const depPathInSource = join(sourceLibsRoot, name);
 
         if (existsSync(depPathInProject) && existsSync(depPathInSource)) {
@@ -107,7 +105,7 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
             rmSync(depPathInProject, { recursive: true });
             symlinkSync(depPathInSource, depPathInProject);
 
-            linked.push({ name, root: depPathInProject });
+            linked.push({ name: fullName, root: depPathInProject });
           } catch (e) {}
         }
       }),
