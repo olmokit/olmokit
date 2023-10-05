@@ -32,13 +32,13 @@ async function updateOurProjectComposerDependencies() {
  */
 async function installPackages(
   packageType: "npm" | "composer",
-  ora: CliLaravel.TaskArg["ora"]
+  ora: CliLaravel.TaskArg["ora"],
 ) {
   const spinner = ora({
     text: `Install updated packages`,
     suffixText: "...",
     indent: 2,
-  });
+  }).start();
 
   const command =
     packageType === "npm"
@@ -65,10 +65,10 @@ async function updateNpmPackages({ ora, log }: CliLaravel.TaskArg) {
   res.forEach((action) => {
     log(
       `Bumped ${log.chalk.bold(action.name)} ${log.chalk.dim.italic(
-        "from"
+        "from",
       )} ${log.chalk.dim(action.from)} ${log.chalk.dim.italic(
-        "to"
-      )} ${log.chalk.dim(action.to)} `
+        "to",
+      )} ${log.chalk.dim(action.to)} `,
     );
   });
 
@@ -82,10 +82,10 @@ async function updateComposerPackages({ ora, log }: CliLaravel.TaskArg) {
     res.forEach((action) => {
       log(
         `Bumped ${log.chalk.bold(action.name)} ${log.chalk.dim.italic(
-          "from"
+          "from",
         )} ${log.chalk.dim(action.from)} ${log.chalk.dim.italic(
-          "to"
-        )} ${log.chalk.dim(action.to)} `
+          "to",
+        )} ${log.chalk.dim(action.to)} `,
       );
     });
 
@@ -97,7 +97,7 @@ export const update: CliLaravel.Task = async (arg) => {
   const isDirty = await isGitDirty();
   if (isDirty) {
     arg.log.warn(
-      "You have uncommited changes. Commit or stash your changes before upgrading."
+      "You have uncommited changes. Commit or stash your changes before upgrading.",
     );
   } else {
     await updateNpmPackages(arg);
