@@ -90,13 +90,17 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
     console.log("Trying 'manual' linking");
     console.log();
     // 1) 'manual' linking
+
+    const sourceLibs = globSync("*", {
+      cwd: sourceLibsRoot,
+    });
     await Promise.all(
-      projectInternalDeps.map(async ({ name }) => {
-        const depPathInProject = join(project.nodeModules, name);
-        const depPathInSource = join(
-          sourceLibsRoot,
-          name.replace(`${meta.orgScope}/`, ""),
+      sourceLibs.map(async (name) => {
+        const depPathInProject = join(
+          project.nodeModules,
+          `${meta.orgScope}/${name}`,
         );
+        const depPathInSource = join(sourceLibsRoot, name);
 
         if (existsSync(depPathInProject) && existsSync(depPathInSource)) {
           try {
