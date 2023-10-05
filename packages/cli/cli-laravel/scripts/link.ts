@@ -60,17 +60,14 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
     );
   }
 
-  console.log(`\n
-Your linked packages have the following dependencies: ${thirdPartyDeps.list.join(
-    " ",
-  )}.
+  // prettier-ignore
+  console.log(`
+Your linked packages have the following dependencies: ${thirdPartyDeps.list.join(" ")}.
 
-You might need to ${chalk.bold(
-    "temporarily",
-  )} install them in your current project with
+You might need to ${chalk.bold("temporarily")} install them in your current project with
 
 pnpm add --save-optional ${thirdPartyDeps.list.join(" ")}
-\n`);
+`);
 }
 
 async function linkInternalNodeLibsFrom(projectRoot: string) {
