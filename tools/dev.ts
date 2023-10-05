@@ -19,6 +19,9 @@ export const oraOpts = {
 export type Options = {
   pkgm: "pnpm" | "npm";
   verbose?: boolean;
+};
+
+type BasicCommandsOptions = Options & {
   watch?: boolean;
   lib?: string;
 };
@@ -26,40 +29,44 @@ export type Options = {
 program
   .name("dev")
   .description("Olmo internal dev cli")
-  .addOption(
-    new Option("-p, --pkgm <name>", "package manager")
-      .choices(["pnpm", "npm"])
-      .default("pnpm"),
-  )
-  .option("-v --verbose")
   .option("-w --watch", "Watch packages for changes")
   .addOption(optionLib())
   .addCommand(
-    new Command("start")
-      .aliases(["watch", "s", "w"])
-      .action(async (options: Options) => {
-        await devWatch(options);
-      }),
+    commonOptions(
+      new Command("start")
+        .aliases(["watch", "s", "w"])
+        .action(async (options: BasicCommandsOptions) => {
+          await devWatch(options);
+        }),
+    ),
   )
   .addCommand(
-    new Command("build").aliases(["b"]).action(async (options: Options) => {
-      const lib = await getOptionLib(options, true, true);
-      await devBuild(lib);
-    }),
+    commonOptions(
+      new Command("build")
+        .aliases(["b"])
+        .action(async (options: BasicCommandsOptions) => {
+          const lib = await getOptionLib(options, true, true);
+          await devBuild(lib);
+        }),
+    ),
   )
   .addCommand(
-    new Command("postinstall").action(async (options: Options) => {
-      if (!ci.isCI) {
-        const lib = await getOptionLib(options, false, true);
-        await devBuild(lib, true);
-      }
-    }),
+    commonOptions(
+      new Command("postinstall").action(
+        async (options: BasicCommandsOptions) => {
+          if (!ci.isCI) {
+            const lib = await getOptionLib(options, false, true);
+            await devBuild(lib, true);
+          }
+        },
+      ),
+    ),
   )
-  .addCommand(link())
-  .addCommand(unlink())
-  .addCommand(libs())
-  .addCommand(publish())
-  .addCommand(koine())
+  .addCommand(commonOptions(link()))
+  .addCommand(commonOptions(unlink()))
+  .addCommand(commonOptions(libs()))
+  .addCommand(commonOptions(publish()))
+  .addCommand(commonOptions(koine()))
   .parseAsync();
 
 async function devWatch(options: Options) {
@@ -90,7 +97,7 @@ async function devBuild(libSlug: string, linkAfterBuild?: boolean) {
 }
 
 export async function getOptionLib(
-  options: Options,
+  options: BasicCommandsOptions,
   prompt?: boolean,
   allowAll?: boolean,
 ) {
@@ -140,11 +147,7 @@ function optionLib() {
   );
 }
 
-/**
- * @deprecated It would only be useful with standalone subcommands, but they
- * do not work with ts-node
- */
-export const commonOptions = (program?: Command) => {
+function commonOptions(program: Command) {
   const options = [
     new Option("-p, --pkgm <name>", "package manager")
       .choices(["pnpm", "npm"])
@@ -156,5 +159,5 @@ export const commonOptions = (program?: Command) => {
     options.forEach((opt) => program.addOption(opt));
     return program;
   }
-  return options;
-};
+  return program;
+}

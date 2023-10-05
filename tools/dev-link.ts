@@ -1,6 +1,7 @@
 import { exec } from "node:child_process";
 import chalk from "chalk";
 import { Command } from "commander";
+import { $ } from "execa";
 import ora from "ora";
 import { type Options, oraOpts } from "./dev.js";
 import { type LibNpm, self } from "./helpers.js";
@@ -18,14 +19,24 @@ export const link = () =>
       console.log();
       await linkLibsGlobally(libs, opts);
 
+      console.log();
+
       // NOTE: maybe linking recursively is only needed with pnpm
-      console.log();
-      ora({
-        text: `Now link those packages in one another...`,
-        ...oraOpts,
-      }).stopAndPersist();
-      console.log();
-      await linkRecursively(libs, opts);
+      // ora({
+      //   text: `Now link those packages in one another...`,
+      //   ...oraOpts,
+      // }).stopAndPersist();
+      // console.log();
+      // await linkRecursively(libs, opts);
+
+      // if (opts.pkgm === "pnpm") {
+      //   ora({
+      //     text: `Now install linked packages dependencies...`,
+      //     ...oraOpts,
+      //   }).stopAndPersist();
+      //   await linkLibsInstallDeps(libs, opts);
+      //   console.log();
+      // }
     });
 
 async function linkLibsGlobally(libs: LibNpm[], opts: Options) {
@@ -41,7 +52,7 @@ async function linkLibGlobally(lib: LibNpm, opts: Options) {
       text: `Link ${chalk.bold(lib.name)} globally`,
       indent: 2,
       ...oraOpts,
-    });
+    }).start();
 
     let cmd = "pnpm link --global";
     if (opts.pkgm === "npm") {
@@ -50,7 +61,7 @@ async function linkLibGlobally(lib: LibNpm, opts: Options) {
 
     if (opts.verbose) {
       spinner.suffixText = ` ran ${chalk.italic(cmd)} from ${chalk.italic(
-        lib.packageJson.name
+        lib.packageJson.name,
       )}`;
     }
 
@@ -68,11 +79,15 @@ async function linkLibGlobally(lib: LibNpm, opts: Options) {
           spinner.succeed();
           resolve();
         }
-      }
+      },
     );
   });
 }
 
+/**
+ * @deprecated This seems to create more problems than it solves? after this run
+ * the global pnpm links have weird paths
+ */
 async function linkRecursively(libs: LibNpm[], opts: Options) {
   for (let i = 0; i < libs.length; i++) {
     const lib = libs[i];
@@ -86,8 +101,8 @@ async function linkRecursively(libs: LibNpm[], opts: Options) {
             !lib.packageJson.version
               ? `.  This is probably because its package.json misses the 'version'`
               : "",
-          ].join(" ")
-        )
+          ].join(" "),
+        ),
       );
     }
 
@@ -97,6 +112,10 @@ async function linkRecursively(libs: LibNpm[], opts: Options) {
   }
 }
 
+/**
+ * @deprecated This seems to create more problems than it solves? after this run
+ * the global pnpm links have weird paths
+ */
 async function linkInternalDep(lib: LibNpm, depName: string, opts: Options) {
   return new Promise<void>((resolve, reject) => {
     if (lib.name !== depName) {
@@ -113,7 +132,7 @@ async function linkInternalDep(lib: LibNpm, depName: string, opts: Options) {
 
       if (opts.verbose) {
         spinner.suffixText = `ran ${chalk.italic(
-          `${cmd} ${depName}`
+          `${cmd} ${depName}`,
         )} from ${chalk.italic(lib.name)}`;
       }
 
@@ -132,10 +151,50 @@ async function linkInternalDep(lib: LibNpm, depName: string, opts: Options) {
             spinner.succeed();
             resolve();
           }
-        }
+        },
       );
     } else {
       resolve();
     }
   });
+}
+
+/**
+ * @deprecated This does not work inside a monorepo, and there is [no flag to
+ * ignore that](https://github.com/pnpm/pnpm/issues/2938)
+ */
+async function linkLibsInstallDeps(libs: LibNpm[], opts: Options) {
+  for (let i = 0; i < libs.length; i++) {
+    await linkLibInstallDeps(libs[i], opts);
+  }
+}
+
+/**
+ * @deprecated This does not work inside a monorepo, and there is [no flag to
+ * ignore that](https://github.com/pnpm/pnpm/issues/2938)
+ */
+async function linkLibInstallDeps(lib: LibNpm, opts: Options) {
+  const spinner = ora({
+    text: `Install ${chalk.bold(lib.name)} dependencies`,
+    indent: 2,
+    ...oraOpts,
+  }).start();
+
+  let cmd = "pnpm install";
+
+  if (opts.verbose) {
+    spinner.suffixText = ` ran ${chalk.italic(cmd)} from ${chalk.italic(
+      lib.packageJson.name,
+    )}`;
+  }
+
+  const { exitCode } = await $({ reject: false, cwd: lib.linkPath })`pnpm ${[
+    "install",
+  ]}`;
+
+  if (exitCode === 0) {
+    spinner.info();
+  } else {
+    spinner.warn();
+  }
 }

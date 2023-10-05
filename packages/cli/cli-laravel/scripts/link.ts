@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import {
   existsSync,
   lstatSync,
@@ -6,6 +7,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { join, sep } from "node:path";
+import { $ } from "execa";
 import { ensureDirSync } from "fs-extra";
 import { globSync } from "glob";
 import { rimraf, rimrafSync } from "rimraf";
@@ -46,7 +48,8 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
   });
   const linkedLibs = await linkInternalNodeLibsFrom(project.root);
   await removeInternalLibsInLinkedLibs(linkedLibs);
-  // const linkedLibsWithDeps = await gatherNodeLibsDeps(linkedLibs);
+  const linkedLibsWithDeps = await gatherNodeLibsDeps(linkedLibs);
+  const thirdPartyDeps = getLinkedLibsThirdPartyDeps(linkedLibsWithDeps);
   // createDummyPackageWithExternalDeps(linkedLibsWithDeps);
 
   if (!linkedLibs.length) {
@@ -56,42 +59,79 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
       `Linked ${linkedLibs.map((lib) => chalk.bold(lib.name)).join(", ")}`,
     );
   }
+
+  console.log(`\n
+Your linked packages have the following dependencies: ${thirdPartyDeps.list.join(
+    " ",
+  )}.
+
+You might need to ${chalk.bold(
+    "temporarily",
+  )} install them in your current project with
+
+pnpm add --save-optional ${thirdPartyDeps.list.join(" ")}
+\n`);
 }
 
 async function linkInternalNodeLibsFrom(projectRoot: string) {
-  const packageJson = readJsonFile<PackageJson>(projectRoot);
+  const linked: LinkedLib[] = [];
+  const packageJson = readJsonFile<PackageJson>(
+    join(projectRoot, "./package.json"),
+  );
+  const sourceLibsRoot = findFolderUp("*/*/olmokit/dist/packages", projectRoot);
 
   if (!packageJson) {
-    return [];
+    console.error("Could not read current project package.json");
+    return linked;
   }
 
   const projectInternalDeps = getNpmDependenciesNameAndVersion(
     packageJson,
     meta.orgScope,
   );
-  const { workspaceRoot } = meta;
 
-  if (!workspaceRoot) {
-    throw new Error("Could not figure out current workspace root");
+  if (sourceLibsRoot && existsSync(sourceLibsRoot)) {
+    console.log("Trying 'manual' linking");
+    console.log();
+    // 1) 'manual' linking
+    await Promise.all(
+      projectInternalDeps.map(async ({ name }) => {
+        const depPathInProject = join(project.nodeModules, name);
+        const depPathInSource = join(
+          sourceLibsRoot,
+          name.replace(`${meta.orgScope}/`, ""),
+        );
+
+        if (existsSync(depPathInProject) && existsSync(depPathInSource)) {
+          try {
+            rmSync(depPathInProject, { recursive: true });
+            symlinkSync(depPathInSource, depPathInProject);
+
+            linked.push({ name, root: depPathInProject });
+          } catch (e) {}
+        }
+      }),
+    );
+  } else {
+    console.log("Could not figure out local olmokit repo folder");
+    console.log();
+    console.log("Trying standard 'pnpm' linking");
+    // 2) 'pnpm' standard linking
+    const linked: string[] = [];
+
+    await Promise.all(
+      projectInternalDeps.map(async ({ name }) => {
+        const { exitCode } = await $({
+          reject: false,
+          cwd: project.root,
+        })`pnpm ${["link", name, "--global"]}`;
+
+        if (exitCode === 0) {
+          linked.push(name);
+        }
+      }),
+    );
   }
-
-  const linked: LinkedLib[] = [];
-
-  await Promise.all(
-    projectInternalDeps.map(async ({ name }) => {
-      const depPathInProject = join(project.nodeModules, meta.orgScope, name);
-      const depPathInSource = join(workspaceRoot, "dist/packages", name);
-
-      if (existsSync(depPathInProject) && existsSync(depPathInSource)) {
-        try {
-          rmSync(depPathInProject, { recursive: true });
-          symlinkSync(depPathInSource, depPathInProject);
-
-          linked.push({ name, root: depPathInProject });
-        } catch (e) {}
-      }
-    }),
-  );
 
   return linked;
 }
@@ -125,29 +165,33 @@ async function gatherNodeLibsDeps(libs: LinkedLib[]) {
   );
 }
 
-function createDummyPackageJsonContent(libs: LinkedLibWithDeps[]): PackageJson {
-  const allDeps = libs.reduce(
+function getLinkedLibsThirdPartyDeps(libs: LinkedLibWithDeps[]) {
+  const list: { name: string; version: string }[] = [];
+  const map = libs.reduce(
     (map, lib) => {
       for (let i = 0; i < lib.otherDeps.length; i++) {
         const dep = lib.otherDeps[i];
         map[dep.name] = dep.version;
+        if (list.findIndex((item) => item.name) === -1) {
+          list.push(dep);
+        }
       }
       return map;
     },
     {} as Record<string, string>,
   );
 
-  return {
-    name: internalDepsPackageName,
-    dependencies: allDeps,
-    private: true,
-  };
+  return { list, map };
 }
 
 function createDummyPackageWithExternalDeps(libs: LinkedLibWithDeps[]) {
   const packageDir = join(project.nodeModules, internalDepsPackageName);
   const packageJsonPath = join(packageDir, "./package.json");
-  const packageJsonContent = createDummyPackageJsonContent(libs);
+  const packageJsonContent = {
+    name: internalDepsPackageName,
+    dependencies: getLinkedLibsThirdPartyDeps(libs).map,
+    private: true,
+  };
 
   ensureDirSync(packageDir);
 
@@ -166,6 +210,21 @@ async function removeInternalLibsInLinkedLibs(libs: LinkedLib[]) {
       });
     }),
   );
+}
+
+/**
+ * @deprecated This might be useful for something else
+ */
+function getNodeGloballyLinkedPackages() {
+  return execSync("pnpm list -g")
+    .toString()
+    .trim()
+    .split("\n")
+    .filter((line) => line.startsWith(`${meta.orgScope}/`))
+    .map((line) => {
+      const [name /* , relativePath */] = line.split(" link:");
+      return name;
+    });
 }
 
 /**
