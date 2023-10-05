@@ -1,13 +1,13 @@
 import {
   getNpmDependencies,
-  getNpmDependenciesNames,
+  getNpmDependenciesNameAndVersion,
   updateNpmDependencies,
 } from "@olmokit/cli-utils/deps-npm";
 import { meta } from "./meta.js";
 import { project } from "./project.js";
 
 export function getOurProjectNpmDependenciesNames() {
-  return getNpmDependenciesNames(project.packageJson, meta.orgScope);
+  return getNpmDependenciesNameAndVersion(project.packageJson, meta.orgScope);
 }
 
 export async function getOurProjectNpmDependencies() {
@@ -22,6 +22,6 @@ export async function updateOurProjectNpmDependencies() {
   return await updateNpmDependencies(
     project.root,
     project.packageJson,
-    meta.orgScope
+    meta.orgScope,
   );
 }

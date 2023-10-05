@@ -31,12 +31,12 @@ type PacakgistPackageResponse = {
 };
 
 /**
- * Get all the dependencies' name of the given packageJson.
+ * Get all the dependencies' name and version from the given `composer.json`
  * Optionally filter the dependencies by the given `orgScope` name.
  */
-export function getComposerDependenciesNames(
+export function getComposerDependenciesNameAndVersion(
   data: ComposerJson,
-  orgScope?: string
+  orgScope?: string,
 ) {
   const allDeps = {
     ...(data.require ?? {}),
@@ -59,14 +59,14 @@ export function getComposerDependenciesNames(
 }
 
 /**
- * Get the dependencies' version data of the given packageJson.
+ * Get the dependencies' version data of the given `composer.json`.
  * Optionally filter the dependencies by the given `orgScope` name.
  */
 export async function getComposerDependencies(
   data: ComposerJson,
-  orgScope?: string
+  orgScope?: string,
 ) {
-  const deps = getComposerDependenciesNames(data, orgScope);
+  const deps = getComposerDependenciesNameAndVersion(data, orgScope);
   const packages = await Promise.all(
     deps.map(async ({ name, version }) => {
       const latestVersion = await getComposerPkgLatestVersionWithHttp(name);
@@ -76,7 +76,7 @@ export async function getComposerDependencies(
         latestVersion,
         currentVersion: version,
       };
-    })
+    }),
   );
 
   return packages;
@@ -91,7 +91,7 @@ const depTypes = ["require"] as const;
 export async function updateComposerDependencies(
   dataDir: string,
   data: ComposerJson,
-  orgScope?: string
+  orgScope?: string,
 ) {
   const deps = await getComposerDependencies(data, orgScope);
   const actions: {
@@ -139,7 +139,7 @@ function getComposerPkgLatestVersionWithHttp(pkgName: string) {
             resolve(versions[0].version);
           } catch (e) {
             console.warn(
-              "getComposerPkgLatestVersionWithHttp: failed parsing packagist response"
+              "getComposerPkgLatestVersionWithHttp: failed parsing packagist response",
             );
             reject();
           }

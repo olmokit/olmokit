@@ -5,8 +5,8 @@ import { globSync } from "glob";
 import {
   type ComposerJson,
   type PackageJson,
-  getComposerDependenciesNames,
-  getNpmDependenciesNames,
+  getComposerDependenciesNameAndVersion,
+  getNpmDependenciesNameAndVersion,
 } from "../packages/cli-utils/index.js";
 
 type LibShared = LibConfig & {
@@ -182,9 +182,10 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
           if (packageJson) {
             packager = "npm";
             name = packageJson.name!;
-            internalDeps = getNpmDependenciesNames(packageJson, scope).map(
-              (dep) => dep.name,
-            );
+            internalDeps = getNpmDependenciesNameAndVersion(
+              packageJson,
+              scope,
+            ).map((dep) => dep.name);
           }
         } catch (e) {
           try {
@@ -202,7 +203,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
           if (composerJson) {
             packager = "composer";
             name = composerJson.name!;
-            internalDeps = getComposerDependenciesNames(
+            internalDeps = getComposerDependenciesNameAndVersion(
               composerJson,
               "olmo", // FIXME: scope here is `olmokit` instead of `olmo`
             ).map((dep) => dep.name);

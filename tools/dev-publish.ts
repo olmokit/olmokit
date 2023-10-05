@@ -11,7 +11,7 @@ import semver from "semver";
 import {
   PackageJson,
   editJsonFile,
-  getNpmDependenciesNames,
+  getNpmDependenciesNameAndVersion,
   isGitDirty,
 } from "../packages/cli-utils/index.js";
 import { type Options, getOptionLib, oraOpts } from "./dev.js";
@@ -167,7 +167,7 @@ async function bumbLib(lib: Lib, release: Release) {
 async function prepublishLib(lib: Lib, release: Release) {
   if (lib.packager === "npm") {
     await editJsonFile<PackageJson>(lib.dist, "package.json", (data) => {
-      getNpmDependenciesNames(data, lib.scope).forEach(({ name }) => {
+      getNpmDependenciesNameAndVersion(data, lib.scope).forEach(({ name }) => {
         ["dependencies", "devDependencies", "peerDependencies"].forEach(
           (key) => {
             if (data?.[key]?.[name]) {

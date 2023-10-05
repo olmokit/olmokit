@@ -6,10 +6,13 @@ import { editJsonFile } from "./editJsonFile.js";
 export type PackageJson = _PackageJson;
 
 /**
- * Get all the dependencies' name of the given packageJson.
+ * Get all the dependencies' name of the given `package.json`.
  * Optionally filter the dependencies by the given `orgScope` name.
  */
-export function getNpmDependenciesNames(data: PackageJson, orgScope?: string) {
+export function getNpmDependenciesNameAndVersion(
+  data: PackageJson,
+  orgScope?: string,
+) {
   const allDeps = {
     ...(data.dependencies ?? {}),
     ...(data.devDependencies ?? {}),
@@ -33,11 +36,11 @@ export function getNpmDependenciesNames(data: PackageJson, orgScope?: string) {
 }
 
 /**
- * Get the dependencies' version data of the given packageJson.
+ * Get the dependencies' version data of the given `package.json`.
  * Optionally filter the dependencies by the given `orgScope` name.
  */
 export async function getNpmDependencies(data: PackageJson, orgScope?: string) {
-  const deps = getNpmDependenciesNames(data, orgScope);
+  const deps = getNpmDependenciesNameAndVersion(data, orgScope);
   const packages = await Promise.all(
     deps.map(async ({ name, version }) => {
       const latestVersion = await getNpmPkgLatestVersion(name);
@@ -47,7 +50,7 @@ export async function getNpmDependencies(data: PackageJson, orgScope?: string) {
         latestVersion,
         currentVersion: version,
       };
-    })
+    }),
   );
 
   return packages;
@@ -68,7 +71,7 @@ type DepType = (typeof depTypes)[number];
 export async function updateNpmDependencies(
   dataDir: string,
   data: PackageJson,
-  orgScope?: string
+  orgScope?: string,
 ) {
   const deps = await getNpmDependencies(data, orgScope);
   const actions: {

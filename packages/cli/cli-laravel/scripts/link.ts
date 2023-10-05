@@ -1,72 +1,168 @@
-import { execSync } from "node:child_process";
-import { existsSync, lstatSync, symlinkSync } from "node:fs";
+import {
+  existsSync,
+  lstatSync,
+  rmSync,
+  symlinkSync,
+  writeFileSync,
+} from "node:fs";
 import { join, sep } from "node:path";
-import { $ } from "execa";
+import { ensureDirSync } from "fs-extra";
 import { globSync } from "glob";
-import { rimrafSync } from "rimraf";
-import { getProjectDependencies } from "../../helpers-getters.js";
+import { rimraf, rimrafSync } from "rimraf";
+import { PackageJson } from "@olmokit/utils";
+import { getNpmDependenciesNameAndVersion } from "@olmokit/cli-utils";
+import {
+  getProjectDependencies,
+  getProjectPackageJson,
+} from "../../helpers-getters.js";
 import { meta } from "../../meta.js";
 import { project } from "../../project.js";
 // import { getPackageManagerCommand } from "@olmokit/cli-utils/package-manager";
 import type { CliLaravel } from "../pm.js";
 
+type LinkedLib = {
+  name: string;
+  root: string;
+};
+
+type LinkedLibWithDeps = LinkedLib & {
+  otherDeps: {
+    name: string;
+    version: string;
+  }[];
+};
+
+const internalDepsPackageName = `${meta.orgScope}/internal-deps`;
+
 /**
  * Try link each candidate package
  *
- * We might use the `--json` argument in the `list -g` command but it seems
- * easier to parse it ourselves rather than relying on the shape of the returned
- * JSON...
- *
- * TODO: support `npm` and `yarn`?
+ * Custom plain symlinking to solve pnpm/npm global links continuous issues
  */
 async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
-  // const pkm = getPackageManagerCommand();
-  // const candidatesGloballyLinked = execSync(pkm.list + " -g")
-  const candidatesDeps = getProjectDependencies(
-    project.packageJson,
-    meta.orgScope
+  const spinner = ora({
+    text: `Linking internal node packages`,
+    suffixText: "...",
+    indent: 2,
+  });
+  const linkedLibs = await linkInternalNodeLibsFrom(project.root);
+  await removeInternalLibsInLinkedLibs(linkedLibs);
+  // const linkedLibsWithDeps = await gatherNodeLibsDeps(linkedLibs);
+  // createDummyPackageWithExternalDeps(linkedLibsWithDeps);
+
+  if (!linkedLibs.length) {
+    log.warn(`No packages were linked :/.`);
+  } else {
+    spinner.succeed(
+      `Linked ${linkedLibs.map((lib) => chalk.bold(lib.name)).join(", ")}`,
+    );
+  }
+}
+
+async function linkInternalNodeLibsFrom(projectRoot: string) {
+  const packageJson = getProjectPackageJson(projectRoot);
+
+  if (!packageJson) {
+    return [];
+  }
+
+  const projectInternalDeps = getProjectDependencies(
+    packageJson,
+    meta.orgScope,
   );
-  const candidatesGloballyLinked = execSync("pnpm list -g")
-    .toString()
-    .trim()
-    .split("\n")
-    .filter((line) => line.startsWith(`${meta.orgScope}/`))
-    .map((line) => {
-      const [name /* , relativePath */] = line.split(" link:");
-      return name;
-    });
-  const candidates = candidatesDeps.list.filter((dep) =>
-    candidatesGloballyLinked.includes(dep.name)
-  );
-  const linked: string[] = [];
+  const { workspaceRoot } = meta;
+
+  if (!workspaceRoot) {
+    throw new Error("Could not figure out current workspace root");
+  }
+
+  const linked: LinkedLib[] = [];
 
   await Promise.all(
-    candidates.map(async ({ name }) => {
-      const spinner = ora({
-        text: `Linking ${chalk.bold(name)}`,
-        suffixText: "...",
-        indent: 2,
-      });
-      const { exitCode } = await $({ reject: false })`pnpm ${[
-        "link",
-        name,
-        "--global",
-      ]}`;
+    projectInternalDeps.list.map(async ({ name }) => {
+      const depPathInProject = join(project.nodeModules, meta.orgScope, name);
+      const depPathInSource = join(workspaceRoot, "dist/packages", name);
 
-      spinner.suffixText = "";
+      if (existsSync(depPathInProject) && existsSync(depPathInSource)) {
+        try {
+          rmSync(depPathInProject, { recursive: true });
+          symlinkSync(depPathInSource, depPathInProject);
 
-      if (exitCode === 0) {
-        linked.push(name);
-        spinner.succeed(`Linked ${chalk.bold(name)}`);
-      } else {
-        spinner.warn(`Could not link ${chalk.bold(name)}`);
+          linked.push({ name, root: depPathInProject });
+        } catch (e) {}
       }
-    })
+    }),
   );
 
-  if (!linked.length) {
-    log.warn(`No packages were linked :/.`);
+  return linked;
+}
+
+async function gatherNodeLibsDeps(libs: LinkedLib[]) {
+  return await Promise.all(
+    libs.map(async (lib) => {
+      let otherDeps: LinkedLibWithDeps["otherDeps"] = [];
+      const packageJsonPath = join(lib.root, "./package.json");
+
+      if (existsSync(packageJsonPath)) {
+        try {
+          const packageJson = require(packageJsonPath);
+          const libsDeps = getNpmDependenciesNameAndVersion(packageJson);
+          // filter out the inner dependencies, just keep the third party ones
+          otherDeps = otherDeps.concat(
+            libsDeps.filter((dep) => !dep.name.startsWith(meta.orgScope + "/")),
+          );
+        } catch (e) {}
+      }
+
+      return {
+        ...lib,
+        otherDeps,
+      };
+    }),
+  );
+}
+
+function createDummyPackageJsonContent(libs: LinkedLibWithDeps[]): PackageJson {
+  const allDeps = libs.reduce(
+    (map, lib) => {
+      for (let i = 0; i < lib.otherDeps.length; i++) {
+        const dep = lib.otherDeps[i];
+        map[dep.name] = dep.version;
+      }
+      return map;
+    },
+    {} as Record<string, string>,
+  );
+
+  return {
+    name: internalDepsPackageName,
+    dependencies: allDeps,
+    private: true,
+  };
+}
+
+function createDummyPackageWithExternalDeps(libs: LinkedLibWithDeps[]) {
+  const packageDir = join(project.nodeModules, internalDepsPackageName);
+  const packageJsonPath = join(packageDir, "./package.json");
+  const packageJsonContent = createDummyPackageJsonContent(libs);
+
+  ensureDirSync(packageDir);
+
+  if (existsSync(packageJsonPath)) {
+    rmSync(packageJsonPath);
   }
+
+  writeFileSync(packageJsonPath, JSON.stringify(packageJsonContent, null, 2));
+}
+
+async function removeInternalLibsInLinkedLibs(libs: LinkedLib[]) {
+  await Promise.all(
+    libs.map(async (lib) => {
+      await rimraf(join(lib.root, "/node_modules", `/${meta.orgScope}/*`), {
+        preserveRoot: false,
+      });
+    }),
+  );
 }
 
 /**
@@ -78,10 +174,7 @@ function tryComposerLink({ log, chalk }: CliLaravel.TaskArg) {
   const nameLog = chalk.bold(name);
   const src = findFolderUp(
     "*/*/olmokit/packages/laravel-frontend",
-    project.root
-    // "*/packages/laravel-frontend",
-    // project.root,
-    // "olmokit"
+    project.root,
   );
 
   if (src && existsSync(src)) {
@@ -100,7 +193,7 @@ function tryComposerLink({ log, chalk }: CliLaravel.TaskArg) {
 
 function findFolderUp(
   pathToFind: string,
-  startFromPath: string
+  startFromPath: string,
   // preferPathParent?: string
 ): string {
   const parent = join(startFromPath, "../");
@@ -112,25 +205,6 @@ function findFolderUp(
 
   if (matches && matches.length) {
     return matches[0];
-    // let bestMatch = "";
-
-    // if (matches.length > 1 && preferPathParent) {
-    //   bestMatch =
-    //     matches.find((foundPath) => {
-    //       const foundPathParts = foundPath.split(sep).filter(Boolean);
-    //       const normalisedFountPath = foundPathParts.join("/");
-
-    //       if (
-    //         normalisedFountPath
-    //           .toLowerCase()
-    //           .endsWith(pathToFind.replace("*", preferPathParent))
-    //       ) {
-    //         return foundPath;
-    //       }
-    //       return false;
-    //     }) || "";
-    // }
-    // return bestMatch || matches[0];
   }
 
   if (parentParts.length) {

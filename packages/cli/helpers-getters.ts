@@ -1,4 +1,5 @@
 import { existsSync, lstatSync } from "node:fs";
+import { join } from "node:path";
 import type { PackageJson } from "type-fest";
 import { project } from "./project.js";
 
@@ -72,7 +73,7 @@ export function removeTrailingSlashes(url: string) {
  */
 export async function runIfDevAndMissingFile(
   filePath: string,
-  target: () => Promise<void>
+  target: () => Promise<void>,
 ) {
   if (process.env["NODE_ENV"] === "development") {
     let alreadyExists = false;
@@ -128,6 +129,17 @@ export function getVariadicArguments(args: string[]) {
   return Array.from(new Set(allArgs));
 }
 
+export function getProjectPackageJson(packageRoot: string) {
+  const packageJsonPath = join(packageRoot, "package.json");
+  if (existsSync(packageJsonPath)) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const packageJson = require(packageJsonPath) as PackageJson;
+
+    return packageJson;
+  }
+  return;
+}
+
 /**
  * Given a parsed `package.json` content it returns the *list* and *map* of all
  * its dependencies, optionally filtered by the given `scope` argument
@@ -150,10 +162,13 @@ export function getProjectDependencies(pkg: PackageJson, scope?: `@${string}`) {
 
     if (scope) {
       list = list.filter(({ name }) => name.startsWith(scope));
-      map = list.reduce((map, dep) => {
-        map[dep.name] = dep.version;
-        return map;
-      }, {} as Record<string, string>);
+      map = list.reduce(
+        (map, dep) => {
+          map[dep.name] = dep.version;
+          return map;
+        },
+        {} as Record<string, string>,
+      );
     }
 
     return {

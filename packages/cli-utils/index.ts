@@ -1,13 +1,13 @@
 // console.log("in packages/cli/utils")
 export {
-  getComposerDependenciesNames,
+  getComposerDependenciesNameAndVersion,
   getComposerDependencies,
   updateComposerDependencies,
   getComposerPkgLatestVersion,
   type ComposerJson,
 } from "./deps-composer.js";
 export {
-  getNpmDependenciesNames,
+  getNpmDependenciesNameAndVersion,
   getNpmDependencies,
   updateNpmDependencies,
   getNpmPkgLatestVersionSync,
