@@ -87,9 +87,9 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
   );
 
   if (sourceLibsRoot && existsSync(sourceLibsRoot)) {
+    // 1) 'manual' linking
     console.log("Trying 'manual' linking");
     console.log();
-    // 1) 'manual' linking
 
     const sourceLibs = globSync("*", {
       cwd: sourceLibsRoot,
@@ -113,10 +113,10 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
       }),
     );
   } else {
+    // 2) 'pnpm' standard linking
     console.log("Could not figure out local olmokit repo folder");
     console.log();
     console.log("Trying standard 'pnpm' linking");
-    // 2) 'pnpm' standard linking
     const linked: string[] = [];
 
     await Promise.all(
