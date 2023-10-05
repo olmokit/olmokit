@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/cli-utils",
-  "version": "0.0.68",
+  "version": "0.0.69",
   "description": "Utils for Olmo's CLI.",
   "keywords": [
     "olmo",

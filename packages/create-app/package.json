@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/create-app",
-  "version": "0.0.68",
+  "version": "0.0.69",
   "description": "Create Olmo based Laravel apps.",
   "keywords": [
     "olmo",
