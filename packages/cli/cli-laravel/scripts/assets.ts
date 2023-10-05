@@ -1,4 +1,4 @@
-import { filer } from "@olmokit/cli-utils/filer.js";
+import { filer } from "@olmokit/cli-utils/filer";
 import { getHeaderAutogeneration, isHttps } from "../../helpers-getters.js";
 import { getPublicUrls } from "../helpers/index.js";
 import { paths } from "../paths/index.js";

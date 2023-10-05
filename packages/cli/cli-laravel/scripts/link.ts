@@ -16,7 +16,7 @@ import {
   getNpmDependenciesNameAndVersion,
   readJsonFile,
 } from "@olmokit/cli-utils";
-// import { getPackageManagerCommand } from "@olmokit/cli-utils/package-manager.js";
+// import { getPackageManagerCommand } from "@olmokit/cli-utils/package-manager";
 import { meta } from "../../meta.js";
 import { project } from "../../project.js";
 import type { CliLaravel } from "../pm.js";

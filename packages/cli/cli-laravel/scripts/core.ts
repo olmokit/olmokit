@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { paramCase, pascalCase } from "change-case";
 import { globSync } from "glob";
-import { filer } from "@olmokit/cli-utils/filer.js";
+import { filer } from "@olmokit/cli-utils/filer";
 import { type Library, libraries } from "../helpers/libraries.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";

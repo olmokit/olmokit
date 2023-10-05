@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { createTaskr } from "@olmokit/cli-utils/taskr.js";
+import { createTaskr } from "@olmokit/cli-utils/taskr";
 import type { Cli, Config } from "./types";
 
 /**

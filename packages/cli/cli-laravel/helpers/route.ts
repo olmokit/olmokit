@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { readFile, readdir } from "node:fs/promises";
 import { join } from "node:path";
-import type { TaskrLog } from "@olmokit/cli-utils/taskr.js";
+import type { TaskrLog } from "@olmokit/cli-utils/taskr";
 import { generate } from "../../generate.js";
 import { getNameVariants } from "../../getNameVariants.js";
 import { paths } from "../paths/index.js";

@@ -2,7 +2,7 @@ import {
   getNpmDependencies,
   getNpmDependenciesNameAndVersion,
   updateNpmDependencies,
-} from "@olmokit/cli-utils/deps-npm.js";
+} from "@olmokit/cli-utils/deps-npm";
 import { meta } from "./meta.js";
 import { project } from "./project.js";
 

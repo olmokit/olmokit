@@ -1,5 +1,5 @@
 import { Agent, get } from "node:https";
-import type { TaskrLog } from "@olmokit/cli-utils/taskr.js";
+import type { TaskrLog } from "@olmokit/cli-utils/taskr";
 import { removeTrailingSlashes } from "../../helpers-getters.js";
 
 type CmsApiRequestOpts = {

@@ -15,7 +15,7 @@ import { dirname, join } from "node:path";
 import chalk from "chalk";
 import spawn from "cross-spawn";
 import fsExtra from "fs-extra";
-import { inGitRepo, tryGitCommit, tryGitInit } from "@olmokit/cli-utils/git.js";
+import { inGitRepo, tryGitCommit, tryGitInit } from "@olmokit/cli-utils/git";
 import { paths } from "./paths/index.js";
 
 const require = createRequire(import.meta.url);

@@ -91,7 +91,7 @@ const libsConfig: LibConfig[] = [
   },
   {
     slug: "create-app",
-    type: "none",
+    type: "module",
     exports: "none",
     link: "dist",
   },

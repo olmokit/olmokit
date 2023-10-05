@@ -1,5 +1,5 @@
 import { $ } from "execa";
-import type { TaskrInstance } from "@olmokit/cli-utils/taskr.js";
+import type { TaskrInstance } from "@olmokit/cli-utils/taskr";
 
 export const PRETTIER_PATH =
   "(src|config)/**/!(assets)/**/*.{js,jsx,ts,tsx,json,css,scss,md,yml,yaml,php}";

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import type { Command } from "commander";
 import type { FaviconOptions } from "favicons";
-import type { TaskrInstance } from "@olmokit/cli-utils/taskr.js";
+import type { TaskrInstance } from "@olmokit/cli-utils/taskr";
 import type { ConfigurableEnvVars, PredefinedEnvVars } from "./config-env";
 
 export namespace Cli {

@@ -1,8 +1,8 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { copy } from "fs-extra";
-import { filer } from "@olmokit/cli-utils/filer.js";
-import type { TaskrLog } from "@olmokit/cli-utils/taskr.js";
+import { filer } from "@olmokit/cli-utils/filer";
+import type { TaskrLog } from "@olmokit/cli-utils/taskr";
 import {
   getHeaderAutogeneration,
   runIfDevAndMissingFile,

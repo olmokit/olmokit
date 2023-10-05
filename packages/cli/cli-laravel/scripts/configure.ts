@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { basename, join } from "node:path";
-import { filer } from "@olmokit/cli-utils/filer.js";
+import { filer } from "@olmokit/cli-utils/filer";
 import { runIfDevAndMissingFile } from "../../helpers-getters.js";
 import { meta } from "../../meta.js";
 import { project } from "../../project.js";

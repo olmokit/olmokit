@@ -5,9 +5,9 @@ import { $ } from "execa";
 import {
   type ComposerJson,
   updateComposerDependencies,
-} from "@olmokit/cli-utils/deps-composer.js";
-import { isGitDirty } from "@olmokit/cli-utils/git.js";
-// import { getPackageManagerCommand } from "@olmokit/cli-utils/package-manager.js";
+} from "@olmokit/cli-utils/deps-composer";
+import { isGitDirty } from "@olmokit/cli-utils/git";
+// import { getPackageManagerCommand } from "@olmokit/cli-utils/package-manager";
 import { updateOurProjectNpmDependencies } from "../../helpers-deps.js";
 import { project } from "../../project.js";
 import type { CliLaravel } from "../pm.js";

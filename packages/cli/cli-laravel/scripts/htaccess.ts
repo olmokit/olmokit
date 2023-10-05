@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import ci from "ci-info";
-import { filer } from "@olmokit/cli-utils/filer.js";
+import { filer } from "@olmokit/cli-utils/filer";
 import { runIfDevAndMissingFile } from "../../helpers-getters.js";
 import { getInternalIps } from "../helpers/index.js";
 import { paths } from "../paths/index.js";

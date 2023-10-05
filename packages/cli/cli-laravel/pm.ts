@@ -3,7 +3,7 @@ import type {
   Task as TaskrTask,
   TaskArg as TaskrTaskArg,
   TaskGroup as TaskrTaskGroup,
-} from "@olmokit/cli-utils/taskr.js";
+} from "@olmokit/cli-utils/taskr";
 import { updateAppEnv } from "../config-env.js";
 import type { Config as BaseConfig, Cli } from "../types.js";
 

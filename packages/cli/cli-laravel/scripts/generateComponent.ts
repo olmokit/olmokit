@@ -1,5 +1,5 @@
 import { join } from "path";
-import type { TaskrInstance } from "@olmokit/cli-utils/taskr.js";
+import type { TaskrInstance } from "@olmokit/cli-utils/taskr";
 import { generate } from "../../generate.js";
 import { getNameVariants } from "../../getNameVariants.js";
 import { getVariadicArguments } from "../../helpers-getters.js";
@@ -14,7 +14,7 @@ export function generateComponent(args: string[], taskr: TaskrInstance) {
   taskr.log.success(
     names.length > 1
       ? `The following components have been generated:`
-      : `The following component has been generated:`
+      : `The following component has been generated:`,
   );
 
   for (let i = 0; i < names.length; i++) {

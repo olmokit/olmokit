@@ -14,3 +14,5 @@ packages-todo
 docs/.docusaurus
 docs/build
 docs/docs/guides/async-behaviours.md
+
+tsconfig.json

@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import ci from "ci-info";
 import { configDotenv } from "dotenv";
-import { filer } from "@olmokit/cli-utils/filer.js";
+import { filer } from "@olmokit/cli-utils/filer";
 import { project } from "../../project.js";
 import { getBaseUrl, getInternalIps } from "../helpers/index.js";
 import { paths } from "../paths/index.js";

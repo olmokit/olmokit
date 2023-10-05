@@ -1,7 +1,7 @@
 import { join, relative } from "node:path";
 import { camelCase, pascalCase } from "change-case";
 import { glob } from "glob";
-import { type FilerTranformerArg, filer } from "@olmokit/cli-utils/filer.js";
+import { type FilerTranformerArg, filer } from "@olmokit/cli-utils/filer";
 import { getHeaderAutogeneration } from "../../helpers-getters.js";
 import {
   filePathToNamespace,

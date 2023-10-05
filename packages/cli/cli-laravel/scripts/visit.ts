@@ -1,5 +1,5 @@
 import { PlaywrightCrawler } from "crawlee";
-import { TaskrLog } from "@olmokit/cli-utils/taskr.js";
+import { TaskrLog } from "@olmokit/cli-utils/taskr";
 import { normaliseUrl } from "../../helpers-getters.js";
 import { Config } from "../../types.js";
 
