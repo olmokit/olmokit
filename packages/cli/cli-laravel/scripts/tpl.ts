@@ -1,7 +1,7 @@
 import { join, relative } from "node:path";
 import { camelCase, pascalCase } from "change-case";
 import { glob } from "glob";
-import { type FilerTranformerArg, filer } from "@olmokit/cli-utils/filer";
+import { type FilerTranformerArg, filer } from "@olmokit/cli-utils/filer.js";
 import { getHeaderAutogeneration } from "../../helpers-getters.js";
 import {
   filePathToNamespace,
@@ -34,7 +34,7 @@ type Middlewares = {
  */
 function renameLaravelPhpFiles(
   { basename, dir, path }: FilerTranformerArg,
-  transformer: (input: string) => string
+  transformer: (input: string) => string,
 ) {
   const isBlade = basename.endsWith(".blade.php");
   const filename = path.basename(basename, isBlade ? ".blade.php" : ".php");

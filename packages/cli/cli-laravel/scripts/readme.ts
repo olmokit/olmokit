@@ -1,5 +1,5 @@
 import { paramCase, sentenceCase } from "change-case";
-import { filer } from "@olmokit/cli-utils/filer";
+import { filer } from "@olmokit/cli-utils/filer.js";
 import { getEnvVarsByEnvNameList } from "../../config-env.js";
 import { project } from "../../project.js";
 import { paths } from "../paths/index.js";

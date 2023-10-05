@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import ci from "ci-info";
 import { configDotenv } from "dotenv";
-import { filer } from "@olmokit/cli-utils/filer";
+import { filer } from "@olmokit/cli-utils/filer.js";
 import { project } from "../../project.js";
 import { getBaseUrl, getInternalIps } from "../helpers/index.js";
 import { paths } from "../paths/index.js";
@@ -30,7 +30,7 @@ function addIpsToHooks(allowedIps: string[], currentValue = "") {
         parts[1]
           .split(",")
           .map((val) => val.trim())
-          .filter((val) => !!val)
+          .filter((val) => !!val),
       );
 
       allowedIps.forEach((ip) => ips.add(ip));
@@ -71,7 +71,7 @@ const envSetupModify: CliLaravel.Task = async () => {
           const newValue = addIpsToHooks(allowedIps, match);
           // console.log("HOOKS_ALLOWED_IPS", newValue);
           return newValue;
-        }
+        },
       );
       // otherwise add it
     } else {
@@ -82,7 +82,7 @@ const envSetupModify: CliLaravel.Task = async () => {
   // remove existing webpack-dev-server url
   content = content.replace(
     /[\n|\r]*DEV_WDS_URL.+$[.|\s|\n|\r]*(?=\S)*/gm,
-    "\n"
+    "\n",
   );
   // and add it during development
   if (process.env["NODE_ENV"] === "development") {

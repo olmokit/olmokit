@@ -15,7 +15,7 @@ import { dirname, join } from "node:path";
 import chalk from "chalk";
 import spawn from "cross-spawn";
 import fsExtra from "fs-extra";
-import { inGitRepo, tryGitCommit, tryGitInit } from "@olmokit/cli-utils/git";
+import { inGitRepo, tryGitCommit, tryGitInit } from "@olmokit/cli-utils/git.js";
 import { paths } from "./paths/index.js";
 
 const require = createRequire(import.meta.url);
@@ -42,7 +42,7 @@ export default function bootstrap(
   appName: string,
   verbose: boolean,
   originalDirectory?: string,
-  templateName?: string
+  templateName?: string,
 ) {
   const appPackage = require(join(appPath, "package.json"));
   const packageManager = existsSync(join(appPath, "pnpm-lock.yaml"))
@@ -55,26 +55,26 @@ export default function bootstrap(
     console.log("");
     console.error(
       `A template was not provided. This is likely because you're using an outdated version of ${chalk.cyan(
-        "@olmokit/create-app"
-      )}.`
+        "@olmokit/create-app",
+      )}.`,
     );
     console.error(
       `Please note that global installs of ${chalk.cyan(
-        "@olmokit/create-app"
-      )} are no longer supported.`
+        "@olmokit/create-app",
+      )} are no longer supported.`,
     );
     console.error(
       `You can fix this by running ${chalk.cyan(
-        "npm uninstall -g @olmokit/create-app"
+        "npm uninstall -g @olmokit/create-app",
       )} or ${chalk.cyan(
-        "yarn global remove @olmokit/create-app"
-      )} before using ${chalk.cyan("@olmokit/create-app")} again.`
+        "yarn global remove @olmokit/create-app",
+      )} before using ${chalk.cyan("@olmokit/create-app")} again.`,
     );
     return;
   }
 
   const templatePath = dirname(
-    require.resolve(`${templateName}/package.json`, { paths: [appPath] })
+    require.resolve(`${templateName}/package.json`, { paths: [appPath] }),
   );
 
   const templateJsonPath = join(templatePath, "template.json");
@@ -131,7 +131,7 @@ export default function bootstrap(
         !templatePackageBlacklist.includes(key) &&
         !templatePackageToMerge.includes(key)
       );
-    }
+    },
   );
 
   // Copy over some of the devDependencies
@@ -144,7 +144,7 @@ export default function bootstrap(
 
   writeFileSync(
     join(appPath, "package.json"),
-    JSON.stringify(appPackage, null, 2) + EOL
+    JSON.stringify(appPackage, null, 2) + EOL,
   );
 
   const readmeExists = existsSync(join(appPath, "README.md"));
@@ -158,7 +158,7 @@ export default function bootstrap(
     fsExtra.copySync(templateDir, appPath);
   } else {
     console.error(
-      `Could not locate supplied template: ${chalk.green(templateDir)}`
+      `Could not locate supplied template: ${chalk.green(templateDir)}`,
     );
     return;
   }
@@ -169,7 +169,7 @@ export default function bootstrap(
     writeFileSync(
       join(appPath, "README.md"),
       readme.replace(/(npm run |npm )/g, `${packageManager} "`),
-      "utf8"
+      "utf8",
     );
   } catch (err) {
     // Silencing the error. As it fall backs to using default npm commands.
@@ -200,7 +200,7 @@ export default function bootstrap(
     command = "npm";
     remove = "uninstall";
     args = ["install", "--save", verbose ? "--verbose" : "--silent"].filter(
-      (e) => e
+      (e) => e,
     );
   }
 
@@ -213,7 +213,7 @@ export default function bootstrap(
     args = args.concat(
       dependenciesToInstall.map(([dependency, version]) => {
         return `${dependency}@${version}`;
-      })
+      }),
     );
   }
 
@@ -261,7 +261,7 @@ export default function bootstrap(
     (inGitRepo() || initializedGit) &&
     tryGitCommit(
       appPath,
-      `Initialize project using template '${templateName}' for @olmokit/create-app`
+      `Initialize project using template '${templateName}' for @olmokit/create-app`,
     )
   ) {
     console.log();
@@ -297,20 +297,20 @@ export default function bootstrap(
 
   console.log();
   console.log(
-    `Success! Created ${appName} at ${appPath}, now enter that folder with`
+    `Success! Created ${appName} at ${appPath}, now enter that folder with`,
   );
   console.log(chalk.cyan("  cd"), cdpath);
   console.log(
     `You should now open the ${chalk.cyan(
-      ".env"
-    )} file to ensure everything is set up properly.`
+      ".env",
+    )} file to ensure everything is set up properly.`,
   );
   console.log();
   console.log("Inside this new directory you can run several commands:");
   console.log(
     chalk.cyan(
-      `  ${packageManager === "npm" ? "npx" : packageManager} olmo help`
-    )
+      `  ${packageManager === "npm" ? "npx" : packageManager} olmo help`,
+    ),
   );
   console.log("    Show all available commands.");
   console.log();
@@ -318,16 +318,16 @@ export default function bootstrap(
   console.log();
   console.log(
     chalk.green(
-      `If you have valet your app should be available at http://${appName}.test`
-    )
+      `If you have valet your app should be available at http://${appName}.test`,
+    ),
   );
   // }
   if (readmeExists) {
     console.log();
     console.log(
       chalk.yellow(
-        "PS: You had a `README.md` file, we renamed it to `README.old.md`"
-      )
+        "PS: You had a `README.md` file, we renamed it to `README.old.md`",
+      ),
     );
   }
   console.log();

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import type { Command } from "commander";
 import type { FaviconOptions } from "favicons";
-import type { TaskrInstance } from "@olmokit/cli-utils/taskr";
+import type { TaskrInstance } from "@olmokit/cli-utils/taskr.js";
 import type { ConfigurableEnvVars, PredefinedEnvVars } from "./config-env";
 
 export namespace Cli {
@@ -85,7 +85,7 @@ export namespace Config {
    */
   export type CustomMaybeExtended<
     TEnvsMap extends EnvsMap = EnvsMap,
-    TEnvName extends keyof TEnvsMap = keyof TEnvsMap
+    TEnvName extends keyof TEnvsMap = keyof TEnvsMap,
   > = Custom<TEnvsMap> & {
     hasHiddenConfig?: boolean;
     envNameToInheritFrom?: TEnvName;
@@ -177,7 +177,7 @@ export namespace Config {
    */
   export type EnvVarsFlatOrByEnvName<
     TEnvsMap extends EnvsMap,
-    TVars extends EnvVars
+    TVars extends EnvVars,
   > = {
     [VarName in keyof TVars]?: EnvVarValueFlatOrByEnvName<
       TEnvsMap,
@@ -195,7 +195,7 @@ export namespace Config {
    */
   export type EnvVarValueFlatOrByEnvName<
     TEnvsMap extends EnvsMap,
-    TVarValue extends EnvVarValue
+    TVarValue extends EnvVarValue,
   > = TVarValue | EnvVarValueByEnvName<TEnvsMap, TVarValue>;
 
   /**
@@ -207,7 +207,7 @@ export namespace Config {
    */
   export type EnvVarValueByEnvName<
     TEnvsMap extends EnvsMap,
-    TVarValue extends EnvVarValue
+    TVarValue extends EnvVarValue,
   > = { [EnvName in keyof TEnvsMap]: TVarValue };
 
   /**
@@ -226,7 +226,7 @@ export namespace Config {
    */
   export type EnvVarsByVarName<
     TEnvsMap extends EnvsMap,
-    TVars extends EnvVars
+    TVars extends EnvVars,
   > = {
     [VarName in keyof TVars]: {
       [EnvName in keyof TEnvsMap]?: TVars[VarName];
@@ -243,7 +243,7 @@ export namespace Config {
    */
   export type EnvVarByEnvName<
     TEnvsMap extends EnvsMap,
-    TVarValue extends EnvVarValue
+    TVarValue extends EnvVarValue,
   > = {
     [EnvName in keyof TEnvsMap]?: TVarValue;
   };
@@ -264,7 +264,7 @@ export namespace Config {
    */
   export type EnvVarsByEnvName<
     TEnvsMap extends EnvsMap,
-    TVars extends EnvVars
+    TVars extends EnvVars,
   > = {
     [EnvName in keyof TEnvsMap]: {
       [VarName in keyof TVars]: TVars[VarName];

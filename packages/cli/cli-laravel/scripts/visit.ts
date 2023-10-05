@@ -1,5 +1,5 @@
 import { PlaywrightCrawler } from "crawlee";
-import { TaskrLog } from "@olmokit/cli-utils/taskr";
+import { TaskrLog } from "@olmokit/cli-utils/taskr.js";
 import { normaliseUrl } from "../../helpers-getters.js";
 import { Config } from "../../types.js";
 
@@ -8,7 +8,7 @@ const visitedUrls: string[] = [];
 const createCrawler = (
   baseUrl: string,
   config: Config.Internal,
-  log: TaskrLog
+  log: TaskrLog,
 ) =>
   new PlaywrightCrawler({
     async requestHandler({ request, enqueueLinks }) {

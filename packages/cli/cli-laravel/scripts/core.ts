@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { paramCase, pascalCase } from "change-case";
 import { globSync } from "glob";
-import { filer } from "@olmokit/cli-utils/filer";
+import { filer } from "@olmokit/cli-utils/filer.js";
 import { type Library, libraries } from "../helpers/libraries.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
@@ -9,7 +9,7 @@ import type { CliLaravel } from "../pm.js";
 type CoreElement = { dir: string; name: string };
 
 export function processCoreLibrary(
-  getBase: (library: Library, elementName: string) => string
+  getBase: (library: Library, elementName: string) => string,
 ) {
   const { core: lib } = libraries;
   const elements: CoreElement[] = [];
@@ -82,7 +82,7 @@ export function processCoreLibrary(
  */
 export const core: CliLaravel.Task = async ({ spinner }) => {
   const { elements, info, syncer } = processCoreLibrary((lib, name) =>
-    join(lib.path, name)
+    join(lib.path, name),
   );
 
   if (!elements.length) {

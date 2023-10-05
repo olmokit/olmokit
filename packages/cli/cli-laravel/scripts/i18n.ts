@@ -1,4 +1,4 @@
-import { filer } from "@olmokit/cli-utils/filer";
+import { filer } from "@olmokit/cli-utils/filer.js";
 import { execArtisan } from "../helpers/execArtisan.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";

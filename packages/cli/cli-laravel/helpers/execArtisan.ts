@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { $ } from "execa";
-import type { TaskrOra } from "@olmokit/cli-utils/taskr";
+import type { TaskrOra } from "@olmokit/cli-utils/taskr.js";
 
 /**
  * Execute a `php artisan <name>` command

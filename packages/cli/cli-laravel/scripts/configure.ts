@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { basename, join } from "node:path";
-import { filer } from "@olmokit/cli-utils/filer";
+import { filer } from "@olmokit/cli-utils/filer.js";
 import { runIfDevAndMissingFile } from "../../helpers-getters.js";
 import { meta } from "../../meta.js";
 import { project } from "../../project.js";
@@ -32,7 +32,7 @@ const configureEditor: CliLaravel.Task = () =>
         suffix: " - ${activeFolderMedium}",
       },
       dest: project.root,
-    })
+    }),
   );
 configureEditor.meta = { title: "IDE settings" };
 
@@ -46,7 +46,7 @@ const configureJsTypes: CliLaravel.Task = async ({ ctx }) => {
   const globals = getProjectJsGlobals(ctx);
   const globalConfig = await readFile(
     join(paths.self.templates, "globals_config.d.ts"),
-    { encoding: "utf-8" }
+    { encoding: "utf-8" },
   );
 
   await filer("globals.d.ts__tpl__", {
