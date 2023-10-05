@@ -43,7 +43,6 @@ const internalDepsPackageName = `${meta.orgScope}/internal-deps`;
 async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
   const spinner = ora({
     text: `Linking internal node packages`,
-    suffixText: "...",
     indent: 2,
   });
   const linkedLibs = await linkInternalNodeLibsFrom(project.root);
@@ -53,19 +52,20 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
   // createDummyPackageWithExternalDeps(linkedLibsWithDeps);
 
   if (!linkedLibs.length) {
-    log.warn(`No packages were linked :/.`);
+    spinner.warn(`No packages were linked :/.`);
   } else {
     spinner.succeed(
       `Linked ${linkedLibs.map((lib) => chalk.bold(lib.name)).join(", ")}`,
     );
     // prettier-ignore
     console.log(`
-Your linked packages have the following dependencies: ${thirdPartyDeps.list.join(" ")}.
+  Your linked packages have the following dependencies:
+    ${thirdPartyDeps.list.map(l => l.name).join("\n    ")}.
 
-You might need to ${chalk.bold("temporarily")} install them in your current project with
+  You might need to ${chalk.bold("temporarily")} install them in your current project with
 
-pnpm add --save-optional ${thirdPartyDeps.list.join(" ")}
-    `);
+  pnpm add --save-optional ${thirdPartyDeps.list.map(l => `${l.name}@${l.version}`).join(" ")}
+`);
   }
 }
 
