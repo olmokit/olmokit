@@ -46,7 +46,7 @@ export const meta = {
 
 /**
  * Consider that this package might or might not be in the `packages/dist` folder
- * dependending on the fact the developer has locally linked these packages or not.
+ * depending on the fact the developer has locally linked these packages or not.
  */
 function getWorkspaceRoot() {
   const parent = join(root, "../");
