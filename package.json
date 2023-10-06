@@ -10,9 +10,12 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "ts-node-transpile-only tools/dev.ts",
+    "dev": "ts-node tools/dev.ts",
+    "dev-20": "node --loader ts-node/esm tools/dev.ts",
     "start": "ts-node tools/dev.ts -- start",
+    "start-20": "node --loader ts-node/esm tools/dev.ts -- start",
     "build": "ts-node tools/dev.ts -- build",
+    "build-20": "node --loader ts-node/esm tools/dev.ts -- build",
     "lint": "nx run-many --targets=lint --all",
     "postinstall": "husky install && pnpm dev postinstall",
     "format": "prettier **/*.{js,json,ts,tsx,css,scss,md,yml,yaml,php} --write",

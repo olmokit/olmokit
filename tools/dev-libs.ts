@@ -186,10 +186,7 @@ async function setLibOptions(lib: Lib) {
         module: "es6",
         commonjs: "commonjs",
       });
-      overrideByLibType(data.module.noInterop, lib.type, {
-        module: true,
-        commonjs: false,
-      });
+      // overrideByLibType(data.module.importInterop, lib.type, "swc");
 
       // FIXME: this is not yet supported officially?
       // overrideByLibType(data.module.importInterop, lib.type, {

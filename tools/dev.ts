@@ -3,7 +3,7 @@ import { spawn } from "child_process";
 import ci from "ci-info";
 import { Command, Option, program } from "commander";
 import inquirer from "inquirer";
-import { LiteralUnion } from "type-fest";
+import type { LiteralUnion } from "type-fest";
 import { koine } from "./dev-koine.js";
 import { libs } from "./dev-libs.js";
 import { link } from "./dev-link.js";
