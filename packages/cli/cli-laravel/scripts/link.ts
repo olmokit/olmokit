@@ -6,6 +6,7 @@ import {
   symlinkSync,
   writeFileSync,
 } from "node:fs";
+import { rm } from "node:fs/promises";
 import { join, sep } from "node:path";
 import { $ } from "execa";
 import { ensureDirSync } from "fs-extra";
@@ -46,10 +47,8 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
     indent: 2,
   });
   const linkedLibs = await linkInternalNodeLibsFrom(project.root);
-  await removeInternalLibsInLinkedLibs(linkedLibs);
   const linkedLibsWithDeps = await gatherNodeLibsDeps(linkedLibs);
   const thirdPartyDeps = getLinkedLibsThirdPartyDeps(linkedLibsWithDeps);
-  // createDummyPackageWithExternalDeps(linkedLibsWithDeps);
 
   if (!linkedLibs.length) {
     spinner.warn(`No packages were linked :/.`);
@@ -57,15 +56,16 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
     spinner.succeed(
       `Linked ${linkedLibs.map((lib) => chalk.bold(lib.name)).join(", ")}`,
     );
-    // prettier-ignore
-    console.log(`
-  Your linked packages have the following dependencies:
-    ${thirdPartyDeps.list.map(l => l.name).join("\n    ")}.
+    if (thirdPartyDeps.list.length) {
+      // prettier-ignore
+      console.log(`
+  Your linked packages have the ${thirdPartyDeps.list.length} third party dependencies.
 
-  You might need to ${chalk.bold("temporarily")} install them in your current project with
+  You ${chalk.bold("might")} need to ${chalk.bold("temporarily")} install them in your current project with
 
-  pnpm add --save-optional ${thirdPartyDeps.list.map(l => `${l.name}@${l.version}`).join(" ")}
+  ${chalk.dim(`pnpm add --save-optional ${thirdPartyDeps.list.map(l => `${l.name}@${l.version}`).join(" ")}`)}
 `);
+    }
   }
 }
 
@@ -74,7 +74,7 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
   const packageJson = readJsonFile<PackageJson>(
     join(projectRoot, "./package.json"),
   );
-  const sourceLibsRoot = findFolderUp("*/*/olmokit/dist/packages", projectRoot);
+  const hereLibsDist = findFolderUp("*/*/olmokit/dist/packages", projectRoot);
 
   if (!packageJson) {
     console.error("Could not read current project package.json");
@@ -86,28 +86,59 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
     meta.orgScope,
   );
 
-  if (sourceLibsRoot && existsSync(sourceLibsRoot)) {
+  if (hereLibsDist && existsSync(hereLibsDist)) {
     // 1) 'manual' linking
     console.log("Trying 'manual' linking");
     console.log();
 
     const sourceLibs = globSync("*", {
-      cwd: sourceLibsRoot,
+      cwd: hereLibsDist,
     });
+
     await Promise.all(
       sourceLibs.map(async (name) => {
+        // here we need to do few things:
+        // 1) symlink the dependency in the project
+        // 2) symlink the node_modules in here `packages/{lib}/node_modules`
+        // into here `dist/packages/{lib}/node_modules`.
+        // 3) symlink in the `dist/packages/{lib}/node_modules/{lib}` the inner
+        // dependencies (recursively)
+        // This is needed otherwise the node ESM loader won't find the {lib}
+        // dependencies, this is a kind of patch to the native `pnpm link`
+        // behaviour.
         const fullName = `${meta.orgScope}/${name}`;
         const depPathInProject = join(project.nodeModules, fullName);
-        const depPathInSource = join(sourceLibsRoot, name);
+        const depPathInHereDist = join(hereLibsDist, name);
 
-        if (existsSync(depPathInProject) && existsSync(depPathInSource)) {
-          try {
-            rmSync(depPathInProject, { recursive: true });
-            symlinkSync(depPathInSource, depPathInProject);
+        try {
+          if (existsSync(depPathInHereDist)) {
+            // 1)
+            symlinkSyncSafe(depPathInHereDist, depPathInProject);
 
-            linked.push({ name: fullName, root: depPathInProject });
-          } catch (e) {}
-        }
+            // 2)
+            // go from "dist/packages" to "packages/{lib}"
+            const depPathInHereSrc = join(
+              hereLibsDist,
+              "../../packages/",
+              name,
+            );
+            const srcNodeModules = join(depPathInHereSrc, "node_modules");
+            const distNodeModules = join(depPathInHereDist, "node_modules");
+            symlinkSyncSafe(srcNodeModules, distNodeModules);
+
+            // 3)
+            sourceLibs
+              .filter((lib) => lib !== name)
+              .forEach((libName) => {
+                symlinkSyncSafe(
+                  depPathInHereDist,
+                  join(distNodeModules, `/${meta.orgScope}/${libName}`),
+                );
+              });
+          }
+
+          linked.push({ name: fullName, root: depPathInProject });
+        } catch (e) {}
       }),
     );
   } else {
@@ -182,6 +213,9 @@ function getLinkedLibsThirdPartyDeps(libs: LinkedLibWithDeps[]) {
   return { list, map };
 }
 
+/**
+ * @deprecated It might be useful though
+ */
 function createDummyPackageWithExternalDeps(libs: LinkedLibWithDeps[]) {
   const packageDir = join(project.nodeModules, internalDepsPackageName);
   const packageJsonPath = join(packageDir, "./package.json");
@@ -200,11 +234,15 @@ function createDummyPackageWithExternalDeps(libs: LinkedLibWithDeps[]) {
   writeFileSync(packageJsonPath, JSON.stringify(packageJsonContent, null, 2));
 }
 
+/**
+ * @deprecated It might be useful though
+ */
 async function removeInternalLibsInLinkedLibs(libs: LinkedLib[]) {
   await Promise.all(
     libs.map(async (lib) => {
-      await rimraf(join(lib.root, "/node_modules", `/${meta.orgScope}/*`), {
-        preserveRoot: false,
+      await rm(join(lib.root, "/node_modules", `/${meta.orgScope}`), {
+        recursive: true,
+        force: true,
       });
     }),
   );
@@ -272,6 +310,13 @@ function findFolderUp(
   }
 
   return "";
+}
+
+function symlinkSyncSafe(linkTarget: string, linkPath: string) {
+  if (existsSync(linkPath)) {
+    rmSync(linkPath, { recursive: true });
+  }
+  symlinkSync(linkTarget, linkPath);
 }
 
 /**
