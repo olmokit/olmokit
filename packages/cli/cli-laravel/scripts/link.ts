@@ -11,7 +11,7 @@ import { join, sep } from "node:path";
 import { $ } from "execa";
 import fsExtra from "fs-extra";
 import { globSync } from "glob";
-import { rimraf, rimrafSync } from "rimraf";
+import { rimrafSync } from "rimraf";
 import type { PackageJson } from "@olmokit/utils";
 import {
   getNpmDependenciesNameAndVersion,
@@ -92,71 +92,22 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
     console.log("Trying 'manual' linking");
     console.log();
 
-    // from `olmokit/dist/packages` to `olmokit/packages`
-    const hereLibsRoot = join(hereLibsDist, "../../packages");
     const sourceLibs = globSync("*", { cwd: hereLibsDist });
 
     await Promise.all(
       sourceLibs.map(async (name) => {
-        // all the followinf is needed otherwise the node ESM loader won't find
-        // the {lib} dependencies, this is a kind of patch to the native
-        // `pnpm link` behaviour.
         const fullName = `${orgScope}/${name}`;
         const pathInProject = join(project.nodeModules, fullName);
         const pathInHereDist = join(hereLibsDist, name);
-        const pathInHereSrc = join(hereLibsRoot, name);
 
         try {
           if (existsSync(pathInHereDist)) {
-            // 1) symlink the dependency in the project
-            symlinkSyncSafe(pathInHereDist, pathInProject);
-
-            // 2) symlink the node_modules in here `packages/{lib}/node_modules`
-            // into here `dist/packages/{lib}/node_modules`.
-            // symlinkSyncSafe(
-            //   join(pathInHereSrc, "node_modules"),
-            //   join(pathInHereDist, "node_modules"),
-            // );
-
-            // 3) symlink in the `dist/packages/{lib}/node_modules/{lib}` the
-            // inner dependencies
-            // sourceLibs
-            //   .filter((lib) => lib !== name)
-            //   .forEach((libName) => {
-            //     symlinkSyncSafe(
-            //       join(hereLibsRoot, libName),
-            //       join(pathInHereDist, `node_modules/${orgScope}/${libName}`),
-            //     );
-            //   });
-
-            // 3b) empty the node_modules folder in /dist, so that the deps
-            // defined in the libs' root node_modules folder are picked up
-            rmSync(join(pathInHereDist, "/node_modules"), {
-              recursive: true,
-              force: true,
-            });
-            fsExtra.ensureDirSync(join(pathInHereDist, "/node_modules"));
-            // 3c) link all the node_modules from the libs' root folder
-            globSync("*", {
-              cwd: join(pathInHereSrc, "/node_modules"),
-            }).forEach((nodeModulePath) => {
-              symlinkSyncSafe(
-                join(pathInHereSrc, "/node_modules/", nodeModulePath),
-                join(pathInHereDist, "/node_modules/", nodeModulePath),
-              );
-            });
-            // 3d) re-link the internal deps
-            sourceLibs
-              .filter((lib) => lib !== name)
-              .forEach((libName) => {
-                symlinkSyncSafe(
-                  join(hereLibsRoot, libName, "/dist"),
-                  join(pathInHereDist, `/node_modules/${orgScope}/${libName}`),
-                );
-              });
+            if (existsSync(pathInProject)) {
+              rmSync(pathInProject, { recursive: true });
+            }
+            symlinkSync(pathInHereDist, pathInProject);
+            linked.push({ name: fullName, root: pathInProject });
           }
-
-          linked.push({ name: fullName, root: pathInProject });
         } catch (e) {}
       }),
     );
@@ -335,15 +286,6 @@ function findFolderUp(
   }
 
   return "";
-}
-
-function symlinkSyncSafe(linkTarget: string, linkPath: string) {
-  if (existsSync(linkTarget)) {
-    if (existsSync(linkPath)) {
-      rmSync(linkPath, { recursive: true });
-    }
-    symlinkSync(linkTarget, linkPath);
-  }
 }
 
 /**
