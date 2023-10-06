@@ -113,7 +113,7 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
         try {
           if (existsSync(depPathInHereDist)) {
             // 1)
-            symlinkSyncSafe(depPathInHereDist, depPathInProject);
+            symlinkSyncSafe(depPathInHereDist, depPathInProject, true);
 
             // 2)
             // go from "dist/packages" to "packages/{lib}"
@@ -133,6 +133,7 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
                 symlinkSyncSafe(
                   depPathInHereDist,
                   join(distNodeModules, `/${meta.orgScope}/${libName}`),
+                  true,
                 );
               });
           }
@@ -312,11 +313,19 @@ function findFolderUp(
   return "";
 }
 
-function symlinkSyncSafe(linkTarget: string, linkPath: string) {
-  if (existsSync(linkPath)) {
-    rmSync(linkPath, { recursive: true });
+function symlinkSyncSafe(
+  linkTarget: string,
+  linkPath: string,
+  forceIfMissing?: boolean,
+) {
+  if (existsSync(linkTarget)) {
+    if (existsSync(linkPath)) {
+      rmSync(linkPath, { recursive: true });
+    }
+    if (forceIfMissing || existsSync(linkPath)) {
+      symlinkSync(linkTarget, linkPath);
+    }
   }
-  symlinkSync(linkTarget, linkPath);
 }
 
 /**
