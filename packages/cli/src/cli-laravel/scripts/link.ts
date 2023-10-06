@@ -130,12 +130,12 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
             //   });
 
             // 3b) empty the node_modules folder in /dist, so that the deps
-            // defined in the src's node_modules are picked up and re-link
-            // the internal deps instead
+            // defined in the libs' root node_modules folder are picked up
             rmSync(join(pathInHereDist, "/node_modules"), {
               recursive: true,
               force: true,
             });
+            // 3c) re-link the internal deps
             mkdirSync(join(pathInHereDist, "/node_modules"));
             sourceLibs
               .filter((lib) => lib !== name)

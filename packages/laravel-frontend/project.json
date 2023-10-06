@@ -13,7 +13,10 @@
             "externalDependencies": []
           }
         ],
-        "commands": ["echo 'nothing to build'"],
+        "commands": [
+          "mkdir -p ./packages/laravel-frontend/dist",
+          "rsync -a ./packages/laravel-frontend/* ./packages/laravel-frontend/dist --exclude dist --exclude vendor --exclude project.json --exclude .gitignore"
+        ],
         "parallel": false
       }
     }

@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
-const pkg = require("./package.json") as {
+const pkg = require("../package.json") as {
   /**
    * The _name_ of this `cli` package
    */

@@ -131,11 +131,11 @@ async function bumbLib(lib: Lib, release: Release) {
     data.version = release.version;
   });
   if (lib.packager === "npm") {
-    await editJsonFile(lib.src, "package.json", (data) => {
+    await editJsonFile(lib.root, "package.json", (data) => {
       data.version = release.version;
     });
   } else if (lib.packager === "composer") {
-    await editJsonFile(lib.src, "composer.json", (data) => {
+    await editJsonFile(lib.root, "composer.json", (data) => {
       data.version = release.version;
     });
   }
@@ -178,7 +178,7 @@ async function prepublishLib(lib: Lib, release: Release) {
       });
     });
   } else if (lib.packager === "composer") {
-    await editJsonFile([lib.src, lib.dist], "composer.json", (data) => {
+    await editJsonFile(lib.root, "composer.json", (data) => {
       delete data.version;
     });
   }

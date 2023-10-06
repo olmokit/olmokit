@@ -1,16 +1,11 @@
 dist
-/tmp
+tmp
 
 node_modules
 .tmp
-.txt
-olmokit.code-workspace
-.mu_repo
 docs/build/
 docs/yarn.lock
-packages-todo/template-laravel/vendor/
-packages-todo/laravel-frontend/vendor/
-packages/core/glide/fork/
+packages/core/src/glide/fork/
 
 # Docs fenerated files
 .docusaurus

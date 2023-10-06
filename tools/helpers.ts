@@ -196,7 +196,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
 
         // packager: "composer"
         try {
-          composerJson = require(join(dist, "/composer.json")) as ComposerJson;
+          composerJson = require(join(root, "/composer.json")) as ComposerJson;
           if (composerJson) {
             packager = "composer";
             name = composerJson.name!;
@@ -207,6 +207,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
           }
         } catch (e) {}
 
+        // console.log({ slug, dist })
         return {
           ...(config || {}),
           slug,
