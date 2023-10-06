@@ -212,13 +212,13 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
 
         return {
           ...(config || {}),
+          slug,
+          name,
           scope,
+          version,
           packager,
           src,
           dist,
-          slug,
-          name,
-          version,
           internalDeps,
           packageJson,
           composerJson,
