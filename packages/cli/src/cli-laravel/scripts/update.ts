@@ -35,22 +35,26 @@ async function updateOurProjectComposerDependencies() {
 async function installPackages(
   packageType: "npm" | "composer",
   ora: CliLaravel.TaskArg["ora"],
+  packages?: string[],
 ) {
   const spinner = ora({
     text: `Install updated packages`,
     suffixText: "...",
     indent: 2,
   }).start();
+  let command = "";
+  let args: string[] = [];
 
-  const command =
-    packageType === "npm"
-      ? "pnpm"
-      : packageType === "composer"
-      ? "composer"
-      : "";
+  if (packageType === "npm") {
+    command = "pnpm";
+    args = ["install"];
+  } else if (packageType === "composer") {
+    command = "composer";
+    args = ["update", ...(packages || [])];
+  }
 
   if (command) {
-    const { exitCode } = await $({ reject: false })`${command} ${["i"]}`;
+    const { exitCode } = await $({ reject: false })`${command} ${args}`;
 
     spinner.suffixText = "";
 
@@ -91,7 +95,11 @@ async function updateComposerPackages({ ora, log }: CliLaravel.TaskArg) {
       );
     });
 
-    await installPackages("composer", ora);
+    await installPackages(
+      "composer",
+      ora,
+      res.map((p) => p.name),
+    );
   }
 }
 
