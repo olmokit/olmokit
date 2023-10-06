@@ -15,9 +15,9 @@
   "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "type": "module",
   "dependencies": {
-    "@olmokit/cli": "*",
-    "@olmokit/core": "*",
-    "@olmokit/dom": "*",
+    "@olmokit/cli": "^0.0.73",
+    "@olmokit/core": "^0.0.73",
+    "@olmokit/dom": "^0.0.73",
     "@swc/helpers": "^0.5.2"
   }
 }
