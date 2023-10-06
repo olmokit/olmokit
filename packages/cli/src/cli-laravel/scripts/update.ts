@@ -50,7 +50,7 @@ async function installPackages(
     args = ["install"];
   } else if (packageType === "composer") {
     command = "composer";
-    args = ["update", ...(packages || [])];
+    args = ["update", ...(packages?.length ? packages.join(" ") : [])];
   }
 
   if (command) {
