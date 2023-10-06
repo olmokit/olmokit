@@ -58,7 +58,7 @@ type CommandOptions = {
   info?: boolean;
   scriptsVersion: string;
   template: string;
-  packageManager: "pnpm" | "npm" | "yarn";
+  pkgm: "pnpm" | "npm" | "yarn";
 };
 
 export function init() {
@@ -80,10 +80,7 @@ export function init() {
     )
     .allowUnknownOption()
     .addOption(
-      new Option(
-        "-p --package-manager <pkgm>",
-        "Choose which package manager to use",
-      )
+      new Option("-p --pkgm <pkgm>", "Choose which package manager to use")
         .choices(["pnpm", "npm", "yarn"])
         .default(getDefaultPackageManager()),
     )
@@ -153,7 +150,7 @@ export function init() {
     })
     .parse(process.argv);
 
-  const { info, packageManager, verbose, scriptsVersion, template } =
+  const { info, pkgm, verbose, scriptsVersion, template } =
     program.options as unknown as CommandOptions;
 
   if (info) {
@@ -226,9 +223,9 @@ export function init() {
   //         "Please remove any global installs running " +
   //           chalk.bold(
   //             `${
-  //               packageManager === "pnpm"
+  //               pkgm === "pnpm"
   //                 ? "pnpm uninstall -g"
-  //                 : packageManager === "npm"
+  //                 : pkgm === "npm"
   //                 ? "npm uninstall -g"
   //                 : "yarn global remove"
   //             } ${thisPkgName}`
@@ -242,11 +239,11 @@ export function init() {
   //         verbose,
   //         scriptsVersion,
   //         template,
-  //         packageManager
+  //         pkgm
   //       );
   //     }
   //   });
-  createApp(projectName, verbose, scriptsVersion, template, packageManager);
+  createApp(projectName, verbose, scriptsVersion, template, pkgm);
 
   return;
 }
@@ -256,7 +253,7 @@ function createApp(
   verbose: CommandOptions["verbose"],
   version: CommandOptions["scriptsVersion"],
   template: CommandOptions["template"],
-  packageManager: CommandOptions["packageManager"],
+  pkgm: CommandOptions["pkgm"],
 ) {
   const unsupportedNodeVersion = !semverSatisfies(process.version, ">=16");
   if (unsupportedNodeVersion) {
@@ -301,7 +298,7 @@ function createApp(
   const originalDirectory = process.cwd();
   process.chdir(root);
 
-  if (packageManager === "npm") {
+  if (pkgm === "npm") {
     const npmInfo = checkNpmVersion();
     if (!npmInfo.hasMinNpm) {
       if (npmInfo.npmVersion) {
@@ -313,7 +310,7 @@ function createApp(
       }
       process.exit(1);
     }
-  } else if (packageManager === "yarn") {
+  } else if (pkgm === "yarn") {
     let yarnUsesDefaultRegistry = true;
     try {
       yarnUsesDefaultRegistry =
@@ -331,15 +328,7 @@ function createApp(
   }
   // TODO: check pnpm version?
 
-  run(
-    root,
-    appName,
-    version,
-    verbose,
-    originalDirectory,
-    template,
-    packageManager,
-  );
+  run(root, appName, version, verbose, originalDirectory, template, pkgm);
 }
 
 function run(
@@ -349,7 +338,7 @@ function run(
   verbose: CommandOptions["verbose"],
   originalDirectory: string,
   template: CommandOptions["template"],
-  packageManager: CommandOptions["packageManager"],
+  pkgm: CommandOptions["pkgm"],
 ) {
   Promise.all([
     getInstallPackage(version, originalDirectory),
@@ -364,7 +353,7 @@ function run(
       getPackageInfo(templateToInstall),
     ])
       .then(([packageInfo, templateInfo]) =>
-        checkIfOnline(packageManager === "yarn").then((isOnline) => ({
+        checkIfOnline(pkgm === "yarn").then((isOnline) => ({
           isOnline,
           packageInfo,
           templateInfo,
@@ -380,16 +369,12 @@ function run(
         );
         console.log();
 
-        return install(
-          root,
-          packageManager,
-          allDependencies,
-          verbose,
-          isOnline,
-        ).then(() => ({
-          packageInfo,
-          templateInfo,
-        }));
+        return install(root, pkgm, allDependencies, verbose, isOnline).then(
+          () => ({
+            packageInfo,
+            templateInfo,
+          }),
+        );
       })
       .then(async ({ packageInfo, templateInfo }) => {
         const packageName = packageInfo.name;
@@ -454,17 +439,17 @@ function run(
 
 async function install(
   root: string,
-  packageManager: CommandOptions["packageManager"],
+  pkgm: CommandOptions["pkgm"],
   dependencies: string[] = [],
   verbose?: boolean,
   isOnline?: boolean,
 ) {
   let command: string;
   let args: string[];
-  if (packageManager === "pnpm") {
+  if (pkgm === "pnpm") {
     command = "pnpm";
     args = ["install"].concat(dependencies);
-  } else if (packageManager === "yarn") {
+  } else if (pkgm === "yarn") {
     command = "yarnpkg";
     args = ["add", "--exact"];
     if (!isOnline) {
@@ -977,7 +962,7 @@ function executeNodeScript(
   });
 }
 
-function getDefaultPackageManager(): CommandOptions["packageManager"] {
+function getDefaultPackageManager(): CommandOptions["pkgm"] {
   // FIXME: forcing pnpm as the mechanism does not seem to work
   return "pnpm";
   if (canUsePnpm()) return "pnpm";
