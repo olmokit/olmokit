@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/utils",
-  "version": "0.0.81",
+  "version": "0.0.82",
   "description": "Low level utilities for Olmo based applications.",
   "keywords": [
     "olmo",
