@@ -72,8 +72,9 @@
     }
   },
   "dependencies": {
-    "@olmokit/dom": "^0.0.73",
-    "@olmokit/utils": "^0.0.73",
+    "@olmokit/dom": "*",
+    "@olmokit/utils": "*",
+    "@swc/helpers": "^0.5.2",
     "date-fns-tz": "^2.0.0"
   }
 }

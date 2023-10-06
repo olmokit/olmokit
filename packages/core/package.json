@@ -1051,9 +1051,9 @@
   },
   "dependencies": {
     "@barba/core": "^2.9.7",
-    "@olmokit/browser": "^0.0.73",
-    "@olmokit/dom": "^0.0.73",
-    "@olmokit/utils": "^0.0.73",
+    "@olmokit/browser": "*",
+    "@olmokit/dom": "*",
+    "@olmokit/utils": "*",
     "@swc/helpers": "^0.5.2",
     "@terwanerik/scrolltrigger": "^1.0.5",
     "aos": "^2.3.4",

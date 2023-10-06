@@ -160,7 +160,7 @@
     }
   },
   "dependencies": {
-    "@olmokit/utils": "^0.0.73",
+    "@olmokit/utils": "*",
     "@swc/helpers": "^0.5.2",
     "type-fest": "^4.3.3"
   }

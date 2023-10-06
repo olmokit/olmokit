@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@niceties/logger": "^1.1.12",
-    "@olmokit/utils": "^0.0.73",
+    "@olmokit/utils": "*",
     "@slimlib/list": "^1.0.9",
     "@swc/helpers": "^0.5.2",
     "chalk": "^5.3.0",
