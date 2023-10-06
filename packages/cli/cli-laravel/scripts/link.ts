@@ -9,7 +9,7 @@ import {
 import { rm } from "node:fs/promises";
 import { join, sep } from "node:path";
 import { $ } from "execa";
-import { ensureDirSync } from "fs-extra";
+import fsExtra from "fs-extra";
 import { globSync } from "glob";
 import { rimraf, rimrafSync } from "rimraf";
 import type { PackageJson } from "@olmokit/utils";
@@ -92,9 +92,9 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
     console.log("Trying 'manual' linking");
     console.log();
 
-    const sourceLibs = globSync("*", {
-      cwd: hereLibsDist,
-    });
+    // from `olmokit/dist/packages` to `olmokit/packages`
+    const hereLibsRoot = join(hereLibsDist, "../../packages");
+    const sourceLibs = globSync("*", { cwd: hereLibsDist });
 
     await Promise.all(
       sourceLibs.map(async (name) => {
@@ -104,29 +104,54 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
         const fullName = `${orgScope}/${name}`;
         const pathInProject = join(project.nodeModules, fullName);
         const pathInHereDist = join(hereLibsDist, name);
+        const pathInHereSrc = join(hereLibsRoot, name);
 
         try {
           if (existsSync(pathInHereDist)) {
-            // go from "dist/packages" to "packages/{lib}"
-            const hereLibsSrc = join(hereLibsDist, "../../packages/");
-            const pathInHereSrc = join(hereLibsSrc, name);
-
             // 1) symlink the dependency in the project
             symlinkSyncSafe(pathInHereDist, pathInProject);
+
             // 2) symlink the node_modules in here `packages/{lib}/node_modules`
             // into here `dist/packages/{lib}/node_modules`.
-            symlinkSyncSafe(
-              join(pathInHereSrc, "node_modules"),
-              join(pathInHereDist, "node_modules"),
-            );
+            // symlinkSyncSafe(
+            //   join(pathInHereSrc, "node_modules"),
+            //   join(pathInHereDist, "node_modules"),
+            // );
+
             // 3) symlink in the `dist/packages/{lib}/node_modules/{lib}` the
             // inner dependencies
+            // sourceLibs
+            //   .filter((lib) => lib !== name)
+            //   .forEach((libName) => {
+            //     symlinkSyncSafe(
+            //       join(hereLibsRoot, libName),
+            //       join(pathInHereDist, `node_modules/${orgScope}/${libName}`),
+            //     );
+            //   });
+
+            // 3b) empty the node_modules folder in /dist, so that the deps
+            // defined in the libs' root node_modules folder are picked up
+            rmSync(join(pathInHereDist, "/node_modules"), {
+              recursive: true,
+              force: true,
+            });
+            fsExtra.ensureDirSync(join(pathInHereDist, "/node_modules"));
+            // 3c) link all the node_modules from the libs' root folder
+            globSync("*", {
+              cwd: join(pathInHereSrc, "/node_modules"),
+            }).forEach((nodeModulePath) => {
+              symlinkSyncSafe(
+                join(pathInHereSrc, "/node_modules/", nodeModulePath),
+                join(pathInHereDist, "/node_modules/", nodeModulePath),
+              );
+            });
+            // 3d) re-link the internal deps
             sourceLibs
               .filter((lib) => lib !== name)
               .forEach((libName) => {
                 symlinkSyncSafe(
-                  join(hereLibsDist, libName),
-                  join(pathInHereDist, `node_modules/${orgScope}/${libName}`),
+                  join(hereLibsRoot, libName, "/dist"),
+                  join(pathInHereDist, `/node_modules/${orgScope}/${libName}`),
                 );
               });
           }
@@ -225,7 +250,7 @@ function createDummyPackageWithExternalDeps(libs: LinkedLibWithDeps[]) {
     private: true,
   };
 
-  ensureDirSync(packageDir);
+  fsExtra.ensureDirSync(packageDir);
 
   if (existsSync(packageJsonPath)) {
     rmSync(packageJsonPath);
