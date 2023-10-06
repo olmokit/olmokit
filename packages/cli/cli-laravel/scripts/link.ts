@@ -1,15 +1,6 @@
-import { execSync } from "node:child_process";
-import {
-  existsSync,
-  lstatSync,
-  rmSync,
-  symlinkSync,
-  writeFileSync,
-} from "node:fs";
-import { rm } from "node:fs/promises";
+import { existsSync, lstatSync, rmSync, symlinkSync } from "node:fs";
 import { join, sep } from "node:path";
 import { $ } from "execa";
-import fsExtra from "fs-extra";
 import { globSync } from "glob";
 import { rimrafSync } from "rimraf";
 import type { PackageJson } from "@olmokit/utils";
@@ -34,8 +25,6 @@ type LinkedLibWithDeps = LinkedLib & {
   }[];
 };
 
-const internalDepsPackageName = `${meta.orgScope}/internal-deps`;
-
 /**
  * Try link each candidate package
  *
@@ -54,18 +43,6 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
     spinner.succeed(
       `Linked ${linkedLibs.map((lib) => chalk.bold(lib.name)).join(", ")}`,
     );
-    //     const linkedLibsWithDeps = await gatherNodeLibsDeps(linkedLibs);
-    //     const thirdPartyDeps = getLinkedLibsThirdPartyDeps(linkedLibsWithDeps);
-    //     if (thirdPartyDeps.list.length) {
-    //       // prettier-ignore
-    //       console.log(`
-    //   Your linked packages have the ${thirdPartyDeps.list.length} third party dependencies.
-
-    //   You ${chalk.bold("might")} need to ${chalk.bold("temporarily")} install them in your current project with
-
-    //   ${chalk.dim(`pnpm add --save-optional ${thirdPartyDeps.list.map(l => `${l.name}@${l.version}`).join(" ")}`)}
-    // `);
-    //     }
   }
 }
 
@@ -133,110 +110,6 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
   }
 
   return linked;
-}
-
-/**
- * @deprecated Probably not needed
- */
-async function gatherNodeLibsDeps(libs: LinkedLib[]) {
-  return await Promise.all(
-    libs.map(async (lib) => {
-      let otherDeps: LinkedLibWithDeps["otherDeps"] = [];
-      const packageJsonPath = join(lib.root, "./package.json");
-
-      if (existsSync(packageJsonPath)) {
-        try {
-          const packageJson = readJsonFile<PackageJson>(packageJsonPath);
-          if (packageJson) {
-            const libsDeps = getNpmDependenciesNameAndVersion(packageJson);
-            // filter out the inner dependencies, just keep the third party ones
-            otherDeps = otherDeps.concat(
-              libsDeps.filter(
-                (dep) => !dep.name.startsWith(meta.orgScope + "/"),
-              ),
-            );
-          }
-        } catch (e) {}
-      }
-
-      return {
-        ...lib,
-        otherDeps,
-      };
-    }),
-  );
-}
-
-/**
- * @deprecated Probably not needed
- */
-function getLinkedLibsThirdPartyDeps(libs: LinkedLibWithDeps[]) {
-  const list: { name: string; version: string }[] = [];
-  const map = libs.reduce(
-    (map, lib) => {
-      for (let i = 0; i < lib.otherDeps.length; i++) {
-        const dep = lib.otherDeps[i];
-        map[dep.name] = dep.version;
-        if (list.findIndex((item) => item.name) === -1) {
-          list.push(dep);
-        }
-      }
-      return map;
-    },
-    {} as Record<string, string>,
-  );
-
-  return { list, map };
-}
-
-/**
- * @deprecated It might be useful though
- */
-function createDummyPackageWithExternalDeps(libs: LinkedLibWithDeps[]) {
-  const packageDir = join(project.nodeModules, internalDepsPackageName);
-  const packageJsonPath = join(packageDir, "./package.json");
-  const packageJsonContent = {
-    name: internalDepsPackageName,
-    dependencies: getLinkedLibsThirdPartyDeps(libs).map,
-    private: true,
-  };
-
-  fsExtra.ensureDirSync(packageDir);
-
-  if (existsSync(packageJsonPath)) {
-    rmSync(packageJsonPath);
-  }
-
-  writeFileSync(packageJsonPath, JSON.stringify(packageJsonContent, null, 2));
-}
-
-/**
- * @deprecated It might be useful though
- */
-async function removeInternalLibsInLinkedLibs(libs: LinkedLib[]) {
-  await Promise.all(
-    libs.map(async (lib) => {
-      await rm(join(lib.root, "/node_modules", `/${meta.orgScope}`), {
-        recursive: true,
-        force: true,
-      });
-    }),
-  );
-}
-
-/**
- * @deprecated This might be useful for something else
- */
-function getNodeGloballyLinkedPackages() {
-  return execSync("pnpm list -g")
-    .toString()
-    .trim()
-    .split("\n")
-    .filter((line) => line.startsWith(`${meta.orgScope}/`))
-    .map((line) => {
-      const [name /* , relativePath */] = line.split(" link:");
-      return name;
-    });
 }
 
 /**
