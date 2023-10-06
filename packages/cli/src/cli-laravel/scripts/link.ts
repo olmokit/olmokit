@@ -9,9 +9,9 @@ import {
 import { rm } from "node:fs/promises";
 import { join, sep } from "node:path";
 import { $ } from "execa";
-import { ensureDirSync, mkdirSync } from "fs-extra";
+import fsExtra from "fs-extra";
 import { globSync } from "glob";
-import { rimraf, rimrafSync } from "rimraf";
+import { rimrafSync } from "rimraf";
 import type { PackageJson } from "@olmokit/utils";
 import {
   getNpmDependenciesNameAndVersion,
@@ -113,10 +113,10 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
 
             // 2) symlink the node_modules in here `packages/{lib}/node_modules`
             // into here `dist/packages/{lib}/node_modules`.
-            symlinkSyncSafe(
-              join(pathInHereSrc, "node_modules"),
-              join(pathInHereDist, "node_modules"),
-            );
+            // symlinkSyncSafe(
+            //   join(pathInHereSrc, "node_modules"),
+            //   join(pathInHereDist, "node_modules"),
+            // );
 
             // 3) symlink in the `dist/packages/{lib}/node_modules/{lib}` the
             // inner dependencies
@@ -135,14 +135,19 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
               recursive: true,
               force: true,
             });
-            // 3c) re-link the internal deps
-            mkdirSync(join(pathInHereDist, "/node_modules"));
+            // 3c) copy the node_modules from the libs' root folder
+            fsExtra.ensureDirSync(join(pathInHereDist, "/node_modules"));
+            fsExtra.copySync(
+              join(pathInHereSrc, "/node_modules"),
+              join(pathInHereDist, "/node_modules"),
+            );
+            // 3d) re-link the internal deps
             sourceLibs
               .filter((lib) => lib !== name)
               .forEach((libName) => {
                 symlinkSyncSafe(
                   join(hereLibsRoot, libName, "/dist"),
-                  join(pathInHereDist, `node_modules/${orgScope}/${libName}`),
+                  join(pathInHereDist, `/node_modules/${orgScope}/${libName}`),
                 );
               });
           }
@@ -241,7 +246,7 @@ function createDummyPackageWithExternalDeps(libs: LinkedLibWithDeps[]) {
     private: true,
   };
 
-  ensureDirSync(packageDir);
+  fsExtra.ensureDirSync(packageDir);
 
   if (existsSync(packageJsonPath)) {
     rmSync(packageJsonPath);
