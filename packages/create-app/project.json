@@ -1,7 +1,7 @@
 {
   "name": "create-app",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/create-app",
+  "sourceRoot": "packages/create-app/src",
   "projectType": "library",
   "targets": {
     "watch": {
@@ -20,7 +20,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/create-app/**/*.ts"]
+        "lintFilePatterns": ["packages/create-app/src/**/*.ts"]
       }
     },
     "test": {

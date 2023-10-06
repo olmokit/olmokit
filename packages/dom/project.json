@@ -1,7 +1,7 @@
 {
   "name": "dom",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/dom",
+  "sourceRoot": "packages/dom/src",
   "projectType": "library",
   "targets": {
     "watch": {
@@ -11,8 +11,8 @@
         "watch": true,
         "clean": false,
         "skipTypeCheck": true,
-        "outputPath": "dist/packages/dom",
-        "main": "packages/dom/index.ts",
+        "outputPath": "packages/dom/dist",
+        "main": "packages/dom/src/index.ts",
         "tsConfig": "packages/dom/tsconfig.lib.json",
         "assets": ["packages/dom/*.md"]
       }
@@ -21,8 +21,8 @@
       "executor": "@nx/js:swc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/dom",
-        "main": "packages/dom/index.ts",
+        "outputPath": "packages/dom/dist",
+        "main": "packages/dom/src/index.ts",
         "tsConfig": "packages/dom/tsconfig.lib.json",
         "assets": ["packages/dom/*.md"]
       }
@@ -36,7 +36,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "packages/dom/**/*.ts",
+          "packages/dom/src/**/*.ts",
           "packages/dom/package.json"
         ]
       }

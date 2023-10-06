@@ -1,7 +1,7 @@
 {
   "name": "browser",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/browser",
+  "sourceRoot": "packages/browser/src",
   "projectType": "library",
   "targets": {
     "watch": {
@@ -11,8 +11,8 @@
         "watch": true,
         "clean": false,
         "skipTypeCheck": true,
-        "outputPath": "dist/packages/browser",
-        "main": "packages/browser/index.ts",
+        "outputPath": "packages/browser/dist",
+        "main": "packages/browser/src/index.ts",
         "tsConfig": "packages/browser/tsconfig.lib.json",
         "assets": ["packages/browser/*.md"]
       }
@@ -21,8 +21,8 @@
       "executor": "@nx/js:swc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/browser",
-        "main": "packages/browser/index.ts",
+        "outputPath": "packages/browser/dist",
+        "main": "packages/browser/src/index.ts",
         "tsConfig": "packages/browser/tsconfig.lib.json",
         "assets": ["packages/browser/*.md"]
       }
@@ -36,7 +36,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "packages/browser/**/*.ts",
+          "packages/browser/src/**/*.ts",
           "packages/browser/package.json"
         ]
       }

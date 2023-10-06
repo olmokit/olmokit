@@ -1,7 +1,7 @@
 {
   "name": "components",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/components",
+  "sourceRoot": "packages/components/src",
   "projectType": "library",
   "targets": {
     "watch": {
@@ -11,15 +11,15 @@
         "watch": true,
         "clean": false,
         "skipTypeCheck": true,
-        "outputPath": "dist/packages/components",
-        "main": "packages/components/index.ts",
+        "outputPath": "packages/components/dist",
+        "main": "packages/components/src/index.ts",
         "tsConfig": "packages/components/tsconfig.lib.json",
         "assets": [
           "packages/components/*.md",
-          "packages/components/**/*.js",
-          "packages/components/**/*.scss",
-          "packages/components/**/*.php",
-          "packages/components/**/*.svg"
+          "packages/components/src/**/*.js",
+          "packages/components/src/**/*.scss",
+          "packages/components/src/**/*.php",
+          "packages/components/src/**/*.svg"
         ]
       }
     },
@@ -27,15 +27,15 @@
       "executor": "@nx/js:swc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/components",
-        "main": "packages/components/index.ts",
+        "outputPath": "packages/components/dist",
+        "main": "packages/components/src/index.ts",
         "tsConfig": "packages/components/tsconfig.lib.json",
         "assets": [
           "packages/components/*.md",
-          "packages/components/**/*.js",
-          "packages/components/**/*.scss",
-          "packages/components/**/*.php",
-          "packages/components/**/*.svg"
+          "packages/components/src/**/*.js",
+          "packages/components/src/**/*.scss",
+          "packages/components/src/**/*.php",
+          "packages/components/src/**/*.svg"
         ]
       }
     },
@@ -48,7 +48,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "packages/components/**/*.ts",
+          "packages/components/src/**/*.ts",
           "packages/components/package.json"
         ]
       }

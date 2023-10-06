@@ -15,57 +15,57 @@
   ],
   "type": "module",
   "sideEffects": [
-    "**/*.scss",
-    "Hamburger/index.js"
+    "dist/**/*.scss",
+    "dist/Hamburger/index.js"
   ],
   "exports": {
     ".": {
-      "import": "./index.js"
+      "import": "./src/index.js"
     },
     "./Base/async": {
-      "import": "./Base/async.js"
+      "import": "./src/Base/async.js"
     },
     "./Base": {
-      "import": "./Base/index.js"
+      "import": "./src/Base/index.js"
     },
     "./Hamburger/_mixins.scss": {
-      "import": "./Hamburger/_mixins.scss"
+      "import": "./src/Hamburger/_mixins.scss"
     },
     "./Hamburger/_variables.scss": {
-      "import": "./Hamburger/_variables.scss"
+      "import": "./src/Hamburger/_variables.scss"
     },
     "./Hamburger/index.scss": {
-      "import": "./Hamburger/index.scss"
+      "import": "./src/Hamburger/index.scss"
     },
     "./Hamburger": {
-      "import": "./Hamburger/index.js"
+      "import": "./src/Hamburger/index.js"
     },
     "./Header/_logoAsImage.scss": {
-      "import": "./Header/_logoAsImage.scss"
+      "import": "./src/Header/_logoAsImage.scss"
     },
     "./Header/_mixins.scss": {
-      "import": "./Header/_mixins.scss"
+      "import": "./src/Header/_mixins.scss"
     },
     "./Header/_variables.scss": {
-      "import": "./Header/_variables.scss"
+      "import": "./src/Header/_variables.scss"
     },
     "./Header/index.scss": {
-      "import": "./Header/index.scss"
+      "import": "./src/Header/index.scss"
     },
     "./Header": {
-      "import": "./Header/index.js"
+      "import": "./src/Header/index.js"
     },
     "./HeaderSubnav/_mixins.scss": {
-      "import": "./HeaderSubnav/_mixins.scss"
+      "import": "./src/HeaderSubnav/_mixins.scss"
     },
     "./HeaderSubnav/_variables.scss": {
-      "import": "./HeaderSubnav/_variables.scss"
+      "import": "./src/HeaderSubnav/_variables.scss"
     },
     "./HeaderSubnav/index.scss": {
-      "import": "./HeaderSubnav/index.scss"
+      "import": "./src/HeaderSubnav/index.scss"
     },
     "./HeaderSubnav": {
-      "import": "./HeaderSubnav/index.js"
+      "import": "./src/HeaderSubnav/index.js"
     }
   },
   "dependencies": {

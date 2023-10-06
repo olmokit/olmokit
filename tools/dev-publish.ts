@@ -13,7 +13,7 @@ import {
   editJsonFile,
   getNpmDependenciesNameAndVersion,
   isGitDirty,
-} from "../packages/cli-utils/index.js";
+} from "../packages/cli-utils/src/index.js";
 import { type Options, getOptionLib, oraOpts } from "./dev.js";
 import { type Lib, self } from "./helpers.js";
 

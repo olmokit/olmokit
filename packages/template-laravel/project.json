@@ -1,7 +1,7 @@
 {
   "name": "template-laravel",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/template-laravel",
+  "sourceRoot": "packages/template-laravel/src",
   "projectType": "library",
   "implicitDependencies": [],
   "targets": {
@@ -13,10 +13,7 @@
             "externalDependencies": []
           }
         ],
-        "commands": [
-          "mkdir -p ./dist/packages",
-          "rsync -a ./packages/template-laravel ./dist/packages --exclude project.json"
-        ],
+        "commands": ["echo 'nothing to build'"],
         "parallel": false
       }
     }

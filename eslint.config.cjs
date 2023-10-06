@@ -22,7 +22,7 @@ const config = [
     rules: { "@nx/dependency-checks": "error" },
   })),
   {
-    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    files: ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
     rules: {
       "@nx/enforce-module-boundaries": [
         "error",
@@ -41,7 +41,7 @@ const config = [
   },
   ...compat.config({ extends: ["plugin:@nx/typescript"] }).map((config) => ({
     ...config,
-    files: ["**/*.ts", "**/*.tsx"],
+    files: ["src/**/*.ts", "src/**/*.tsx"],
     rules: {
       "@typescript-eslint/ban-types": "off",
       "@typescript-eslint/no-explicit-any": "off",
@@ -49,16 +49,16 @@ const config = [
   })),
   ...compat.config({ extends: ["plugin:@nx/javascript"] }).map((config) => ({
     ...config,
-    files: ["**/*.js", "**/*.jsx"],
+    files: ["src/**/*.js", "src/**/*.jsx"],
     rules: {},
   })),
   ...compat.config({ env: { jest: true } }).map((config) => ({
     ...config,
-    files: ["**/*.spec.ts", "**/*.spec.tsx", "**/*.spec.js", "**/*.spec.jsx"],
+    files: ["src/**/*.spec.ts", "src/**/*.spec.tsx", "src/**/*.spec.js", "src/**/*.spec.jsx"],
     rules: {},
   })),
   {
-    files: ["**/*.ts"],
+    files: ["src/**/*.ts"],
     rules: {
       "import/no-duplicates": ["error"],
       "import/order": [

@@ -17,34 +17,34 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./index.js"
+      "import": "./src/index.js"
     },
     "./deps-composer": {
-      "import": "./deps-composer.js"
+      "import": "./src/deps-composer.js"
     },
     "./deps-npm": {
-      "import": "./deps-npm.js"
+      "import": "./src/deps-npm.js"
     },
     "./editJsonFile": {
-      "import": "./editJsonFile.js"
+      "import": "./src/editJsonFile.js"
     },
     "./filer": {
-      "import": "./filer.js"
+      "import": "./src/filer.js"
     },
     "./git": {
-      "import": "./git.js"
+      "import": "./src/git.js"
     },
     "./package-manager": {
-      "import": "./package-manager.js"
+      "import": "./src/package-manager.js"
     },
     "./readJsonFile": {
-      "import": "./readJsonFile.js"
+      "import": "./src/readJsonFile.js"
     },
     "./taskr-appender": {
-      "import": "./taskr-appender.js"
+      "import": "./src/taskr-appender.js"
     },
     "./taskr": {
-      "import": "./taskr.js"
+      "import": "./src/taskr.js"
     }
   },
   "dependencies": {

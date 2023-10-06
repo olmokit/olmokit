@@ -1,7 +1,7 @@
 {
   "name": "laravel-frontend",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/laravel-frontend",
+  "sourceRoot": "packages/laravel-frontend/src",
   "projectType": "library",
   "implicitDependencies": [],
   "targets": {
@@ -13,10 +13,7 @@
             "externalDependencies": []
           }
         ],
-        "commands": [
-          "mkdir -p ./dist/packages",
-          "rsync -a ./packages/laravel-frontend ./dist/packages --exclude vendor --exclude project.json --exclude .gitignore"
-        ],
+        "commands": ["echo 'nothing to build'"],
         "parallel": false
       }
     }

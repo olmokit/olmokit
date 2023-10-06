@@ -3,10 +3,10 @@ import baseConfig from "../../eslint.config.js";
 export default [
   ...baseConfig,
   {
-    files: ["packages/cli/**/*.ts"],
+    files: ["packages/cli/src/**/*.ts"],
     rules: {
       "import/extensions": ["error", "always", { ignorePackages: true }],
     },
   },
-  { ignores: ["packages/cli/**/*.spec.ts"] },
+  { ignores: ["packages/cli/src/**/*.spec.ts"] },
 ];

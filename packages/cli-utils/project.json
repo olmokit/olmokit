@@ -1,7 +1,7 @@
 {
   "name": "cli-utils",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/cli-utils",
+  "sourceRoot": "packages/cli-utils/src",
   "projectType": "library",
   "targets": {
     "watch": {
@@ -11,8 +11,8 @@
         "watch": true,
         "clean": false,
         "skipTypeCheck": true,
-        "outputPath": "dist/packages/cli-utils",
-        "main": "packages/cli-utils/index.ts",
+        "outputPath": "packages/cli-utils/dist",
+        "main": "packages/cli-utils/src/index.ts",
         "tsConfig": "packages/cli-utils/tsconfig.lib.json",
         "assets": ["packages/cli-utils/*.md"]
       }
@@ -21,8 +21,8 @@
       "executor": "@nx/js:swc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/cli-utils",
-        "main": "packages/cli-utils/index.ts",
+        "outputPath": "packages/cli-utils/dist",
+        "main": "packages/cli-utils/src/index.ts",
         "tsConfig": "packages/cli-utils/tsconfig.lib.json",
         "assets": ["packages/cli-utils/*.md"]
       }
@@ -32,7 +32,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "packages/cli-utils/**/*.ts",
+          "packages/cli-utils/src/**/*.ts",
           "packages/cli-utils/package.json"
         ]
       }

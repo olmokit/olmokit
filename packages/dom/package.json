@@ -18,145 +18,145 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./index.js"
+      "import": "./src/index.js"
     },
     "./$": {
-      "import": "./$.js"
+      "import": "./src/$.js"
     },
     "./$all": {
-      "import": "./$all.js"
+      "import": "./src/$all.js"
     },
     "./$each": {
-      "import": "./$each.js"
+      "import": "./src/$each.js"
     },
     "./addClass": {
-      "import": "./addClass.js"
+      "import": "./src/addClass.js"
     },
     "./calculateFixedOffset": {
-      "import": "./calculateFixedOffset.js"
+      "import": "./src/calculateFixedOffset.js"
     },
     "./createElement": {
-      "import": "./createElement.js"
+      "import": "./src/createElement.js"
     },
     "./emitEvent": {
-      "import": "./emitEvent.js"
+      "import": "./src/emitEvent.js"
     },
     "./escapeSelector": {
-      "import": "./escapeSelector.js"
+      "import": "./src/escapeSelector.js"
     },
     "./exists": {
-      "import": "./exists.js"
+      "import": "./src/exists.js"
     },
     "./forEach": {
-      "import": "./forEach.js"
+      "import": "./src/forEach.js"
     },
     "./getDataAttr": {
-      "import": "./getDataAttr.js"
+      "import": "./src/getDataAttr.js"
     },
     "./getDocumentHeight": {
-      "import": "./getDocumentHeight.js"
+      "import": "./src/getDocumentHeight.js"
     },
     "./getHeight": {
-      "import": "./getHeight.js"
+      "import": "./src/getHeight.js"
     },
     "./getListeners": {
-      "import": "./getListeners.js"
+      "import": "./src/getListeners.js"
     },
     "./getOffset": {
-      "import": "./getOffset.js"
+      "import": "./src/getOffset.js"
     },
     "./getOffsetTop": {
-      "import": "./getOffsetTop.js"
+      "import": "./src/getOffsetTop.js"
     },
     "./getOffsetTopSlim": {
-      "import": "./getOffsetTopSlim.js"
+      "import": "./src/getOffsetTopSlim.js"
     },
     "./getScrollbarWidth": {
-      "import": "./getScrollbarWidth.js"
+      "import": "./src/getScrollbarWidth.js"
     },
     "./getStyleValue": {
-      "import": "./getStyleValue.js"
+      "import": "./src/getStyleValue.js"
     },
     "./getVisualBackgroundColor": {
-      "import": "./getVisualBackgroundColor.js"
+      "import": "./src/getVisualBackgroundColor.js"
     },
     "./injectCss": {
-      "import": "./injectCss.js"
+      "import": "./src/injectCss.js"
     },
     "./isHidden": {
-      "import": "./isHidden.js"
+      "import": "./src/isHidden.js"
     },
     "./isInViewport": {
-      "import": "./isInViewport.js"
+      "import": "./src/isInViewport.js"
     },
     "./isNodeList": {
-      "import": "./isNodeList.js"
+      "import": "./src/isNodeList.js"
     },
     "./isTotallyScrolled": {
-      "import": "./isTotallyScrolled.js"
+      "import": "./src/isTotallyScrolled.js"
     },
     "./listen": {
-      "import": "./listen.js"
+      "import": "./src/listen.js"
     },
     "./listenLoaded": {
-      "import": "./listenLoaded.js"
+      "import": "./src/listenLoaded.js"
     },
     "./listenOnce": {
-      "import": "./listenOnce.js"
+      "import": "./src/listenOnce.js"
     },
     "./listenResize": {
-      "import": "./listenResize.js"
+      "import": "./src/listenResize.js"
     },
     "./listenResizeDebounced": {
-      "import": "./listenResizeDebounced.js"
+      "import": "./src/listenResizeDebounced.js"
     },
     "./listenResizeThrottled": {
-      "import": "./listenResizeThrottled.js"
+      "import": "./src/listenResizeThrottled.js"
     },
     "./listenScroll": {
-      "import": "./listenScroll.js"
+      "import": "./src/listenScroll.js"
     },
     "./listenScrollDebounced": {
-      "import": "./listenScrollDebounced.js"
+      "import": "./src/listenScrollDebounced.js"
     },
     "./listenScrollThrottled": {
-      "import": "./listenScrollThrottled.js"
+      "import": "./src/listenScrollThrottled.js"
     },
     "./off": {
-      "import": "./off.js"
+      "import": "./src/off.js"
     },
     "./on": {
-      "import": "./on.js"
+      "import": "./src/on.js"
     },
     "./onClickOutside": {
-      "import": "./onClickOutside.js"
+      "import": "./src/onClickOutside.js"
     },
     "./once": {
-      "import": "./once.js"
+      "import": "./src/once.js"
     },
     "./removeClass": {
-      "import": "./removeClass.js"
+      "import": "./src/removeClass.js"
     },
     "./scrollTo": {
-      "import": "./scrollTo.js"
+      "import": "./src/scrollTo.js"
     },
     "./setDataAttr": {
-      "import": "./setDataAttr.js"
+      "import": "./src/setDataAttr.js"
     },
     "./setVendorCSS": {
-      "import": "./setVendorCSS.js"
+      "import": "./src/setVendorCSS.js"
     },
     "./siblings": {
-      "import": "./siblings.js"
+      "import": "./src/siblings.js"
     },
     "./toArray": {
-      "import": "./toArray.js"
+      "import": "./src/toArray.js"
     },
     "./types": {
-      "import": "./types.js"
+      "import": "./src/types.js"
     },
     "./unlisten": {
-      "import": "./unlisten.js"
+      "import": "./src/unlisten.js"
     }
   },
   "dependencies": {

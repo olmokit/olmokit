@@ -14,1039 +14,1039 @@
   "license": "ISC",
   "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "sideEffects": [
-    "**/*.scss",
-    "forms/checkbox/*.js",
-    "forms/file/*.js",
-    "forms/group/*.js",
-    "forms/input/*.js",
-    "forms/label/*.js",
-    "forms/radio/*.js",
-    "forms/select/*.js",
-    "forms/textarea/*.js",
-    "forms/toggle/*.js",
-    "forms/variant/*.js",
-    "glide/arrows/**",
-    "glide/bullets/**",
-    "glide/**",
-    "icon/**",
-    "img/**",
-    "lazy/**",
-    "media/*.js",
-    "polyfills/**",
-    "responsive/block/**",
-    "responsive/only/**",
-    "video/**",
-    "zacc/**"
+    "dist/**/*.scss",
+    "dist/forms/checkbox/*.js",
+    "dist/forms/file/*.js",
+    "dist/forms/group/*.js",
+    "dist/forms/input/*.js",
+    "dist/forms/label/*.js",
+    "dist/forms/radio/*.js",
+    "dist/forms/select/*.js",
+    "dist/forms/textarea/*.js",
+    "dist/forms/toggle/*.js",
+    "dist/forms/variant/*.js",
+    "dist/glide/arrows/**",
+    "dist/glide/bullets/**",
+    "dist/glide/**",
+    "dist/icon/**",
+    "dist/img/**",
+    "dist/lazy/**",
+    "dist/media/*.js",
+    "dist/polyfills/**",
+    "dist/responsive/block/**",
+    "dist/responsive/only/**",
+    "dist/video/**",
+    "dist/zacc/**"
   ],
   "type": "module",
   "exports": {
     ".": {
-      "import": "./index.js"
+      "import": "./src/index.js"
     },
     "./address/form/index.scss": {
-      "import": "./address/form/index.scss"
+      "import": "./src/address/form/index.scss"
     },
     "./address/form": {
-      "import": "./address/form/index.js"
+      "import": "./src/address/form/index.js"
     },
     "./address": {
-      "import": "./address/index.js"
+      "import": "./src/address/index.js"
     },
     "./ajax/cms": {
-      "import": "./ajax/cms.js"
+      "import": "./src/ajax/cms.js"
     },
     "./ajax": {
-      "import": "./ajax/index.js"
+      "import": "./src/ajax/index.js"
     },
     "./ajax/laravel": {
-      "import": "./ajax/laravel.js"
+      "import": "./src/ajax/laravel.js"
     },
     "./ajax/loadResource": {
-      "import": "./ajax/loadResource.js"
+      "import": "./src/ajax/loadResource.js"
     },
     "./analytics/helpers": {
-      "import": "./analytics/helpers.js"
+      "import": "./src/analytics/helpers.js"
     },
     "./analytics": {
-      "import": "./analytics/index.js"
+      "import": "./src/analytics/index.js"
     },
     "./analytics/trackImpressionsOnScroll": {
-      "import": "./analytics/trackImpressionsOnScroll.js"
+      "import": "./src/analytics/trackImpressionsOnScroll.js"
     },
     "./animations/canvas/fullscreen": {
-      "import": "./animations/canvas/fullscreen.js"
+      "import": "./src/animations/canvas/fullscreen.js"
     },
     "./animations/canvas": {
-      "import": "./animations/canvas/index.js"
+      "import": "./src/animations/canvas/index.js"
     },
     "./animations/gsap": {
-      "import": "./animations/gsap/index.js"
+      "import": "./src/animations/gsap/index.js"
     },
     "./animations/gsap/splitRichText": {
-      "import": "./animations/gsap/splitRichText.js"
+      "import": "./src/animations/gsap/splitRichText.js"
     },
     "./animations": {
-      "import": "./animations/index.js"
+      "import": "./src/animations/index.js"
     },
     "./animations/onScroll/index.scss": {
-      "import": "./animations/onScroll/index.scss"
+      "import": "./src/animations/onScroll/index.scss"
     },
     "./animations/onScroll": {
-      "import": "./animations/onScroll/index.js"
+      "import": "./src/animations/onScroll/index.js"
     },
     "./animations/onScroll/withGsap.scss": {
-      "import": "./animations/onScroll/withGsap.scss"
+      "import": "./src/animations/onScroll/withGsap.scss"
     },
     "./animations/onScroll/withGsap": {
-      "import": "./animations/onScroll/withGsap.js"
+      "import": "./src/animations/onScroll/withGsap.js"
     },
     "./animations/raf": {
-      "import": "./animations/raf.js"
+      "import": "./src/animations/raf.js"
     },
     "./animations/tilt": {
-      "import": "./animations/tilt/index.js"
+      "import": "./src/animations/tilt/index.js"
     },
     "./animations/tilt/withGsap": {
-      "import": "./animations/tilt/withGsap.js"
+      "import": "./src/animations/tilt/withGsap.js"
     },
     "./auth/form-login/index.scss": {
-      "import": "./auth/form-login/index.scss"
+      "import": "./src/auth/form-login/index.scss"
     },
     "./auth/form-login": {
-      "import": "./auth/form-login/index.js"
+      "import": "./src/auth/form-login/index.js"
     },
     "./auth/form-logout/index.scss": {
-      "import": "./auth/form-logout/index.scss"
+      "import": "./src/auth/form-logout/index.scss"
     },
     "./auth/form-logout": {
-      "import": "./auth/form-logout/index.js"
+      "import": "./src/auth/form-logout/index.js"
     },
     "./auth/form-password-change/index.scss": {
-      "import": "./auth/form-password-change/index.scss"
+      "import": "./src/auth/form-password-change/index.scss"
     },
     "./auth/form-password-change": {
-      "import": "./auth/form-password-change/index.js"
+      "import": "./src/auth/form-password-change/index.js"
     },
     "./auth/form-password-recovery/index.scss": {
-      "import": "./auth/form-password-recovery/index.scss"
+      "import": "./src/auth/form-password-recovery/index.scss"
     },
     "./auth/form-password-recovery": {
-      "import": "./auth/form-password-recovery/index.js"
+      "import": "./src/auth/form-password-recovery/index.js"
     },
     "./auth/form-password-reset/index.scss": {
-      "import": "./auth/form-password-reset/index.scss"
+      "import": "./src/auth/form-password-reset/index.scss"
     },
     "./auth/form-password-reset": {
-      "import": "./auth/form-password-reset/index.js"
+      "import": "./src/auth/form-password-reset/index.js"
     },
     "./auth/form-profile/index.scss": {
-      "import": "./auth/form-profile/index.scss"
+      "import": "./src/auth/form-profile/index.scss"
     },
     "./auth/form-profile": {
-      "import": "./auth/form-profile/index.js"
+      "import": "./src/auth/form-profile/index.js"
     },
     "./auth/form-register/index.scss": {
-      "import": "./auth/form-register/index.scss"
+      "import": "./src/auth/form-register/index.scss"
     },
     "./auth/form-register": {
-      "import": "./auth/form-register/index.js"
+      "import": "./src/auth/form-register/index.js"
     },
     "./auth/form": {
-      "import": "./auth/form/index.js"
+      "import": "./src/auth/form/index.js"
     },
     "./auth": {
-      "import": "./auth/index.js"
+      "import": "./src/auth/index.js"
     },
     "./auth/redirect": {
-      "import": "./auth/redirect/index.js"
+      "import": "./src/auth/redirect/index.js"
     },
     "./auth/timezone": {
-      "import": "./auth/timezone/index.js"
+      "import": "./src/auth/timezone/index.js"
     },
     "./barba": {
-      "import": "./barba/index.js"
+      "import": "./src/barba/index.js"
     },
     "./barba/route.class": {
-      "import": "./barba/route.class.js"
+      "import": "./src/barba/route.class.js"
     },
     "./barba/route": {
-      "import": "./barba/route.js"
+      "import": "./src/barba/route.js"
     },
     "./buttons/_btnLoad.scss": {
-      "import": "./buttons/_btnLoad.scss"
+      "import": "./src/buttons/_btnLoad.scss"
     },
     "./buttons/_mixins.scss": {
-      "import": "./buttons/_mixins.scss"
+      "import": "./src/buttons/_mixins.scss"
     },
     "./buttons/_variables.scss": {
-      "import": "./buttons/_variables.scss"
+      "import": "./src/buttons/_variables.scss"
     },
     "./buttons/index.scss": {
-      "import": "./buttons/index.scss"
+      "import": "./src/buttons/index.scss"
     },
     "./cart": {
-      "import": "./cart/index.js"
+      "import": "./src/cart/index.js"
     },
     "./checkout/form-creditcard": {
-      "import": "./checkout/form-creditcard/index.js"
+      "import": "./src/checkout/form-creditcard/index.js"
     },
     "./checkout/form-details": {
-      "import": "./checkout/form-details/index.js"
+      "import": "./src/checkout/form-details/index.js"
     },
     "./checkout/form-payment": {
-      "import": "./checkout/form-payment/index.js"
+      "import": "./src/checkout/form-payment/index.js"
     },
     "./checkout/form-summary": {
-      "import": "./checkout/form-summary/index.js"
+      "import": "./src/checkout/form-summary/index.js"
     },
     "./checkout": {
-      "import": "./checkout/index.js"
+      "import": "./src/checkout/index.js"
     },
     "./collapsable/_mixins.scss": {
-      "import": "./collapsable/_mixins.scss"
+      "import": "./src/collapsable/_mixins.scss"
     },
     "./collapsable": {
-      "import": "./collapsable/index.js"
+      "import": "./src/collapsable/index.js"
     },
     "./cookies/banner/index.scss": {
-      "import": "./cookies/banner/index.scss"
+      "import": "./src/cookies/banner/index.scss"
     },
     "./cookies/banner": {
-      "import": "./cookies/banner/index.js"
+      "import": "./src/cookies/banner/index.js"
     },
     "./cookies/cookiebot/_variables.scss": {
-      "import": "./cookies/cookiebot/_variables.scss"
+      "import": "./src/cookies/cookiebot/_variables.scss"
     },
     "./cookies/cookiebot/index.scss": {
-      "import": "./cookies/cookiebot/index.scss"
+      "import": "./src/cookies/cookiebot/index.scss"
     },
     "./cookies/cookiebot": {
-      "import": "./cookies/cookiebot/index.js"
+      "import": "./src/cookies/cookiebot/index.js"
     },
     "./data/i18n": {
-      "import": "./data/i18n.js"
+      "import": "./src/data/i18n.js"
     },
     "./data": {
-      "import": "./data/index.js"
+      "import": "./src/data/index.js"
     },
     "./debug/api/index.scss": {
-      "import": "./debug/api/index.scss"
+      "import": "./src/debug/api/index.scss"
     },
     "./debug/api": {
-      "import": "./debug/api/index.js"
+      "import": "./src/debug/api/index.js"
     },
     "./debug/forms/btn/index.scss": {
-      "import": "./debug/forms/btn/index.scss"
+      "import": "./src/debug/forms/btn/index.scss"
     },
     "./debug/forms/btn": {
-      "import": "./debug/forms/btn/index.js"
+      "import": "./src/debug/forms/btn/index.js"
     },
     "./debug": {
-      "import": "./debug/index.js"
+      "import": "./src/debug/index.js"
     },
     "./detect/detect": {
-      "import": "./detect/detect.js"
+      "import": "./src/detect/detect.js"
     },
     "./detect/device": {
-      "import": "./detect/device.js"
+      "import": "./src/detect/device.js"
     },
     "./detect/devices": {
-      "import": "./detect/devices.js"
+      "import": "./src/detect/devices.js"
     },
     "./detect/hasTouch": {
-      "import": "./detect/hasTouch.js"
+      "import": "./src/detect/hasTouch.js"
     },
     "./detect": {
-      "import": "./detect/index.js"
+      "import": "./src/detect/index.js"
     },
     "./detect/isIos": {
-      "import": "./detect/isIos.js"
+      "import": "./src/detect/isIos.js"
     },
     "./dialog/_mixins.scss": {
-      "import": "./dialog/_mixins.scss"
+      "import": "./src/dialog/_mixins.scss"
     },
     "./dialog/_variables.scss": {
-      "import": "./dialog/_variables.scss"
+      "import": "./src/dialog/_variables.scss"
     },
     "./dialog/async/index.scss": {
-      "import": "./dialog/async/index.scss"
+      "import": "./src/dialog/async/index.scss"
     },
     "./dialog/async": {
-      "import": "./dialog/async/index.js"
+      "import": "./src/dialog/async/index.js"
     },
     "./dialog/helpers": {
-      "import": "./dialog/helpers.js"
+      "import": "./src/dialog/helpers.js"
     },
     "./dialog/index.scss": {
-      "import": "./dialog/index.scss"
+      "import": "./src/dialog/index.scss"
     },
     "./dialog": {
-      "import": "./dialog/index.js"
+      "import": "./src/dialog/index.js"
     },
     "./dialog/player/index.scss": {
-      "import": "./dialog/player/index.scss"
+      "import": "./src/dialog/player/index.scss"
     },
     "./dialog/player": {
-      "import": "./dialog/player/index.js"
+      "import": "./src/dialog/player/index.js"
     },
     "./dialog/types": {
-      "import": "./dialog/types.js"
+      "import": "./src/dialog/types.js"
     },
     "./dialog/video/index.scss": {
-      "import": "./dialog/video/index.scss"
+      "import": "./src/dialog/video/index.scss"
     },
     "./dialog/video": {
-      "import": "./dialog/video/index.js"
+      "import": "./src/dialog/video/index.js"
     },
     "./dropdown/_mixins.scss": {
-      "import": "./dropdown/_mixins.scss"
+      "import": "./src/dropdown/_mixins.scss"
     },
     "./dropdown/index.scss": {
-      "import": "./dropdown/index.scss"
+      "import": "./src/dropdown/index.scss"
     },
     "./dropdown": {
-      "import": "./dropdown/index.js"
+      "import": "./src/dropdown/index.js"
     },
     "./expander/index.scss": {
-      "import": "./expander/index.scss"
+      "import": "./src/expander/index.scss"
     },
     "./expander": {
-      "import": "./expander/index.js"
+      "import": "./src/expander/index.js"
     },
     "./forms/_mixins.scss": {
-      "import": "./forms/_mixins.scss"
+      "import": "./src/forms/_mixins.scss"
     },
     "./forms/_variables.scss": {
-      "import": "./forms/_variables.scss"
+      "import": "./src/forms/_variables.scss"
     },
     "./forms/base": {
-      "import": "./forms/base.js"
+      "import": "./src/forms/base.js"
     },
     "./forms/buttonset/basic.scss": {
-      "import": "./forms/buttonset/basic.scss"
+      "import": "./src/forms/buttonset/basic.scss"
     },
     "./forms/buttonset/basic": {
-      "import": "./forms/buttonset/basic.js"
+      "import": "./src/forms/buttonset/basic.js"
     },
     "./forms/checkbox/index.scss": {
-      "import": "./forms/checkbox/index.scss"
+      "import": "./src/forms/checkbox/index.scss"
     },
     "./forms/checkbox": {
-      "import": "./forms/checkbox/index.js"
+      "import": "./src/forms/checkbox/index.js"
     },
     "./forms/file/filled.scss": {
-      "import": "./forms/file/filled.scss"
+      "import": "./src/forms/file/filled.scss"
     },
     "./forms/file/filled": {
-      "import": "./forms/file/filled.js"
+      "import": "./src/forms/file/filled.js"
     },
     "./forms/file": {
-      "import": "./forms/file/index.js"
+      "import": "./src/forms/file/index.js"
     },
     "./forms/file/material.scss": {
-      "import": "./forms/file/material.scss"
+      "import": "./src/forms/file/material.scss"
     },
     "./forms/file/material": {
-      "import": "./forms/file/material.js"
+      "import": "./src/forms/file/material.js"
     },
     "./forms/file/minimal.scss": {
-      "import": "./forms/file/minimal.scss"
+      "import": "./src/forms/file/minimal.scss"
     },
     "./forms/file/olmoindex": {
-      "import": "./forms/file/olmoindex.js"
+      "import": "./src/forms/file/olmoindex.js"
     },
     "./forms/file/olmominimal": {
-      "import": "./forms/file/olmominimal.js"
+      "import": "./src/forms/file/olmominimal.js"
     },
     "./forms/file/outlined.scss": {
-      "import": "./forms/file/outlined.scss"
+      "import": "./src/forms/file/outlined.scss"
     },
     "./forms/file/outlined": {
-      "import": "./forms/file/outlined.js"
+      "import": "./src/forms/file/outlined.js"
     },
     "./forms/group/index.scss": {
-      "import": "./forms/group/index.scss"
+      "import": "./src/forms/group/index.scss"
     },
     "./forms/group": {
-      "import": "./forms/group/index.js"
+      "import": "./src/forms/group/index.js"
     },
     "./forms/helpers": {
-      "import": "./forms/helpers.js"
+      "import": "./src/forms/helpers.js"
     },
     "./forms": {
-      "import": "./forms/index.js"
+      "import": "./src/forms/index.js"
     },
     "./forms/input/filled.scss": {
-      "import": "./forms/input/filled.scss"
+      "import": "./src/forms/input/filled.scss"
     },
     "./forms/input/filled": {
-      "import": "./forms/input/filled.js"
+      "import": "./src/forms/input/filled.js"
     },
     "./forms/input/material.scss": {
-      "import": "./forms/input/material.scss"
+      "import": "./src/forms/input/material.scss"
     },
     "./forms/input/material": {
-      "import": "./forms/input/material.js"
+      "import": "./src/forms/input/material.js"
     },
     "./forms/input/minimal.scss": {
-      "import": "./forms/input/minimal.scss"
+      "import": "./src/forms/input/minimal.scss"
     },
     "./forms/input/minimal": {
-      "import": "./forms/input/minimal.js"
+      "import": "./src/forms/input/minimal.js"
     },
     "./forms/input/outlined.scss": {
-      "import": "./forms/input/outlined.scss"
+      "import": "./src/forms/input/outlined.scss"
     },
     "./forms/input/outlined": {
-      "import": "./forms/input/outlined.js"
+      "import": "./src/forms/input/outlined.js"
     },
     "./forms/label/post.scss": {
-      "import": "./forms/label/post.scss"
+      "import": "./src/forms/label/post.scss"
     },
     "./forms/label/post": {
-      "import": "./forms/label/post.js"
+      "import": "./src/forms/label/post.js"
     },
     "./forms/radio/filled.scss": {
-      "import": "./forms/radio/filled.scss"
+      "import": "./src/forms/radio/filled.scss"
     },
     "./forms/radio/filled": {
-      "import": "./forms/radio/filled.js"
+      "import": "./src/forms/radio/filled.js"
     },
     "./forms/radio/index.scss": {
-      "import": "./forms/radio/index.scss"
+      "import": "./src/forms/radio/index.scss"
     },
     "./forms/radio": {
-      "import": "./forms/radio/index.js"
+      "import": "./src/forms/radio/index.js"
     },
     "./forms/range/_variables.scss": {
-      "import": "./forms/range/_variables.scss"
+      "import": "./src/forms/range/_variables.scss"
     },
     "./forms/range/common.scss": {
-      "import": "./forms/range/common.scss"
+      "import": "./src/forms/range/common.scss"
     },
     "./forms/range/handleLines.scss": {
-      "import": "./forms/range/handleLines.scss"
+      "import": "./src/forms/range/handleLines.scss"
     },
     "./forms/range": {
-      "import": "./forms/range/index.js"
+      "import": "./src/forms/range/index.js"
     },
     "./forms/range/vertical.scss": {
-      "import": "./forms/range/vertical.scss"
+      "import": "./src/forms/range/vertical.scss"
     },
     "./forms/select/filled.scss": {
-      "import": "./forms/select/filled.scss"
+      "import": "./src/forms/select/filled.scss"
     },
     "./forms/select/filled": {
-      "import": "./forms/select/filled.js"
+      "import": "./src/forms/select/filled.js"
     },
     "./forms/select/material.scss": {
-      "import": "./forms/select/material.scss"
+      "import": "./src/forms/select/material.scss"
     },
     "./forms/select/material": {
-      "import": "./forms/select/material.js"
+      "import": "./src/forms/select/material.js"
     },
     "./forms/select/minimal.scss": {
-      "import": "./forms/select/minimal.scss"
+      "import": "./src/forms/select/minimal.scss"
     },
     "./forms/select/minimal": {
-      "import": "./forms/select/minimal.js"
+      "import": "./src/forms/select/minimal.js"
     },
     "./forms/select/outlined.scss": {
-      "import": "./forms/select/outlined.scss"
+      "import": "./src/forms/select/outlined.scss"
     },
     "./forms/select/outlined": {
-      "import": "./forms/select/outlined.js"
+      "import": "./src/forms/select/outlined.js"
     },
     "./forms/spinner/index.scss": {
-      "import": "./forms/spinner/index.scss"
+      "import": "./src/forms/spinner/index.scss"
     },
     "./forms/spinner": {
-      "import": "./forms/spinner/index.js"
+      "import": "./src/forms/spinner/index.js"
     },
     "./forms/textarea/filled.scss": {
-      "import": "./forms/textarea/filled.scss"
+      "import": "./src/forms/textarea/filled.scss"
     },
     "./forms/textarea/filled": {
-      "import": "./forms/textarea/filled.js"
+      "import": "./src/forms/textarea/filled.js"
     },
     "./forms/textarea/material.scss": {
-      "import": "./forms/textarea/material.scss"
+      "import": "./src/forms/textarea/material.scss"
     },
     "./forms/textarea/material": {
-      "import": "./forms/textarea/material.js"
+      "import": "./src/forms/textarea/material.js"
     },
     "./forms/textarea/minimal.scss": {
-      "import": "./forms/textarea/minimal.scss"
+      "import": "./src/forms/textarea/minimal.scss"
     },
     "./forms/textarea/minimal": {
-      "import": "./forms/textarea/minimal.js"
+      "import": "./src/forms/textarea/minimal.js"
     },
     "./forms/textarea/outlined.scss": {
-      "import": "./forms/textarea/outlined.scss"
+      "import": "./src/forms/textarea/outlined.scss"
     },
     "./forms/textarea/outlined": {
-      "import": "./forms/textarea/outlined.js"
+      "import": "./src/forms/textarea/outlined.js"
     },
     "./forms/toggle/disabled.scss": {
-      "import": "./forms/toggle/disabled.scss"
+      "import": "./src/forms/toggle/disabled.scss"
     },
     "./forms/toggle/index.scss": {
-      "import": "./forms/toggle/index.scss"
+      "import": "./src/forms/toggle/index.scss"
     },
     "./forms/toggle": {
-      "import": "./forms/toggle/index.js"
+      "import": "./src/forms/toggle/index.js"
     },
     "./forms/types": {
-      "import": "./forms/types.js"
+      "import": "./src/forms/types.js"
     },
     "./forms/validation": {
-      "import": "./forms/validation/index.js"
+      "import": "./src/forms/validation/index.js"
     },
     "./forms/validators/email": {
-      "import": "./forms/validators/email.js"
+      "import": "./src/forms/validators/email.js"
     },
     "./forms/validators/filesize": {
-      "import": "./forms/validators/filesize.js"
+      "import": "./src/forms/validators/filesize.js"
     },
     "./forms/validators": {
-      "import": "./forms/validators/index.js"
+      "import": "./src/forms/validators/index.js"
     },
     "./forms/validators/required": {
-      "import": "./forms/validators/required.js"
+      "import": "./src/forms/validators/required.js"
     },
     "./forms/variant/_common.scss": {
-      "import": "./forms/variant/_common.scss"
+      "import": "./src/forms/variant/_common.scss"
     },
     "./forms/variant/filled.scss": {
-      "import": "./forms/variant/filled.scss"
+      "import": "./src/forms/variant/filled.scss"
     },
     "./forms/variant/filled": {
-      "import": "./forms/variant/filled.js"
+      "import": "./src/forms/variant/filled.js"
     },
     "./forms/variant/material.scss": {
-      "import": "./forms/variant/material.scss"
+      "import": "./src/forms/variant/material.scss"
     },
     "./forms/variant/material": {
-      "import": "./forms/variant/material.js"
+      "import": "./src/forms/variant/material.js"
     },
     "./forms/variant/minimal.scss": {
-      "import": "./forms/variant/minimal.scss"
+      "import": "./src/forms/variant/minimal.scss"
     },
     "./forms/variant/minimal": {
-      "import": "./forms/variant/minimal.js"
+      "import": "./src/forms/variant/minimal.js"
     },
     "./forms/variant/outlined.scss": {
-      "import": "./forms/variant/outlined.scss"
+      "import": "./src/forms/variant/outlined.scss"
     },
     "./forms/variant/outlined": {
-      "import": "./forms/variant/outlined.js"
+      "import": "./src/forms/variant/outlined.js"
     },
     "./fragments/ajax": {
-      "import": "./fragments/ajax.js"
+      "import": "./src/fragments/ajax.js"
     },
     "./fragments": {
-      "import": "./fragments/index.js"
+      "import": "./src/fragments/index.js"
     },
     "./fragments/replace": {
-      "import": "./fragments/replace/index.js"
+      "import": "./src/fragments/replace/index.js"
     },
     "./glide/_mixins.scss": {
-      "import": "./glide/_mixins.scss"
+      "import": "./src/glide/_mixins.scss"
     },
     "./glide/_variables.scss": {
-      "import": "./glide/_variables.scss"
+      "import": "./src/glide/_variables.scss"
     },
     "./glide/arrows/index.scss": {
-      "import": "./glide/arrows/index.scss"
+      "import": "./src/glide/arrows/index.scss"
     },
     "./glide/arrows": {
-      "import": "./glide/arrows/index.js"
+      "import": "./src/glide/arrows/index.js"
     },
     "./glide/bullets/index.scss": {
-      "import": "./glide/bullets/index.scss"
+      "import": "./src/glide/bullets/index.scss"
     },
     "./glide/bullets": {
-      "import": "./glide/bullets/index.js"
+      "import": "./src/glide/bullets/index.js"
     },
     "./glide/components/AutoHeight": {
-      "import": "./glide/components/AutoHeight.js"
+      "import": "./src/glide/components/AutoHeight.js"
     },
     "./glide/components/ConstrainToImgHeight": {
-      "import": "./glide/components/ConstrainToImgHeight.js"
+      "import": "./src/glide/components/ConstrainToImgHeight.js"
     },
     "./glide/components/CrossFade": {
-      "import": "./glide/components/CrossFade.js"
+      "import": "./src/glide/components/CrossFade.js"
     },
     "./glide/components/CrossFade.scss": {
-      "import": "./glide/components/CrossFade.scss"
+      "import": "./src/glide/components/CrossFade.scss"
     },
     "./glide/components/Delay": {
-      "import": "./glide/components/Delay.js"
+      "import": "./src/glide/components/Delay.js"
     },
     "./glide/components/Fade": {
-      "import": "./glide/components/Fade.js"
+      "import": "./src/glide/components/Fade.js"
     },
     "./glide/components/Fade.scss": {
-      "import": "./glide/components/Fade.scss"
+      "import": "./src/glide/components/Fade.scss"
     },
     "./glide/components/Hover": {
-      "import": "./glide/components/Hover.js"
+      "import": "./src/glide/components/Hover.js"
     },
     "./glide/components/Interactive": {
-      "import": "./glide/components/Interactive.js"
+      "import": "./src/glide/components/Interactive.js"
     },
     "./glide/components/LazyLoad": {
-      "import": "./glide/components/LazyLoad.js"
+      "import": "./src/glide/components/LazyLoad.js"
     },
     "./glide/components/NextPrev": {
-      "import": "./glide/components/NextPrev.js"
+      "import": "./src/glide/components/NextPrev.js"
     },
     "./glide/components/SlaveOf": {
-      "import": "./glide/components/SlaveOf.js"
+      "import": "./src/glide/components/SlaveOf.js"
     },
     "./glide/components/Sync": {
-      "import": "./glide/components/Sync.js"
+      "import": "./src/glide/components/Sync.js"
     },
     "./glide/glide.modular.esm": {
-      "import": "./glide/glide.modular.esm.js"
+      "import": "./src/glide/glide.modular.esm.js"
     },
     "./glide/helpers": {
-      "import": "./glide/helpers.js"
+      "import": "./src/glide/helpers.js"
     },
     "./glide": {
-      "import": "./glide/index.js"
+      "import": "./src/glide/index.js"
     },
     "./glide/index.scss": {
-      "import": "./glide/index.scss"
+      "import": "./src/glide/index.scss"
     },
     "./grid/_mixins.scss": {
-      "import": "./grid/_mixins.scss"
+      "import": "./src/grid/_mixins.scss"
     },
     "./grid/_variables.scss": {
-      "import": "./grid/_variables.scss"
+      "import": "./src/grid/_variables.scss"
     },
     "./grid/bootstrap/_grid.scss": {
-      "import": "./grid/bootstrap/_grid.scss"
+      "import": "./src/grid/bootstrap/_grid.scss"
     },
     "./grid/bootstrap/mixins/_breakpoints.scss": {
-      "import": "./grid/bootstrap/mixins/_breakpoints.scss"
+      "import": "./src/grid/bootstrap/mixins/_breakpoints.scss"
     },
     "./grid/bootstrap/mixins/_grid-framework.scss": {
-      "import": "./grid/bootstrap/mixins/_grid-framework.scss"
+      "import": "./src/grid/bootstrap/mixins/_grid-framework.scss"
     },
     "./grid/bootstrap/mixins/_grid.scss": {
-      "import": "./grid/bootstrap/mixins/_grid.scss"
+      "import": "./src/grid/bootstrap/mixins/_grid.scss"
     },
     "./grid/index.scss": {
-      "import": "./grid/index.scss"
+      "import": "./src/grid/index.scss"
     },
     "./helpers/date": {
-      "import": "./helpers/date.js"
+      "import": "./src/helpers/date.js"
     },
     "./helpers": {
-      "import": "./helpers/index.js"
+      "import": "./src/helpers/index.js"
     },
     "./helpers/interface": {
-      "import": "./helpers/interface.js"
+      "import": "./src/helpers/interface.js"
     },
     "./helpers/item": {
-      "import": "./helpers/item.js"
+      "import": "./src/helpers/item.js"
     },
     "./helpers/itemversion": {
-      "import": "./helpers/itemversion.js"
+      "import": "./src/helpers/itemversion.js"
     },
     "./helpers/jss": {
-      "import": "./helpers/jss.js"
+      "import": "./src/helpers/jss.js"
     },
     "./helpers/location": {
-      "import": "./helpers/location.js"
+      "import": "./src/helpers/location.js"
     },
     "./i18n/links/index.scss": {
-      "import": "./i18n/links/index.scss"
+      "import": "./src/i18n/links/index.scss"
     },
     "./i18n/links": {
-      "import": "./i18n/links/index.js"
+      "import": "./src/i18n/links/index.js"
     },
     "./i18n/select": {
-      "import": "./i18n/select/index.js"
+      "import": "./src/i18n/select/index.js"
     },
     "./icon/circle/index.scss": {
-      "import": "./icon/circle/index.scss"
+      "import": "./src/icon/circle/index.scss"
     },
     "./icon/index.scss": {
-      "import": "./icon/index.scss"
+      "import": "./src/icon/index.scss"
     },
     "./icon": {
-      "import": "./icon/index.js"
+      "import": "./src/icon/index.js"
     },
     "./iframe/index.scss": {
-      "import": "./iframe/index.scss"
+      "import": "./src/iframe/index.scss"
     },
     "./iframe": {
-      "import": "./iframe/index.js"
+      "import": "./src/iframe/index.js"
     },
     "./img/index.scss": {
-      "import": "./img/index.scss"
+      "import": "./src/img/index.scss"
     },
     "./img": {
-      "import": "./img/index.js"
+      "import": "./src/img/index.js"
     },
     "./lazy/index.scss": {
-      "import": "./lazy/index.scss"
+      "import": "./src/lazy/index.scss"
     },
     "./lazy": {
-      "import": "./lazy/index.js"
+      "import": "./src/lazy/index.js"
     },
     "./lazy/manual": {
-      "import": "./lazy/manual.js"
+      "import": "./src/lazy/manual.js"
     },
     "./lightbox/_variables.scss": {
-      "import": "./lightbox/_variables.scss"
+      "import": "./src/lightbox/_variables.scss"
     },
     "./lightbox/base/index.scss": {
-      "import": "./lightbox/base/index.scss"
+      "import": "./src/lightbox/base/index.scss"
     },
     "./lightbox/base": {
-      "import": "./lightbox/base/index.js"
+      "import": "./src/lightbox/base/index.js"
     },
     "./lightbox/types": {
-      "import": "./lightbox/types.js"
+      "import": "./src/lightbox/types.js"
     },
     "./media/_mixins.scss": {
-      "import": "./media/_mixins.scss"
+      "import": "./src/media/_mixins.scss"
     },
     "./media/_variables.scss": {
-      "import": "./media/_variables.scss"
+      "import": "./src/media/_variables.scss"
     },
     "./media/index.scss": {
-      "import": "./media/index.scss"
+      "import": "./src/media/index.scss"
     },
     "./media": {
-      "import": "./media/index.js"
+      "import": "./src/media/index.js"
     },
     "./olmoforms/_mixins.scss": {
-      "import": "./olmoforms/_mixins.scss"
+      "import": "./src/olmoforms/_mixins.scss"
     },
     "./olmoforms/adapters": {
-      "import": "./olmoforms/adapters.js"
+      "import": "./src/olmoforms/adapters.js"
     },
     "./olmoforms/base/index.scss": {
-      "import": "./olmoforms/base/index.scss"
+      "import": "./src/olmoforms/base/index.scss"
     },
     "./olmoforms/base": {
-      "import": "./olmoforms/base/index.js"
+      "import": "./src/olmoforms/base/index.js"
     },
     "./olmoforms/dependency": {
-      "import": "./olmoforms/dependency/index.js"
+      "import": "./src/olmoforms/dependency/index.js"
     },
     "./olmoforms/feedback/index.scss": {
-      "import": "./olmoforms/feedback/index.scss"
+      "import": "./src/olmoforms/feedback/index.scss"
     },
     "./olmoforms/feedback": {
-      "import": "./olmoforms/feedback/index.js"
+      "import": "./src/olmoforms/feedback/index.js"
     },
     "./olmoforms/helpers": {
-      "import": "./olmoforms/helpers.js"
+      "import": "./src/olmoforms/helpers.js"
     },
     "./olmoforms/submitters": {
-      "import": "./olmoforms/submitters.js"
+      "import": "./src/olmoforms/submitters.js"
     },
     "./olmoforms/types": {
-      "import": "./olmoforms/types.js"
+      "import": "./src/olmoforms/types.js"
     },
     "./orchestrations/linkToPlayerDialog": {
-      "import": "./orchestrations/linkToPlayerDialog.js"
+      "import": "./src/orchestrations/linkToPlayerDialog.js"
     },
     "./orchestrations/linkToPlayerInlined": {
-      "import": "./orchestrations/linkToPlayerInlined.js"
+      "import": "./src/orchestrations/linkToPlayerInlined.js"
     },
     "./player/_mixins.scss": {
-      "import": "./player/_mixins.scss"
+      "import": "./src/player/_mixins.scss"
     },
     "./player/_variables.scss": {
-      "import": "./player/_variables.scss"
+      "import": "./src/player/_variables.scss"
     },
     "./player/_vendor.scss": {
-      "import": "./player/_vendor.scss"
+      "import": "./src/player/_vendor.scss"
     },
     "./player/index.scss": {
-      "import": "./player/index.scss"
+      "import": "./src/player/index.scss"
     },
     "./player": {
-      "import": "./player/index.js"
+      "import": "./src/player/index.js"
     },
     "./player/types": {
-      "import": "./player/types.js"
+      "import": "./src/player/types.js"
     },
     "./polyfills/CustomEvent": {
-      "import": "./polyfills/CustomEvent.js"
+      "import": "./src/polyfills/CustomEvent.js"
     },
     "./polyfills/_mixins.scss": {
-      "import": "./polyfills/_mixins.scss"
+      "import": "./src/polyfills/_mixins.scss"
     },
     "./polyfills/closest": {
-      "import": "./polyfills/closest.js"
+      "import": "./src/polyfills/closest.js"
     },
     "./polyfills/passiveEvents": {
-      "import": "./polyfills/passiveEvents.js"
+      "import": "./src/polyfills/passiveEvents.js"
     },
     "./polyfills/promise": {
-      "import": "./polyfills/promise.js"
+      "import": "./src/polyfills/promise.js"
     },
     "./polyfills/raf": {
-      "import": "./polyfills/raf.js"
+      "import": "./src/polyfills/raf.js"
     },
     "./progress/_variables.scss": {
-      "import": "./progress/_variables.scss"
+      "import": "./src/progress/_variables.scss"
     },
     "./progress/linear/index.scss": {
-      "import": "./progress/linear/index.scss"
+      "import": "./src/progress/linear/index.scss"
     },
     "./progress/linear": {
-      "import": "./progress/linear/index.js"
+      "import": "./src/progress/linear/index.js"
     },
     "./progress/loading.scss": {
-      "import": "./progress/loading.scss"
+      "import": "./src/progress/loading.scss"
     },
     "./progress/overlay/index.scss": {
-      "import": "./progress/overlay/index.scss"
+      "import": "./src/progress/overlay/index.scss"
     },
     "./progress/overlay": {
-      "import": "./progress/overlay/index.js"
+      "import": "./src/progress/overlay/index.js"
     },
     "./reboot/_custom.scss": {
-      "import": "./reboot/_custom.scss"
+      "import": "./src/reboot/_custom.scss"
     },
     "./reboot/_variables.scss": {
-      "import": "./reboot/_variables.scss"
+      "import": "./src/reboot/_variables.scss"
     },
     "./reboot/index.scss": {
-      "import": "./reboot/index.scss"
+      "import": "./src/reboot/index.scss"
     },
     "./responsive/_mixins.scss": {
-      "import": "./responsive/_mixins.scss"
+      "import": "./src/responsive/_mixins.scss"
     },
     "./responsive/block": {
-      "import": "./responsive/block/index.js"
+      "import": "./src/responsive/block/index.js"
     },
     "./responsive/block/md.scss": {
-      "import": "./responsive/block/md.scss"
+      "import": "./src/responsive/block/md.scss"
     },
     "./responsive/block/md": {
-      "import": "./responsive/block/md.js"
+      "import": "./src/responsive/block/md.js"
     },
     "./responsive/block/sm.scss": {
-      "import": "./responsive/block/sm.scss"
+      "import": "./src/responsive/block/sm.scss"
     },
     "./responsive/block/sm": {
-      "import": "./responsive/block/sm.js"
+      "import": "./src/responsive/block/sm.js"
     },
     "./responsive/block/xs.scss": {
-      "import": "./responsive/block/xs.scss"
+      "import": "./src/responsive/block/xs.scss"
     },
     "./responsive/block/xs": {
-      "import": "./responsive/block/xs.js"
+      "import": "./src/responsive/block/xs.js"
     },
     "./responsive/compensateGridVerticalOffset": {
-      "import": "./responsive/compensateGridVerticalOffset.js"
+      "import": "./src/responsive/compensateGridVerticalOffset.js"
     },
     "./responsive/component": {
-      "import": "./responsive/component.js"
+      "import": "./src/responsive/component.js"
     },
     "./responsive": {
-      "import": "./responsive/index.js"
+      "import": "./src/responsive/index.js"
     },
     "./responsive/only/devices.scss": {
-      "import": "./responsive/only/devices.scss"
+      "import": "./src/responsive/only/devices.scss"
     },
     "./responsive/only/devices": {
-      "import": "./responsive/only/devices.js"
+      "import": "./src/responsive/only/devices.js"
     },
     "./responsive/only": {
-      "import": "./responsive/only/index.js"
+      "import": "./src/responsive/only/index.js"
     },
     "./responsive/only/lg.scss": {
-      "import": "./responsive/only/lg.scss"
+      "import": "./src/responsive/only/lg.scss"
     },
     "./responsive/only/lg": {
-      "import": "./responsive/only/lg.js"
+      "import": "./src/responsive/only/lg.js"
     },
     "./responsive/only/md.scss": {
-      "import": "./responsive/only/md.scss"
+      "import": "./src/responsive/only/md.scss"
     },
     "./responsive/only/md": {
-      "import": "./responsive/only/md.js"
+      "import": "./src/responsive/only/md.js"
     },
     "./responsive/only/sm.scss": {
-      "import": "./responsive/only/sm.scss"
+      "import": "./src/responsive/only/sm.scss"
     },
     "./responsive/only/sm": {
-      "import": "./responsive/only/sm.js"
+      "import": "./src/responsive/only/sm.js"
     },
     "./responsive/only/xs.scss": {
-      "import": "./responsive/only/xs.scss"
+      "import": "./src/responsive/only/xs.scss"
     },
     "./responsive/only/xs": {
-      "import": "./responsive/only/xs.js"
+      "import": "./src/responsive/only/xs.js"
     },
     "./rte/index.scss": {
-      "import": "./rte/index.scss"
+      "import": "./src/rte/index.scss"
     },
     "./rte": {
-      "import": "./rte/index.js"
+      "import": "./src/rte/index.js"
     },
     "./scroll/between": {
-      "import": "./scroll/between/index.js"
+      "import": "./src/scroll/between/index.js"
     },
     "./scroll/lock/custom": {
-      "import": "./scroll/lock/custom.js"
+      "import": "./src/scroll/lock/custom.js"
     },
     "./scroll/lock": {
-      "import": "./scroll/lock/index.js"
+      "import": "./src/scroll/lock/index.js"
     },
     "./scroll/onScroll": {
-      "import": "./scroll/onScroll/index.js"
+      "import": "./src/scroll/onScroll/index.js"
     },
     "./scroll/onScroll/types": {
-      "import": "./scroll/onScroll/types.js"
+      "import": "./src/scroll/onScroll/types.js"
     },
     "./scroll/onScroll/withAos": {
-      "import": "./scroll/onScroll/withAos.js"
+      "import": "./src/scroll/onScroll/withAos.js"
     },
     "./scroll/onScroll/withScrollTrigger": {
-      "import": "./scroll/onScroll/withScrollTrigger.js"
+      "import": "./src/scroll/onScroll/withScrollTrigger.js"
     },
     "./scroll/scrollSpy": {
-      "import": "./scroll/scrollSpy/index.js"
+      "import": "./src/scroll/scrollSpy/index.js"
     },
     "./scroll/scrollTo": {
-      "import": "./scroll/scrollTo/index.js"
+      "import": "./src/scroll/scrollTo/index.js"
     },
     "./scroll/smoothScroll": {
-      "import": "./scroll/smoothScroll/index.js"
+      "import": "./src/scroll/smoothScroll/index.js"
     },
     "./scroll/stickySidebar": {
-      "import": "./scroll/stickySidebar/index.js"
+      "import": "./src/scroll/stickySidebar/index.js"
     },
     "./scroll/threshold": {
-      "import": "./scroll/threshold/index.js"
+      "import": "./src/scroll/threshold/index.js"
     },
     "./scss/_functions.scss": {
-      "import": "./scss/_functions.scss"
+      "import": "./src/scss/_functions.scss"
     },
     "./scss/_mixins.scss": {
-      "import": "./scss/_mixins.scss"
+      "import": "./src/scss/_mixins.scss"
     },
     "./scss/_placeholders.scss": {
-      "import": "./scss/_placeholders.scss"
+      "import": "./src/scss/_placeholders.scss"
     },
     "./scss/_variables.scss": {
-      "import": "./scss/_variables.scss"
+      "import": "./src/scss/_variables.scss"
     },
     "./scss/index.scss": {
-      "import": "./scss/index.scss"
+      "import": "./src/scss/index.scss"
     },
     "./scss": {
-      "import": "./scss/index.js"
+      "import": "./src/scss/index.js"
     },
     "./scss/mixins/_fonts.scss": {
-      "import": "./scss/mixins/_fonts.scss"
+      "import": "./src/scss/mixins/_fonts.scss"
     },
     "./scss/mixins/_overlay.scss": {
-      "import": "./scss/mixins/_overlay.scss"
+      "import": "./src/scss/mixins/_overlay.scss"
     },
     "./scss/mixins/_ratio.scss": {
-      "import": "./scss/mixins/_ratio.scss"
+      "import": "./src/scss/mixins/_ratio.scss"
     },
     "./scss/mixins/_spacing.scss": {
-      "import": "./scss/mixins/_spacing.scss"
+      "import": "./src/scss/mixins/_spacing.scss"
     },
     "./scss/mixins/_svg.scss": {
-      "import": "./scss/mixins/_svg.scss"
+      "import": "./src/scss/mixins/_svg.scss"
     },
     "./scss/vendor/_rfs.scss": {
-      "import": "./scss/vendor/_rfs.scss"
+      "import": "./src/scss/vendor/_rfs.scss"
     },
     "./scss/vendor/_sass-rem.scss": {
-      "import": "./scss/vendor/_sass-rem.scss"
+      "import": "./src/scss/vendor/_sass-rem.scss"
     },
     "./swiper/_mixins.scss": {
-      "import": "./swiper/_mixins.scss"
+      "import": "./src/swiper/_mixins.scss"
     },
     "./swiper/index.scss": {
-      "import": "./swiper/index.scss"
+      "import": "./src/swiper/index.scss"
     },
     "./swiper": {
-      "import": "./swiper/index.js"
+      "import": "./src/swiper/index.js"
     },
     "./swiper/init": {
-      "import": "./swiper/init.js"
+      "import": "./src/swiper/init.js"
     },
     "./swiper/navigation/index.scss": {
-      "import": "./swiper/navigation/index.scss"
+      "import": "./src/swiper/navigation/index.scss"
     },
     "./swiper/navigation": {
-      "import": "./swiper/navigation/index.js"
+      "import": "./src/swiper/navigation/index.js"
     },
     "./tabs": {
-      "import": "./tabs/index.js"
+      "import": "./src/tabs/index.js"
     },
     "./tabs/types": {
-      "import": "./tabs/types.js"
+      "import": "./src/tabs/types.js"
     },
     "./tip": {
-      "import": "./tip/index.js"
+      "import": "./src/tip/index.js"
     },
     "./transitions/barba/curtain": {
-      "import": "./transitions/barba/curtain.js"
+      "import": "./src/transitions/barba/curtain.js"
     },
     "./transitions/barba": {
-      "import": "./transitions/barba/index.js"
+      "import": "./src/transitions/barba/index.js"
     },
     "./typography/_mixins.scss": {
-      "import": "./typography/_mixins.scss"
+      "import": "./src/typography/_mixins.scss"
     },
     "./typography/_variables.scss": {
-      "import": "./typography/_variables.scss"
+      "import": "./src/typography/_variables.scss"
     },
     "./typography/reset.scss": {
-      "import": "./typography/reset.scss"
+      "import": "./src/typography/reset.scss"
     },
     "./video/index.scss": {
-      "import": "./video/index.scss"
+      "import": "./src/video/index.scss"
     },
     "./video": {
-      "import": "./video/index.js"
+      "import": "./src/video/index.js"
     },
     "./wishlist": {
-      "import": "./wishlist/index.js"
+      "import": "./src/wishlist/index.js"
     },
     "./zacc/_mixins.scss": {
-      "import": "./zacc/_mixins.scss"
+      "import": "./src/zacc/_mixins.scss"
     },
     "./zacc/index.scss": {
-      "import": "./zacc/index.scss"
+      "import": "./src/zacc/index.scss"
     },
     "./zacc": {
-      "import": "./zacc/index.js"
+      "import": "./src/zacc/index.js"
     },
     "./zacc/readMore.scss": {
-      "import": "./zacc/readMore.scss"
+      "import": "./src/zacc/readMore.scss"
     },
     "./zacc/readMore": {
-      "import": "./zacc/readMore.js"
+      "import": "./src/zacc/readMore.js"
     },
     "./zacc/withAria.scss": {
-      "import": "./zacc/withAria.scss"
+      "import": "./src/zacc/withAria.scss"
     },
     "./zacc/withAria": {
-      "import": "./zacc/withAria.js"
+      "import": "./src/zacc/withAria.js"
     },
     "./zacc/withCheckbox.scss": {
-      "import": "./zacc/withCheckbox.scss"
+      "import": "./src/zacc/withCheckbox.scss"
     },
     "./zacc/withCheckbox": {
-      "import": "./zacc/withCheckbox.js"
+      "import": "./src/zacc/withCheckbox.js"
     }
   },
   "dependencies": {

@@ -17,58 +17,58 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./index.js"
+      "import": "./src/index.js"
     },
     "./createStorage": {
-      "import": "./createStorage.js"
+      "import": "./src/createStorage.js"
     },
     "./getZonedDate": {
-      "import": "./getZonedDate.js"
+      "import": "./src/getZonedDate.js"
     },
     "./gtagPageview": {
-      "import": "./gtagPageview.js"
+      "import": "./src/gtagPageview.js"
     },
     "./isIE": {
-      "import": "./isIE.js"
+      "import": "./src/isIE.js"
     },
     "./isMobile": {
-      "import": "./isMobile.js"
+      "import": "./src/isMobile.js"
     },
     "./listenUrlSearch": {
-      "import": "./listenUrlSearch.js"
+      "import": "./src/listenUrlSearch.js"
     },
     "./listenUrlSearchParams": {
-      "import": "./listenUrlSearchParams.js"
+      "import": "./src/listenUrlSearchParams.js"
     },
     "./navigateToHash": {
-      "import": "./navigateToHash.js"
+      "import": "./src/navigateToHash.js"
     },
     "./navigateToHashParams": {
-      "import": "./navigateToHashParams.js"
+      "import": "./src/navigateToHashParams.js"
     },
     "./navigateToMergedHashParams": {
-      "import": "./navigateToMergedHashParams.js"
+      "import": "./src/navigateToMergedHashParams.js"
     },
     "./navigateToMergedParams": {
-      "import": "./navigateToMergedParams.js"
+      "import": "./src/navigateToMergedParams.js"
     },
     "./navigateToParams": {
-      "import": "./navigateToParams.js"
+      "import": "./src/navigateToParams.js"
     },
     "./navigateToUrl": {
-      "import": "./navigateToUrl.js"
+      "import": "./src/navigateToUrl.js"
     },
     "./navigateWithoutUrlParam": {
-      "import": "./navigateWithoutUrlParam.js"
+      "import": "./src/navigateWithoutUrlParam.js"
     },
     "./redirectTo": {
-      "import": "./redirectTo.js"
+      "import": "./src/redirectTo.js"
     },
     "./storage": {
-      "import": "./storage.js"
+      "import": "./src/storage.js"
     },
     "./storageClient": {
-      "import": "./storageClient.js"
+      "import": "./src/storageClient.js"
     }
   },
   "dependencies": {

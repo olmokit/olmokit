@@ -2,11 +2,11 @@ CHANGELOG.md
 pnpm-lock.yaml
 pnpm-workspaces.yaml
 package-lock.json
-/dist
+dist
 /tmp
 vendor
 
-packages/cli/*/templates
+packages/cli/src/*/templates
 packages/laravel-frontend/vendor
 packages/laravel-frontend/bootstrap/cache
 packages-todo

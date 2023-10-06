@@ -17,20 +17,20 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./index.js",
-      "require": "./index.js"
+      "import": "./src/index.js",
+      "require": "./src/index.js"
     },
     "./cli-laravel/bootstrap": {
-      "import": "./cli-laravel/bootstrap.js",
-      "require": "./cli-laravel/bootstrap.js"
+      "import": "./src/cli-laravel/bootstrap.js",
+      "require": "./src/cli-laravel/bootstrap.js"
     },
     "./cli-laravel": {
-      "import": "./cli-laravel/index.js",
-      "require": "./cli-laravel/index.js"
+      "import": "./src/cli-laravel/index.js",
+      "require": "./src/cli-laravel/index.js"
     }
   },
   "bin": {
-    "olmo": "./bin/pm.js"
+    "olmo": "./src/bin/pm.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.425.0",
@@ -63,6 +63,7 @@
     "lodash.template": "^4.5.0",
     "mime": "^3.0.0",
     "mini-css-extract-plugin": "^2.7.6",
+    "ora": "^7.0.1",
     "php-parser": "^3.1.5",
     "postcss-loader": "^7.3.3",
     "postcss-preset-env": "^9.1.4",

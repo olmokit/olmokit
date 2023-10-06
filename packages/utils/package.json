@@ -17,427 +17,427 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./index.js"
+      "import": "./src/index.js"
     },
     "./Defer": {
-      "import": "./Defer.js"
+      "import": "./src/Defer.js"
     },
     "./Emitter": {
-      "import": "./Emitter.js"
+      "import": "./src/Emitter.js"
     },
     "./accentSets": {
-      "import": "./accentSets.js"
+      "import": "./src/accentSets.js"
     },
     "./addOrReplaceAtIdx": {
-      "import": "./addOrReplaceAtIdx.js"
+      "import": "./src/addOrReplaceAtIdx.js"
     },
     "./areEqual": {
-      "import": "./areEqual.js"
+      "import": "./src/areEqual.js"
     },
     "./arrayOfAll": {
-      "import": "./arrayOfAll.js"
+      "import": "./src/arrayOfAll.js"
     },
     "./arraySum": {
-      "import": "./arraySum.js"
+      "import": "./src/arraySum.js"
     },
     "./arrayToLookup": {
-      "import": "./arrayToLookup.js"
+      "import": "./src/arrayToLookup.js"
     },
     "./buildUrlQueryString": {
-      "import": "./buildUrlQueryString.js"
+      "import": "./src/buildUrlQueryString.js"
     },
     "./capitalize": {
-      "import": "./capitalize.js"
+      "import": "./src/capitalize.js"
     },
     "./changeUrlPath": {
-      "import": "./changeUrlPath.js"
+      "import": "./src/changeUrlPath.js"
     },
     "./chunkByChunks": {
-      "import": "./chunkByChunks.js"
+      "import": "./src/chunkByChunks.js"
     },
     "./chunkBySize": {
-      "import": "./chunkBySize.js"
+      "import": "./src/chunkBySize.js"
     },
     "./clamp": {
-      "import": "./clamp.js"
+      "import": "./src/clamp.js"
     },
     "./clsx": {
-      "import": "./clsx.js"
+      "import": "./src/clsx.js"
     },
     "./convertRange": {
-      "import": "./convertRange.js"
+      "import": "./src/convertRange.js"
     },
     "./cookie": {
-      "import": "./cookie.js"
+      "import": "./src/cookie.js"
     },
     "./createPalette": {
-      "import": "./createPalette.js"
+      "import": "./src/createPalette.js"
     },
     "./debounce": {
-      "import": "./debounce.js"
+      "import": "./src/debounce.js"
     },
     "./debouncePromise": {
-      "import": "./debouncePromise.js"
+      "import": "./src/debouncePromise.js"
     },
     "./debounceRaf": {
-      "import": "./debounceRaf.js"
+      "import": "./src/debounceRaf.js"
     },
     "./decode": {
-      "import": "./decode.js"
+      "import": "./src/decode.js"
     },
     "./encode": {
-      "import": "./encode.js"
+      "import": "./src/encode.js"
     },
     "./ensureInt": {
-      "import": "./ensureInt.js"
+      "import": "./src/ensureInt.js"
     },
     "./env": {
-      "import": "./env.js"
+      "import": "./src/env.js"
     },
     "./errorToString": {
-      "import": "./errorToString.js"
+      "import": "./src/errorToString.js"
     },
     "./findDuplicatedIndexes": {
-      "import": "./findDuplicatedIndexes.js"
+      "import": "./src/findDuplicatedIndexes.js"
     },
     "./forin": {
-      "import": "./forin.js"
+      "import": "./src/forin.js"
     },
     "./gbToBytes": {
-      "import": "./gbToBytes.js"
+      "import": "./src/gbToBytes.js"
     },
     "./getEmptyArray": {
-      "import": "./getEmptyArray.js"
+      "import": "./src/getEmptyArray.js"
     },
     "./getKeys": {
-      "import": "./getKeys.js"
+      "import": "./src/getKeys.js"
     },
     "./getMediaQueryWidthResolvers": {
-      "import": "./getMediaQueryWidthResolvers.js"
+      "import": "./src/getMediaQueryWidthResolvers.js"
     },
     "./getMediaQueryWidthTailwindScreens": {
-      "import": "./getMediaQueryWidthTailwindScreens.js"
+      "import": "./src/getMediaQueryWidthTailwindScreens.js"
     },
     "./getNonce": {
-      "import": "./getNonce.js"
+      "import": "./src/getNonce.js"
     },
     "./getParamAmong": {
-      "import": "./getParamAmong.js"
+      "import": "./src/getParamAmong.js"
     },
     "./getParamAsInt": {
-      "import": "./getParamAsInt.js"
+      "import": "./src/getParamAsInt.js"
     },
     "./getParamAsString": {
-      "import": "./getParamAsString.js"
+      "import": "./src/getParamAsString.js"
     },
     "./getType": {
-      "import": "./getType.js"
+      "import": "./src/getType.js"
     },
     "./getUrlHashParams": {
-      "import": "./getUrlHashParams.js"
+      "import": "./src/getUrlHashParams.js"
     },
     "./getUrlHashPathname": {
-      "import": "./getUrlHashPathname.js"
+      "import": "./src/getUrlHashPathname.js"
     },
     "./getUrlPathnameParts": {
-      "import": "./getUrlPathnameParts.js"
+      "import": "./src/getUrlPathnameParts.js"
     },
     "./getUrlQueryParams": {
-      "import": "./getUrlQueryParams.js"
+      "import": "./src/getUrlQueryParams.js"
     },
     "./imgEmptyPixel": {
-      "import": "./imgEmptyPixel.js"
+      "import": "./src/imgEmptyPixel.js"
     },
     "./invariant": {
-      "import": "./invariant.js"
+      "import": "./src/invariant.js"
     },
     "./isAnyObject": {
-      "import": "./isAnyObject.js"
+      "import": "./src/isAnyObject.js"
     },
     "./isArray": {
-      "import": "./isArray.js"
+      "import": "./src/isArray.js"
     },
     "./isBlob": {
-      "import": "./isBlob.js"
+      "import": "./src/isBlob.js"
     },
     "./isBoolean": {
-      "import": "./isBoolean.js"
+      "import": "./src/isBoolean.js"
     },
     "./isBrowser": {
-      "import": "./isBrowser.js"
+      "import": "./src/isBrowser.js"
     },
     "./isBrowserNow": {
-      "import": "./isBrowserNow.js"
+      "import": "./src/isBrowserNow.js"
     },
     "./isDate": {
-      "import": "./isDate.js"
+      "import": "./src/isDate.js"
     },
     "./isEmptyArray": {
-      "import": "./isEmptyArray.js"
+      "import": "./src/isEmptyArray.js"
     },
     "./isEmptyObject": {
-      "import": "./isEmptyObject.js"
+      "import": "./src/isEmptyObject.js"
     },
     "./isEmptyString": {
-      "import": "./isEmptyString.js"
+      "import": "./src/isEmptyString.js"
     },
     "./isError": {
-      "import": "./isError.js"
+      "import": "./src/isError.js"
     },
     "./isExternalUrl": {
-      "import": "./isExternalUrl.js"
+      "import": "./src/isExternalUrl.js"
     },
     "./isFile": {
-      "import": "./isFile.js"
+      "import": "./src/isFile.js"
     },
     "./isFloat": {
-      "import": "./isFloat.js"
+      "import": "./src/isFloat.js"
     },
     "./isFormData": {
-      "import": "./isFormData.js"
+      "import": "./src/isFormData.js"
     },
     "./isFullArray": {
-      "import": "./isFullArray.js"
+      "import": "./src/isFullArray.js"
     },
     "./isFullObject": {
-      "import": "./isFullObject.js"
+      "import": "./src/isFullObject.js"
     },
     "./isFullString": {
-      "import": "./isFullString.js"
+      "import": "./src/isFullString.js"
     },
     "./isFunction": {
-      "import": "./isFunction.js"
+      "import": "./src/isFunction.js"
     },
     "./isInt": {
-      "import": "./isInt.js"
+      "import": "./src/isInt.js"
     },
     "./isMap": {
-      "import": "./isMap.js"
+      "import": "./src/isMap.js"
     },
     "./isNaNValue": {
-      "import": "./isNaNValue.js"
+      "import": "./src/isNaNValue.js"
     },
     "./isNegativeNumber": {
-      "import": "./isNegativeNumber.js"
+      "import": "./src/isNegativeNumber.js"
     },
     "./isNull": {
-      "import": "./isNull.js"
+      "import": "./src/isNull.js"
     },
     "./isNullOrUndefined": {
-      "import": "./isNullOrUndefined.js"
+      "import": "./src/isNullOrUndefined.js"
     },
     "./isNumber": {
-      "import": "./isNumber.js"
+      "import": "./src/isNumber.js"
     },
     "./isObject": {
-      "import": "./isObject.js"
+      "import": "./src/isObject.js"
     },
     "./isObjectLike": {
-      "import": "./isObjectLike.js"
+      "import": "./src/isObjectLike.js"
     },
     "./isOneOf": {
-      "import": "./isOneOf.js"
+      "import": "./src/isOneOf.js"
     },
     "./isPlainObject": {
-      "import": "./isPlainObject.js"
+      "import": "./src/isPlainObject.js"
     },
     "./isPositiveNumber": {
-      "import": "./isPositiveNumber.js"
+      "import": "./src/isPositiveNumber.js"
     },
     "./isPrimitive": {
-      "import": "./isPrimitive.js"
+      "import": "./src/isPrimitive.js"
     },
     "./isPromise": {
-      "import": "./isPromise.js"
+      "import": "./src/isPromise.js"
     },
     "./isRegExp": {
-      "import": "./isRegExp.js"
+      "import": "./src/isRegExp.js"
     },
     "./isServer": {
-      "import": "./isServer.js"
+      "import": "./src/isServer.js"
     },
     "./isServerNow": {
-      "import": "./isServerNow.js"
+      "import": "./src/isServerNow.js"
     },
     "./isSet": {
-      "import": "./isSet.js"
+      "import": "./src/isSet.js"
     },
     "./isString": {
-      "import": "./isString.js"
+      "import": "./src/isString.js"
     },
     "./isSymbol": {
-      "import": "./isSymbol.js"
+      "import": "./src/isSymbol.js"
     },
     "./isType": {
-      "import": "./isType.js"
+      "import": "./src/isType.js"
     },
     "./isUndefined": {
-      "import": "./isUndefined.js"
+      "import": "./src/isUndefined.js"
     },
     "./isWeakMap": {
-      "import": "./isWeakMap.js"
+      "import": "./src/isWeakMap.js"
     },
     "./isWeakSet": {
-      "import": "./isWeakSet.js"
+      "import": "./src/isWeakSet.js"
     },
     "./kbToBytes": {
-      "import": "./kbToBytes.js"
+      "import": "./src/kbToBytes.js"
     },
     "./location": {
-      "import": "./location.js"
+      "import": "./src/location.js"
     },
     "./lowercase": {
-      "import": "./lowercase.js"
+      "import": "./src/lowercase.js"
     },
     "./mapListBy": {
-      "import": "./mapListBy.js"
+      "import": "./src/mapListBy.js"
     },
     "./matchSorter": {
-      "import": "./matchSorter.js"
+      "import": "./src/matchSorter.js"
     },
     "./mbToBytes": {
-      "import": "./mbToBytes.js"
+      "import": "./src/mbToBytes.js"
     },
     "./mergeObjects": {
-      "import": "./mergeObjects.js"
+      "import": "./src/mergeObjects.js"
     },
     "./mergeUrlQueryParams": {
-      "import": "./mergeUrlQueryParams.js"
+      "import": "./src/mergeUrlQueryParams.js"
     },
     "./moveSortableArrayItemByKey": {
-      "import": "./moveSortableArrayItemByKey.js"
+      "import": "./src/moveSortableArrayItemByKey.js"
     },
     "./noop": {
-      "import": "./noop.js"
+      "import": "./src/noop.js"
     },
     "./normaliseUrl": {
-      "import": "./normaliseUrl.js"
+      "import": "./src/normaliseUrl.js"
     },
     "./normaliseUrlPathname": {
-      "import": "./normaliseUrlPathname.js"
+      "import": "./src/normaliseUrlPathname.js"
     },
     "./objectFlip": {
-      "import": "./objectFlip.js"
+      "import": "./src/objectFlip.js"
     },
     "./objectOmit": {
-      "import": "./objectOmit.js"
+      "import": "./src/objectOmit.js"
     },
     "./objectPick": {
-      "import": "./objectPick.js"
+      "import": "./src/objectPick.js"
     },
     "./parseCookie": {
-      "import": "./parseCookie.js"
+      "import": "./src/parseCookie.js"
     },
     "./parseURL": {
-      "import": "./parseURL.js"
+      "import": "./src/parseURL.js"
     },
     "./quaranteneProps": {
-      "import": "./quaranteneProps.js"
+      "import": "./src/quaranteneProps.js"
     },
     "./randomInt": {
-      "import": "./randomInt.js"
+      "import": "./src/randomInt.js"
     },
     "./randomKey": {
-      "import": "./randomKey.js"
+      "import": "./src/randomKey.js"
     },
     "./readCookie": {
-      "import": "./readCookie.js"
+      "import": "./src/readCookie.js"
     },
     "./removeAccents": {
-      "import": "./removeAccents.js"
+      "import": "./src/removeAccents.js"
     },
     "./removeCookie": {
-      "import": "./removeCookie.js"
+      "import": "./src/removeCookie.js"
     },
     "./removeDuplicates": {
-      "import": "./removeDuplicates.js"
+      "import": "./src/removeDuplicates.js"
     },
     "./removeDuplicatesByKey": {
-      "import": "./removeDuplicatesByKey.js"
+      "import": "./src/removeDuplicatesByKey.js"
     },
     "./removeDuplicatesComparing": {
-      "import": "./removeDuplicatesComparing.js"
+      "import": "./src/removeDuplicatesComparing.js"
     },
     "./removeIndexesFromArray": {
-      "import": "./removeIndexesFromArray.js"
+      "import": "./src/removeIndexesFromArray.js"
     },
     "./removeTrailingSlash": {
-      "import": "./removeTrailingSlash.js"
+      "import": "./src/removeTrailingSlash.js"
     },
     "./removeUrlQueryParams": {
-      "import": "./removeUrlQueryParams.js"
+      "import": "./src/removeUrlQueryParams.js"
     },
     "./render": {
-      "import": "./render.js"
+      "import": "./src/render.js"
     },
     "./roundTo": {
-      "import": "./roundTo.js"
+      "import": "./src/roundTo.js"
     },
     "./serializeCookie": {
-      "import": "./serializeCookie.js"
+      "import": "./src/serializeCookie.js"
     },
     "./setCookie": {
-      "import": "./setCookie.js"
+      "import": "./src/setCookie.js"
     },
     "./shuffle": {
-      "import": "./shuffle.js"
+      "import": "./src/shuffle.js"
     },
     "./slugify": {
-      "import": "./slugify.js"
+      "import": "./src/slugify.js"
     },
     "./split": {
-      "import": "./split.js"
+      "import": "./src/split.js"
     },
     "./swapMap": {
-      "import": "./swapMap.js"
+      "import": "./src/swapMap.js"
     },
     "./throttle": {
-      "import": "./throttle.js"
+      "import": "./src/throttle.js"
     },
     "./titleCase": {
-      "import": "./titleCase.js"
+      "import": "./src/titleCase.js"
     },
     "./toNumber": {
-      "import": "./toNumber.js"
+      "import": "./src/toNumber.js"
     },
     "./toRgba": {
-      "import": "./toRgba.js"
+      "import": "./src/toRgba.js"
     },
     "./transformToUrlPathname": {
-      "import": "./transformToUrlPathname.js"
+      "import": "./src/transformToUrlPathname.js"
     },
     "./truncate": {
-      "import": "./truncate.js"
+      "import": "./src/truncate.js"
     },
     "./tryUntil": {
-      "import": "./tryUntil.js"
+      "import": "./src/tryUntil.js"
     },
     "./types": {
-      "import": "./types.js"
+      "import": "./src/types.js"
     },
     "./uid": {
-      "import": "./uid.js"
+      "import": "./src/uid.js"
     },
     "./updateLinkParams": {
-      "import": "./updateLinkParams.js"
+      "import": "./src/updateLinkParams.js"
     },
     "./updateUrlQueryParams": {
-      "import": "./updateUrlQueryParams.js"
+      "import": "./src/updateUrlQueryParams.js"
     },
     "./uppercase": {
-      "import": "./uppercase.js"
+      "import": "./src/uppercase.js"
     },
     "./uuid": {
-      "import": "./uuid.js"
+      "import": "./src/uuid.js"
     },
     "./uuidNumeric": {
-      "import": "./uuidNumeric.js"
+      "import": "./src/uuidNumeric.js"
     },
     "./wait": {
-      "import": "./wait.js"
+      "import": "./src/wait.js"
     },
     "./without": {
-      "import": "./without.js"
+      "import": "./src/without.js"
     }
   },
   "dependencies": {

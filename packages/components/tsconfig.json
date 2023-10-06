@@ -5,7 +5,7 @@
   },
   "files": [
     "../../@types/globals.d.ts",
-    "../core/globals.d.ts"
+    "../core/src/globals.d.ts"
   ],
   "include": [],
   "references": [

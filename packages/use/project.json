@@ -1,7 +1,7 @@
 {
   "name": "use",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/use",
+  "sourceRoot": "packages/use/src",
   "projectType": "library",
   "targets": {
     "watch": {
@@ -11,8 +11,8 @@
         "watch": true,
         "clean": false,
         "skipTypeCheck": true,
-        "outputPath": "dist/packages/use",
-        "main": "packages/use/index.ts",
+        "outputPath": "packages/use/dist",
+        "main": "packages/use/src/index.ts",
         "tsConfig": "packages/use/tsconfig.lib.json",
         "assets": ["packages/use/*.md"]
       }
@@ -21,8 +21,8 @@
       "executor": "@nx/js:swc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/use",
-        "main": "packages/use/index.ts",
+        "outputPath": "packages/use/dist",
+        "main": "packages/use/src/index.ts",
         "tsConfig": "packages/use/tsconfig.lib.json",
         "assets": ["packages/use/*.md"]
       }
@@ -36,7 +36,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "packages/use/**/*.ts",
+          "packages/use/src/**/*.ts",
           "packages/use/package.json"
         ]
       }

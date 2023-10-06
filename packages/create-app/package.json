@@ -22,10 +22,10 @@
   ],
   "scripts": {
     "build": "pnpm pre && pnpm compile && pnpm post",
-    "compile": "ncc build ./index.ts -o ./dist/ --minify --no-cache --no-source-map-register",
-    "dev": "pnpm pre && ncc build ./index.ts -w -o ../../dist/packages/create-app/",
-    "post": "cp ./dist/index.js ../../dist/packages/create-app/index.js && rm -r ./dist",
-    "pre": "mkdir -p ../../dist/packages/create-app/ && cp ./package.json ../../dist/packages/create-app/package.json && cp ./README.md ../../dist/packages/create-app/README.md"
+    "compile": "ncc build ./src/index.ts -o ./dist/ --minify --no-cache --no-source-map-register",
+    "dev": "pnpm pre && ncc build ./src/index.ts -w -o ./dist",
+    "pre": "mkdir -p ./dist",
+    "post": "cp ./package.json ./dist/package.json && cp ./README.md ./packages/create-app/dist/README.md"
   },
   "engines": {
     "node": ">=16.7"

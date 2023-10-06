@@ -24,7 +24,7 @@ export const koine = () =>
             ...oraOpts,
           });
           // console.log(`Sync ${name} packages done.`);
-        })
+        }),
       );
     });
 
@@ -49,17 +49,17 @@ const localSyncs: LocalSync[] = [
     defs: [
       {
         from: "../../../KnitKode/koine/packages/dom",
-        to: "../packages/dom",
+        to: "../packages/dom/src",
         pattern: "/**/*.ts",
       },
       {
         from: "../../../KnitKode/koine/packages/browser",
-        to: "../packages/browser",
+        to: "../packages/browser/src",
         pattern: "/**/*.ts",
       },
       {
         from: "../../../KnitKode/koine/packages/utils",
-        to: "../packages/utils",
+        to: "../packages/utils/src",
         pattern: "/**/*.ts",
       },
     ],
@@ -78,8 +78,8 @@ async function sync(sync: LocalSync) {
         suffixText: `to ${chalk.dim(def.to)}`,
         text: `Sync ${chalk.dim(def.from)}`,
         ...oraOpts,
-      })
-    )
+      }),
+    ),
   );
 }
 
@@ -99,7 +99,7 @@ async function syncDef(def: LocalSyncDef, replacer?: LocalSyncReplacer) {
         const relativePath = relative(from, src);
         const dest = resolve(__dirname, to, relativePath);
         await syncFile(resolve(__dirname, src), dest, replacer);
-      })
+      }),
     );
   } else {
     const src = resolve(__dirname, from);
@@ -111,7 +111,7 @@ async function syncDef(def: LocalSyncDef, replacer?: LocalSyncReplacer) {
 async function syncFile(
   src: string,
   dest: string,
-  replacer?: LocalSyncReplacer
+  replacer?: LocalSyncReplacer,
 ) {
   if (!replacer) {
     await copyFile(src, dest);

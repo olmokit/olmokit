@@ -7,10 +7,11 @@ import {
   type PackageJson,
   getComposerDependenciesNameAndVersion,
   getNpmDependenciesNameAndVersion,
-} from "../packages/cli-utils/index.js";
+} from "../packages/cli-utils/src/index.js";
 
 type LibShared = LibConfig & {
   scope: string;
+  root: string;
   src: string;
   dist: string;
   slug: string;
@@ -103,12 +104,6 @@ const libsConfig: LibConfig[] = [
     link: "dist",
   },
   {
-    slug: "template-laravel",
-    type: "none",
-    exports: "none",
-    link: "dist",
-  },
-  {
     slug: "use",
     type: "module",
     exports: "none",
@@ -163,10 +158,12 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
 
   return (
     (globSync(join(__dirname, "../packages/*")) || [])
-      .map((src) => {
-        const slug = basename(src);
+      .map((globSrc) => {
+        const slug = basename(globSrc);
         const config = libsConfig.find((config) => config.slug === slug);
-        const dist = join(__dirname, "../dist/packages/", slug);
+        const root = join(__dirname, "../packages/", slug);
+        const src = join(__dirname, "../packages/", slug, "/src");
+        const dist = join(__dirname, "../packages/", slug, "/dist");
         let packager: Lib["packager"];
         let packageJson = {} as PackageJson;
         let composerJson = {} as ComposerJson;
@@ -189,7 +186,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
           }
         } catch (e) {
           try {
-            packageJson = require(join(src, "/package.json")) as PackageJson;
+            packageJson = require(join(root, "/package.json")) as PackageJson;
             if (packageJson) {
               packager = "npm";
               name = packageJson.name!;
@@ -217,6 +214,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
           scope,
           version,
           packager,
+          root,
           src,
           dist,
           internalDeps,

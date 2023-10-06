@@ -18,7 +18,7 @@ import { Command } from "commander";
 import { glob } from "glob";
 import { oraPromise } from "ora";
 import { PackageJson, TsConfigJson } from "type-fest";
-import { editJsonFile } from "../packages/cli-utils/index.js";
+import { editJsonFile } from "../packages/cli-utils/src/index.js";
 import { oraOpts } from "./dev.js";
 import { type Lib, self } from "./helpers.js";
 
@@ -62,7 +62,7 @@ export const libs = () =>
 
 function getLibExport(lib: Lib, name?: string, path?: string) {
   name = name ? `./${name}` : ".";
-  const exportPath = path ? path : "./index.js";
+  const exportPath = path ? `./src/${path}` : "./src/index.js";
   const obj: { import?: string; require?: string /* ; types: string; */ } = {
     // types: exportPath.replace(/\.js$/, ".d.ts")
   };
@@ -88,7 +88,7 @@ async function writeLibExports(lib: Lib) {
   }
 
   if (lib.exports === "none") {
-    await editJsonFile([lib.dist, lib.src], "package.json", (data) => {
+    await editJsonFile(lib.root, "package.json", (data) => {
       delete data.exports;
     });
 
@@ -96,7 +96,8 @@ async function writeLibExports(lib: Lib) {
   }
 
   // FIXME: once we have fully migrated to ts we can remove "js"
-  const paths = await glob(lib.src + "/**/*.{js,ts,tsx,scss}", {
+  const paths = await glob("**/*.{js,ts,tsx,scss}", {
+    cwd: lib.src,
     ignore: [
       // ignore node_modules
       lib.src + "/node_modules/**/*",
@@ -118,12 +119,7 @@ async function writeLibExports(lib: Lib) {
     ],
   });
 
-  const pathsToExports = paths
-    .map((fileOrFolderPath) => {
-      const dir = relative(lib.src, fileOrFolderPath);
-      return dir;
-    })
-    .sort();
+  const pathsToExports = paths.sort();
 
   // console.log(`${lib.name}:`, pathsToExports);
 
@@ -135,7 +131,7 @@ async function writeLibExports(lib: Lib) {
       const name = isScssFile
         ? path
         : path.replace(/\.tsx|\.ts|\.js$/, "").replace(/\/index$/, "");
-      const jsFilePath = `./${path.replace(/\.tsx|\.ts$/, ".js")}`;
+      const jsFilePath = `${path.replace(/\.tsx|\.ts$/, ".js")}`;
       const exp = getLibExport(lib, name, jsFilePath);
       map[exp.name] = exp.obj;
 
@@ -153,7 +149,7 @@ async function writeLibExports(lib: Lib) {
     } as Record<string, object>,
   );
 
-  await editJsonFile([lib.dist, lib.src], "package.json", (data) => {
+  await editJsonFile(lib.root, "package.json", (data) => {
     data.exports = exports;
   });
 }
@@ -164,7 +160,7 @@ async function writeLibExports(lib: Lib) {
  * package does not specify a version in its package.json.
  */
 async function ensurePackageVersion(lib: Lib) {
-  await editJsonFile<PackageJson>(lib.src, "package.json", (data) => {
+  await editJsonFile<PackageJson>(lib.root, "package.json", (data) => {
     data.version = data.version || self().packageJson.version;
   });
 }
@@ -178,7 +174,7 @@ function overrideByLibType<T, L extends NonNullable<Lib["type"]>>(
 }
 
 async function setLibOptions(lib: Lib) {
-  await editJsonFile<SWCConfig>(lib.src, ".swcrc", (data) => {
+  await editJsonFile<SWCConfig>(lib.root, ".swcrc", (data) => {
     data.module = data.module || ({} as SWCConfig["module"]);
 
     if (lib.type !== "none") {
@@ -208,7 +204,7 @@ async function setLibOptions(lib: Lib) {
     data.exclude = Array.from(new Set([...exclude, "./*\\.d.ts"]));
   });
 
-  await editJsonFile<TsConfigJson>(lib.src, "tsconfig.json", (data) => {
+  await editJsonFile<TsConfigJson>(lib.root, "tsconfig.json", (data) => {
     if (lib.type && lib.type !== "none") {
       data.compilerOptions = data.compilerOptions || {};
       overrideByLibType(data.compilerOptions.module, lib.type, {
@@ -218,17 +214,13 @@ async function setLibOptions(lib: Lib) {
     }
   });
 
-  await editJsonFile<PackageJson>(
-    [lib.src, lib.dist],
-    "package.json",
-    (data) => {
-      if (lib.type === "none") {
-        delete data.type;
-      } else if (lib.type === "commonjs") {
-        delete data.type;
-      } else {
-        data.type = lib.type;
-      }
-    },
-  );
+  await editJsonFile<PackageJson>(lib.root, "package.json", (data) => {
+    if (lib.type === "none") {
+      delete data.type;
+    } else if (lib.type === "commonjs") {
+      delete data.type;
+    } else {
+      data.type = lib.type;
+    }
+  });
 }

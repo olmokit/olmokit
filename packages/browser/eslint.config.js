@@ -4,19 +4,19 @@ export default [
   ...baseConfig,
   {
     files: [
-      "packages/browser/**/*.ts",
-      "packages/browser/**/*.tsx",
-      "packages/browser/**/*.js",
-      "packages/browser/**/*.jsx",
+      "packages/browser/src/**/*.ts",
+      "packages/browser/src/**/*.tsx",
+      "packages/browser/src/**/*.js",
+      "packages/browser/src/**/*.jsx",
     ],
     rules: {},
   },
   {
-    files: ["packages/browser/**/*.ts", "packages/browser/**/*.tsx"],
+    files: ["packages/browser/src/**/*.ts", "packages/browser/src/**/*.tsx"],
     rules: {},
   },
   {
-    files: ["packages/browser/**/*.js", "packages/browser/**/*.jsx"],
+    files: ["packages/browser/src/**/*.js", "packages/browser/src/**/*.jsx"],
     rules: {},
   },
 ];
