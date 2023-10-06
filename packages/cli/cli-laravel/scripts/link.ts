@@ -47,8 +47,6 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
     indent: 2,
   });
   const linkedLibs = await linkInternalNodeLibsFrom(project.root);
-  const linkedLibsWithDeps = await gatherNodeLibsDeps(linkedLibs);
-  const thirdPartyDeps = getLinkedLibsThirdPartyDeps(linkedLibsWithDeps);
 
   if (!linkedLibs.length) {
     spinner.warn(`No packages were linked :/.`);
@@ -56,20 +54,23 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
     spinner.succeed(
       `Linked ${linkedLibs.map((lib) => chalk.bold(lib.name)).join(", ")}`,
     );
-    if (thirdPartyDeps.list.length) {
-      // prettier-ignore
-      console.log(`
-  Your linked packages have the ${thirdPartyDeps.list.length} third party dependencies.
+    //     const linkedLibsWithDeps = await gatherNodeLibsDeps(linkedLibs);
+    //     const thirdPartyDeps = getLinkedLibsThirdPartyDeps(linkedLibsWithDeps);
+    //     if (thirdPartyDeps.list.length) {
+    //       // prettier-ignore
+    //       console.log(`
+    //   Your linked packages have the ${thirdPartyDeps.list.length} third party dependencies.
 
-  You ${chalk.bold("might")} need to ${chalk.bold("temporarily")} install them in your current project with
+    //   You ${chalk.bold("might")} need to ${chalk.bold("temporarily")} install them in your current project with
 
-  ${chalk.dim(`pnpm add --save-optional ${thirdPartyDeps.list.map(l => `${l.name}@${l.version}`).join(" ")}`)}
-`);
-    }
+    //   ${chalk.dim(`pnpm add --save-optional ${thirdPartyDeps.list.map(l => `${l.name}@${l.version}`).join(" ")}`)}
+    // `);
+    //     }
   }
 }
 
 async function linkInternalNodeLibsFrom(projectRoot: string) {
+  const { orgScope } = meta;
   const linked: LinkedLib[] = [];
   const packageJson = readJsonFile<PackageJson>(
     join(projectRoot, "./package.json"),
@@ -97,47 +98,40 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
 
     await Promise.all(
       sourceLibs.map(async (name) => {
-        // here we need to do few things:
-        // 1) symlink the dependency in the project
-        // 2) symlink the node_modules in here `packages/{lib}/node_modules`
-        // into here `dist/packages/{lib}/node_modules`.
-        // 3) symlink in the `dist/packages/{lib}/node_modules/{lib}` the inner
-        // dependencies (recursively)
-        // This is needed otherwise the node ESM loader won't find the {lib}
-        // dependencies, this is a kind of patch to the native `pnpm link`
-        // behaviour.
-        const fullName = `${meta.orgScope}/${name}`;
-        const depPathInProject = join(project.nodeModules, fullName);
-        const depPathInHereDist = join(hereLibsDist, name);
+        // all the followinf is needed otherwise the node ESM loader won't find
+        // the {lib} dependencies, this is a kind of patch to the native
+        // `pnpm link` behaviour.
+        const fullName = `${orgScope}/${name}`;
+        const pathInProject = join(project.nodeModules, fullName);
+        const pathInHereDist = join(hereLibsDist, name);
 
         try {
-          if (existsSync(depPathInHereDist)) {
-            // 1)
-            symlinkSyncSafe(depPathInHereDist, depPathInProject);
-
-            // 2)
+          if (existsSync(pathInHereDist)) {
             // go from "dist/packages" to "packages/{lib}"
-            const depPathInHereSrc = join(
-              hereLibsDist,
-              "../../packages/",
-              name,
-            );
-            const srcNodeModules = join(depPathInHereSrc, "node_modules");
-            const distNodeModules = join(depPathInHereDist, "node_modules");
-            symlinkSyncSafe(srcNodeModules, distNodeModules);
+            const hereLibsSrc = join(hereLibsDist, "../../packages/");
+            const pathInHereSrc = join(hereLibsSrc, name);
 
-            // 3)
+            // 1) symlink the dependency in the project
+            symlinkSyncSafe(pathInHereDist, pathInProject);
+            // 2) symlink the node_modules in here `packages/{lib}/node_modules`
+            // into here `dist/packages/{lib}/node_modules`.
+            symlinkSyncSafe(
+              join(pathInHereSrc, "node_modules"),
+              join(pathInHereDist, "node_modules"),
+            );
+            // 3) symlink in the `dist/packages/{lib}/node_modules/{lib}` the
+            // inner dependencies
             sourceLibs
               .filter((lib) => lib !== name)
               .forEach((libName) => {
                 symlinkSyncSafe(
-                  depPathInHereDist,
-                  join(distNodeModules, `/${meta.orgScope}/${libName}`),
+                  join(hereLibsDist, libName),
+                  join(pathInHereDist, `node_modules/${orgScope}/${libName}`),
                 );
               });
           }
 
-          linked.push({ name: fullName, root: depPathInProject });
+          linked.push({ name: fullName, root: pathInProject });
         } catch (e) {}
       }),
     );
@@ -165,6 +159,9 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
   return linked;
 }
 
+/**
+ * @deprecated Probably not needed
+ */
 async function gatherNodeLibsDeps(libs: LinkedLib[]) {
   return await Promise.all(
     libs.map(async (lib) => {
@@ -194,6 +191,9 @@ async function gatherNodeLibsDeps(libs: LinkedLib[]) {
   );
 }
 
+/**
+ * @deprecated Probably not needed
+ */
 function getLinkedLibsThirdPartyDeps(libs: LinkedLibWithDeps[]) {
   const list: { name: string; version: string }[] = [];
   const map = libs.reduce(
