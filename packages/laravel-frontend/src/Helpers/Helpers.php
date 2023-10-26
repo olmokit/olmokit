@@ -324,10 +324,17 @@ class Helpers
           'firstPatternPart' => $firstPatternPart,
           'slug' => $slug,
         ];
+
+        $routeInfo['dynamic'] = str_starts_with($slug, ':');
       }
 
       $routesMap[$routeId] = $routeInfo;
     }
+
+    // sort dynamic routes as last and static as first in order to make the
+    // laravel router register our routes in the correct way: static pathnames
+    // must be registered before dyamic ones.
+    uasort($routesMap, fn($a, $b) => $a['dynamic'] <=> $b['dynamic']);
 
     self::$routesMap = $routesMap;
 
