@@ -5,7 +5,9 @@ namespace LaravelFrontend\App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 // use Illuminate\Support\Facades\Exception;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use LaravelFrontend\Helpers\Helpers;
 
@@ -54,6 +56,7 @@ class Handler extends ExceptionHandler
       $code = $exception->getStatusCode();
       $route = $code . '';
       $specialRoute = '';
+      $routeUrl = '';
 
       switch ($exception->getStatusCode()) {
         // ideal route is the login one
@@ -70,22 +73,33 @@ class Handler extends ExceptionHandler
           return Response::view('routes.Route503');
       }
 
-      // check if there is a template for a special route to handle this
-      // particular exception, e.g. the 403 error handling
+      // check if there is a template for a special route to handle this particular
+      // exception, e.g. the 403 error handling, in this case we always redirect
+      // as these special templates might need to be on specific urls
       if ($specialRoute && Helpers::routeExists($specialRoute)) {
         return Redirect::to(to($specialRoute));
       }
 
-      // check if there is a template for the ideal route, the route name
-      // must match the exception code, if it exists use it
       if (Helpers::routeExists($route)) {
-        return Redirect::to(to($route));
+        // check if there is a template for the ideal route, the route name
+        // must match the exception code, if it exists use it
+        $routeUrl = to($route);
+      } elseif (Helpers::routeExists('500')) {
+        // otherwise let's assume there is 500 page template and try to render it
+        $routeUrl = to('500');
       }
 
-      // otherwise let's assume there is 500 page template and try to
-      // render it
-      if (Helpers::routeExists('500')) {
-        return Redirect::to(to('500'));
+      // if we have a template for the determined error URL
+      if ($routeUrl) {
+        if (config('env.RESPONSE_ERRORS_REDIRECT')) {
+          // either redirect to error page URL
+          return Redirect::to($routeUrl);
+        }
+
+        // or display error page under current URL
+        $request = Request::create($routeUrl, 'GET');
+        $request->setLaravelSession(session());
+        return Route::dispatch($request);
       }
 
       // otherwise return laravel exception view

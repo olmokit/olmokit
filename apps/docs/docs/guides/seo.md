@@ -78,3 +78,7 @@ Set an internal route link:
 ```
 
 _`privacypolicy` must be an existing route/pagename in your app_.
+
+### Error pages behaviour
+
+By default errors like `404`, `500`, etc. redirect to their specific URLS, to avoid it set `RESPONSE_ERRORS_REDIRECT: false` in `olmo.ts`, that will show the same pages with the right HTTP status code but under the current URL.

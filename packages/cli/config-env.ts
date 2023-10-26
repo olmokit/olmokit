@@ -67,6 +67,13 @@ export const defaultEnvVars = {
    */
   HOOKS_ALLOWED_PARAM: "",
   /**
+   * @default false
+   * @category Response
+   * @note When `true` it make the error pages redirect to their specific urls rather than showing inline in the current url,
+   * in either case the same specific routes/{error} template is used
+   */
+  RESPONSE_ERRORS_REDIRECT: false,
+  /**
    * @default 80
    * @category Images
    */
@@ -176,7 +183,7 @@ export const defaultEnvVars = {
 function getAutomaticEnvVars(
   custom: Config.CustomMaybeExtended,
   configurableVars: ConfigurableEnvVars,
-  envName: string
+  envName: string,
 ) {
   const build = configBuild({ ...custom });
 
@@ -241,7 +248,7 @@ function getAutomaticEnvVars(
  */
 function getEnvVarValue<
   TValue extends Config.EnvVarValueFlatOrByEnvName<TEnvsMap, any>,
-  TEnvsMap extends Config.EnvsMap
+  TEnvsMap extends Config.EnvsMap,
 >(value: TValue, envsMap: TEnvsMap, envName: keyof TEnvsMap) {
   // either we have a map where we can look for a value specific to the env name
   if (typeof value === "object" && value !== null) {
@@ -254,16 +261,19 @@ function getEnvVarValue<
   // or we have a primitive value that is meant to be shared among all envs
   return {
     flat: value,
-    map: Object.keys(envsMap).reduce((mapByEnvName, envName) => {
-      mapByEnvName[envName] = value;
-      return mapByEnvName;
-    }, {} as Config.EnvVarByEnvName<Config.EnvsMap, any>),
+    map: Object.keys(envsMap).reduce(
+      (mapByEnvName, envName) => {
+        mapByEnvName[envName] = value;
+        return mapByEnvName;
+      },
+      {} as Config.EnvVarByEnvName<Config.EnvsMap, any>,
+    ),
   };
 }
 
 type ProcessedEnvVars<
   TEnvsMap extends Config.EnvsMap,
-  TVars extends Config.EnvVars
+  TVars extends Config.EnvVars,
 > = {
   current: TVars;
   byVarNameMap: Config.EnvVarsByVarName<TEnvsMap, TVars>;
@@ -275,12 +285,12 @@ type ProcessedEnvVars<
  */
 function processConfigEnvVars<
   TVars extends Config.EnvVars,
-  TEnvsMap extends Config.EnvsMap = Config.EnvsMap
+  TEnvsMap extends Config.EnvsMap = Config.EnvsMap,
 >(
   currentEnvName: string,
   envsMap: TEnvsMap,
   vars: Config.EnvVarsFlatOrByEnvName<TEnvsMap, TVars>,
-  varsOverride: Partial<TVars> = {}
+  varsOverride: Partial<TVars> = {},
 ) {
   const allKeys = [
     ...Object.keys(vars),
@@ -313,7 +323,7 @@ function processConfigEnvVars<
     {
       current: {},
       byVarNameMap: {},
-    } as ProcessedEnvVars<TEnvsMap, TVars>
+    } as ProcessedEnvVars<TEnvsMap, TVars>,
   );
 }
 
@@ -330,7 +340,7 @@ function determineCurrentEnv() {
  * Process the `env` portion of the internal config object
  */
 export function getConfigEnv(
-  custom: Config.CustomMaybeExtended
+  custom: Config.CustomMaybeExtended,
 ): Config.Internal["env"] {
   const envsMap = custom.env.branches;
   const currentEnvName = custom.envNameToInheritFrom || determineCurrentEnv();
@@ -342,18 +352,18 @@ export function getConfigEnv(
       ...defaultEnvVars,
       ...custom.env.vars,
     },
-    custom.overrides?.env?.vars
+    custom.overrides?.env?.vars,
   );
   const extraVars = processConfigEnvVars<Config.EnvVars>(
     currentEnvName,
     envsMap,
     custom.env.extraVars || {},
-    custom.overrides?.env?.extraVars
+    custom.overrides?.env?.extraVars,
   );
   const automaticEnvVars = processConfigEnvVars<AutomaticEnvVars>(
     currentEnvName,
     envsMap,
-    getAutomaticEnvVars(custom, configurableVars.current, currentEnvName)
+    getAutomaticEnvVars(custom, configurableVars.current, currentEnvName),
   );
 
   // merge all env vars maps by name
@@ -382,14 +392,20 @@ export function getConfigEnv(
  */
 export function getEnvVarsByEnvName(config: Pick<Config.Internal, "env">) {
   const { varsByVarNameMap } = config.env;
-  return Object.keys(varsByVarNameMap).reduce((map, varName) => {
-    const varValuesByEnvName = varsByVarNameMap[varName];
-    Object.keys(varValuesByEnvName).forEach((envName) => {
-      map[envName] = map[envName] || {};
-      map[envName][varName] = varValuesByEnvName[envName];
-    });
-    return map;
-  }, {} as Config.EnvVarsByEnvName<Config.EnvsMap, Config.Internal["env"]["vars"]>);
+  return Object.keys(varsByVarNameMap).reduce(
+    (map, varName) => {
+      const varValuesByEnvName = varsByVarNameMap[varName];
+      Object.keys(varValuesByEnvName).forEach((envName) => {
+        map[envName] = map[envName] || {};
+        map[envName][varName] = varValuesByEnvName[envName];
+      });
+      return map;
+    },
+    {} as Config.EnvVarsByEnvName<
+      Config.EnvsMap,
+      Config.Internal["env"]["vars"]
+    >,
+  );
 }
 
 /**
@@ -413,7 +429,7 @@ export function updateEnvVars(
   config: {
     env: Pick<Config.Internal["env"], "vars">;
   },
-  newVars: Partial<Config.Internal["env"]["vars"]>
+  newVars: Partial<Config.Internal["env"]["vars"]>,
 ) {
   config.env.vars = {
     ...config.env.vars,
@@ -441,7 +457,7 @@ export function updateAppEnv(config: Config.Internal, envName: string) {
 function applyProcessEnvPrimitive(
   dotEnvFileLines: string[],
   name: string,
-  value?: string | number | boolean
+  value?: string | number | boolean,
 ) {
   if (typeof value === "undefined") {
     delete process.env[name];
@@ -485,7 +501,7 @@ export function applyEnvVars(config: {
     [
       "# This file is autogenerated and .gitignored, do not edit it",
       ...dotEnvFileLines,
-    ].join("\n")
+    ].join("\n"),
   );
 }
 

@@ -106,6 +106,15 @@ export function isUsingLocalLinkedNodeModule(path: string) {
   // the link target with `fs.readlink(fullPath)` and check whether that
   // target is a relative path, if so we are using a locally linked node module
   return stat.isSymbolicLink();
+
+  /// FIXME: WIP:
+  // > fs.lstatSync("./node_modules/gsap")).isSymbolicLink()
+  // true
+  // > fs.readlinkSync("./node_modules/gsap"))
+  // '.pnpm/gsap@3.12.2/node_modules/gsap'
+  // > fs.readlinkSync("./node_modules/@olmokit/cli"))
+  // '/home/kuus/Web/Olmo/olmokit/dist/packages/cli'
+  // >
 }
 
 /**
