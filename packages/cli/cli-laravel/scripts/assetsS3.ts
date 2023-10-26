@@ -154,6 +154,8 @@ export const assetsS3: CliLaravel.Task = async ({
     await Promise.all(uploadables.map((uploadable) => upload(uploadable)));
 
     spinner.succeed(`Uploaded ${chalk.bold(succeded.length)} files`);
+
+    await saveCorsConfiguration();
   } catch (err) {
     spinner.fail("Upload failed");
     log.error("", "", "", err);
@@ -203,8 +205,6 @@ export const assetsS3: CliLaravel.Task = async ({
       succeded.push(uploadable);
 
       spinner.text = `Uploaded ${chalk.dim(name)}`;
-
-      await saveCorsConfiguration();
 
       if (options.logs) {
         appendLogs(JSON.stringify(result.data));
