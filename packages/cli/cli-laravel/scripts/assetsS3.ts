@@ -8,11 +8,16 @@ import {
   normalize,
   resolve,
 } from "node:path";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  PutBucketCorsCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
 import ci from "ci-info";
 import { ensureDir } from "fs-extra";
 import { glob } from "glob";
 import mime from "mime";
+import { getEnvVarsByEnvNameList } from "../../config-env.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 
@@ -77,30 +82,13 @@ type Uploadable = {
  * @resources
  * - [Get started with S3](https://aws.amazon.com/cn/s3/getting-started/)
  * - [PutObjectCommand official docs](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/putobjectcommand.html)
- * - Regarding CORS issues:
- *   - [Troubleshooting CORS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/cors-troubleshooting.html)
- *   - [Sample JSON file to use in the AWS Console website UI](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html)
- * 
- * NOTE: We probably need to add this to each website:
- * 
- * ```json
-[
-  {
-    "AllowedHeaders": [
-      "*"
-    ],
-    "AllowedMethods": [
-      "GET"
-    ],
-    "AllowedOrigins": [
-      "http://www.example.com"
-    ]
-  }
-]
- *``` 
- * TODO: we might do this automatically via the API from this CLI
  */
-export const assetsS3: CliLaravel.Task = async ({ log, spinner, chalk }) => {
+export const assetsS3: CliLaravel.Task = async ({
+  ctx,
+  log,
+  spinner,
+  chalk,
+}) => {
   const options: AssetsS3Options = {
     base: paths.frontend.dest.public,
     glob: `/${paths.frontend.dest.folders.assets}/**/*.*`,
@@ -215,6 +203,9 @@ export const assetsS3: CliLaravel.Task = async ({ log, spinner, chalk }) => {
       succeded.push(uploadable);
 
       spinner.text = `Uploaded ${chalk.dim(name)}`;
+
+      await saveCorsConfiguration();
+
       if (options.logs) {
         appendLogs(JSON.stringify(result.data));
       }
@@ -247,6 +238,45 @@ export const assetsS3: CliLaravel.Task = async ({ log, spinner, chalk }) => {
         ok: false,
         error: error as Error,
       } as const;
+    }
+  }
+
+  /**
+   * @resources
+   * - https://docs.aws.amazon.com/AmazonS3/latest/userguide/cors.html
+   * - https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html
+   * - https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html
+   * - https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html
+   * - [JS SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putBucketCors-property)
+   */
+  async function saveCorsConfiguration() {
+    const appUrls = getEnvVarsByEnvNameList(ctx).map((env) => env.vars.APP_URL);
+    try {
+      await s3Client.send(
+        new PutBucketCorsCommand({
+          Bucket: options.s3.Bucket,
+          CORSConfiguration: {
+            CORSRules: [
+              {
+                AllowedHeaders: ["*"],
+                AllowedMethods: ["GET"],
+                AllowedOrigins: appUrls,
+              },
+            ],
+          },
+          ContentMD5: "",
+        }),
+      );
+
+      log.success(
+        `Saved ${log.chalk.bold(
+          "S3 Cors",
+        )} configuration with allowed origins: ${log.chalk.italic(
+          appUrls.join(", "),
+        )}`,
+      );
+    } catch (e) {
+      log.error(`Failed to save ${log.chalk.bold("S3 Cors")} configuration`);
     }
   }
 };
