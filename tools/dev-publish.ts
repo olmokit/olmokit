@@ -20,6 +20,7 @@ import { type Lib, self } from "./helpers.js";
 export const publish = () =>
   new Command("publish")
     .description("Publish packages")
+    .alias("release")
     .action(async (opts: Options) => {
       if (isGitDirty()) {
         ora().fail("You have uncommited work. Cannot proceed.");
