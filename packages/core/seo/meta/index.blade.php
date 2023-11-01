@@ -2,14 +2,13 @@
     'data' => [], // the CmsApi data, overridable from a route controller
 ])
 @php
-  $seo = $data ?? ($data['seo'] ?? false);
+  $seo = $data['seo'] ?? false;
   $metaTitle = $metaTitle ?? ($seo['meta_title'] ?? '');
   $metaDescription = $metaDescription ?? ($seo['meta_description'] ?? '');
   $metaKeywords = $metaKeywords ?? ($seo['meta_keywords'] ?? '');
   $ogTitle = $ogTitle ?? ($seo['og_title'] ?? '');
   $ogDesc = $ogDesc ?? ($seo['og_desc'] ?? '');
-  // $ogImg = $ogImg ?? $seo['og_img'] ?? '';
-  $ogImg = isset($seo['og_img']['original']) ? $seo['og_img']['original']['webp'] : (isset($seo['og_img']) ? $seo['og_img'] : '');
+  $ogImg = $ogImg ?? ($seo['og_img']['original']['webp'] ?? ($seo['og_img']['original']['compressed'] ?? (is_string($seo['og_img']) ? $seo['og_img'] : '')));
   $follow = $follow ?? ($seo['follow'] ?? '');
   $index = $index ?? ($seo['index'] ?? '');
 @endphp
