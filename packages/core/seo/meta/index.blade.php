@@ -2,7 +2,7 @@
     'data' => [], // the CmsApi data, overridable from a route controller
 ])
 @php
-  $seo = $data['seo'] ?? false;
+  $seo = $data ?? ($data['seo'] ?? false);
   $metaTitle = $metaTitle ?? ($seo['meta_title'] ?? '');
   $metaDescription = $metaDescription ?? ($seo['meta_description'] ?? '');
   $metaKeywords = $metaKeywords ?? ($seo['meta_keywords'] ?? '');
@@ -58,15 +58,15 @@
 @if (isset($i18n['locales']) && count($i18n['locales']) > 1)
   @foreach ($langs as $lang)
     <link
-      rel="alternate"
       hreflang="{{ $lang['locale'] }}"
       href="{{ $lang['url'] }}"
+      rel="alternate"
     >
     @if ($lang['locale'] == $i18n['default_locale'])
       <link
-        rel="alternate"
         hreflang="x-default"
         href="{{ $lang['url'] }}"
+        rel="alternate"
       >
     @endif
   @endforeach
