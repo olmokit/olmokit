@@ -213,6 +213,8 @@ class Helpers
       ];
     }
 
+    // dd($routes);
+
     return $routes;
   }
 

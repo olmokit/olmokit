@@ -408,7 +408,7 @@ class CmsApi
     }
 
     return [
-      'locales' => $locales ?? [$defaultLocale],
+      'locales' => empty($locales) ? [$defaultLocale] : $locales,
       'default_locale' => $defaultLocale,
     ];
   }

@@ -8,7 +8,7 @@
   $metaKeywords = $metaKeywords ?? ($seo['meta_keywords'] ?? '');
   $ogTitle = $ogTitle ?? ($seo['og_title'] ?? '');
   $ogDesc = $ogDesc ?? ($seo['og_desc'] ?? '');
-  $ogImg = $ogImg ?? ($seo['og_img']['original']['webp'] ?? ($seo['og_img']['original']['compressed'] ?? (is_string($seo['og_img']) ? $seo['og_img'] : '')));
+  $ogImg = $ogImg ?? ($seo['og_img']['original']['webp'] ?? ($seo['og_img']['original']['compressed'] ?? (isset($seo['og_img']) && is_string($seo['og_img']) ? $seo['og_img'] : '')));
   $follow = $follow ?? ($seo['follow'] ?? '');
   $index = $index ?? ($seo['index'] ?? '');
 @endphp

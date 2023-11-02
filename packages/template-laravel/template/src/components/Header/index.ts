@@ -1,6 +1,6 @@
 import "components/Hamburger";
 import { I18nLinks } from "@olmokit/core/i18n/links";
-import { BaseHeader } from "@olmokit/components/Header";
+import { Header as BaseHeader } from "@olmokit/components/Header";
 // import "utils/logo.scss";
 import "./index.scss";
 
@@ -22,7 +22,7 @@ export function Header() {
       const { className } = header.$root;
       header.$root.className = className.replace(
         /(is-).+(\s*)/,
-        `$1${variant}$2`
+        `$1${variant}$2`,
       );
     },
   };
