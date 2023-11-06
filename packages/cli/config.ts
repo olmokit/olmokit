@@ -18,7 +18,7 @@ export async function getConfig(
       vars: {},
     },
   },
-  { spinner }: CliBootArg
+  { spinner }: CliBootArg,
 ): Promise<Config.Internal> {
   const { type = "laravel", favicons, httpAuth } = custom;
   const env = getConfigEnv(custom);
@@ -58,7 +58,7 @@ type ConfigError = {
  */
 function validateConfig(
   _custom: Config.CustomMaybeExtended,
-  internal: Config.Internal
+  internal: Config.Internal,
   /* , cliBootArg: CliBootArg */
 ) {
   const errors: ConfigError[] = [];

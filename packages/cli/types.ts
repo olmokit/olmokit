@@ -62,6 +62,17 @@ export namespace Config {
        */
       extraVars?: EnvVarsFlatOrByEnvName<TEnvsMap, EnvVars>;
     };
+    /**
+     * Manage configurations relative to the bundled/output deploy-ready output
+     */
+    output?: {
+      /**
+       * Set it to `true` to include the `/src` static files (no php)
+       *
+       * @default false
+       */
+      src?: boolean;
+    };
   }
 
   /**
@@ -99,7 +110,10 @@ export namespace Config {
    * a shared one, as the two configs are quite different and have different
    * purposes
    */
-  export type Internal = Pick<Custom, "type" | "favicons" | "httpAuth"> &
+  export type Internal = Pick<
+    Custom,
+    "type" | "favicons" | "httpAuth" | "output"
+  > &
     Pick<Required<Custom>, "useBarba"> & {
       /**
        * Environment information

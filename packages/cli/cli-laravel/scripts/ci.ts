@@ -103,26 +103,31 @@ ciComposerZip.meta = { title: "Zip composer packages" };
 /**
  * Clean files that should not end up on the server
  */
-const ciClean: CliLaravel.CmdDeploy.Task = async () => {
+const ciClean: CliLaravel.CmdDeploy.Task = async ({ ctx }) => {
   const root = project.root;
-  await rimraf(
-    [
-      join(root, ".env.*"),
-      join(paths.frontend.dest.public, ".htaccess.*"),
-      join(root, "package.json"),
-      join(root, "package-lock.json"),
-      join(root, "pnpm-lock.yaml"),
-      join(root, "composer.lock"),
-      join(root, "tsconfig.json"),
-      join(root, "olmo.ts"),
-      join(root, ".npmrc"),
-      join(root, "*.md"),
-      join(root, ".vscode"),
-      join(root, ".husky"),
-      join(paths.frontend.src.base),
-    ],
-    { glob: true },
-  );
+  const pathsToClean = [
+    join(root, ".env.*"),
+    join(paths.frontend.dest.public, ".htaccess.*"),
+    join(root, "package.json"),
+    join(root, "package-lock.json"),
+    join(root, "pnpm-lock.yaml"),
+    join(root, "composer.lock"),
+    join(root, "tsconfig.json"),
+    join(root, "olmo.ts"),
+    join(root, ".npmrc"),
+    join(root, "*.md"),
+    join(root, ".vscode"),
+    join(root, ".husky"),
+    join(paths.frontend.src.base),
+  ];
+
+  if (ctx.output?.src) {
+    pathsToClean.push(join(paths.frontend.src.base, "**/*.php"));
+  } else {
+    pathsToClean.push(paths.frontend.src.base);
+  }
+
+  await rimraf(pathsToClean, { glob: true });
 };
 ciClean.meta = { title: "Clean files that should not end up on the server" };
 
