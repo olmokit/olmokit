@@ -330,10 +330,10 @@ function processConfigEnvVars<
 /**
  * TODO: Here we could check if we are on CI, look at the current branch, read
  * a global CLI command option, etc... decide the priority of this
- * By default we assume we are developing on the local envronment.
+ * By default we grab the first declared environment.
  */
-function determineCurrentEnv() {
-  return "local";
+function determineCurrentEnv(custom: Config.CustomMaybeExtended) {
+  return Object.keys(custom.env.branches)[0];
 }
 
 /**
@@ -343,7 +343,8 @@ export function getConfigEnv(
   custom: Config.CustomMaybeExtended,
 ): Config.Internal["env"] {
   const envsMap = custom.env.branches;
-  const currentEnvName = custom.envNameToInheritFrom || determineCurrentEnv();
+  const currentEnvName =
+    custom.envNameToInheritFrom || determineCurrentEnv(custom);
 
   const configurableVars = processConfigEnvVars<ConfigurableEnvVars>(
     currentEnvName,
