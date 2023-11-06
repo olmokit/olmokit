@@ -85,5 +85,5 @@ export const clean: CliLaravel.TaskGroup = {
 export const wipe: CliLaravel.TaskGroup = {
   meta: { title: "Wipe out everything" },
   children: [clear, clean],
-  parallel: true,
+  parallel: false,
 };
