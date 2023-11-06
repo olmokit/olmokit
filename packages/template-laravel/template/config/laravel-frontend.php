@@ -1,4 +1,4 @@
 <?php
 
-// here you can override laravel-frontend defaults, see https://bit.ly/3nk33T8
+// here you can override the defaults, see https://bit.ly/olmo-laravel-frontend-config
 return [];
