@@ -5,7 +5,9 @@ export default olmo.extend("dev", {
     vars: {
       APP_URL: "http://myclient.test",
       // CMS_API_CACHE: false,
-      // AUTH_API_CACHE: false
+      // AUTH_API_CACHE: false,
+      // DEBUGBAR_ENABLED: false,
+      // APP_DEBUG: false,
     },
   },
 });
