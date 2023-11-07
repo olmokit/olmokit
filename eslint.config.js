@@ -21,7 +21,20 @@ export default [
   ...compat.config({ parser: "jsonc-eslint-parser" }).map((config) => ({
     ...config,
     files: ["**/*.json"],
-    rules: { "@nx/dependency-checks": "error" },
+    rules: {
+      "@nx/dependency-checks": [
+        "error",
+        {
+          ignoredDependencies: [
+            "@prettier/plugin-php",
+            "@shufo/prettier-plugin-blade",
+            "@trivago/prettier-plugin-sort-imports",
+            "husky",
+            "lint-staged",
+          ],
+        },
+      ],
+    },
   })),
   {
     files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
