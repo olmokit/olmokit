@@ -78,12 +78,12 @@ export function init() {
       "--template <path-to-template>",
       "specify a template for the created project",
     )
-    .allowUnknownOption()
     .addOption(
       new Option("-p --pkgm <pkgm>", "Choose which package manager to use")
         .choices(["pnpm", "npm", "yarn"])
         .default(getDefaultPackageManager()),
     )
+    .allowUnknownOption()
     .on("--help", () => {
       console.log(
         `    Only ${chalk.magenta("<project-directory>")} is required.`,
@@ -150,8 +150,8 @@ export function init() {
     })
     .parse(process.argv);
 
-  const { info, pkgm, verbose, scriptsVersion, template } =
-    program.options as unknown as CommandOptions;
+  const options = program.opts() as unknown as CommandOptions;
+  const { info, pkgm, verbose, scriptsVersion, template } = options;
 
   if (info) {
     console.log(chalk.bold("\nEnvironment Info:"));
@@ -309,21 +309,6 @@ function createApp(
         );
       }
       process.exit(1);
-    }
-  } else if (pkgm === "yarn") {
-    let yarnUsesDefaultRegistry = true;
-    try {
-      yarnUsesDefaultRegistry =
-        execSync("yarnpkg config get registry").toString().trim() ===
-        "https://registry.yarnpkg.com";
-    } catch (e) {
-      // ignore
-    }
-    if (yarnUsesDefaultRegistry) {
-      copyFileSync(
-        require.resolve("./yarn.lock.cached"),
-        join(root, "yarn.lock"),
-      );
     }
   }
   // TODO: check pnpm version?
@@ -963,8 +948,6 @@ function executeNodeScript(
 }
 
 function getDefaultPackageManager(): CommandOptions["pkgm"] {
-  // FIXME: forcing pnpm as the mechanism does not seem to work
-  return "pnpm";
   if (canUsePnpm()) return "pnpm";
   if (canUseYarn()) return "yarn";
   return "npm";
