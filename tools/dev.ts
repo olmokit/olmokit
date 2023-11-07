@@ -4,6 +4,7 @@ import ci from "ci-info";
 import { Command, Option, program } from "commander";
 import inquirer from "inquirer";
 import type { LiteralUnion } from "type-fest";
+import { create } from "./dev-create.js";
 import { koine } from "./dev-koine.js";
 import { libs } from "./dev-libs.js";
 import { link } from "./dev-link.js";
@@ -67,6 +68,7 @@ program
   .addCommand(commonOptions(libs()))
   .addCommand(commonOptions(publish()))
   .addCommand(commonOptions(koine()))
+  .addCommand(commonOptions(create()))
   .parseAsync();
 
 async function devWatch(options: Options) {
