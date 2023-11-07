@@ -45,7 +45,7 @@ export const cleanAssets: CliLaravel.Task = async () => {
       join(paths.frontend.dest.chunks, "**/*"),
       join(paths.frontend.dest.entries, "**/*"),
     ],
-    { glob: true },
+    { glob: true }
   );
 };
 cleanAssets.meta = { title: "Clean compiled assets" };

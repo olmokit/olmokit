@@ -8,7 +8,7 @@ const visitedUrls: string[] = [];
 const createCrawler = (
   baseUrl: string,
   config: Config.Internal,
-  log: TaskrLog,
+  log: TaskrLog
 ) =>
   new PlaywrightCrawler({
     async requestHandler({ request, enqueueLinks }) {

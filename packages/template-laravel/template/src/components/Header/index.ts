@@ -22,7 +22,7 @@ export function Header() {
       const { className } = header.$root;
       header.$root.className = className.replace(
         /(is-).+(\s*)/,
-        `$1${variant}$2`,
+        `$1${variant}$2`
       );
     },
   };

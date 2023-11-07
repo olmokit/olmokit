@@ -17,15 +17,15 @@
 <div class="checkbox formRoot {{ $classRoot }}{{ $errors->has($name) ? ' invalid' : '' }}">
   <div class="formToggle">
     <input
-      type="hidden"
       name="{{ $name }}"
+      type="hidden"
       value="0"
     />
     <input
       class="formControl"
-      type="{{ $type }}"
       id="{{ $id ?? 'input-' . $name }}"
       name="{{ $name }}"
+      type="{{ $type }}"
       value="1"
       @if ($_checked) checked @endif
       @isset($valueTrue) data-value-true="{{ $valueTrue }}"@endisset

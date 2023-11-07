@@ -80,7 +80,7 @@ export async function filer(
   pathGlob: string,
   options: FilerOptions = {
     dest: "",
-  },
+  }
 ) {
   const {
     base = "",
@@ -147,13 +147,13 @@ export async function filer(
       if (Array.isArray(dest)) {
         return await Promise.all(
           dest.map((destPath) =>
-            filerWrite(path.join(destPath, outDir), outName, outContent),
-          ),
+            filerWrite(path.join(destPath, outDir), outName, outContent)
+          )
         );
       }
 
       return await filerWrite(path.join(dest, outDir), outName, outContent);
-    }),
+    })
   );
 
   // console.log("filer", newPaths);

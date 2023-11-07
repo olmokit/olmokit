@@ -1,10 +1,12 @@
 import { join } from "node:path";
 import editJsonFile, { type JsonEditor } from "edit-json-file";
 import { copy, ensureDir } from "fs-extra";
+import { filer } from "@olmokit/cli-utils";
+import { runIfDevAndMissingFile } from "../../helpers-getters.js";
 import { project } from "../../project.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
-import { PRETTIER_CONFIG, PRETTIER_PATH } from "./prettier.js";
+import { PRETTIER_PATH } from "./prettier.js";
 
 /**
  * Set `"scripts"` and `"config.startYear"` defaults on `package.json` if
@@ -17,6 +19,7 @@ function pkgSetup(pkg: JsonEditor) {
 
   // TODO: this object could/should be created dynamically by reading commander
   pkg.set("scripts", {
+    start: "pnpm olmo start",
     postinstall: "olmo postinstall",
     ...existingScripts,
   });
@@ -41,26 +44,35 @@ function pkgBrowserslistConfig(pkg: JsonEditor) {
 }
 
 /**
- * Set prettier configuration on `package.json`
+ * Set lint-staged configuration on `package.json`
  */
-function pkgPrettierConfig(pkg: JsonEditor) {
+function pkgLintStaged(pkg: JsonEditor) {
   const lintStagedDefault = {
     [PRETTIER_PATH]: "prettier --write",
   };
-  const prettierDefault = PRETTIER_CONFIG;
   const lintStagedExisting = pkg.get("lint-staged");
-  const prettierExisting = pkg.get("prettier");
-  const prettier = isCustomised(prettierExisting, prettierDefault)
-    ? prettierExisting
-    : prettierDefault;
   const lintStaged = isCustomised(lintStagedExisting, lintStagedDefault)
     ? lintStagedExisting
     : lintStagedDefault;
 
-  pkg.unset("overrides"); // remove the former prettier overrides key
-  pkg.set("prettier", prettier);
   pkg.set("lint-staged", lintStaged);
   pkg.save();
+}
+
+/**
+ * Copy prettier configuration file if missing
+ */
+async function prettierConfig(pkg: JsonEditor) {
+  // enforce using the `.prettierrc.js` file only
+  pkg.unset("prettier");
+
+  await runIfDevAndMissingFile(join(project.root, ".prettierrc.js"), () =>
+    filer(".prettierrc.js__tpl__", {
+      base: paths.self.templates,
+      dest: project.root,
+      rename: ".prettierrc.js",
+    })
+  );
 }
 
 /**
@@ -99,7 +111,8 @@ export const pkg: CliLaravel.Task = async () => {
 
   pkgSetup(pkg);
   pkgBrowserslistConfig(pkg);
-  pkgPrettierConfig(pkg);
+  pkgLintStaged(pkg);
+  await prettierConfig(pkg);
   await huskyConfig();
 };
 pkg.meta = { title: "Ensure correct package.json file" };

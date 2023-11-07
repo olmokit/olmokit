@@ -7,16 +7,16 @@ use LaravelFrontend\Cms\CmsOrder;
 
 class CheckoutCreditcard extends CheckoutBase
 {
-  /**
-   * Add order data
-   *
-   * @return array
-   */
-  protected function _addVars(): array
-  {
-    $ordercodes = CmsOrder::clientToken();
-    $ordercodes = $ordercodes->json();
+    /**
+     * Add order data
+     *
+     * @return array
+     */
+    protected function _addVars(): array
+    {
+        $ordercodes = CmsOrder::clientToken();
+        $ordercodes = $ordercodes->json();
 
-    return compact('ordercodes');
-  }
+        return compact('ordercodes');
+    }
 }

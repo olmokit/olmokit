@@ -25,7 +25,7 @@ function callDeployEndpoint(
   log: TaskrLog,
   path: string,
   action = "",
-  async = false,
+  async = false
 ) {
   const url = normaliseUrl(process.env.APP_URL + "/" + path);
 
@@ -53,7 +53,7 @@ function callDeployEndpoint(
  */
 const ciComposer: CliLaravel.CmdDeploy.Task = async () => {
   execSync(
-    "composer install --no-interaction --no-progress --no-dev --prefer-dist --quiet",
+    "composer install --no-interaction --no-progress --no-dev --prefer-dist --quiet"
   );
   // execSync("composer dump-autoload"); // done by laravel already
 };
@@ -160,7 +160,7 @@ const ciSync: CliLaravel.CmdDeploy.Task = async ({ log, chalk, arg, ctx }) => {
     return;
   } else {
     log.error(
-      `deploy script supports 'ftp' and 'ssh'. Mode '${mode}' is not recognised`,
+      `deploy script supports 'ftp' and 'ssh'. Mode '${mode}' is not recognised`
     );
     process.exit(1);
   }
@@ -192,7 +192,7 @@ function ciSyncFtp(arg: CliLaravel.CmdDeploy.TaskArg) {
   log.success("Synced resources folder");
 
   execSync(
-    `${cmdCommon} --delete --exclude-glob=.git* --exclude=^.git/ --exclude=^.npm/ --exclude=^node_modules/ --exclude=^vendor/ --exclude=^public/ --exclude=^resources/ --exclude=^storage/ ./ ${folder}/" || true`,
+    `${cmdCommon} --delete --exclude-glob=.git* --exclude=^.git/ --exclude=^.npm/ --exclude=^node_modules/ --exclude=^vendor/ --exclude=^public/ --exclude=^resources/ --exclude=^storage/ ./ ${folder}/" || true`
   );
   log.success("Synced all the rest");
 }
@@ -234,13 +234,13 @@ async function ciSyncSsh(arg: CliLaravel.CmdDeploy.TaskArg) {
 
   // selective incremental sync (without delete, for long cached files)
   execSync(
-    `${cmdPrefx} --update --exclude 'framework/cache/data' ./storage ${address}/`,
+    `${cmdPrefx} --update --exclude 'framework/cache/data' ./storage ${address}/`
   );
   log.success("Synced storage folder");
 
   // selective excluding sync (with delete)
   execSync(
-    `${cmdPrefx} --delete-after --exclude 'page-cache' ./public ${address}/`,
+    `${cmdPrefx} --delete-after --exclude 'page-cache' ./public ${address}/`
   );
   log.success("Synced public folder");
 
@@ -248,7 +248,7 @@ async function ciSyncSsh(arg: CliLaravel.CmdDeploy.TaskArg) {
   log.success("Synced resources folder");
 
   execSync(
-    `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude '.pnpm-store' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' ./ ${address}/`,
+    `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude '.pnpm-store' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' ./ ${address}/`
   );
   log.success("Synced all the rest");
 

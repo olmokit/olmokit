@@ -10,24 +10,24 @@ use LaravelFrontend\Helpers\Helpers;
 
 class MiddlewareUnauthOnly
 {
-  /**
-   * Handle an incoming request.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  \Closure  $next
-   * @return mixed
-   */
-  public function handle(Request $request, Closure $next)
-  {
-    // redirect if authenticated
-    if (AuthApi::check()) {
-      $route = config('laravel-frontend.auth.routesMap.profile');
-      $hasRoute = Helpers::routeExists($route);
-      if ($hasRoute) {
-        return Redirect::to(to($route), 302);
-      }
-    }
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        // redirect if authenticated
+        if (AuthApi::check()) {
+            $route = config('laravel-frontend.auth.routesMap.profile');
+            $hasRoute = Helpers::routeExists($route);
+            if ($hasRoute) {
+                return Redirect::to(to($route), 302);
+            }
+        }
 
-    return $next($request);
-  }
+        return $next($request);
+    }
 }

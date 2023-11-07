@@ -1,7 +1,7 @@
 <?php
 
 return [
-  /*
+    /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
     |--------------------------------------------------------------------------
@@ -12,12 +12,12 @@ return [
     |
     */
 
-  'defaults' => [
-    'guard' => 'web',
-    'passwords' => 'users',
-  ],
+    'defaults' => [
+        'guard' => 'web',
+        'passwords' => 'users',
+    ],
 
-  /*
+    /*
     |--------------------------------------------------------------------------
     | Authentication Guards
     |--------------------------------------------------------------------------
@@ -34,20 +34,20 @@ return [
     |
     */
 
-  'guards' => [
-    'web' => [
-      'driver' => 'session',
-      'provider' => 'users',
+    'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ],
     ],
 
-    'api' => [
-      'driver' => 'token',
-      'provider' => 'users',
-      'hash' => false,
-    ],
-  ],
-
-  /*
+    /*
     |--------------------------------------------------------------------------
     | User Providers
     |--------------------------------------------------------------------------
@@ -64,24 +64,24 @@ return [
     |
     */
 
-  'providers' => [
-    // 'users' => [
-    //     'driver' => 'authapiuser',
-    //     'model' => LaravelFrontend\Auth\AuthApiUser::class,
-    // ],
+    'providers' => [
+        // 'users' => [
+        //     'driver' => 'authapiuser',
+        //     'model' => LaravelFrontend\Auth\AuthApiUser::class,
+        // ],
 
-    'users' => [
-      'driver' => 'eloquent',
-      'model' => LaravelFrontend\Auth\AuthApiUser::class,
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => LaravelFrontend\Auth\AuthApiUser::class,
+        ],
+
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
     ],
 
-    // 'users' => [
-    //     'driver' => 'database',
-    //     'table' => 'users',
-    // ],
-  ],
-
-  /*
+    /*
     |--------------------------------------------------------------------------
     | Resetting Passwords
     |--------------------------------------------------------------------------
@@ -96,16 +96,16 @@ return [
     |
     */
 
-  'passwords' => [
-    'users' => [
-      'provider' => 'users',
-      'table' => 'password_resets',
-      'expire' => 60,
-      'throttle' => 60,
+    'passwords' => [
+        'users' => [
+            'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
-  ],
 
-  /*
+    /*
     |--------------------------------------------------------------------------
     | Password Confirmation Timeout
     |--------------------------------------------------------------------------
@@ -116,5 +116,5 @@ return [
     |
     */
 
-  'password_timeout' => 10800,
+    'password_timeout' => 10800,
 ];

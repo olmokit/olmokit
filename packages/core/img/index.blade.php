@@ -1,17 +1,17 @@
 <{{ $tag }}@if ($href) href="{{ $href }}" @endif
-  {{ $attributes->merge(['class' => 'media media--img']) }}
   style="
     @if ($bgColor) background:{{ $bgColor }}; @endif
     @if (!$cage && $fixed) width:{{ $img['width'] }}px @elseif($fixed)max-width:{{ $img['width'] }}px;@else width:100%; @endif
     {!! $styles ?? '' !!}"
+  {{ $attributes->merge(['class' => 'media media--img']) }}
   {!! $attrsRoot ?? '' !!}
 >
   <noscript>
     <img
-      draggable="false"
       class="mediaElement img fit-{{ $cssFit }}"
-      alt="{{ $alt ?? ($img['name'] ?? '') }}"
       src="{{ $img['url'] }}"
+      alt="{{ $alt ?? ($img['name'] ?? '') }}"
+      draggable="false"
       width="{{ $img['width'] }}"
       height="{{ $img['height'] }}"
       {!! $attrs ?? '' !!}
@@ -26,16 +26,16 @@
   <picture @if ($cage) class="mediaCenterer" @endif>
     @if ($img['urlWebp'])
       <source
-        type="image/webp"
         srcset="{{ $immediate ? $img['urlWebp'] : $thumb }}"
+        type="image/webp"
         @if (!$immediate) data-srcset="{{ $img['urlWebp'] }}" @endif
       >
     @endif
     <img
-      draggable="false"
       class="mediaElement img fit-{{ $cssFit }}@unless ($immediate) lazy @endunless"
-      alt="{{ $alt ?? ($img['name'] ?? '') }}"
       src="{{ $immediate ? $img['url'] : $thumb }}"
+      alt="{{ $alt ?? ($img['name'] ?? '') }}"
+      draggable="false"
       @unless ($immediate) data-src="{{ $img['url'] }}" @endunless
       width="{{ $img['width'] }}"
       height="{{ $img['height'] }}"

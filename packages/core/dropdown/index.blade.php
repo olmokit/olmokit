@@ -16,14 +16,14 @@
 @endphp
 <div class="dropdown {{ $_classPrefix }} {{ $_classDropdown }} {{ $classRoot ?? '' }}">
   <input
-    id="{{ $_idInput }}"
     class="dropdownInput {{ $_classInput }}"
+    id="{{ $_idInput }}"
     type="checkbox"
     value="open"
   >
   <label
-    id="{{ $_idLabel }}"
     class="dropdownToggle {{ $_classLabel }} {{ $classToggle ?? '' }}"
+    id="{{ $_idLabel }}"
     for="{{ $_idInput }}"
   >
     {{ $toggle ?? '' }}

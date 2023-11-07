@@ -35,7 +35,9 @@
       left: 0;
       right: 0;
       bottom: 100%;
-      transition: bottom $Header-transition, box-shadow $Header-transition;
+      transition:
+        bottom $Header-transition,
+        box-shadow $Header-transition;
 
       [data-status="expanded"] & {
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);

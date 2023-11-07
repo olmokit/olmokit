@@ -8,21 +8,21 @@ use Illuminate\View\Compilers\ComponentTagCompiler as Base;
 
 class ComponentTagCompiler extends Base
 {
-  /**
-   * Guess the class name for the given component.
-   *
-   * @param  string  $component
-   * @return string
-   */
-  public function guessClassName(string $component)
-  {
-    $namespace = Container::getInstance()
-      ->make(Application::class)
-      ->getNamespace();
+    /**
+     * Guess the class name for the given component.
+     *
+     * @param  string  $component
+     * @return string
+     */
+    public function guessClassName(string $component)
+    {
+        $namespace = Container::getInstance()
+            ->make(Application::class)
+            ->getNamespace();
 
-    $class = $this->formatClassName($component);
+        $class = $this->formatClassName($component);
 
-    // return $namespace.'View\\Components\\'.$class;
-    return $namespace . 'components\\' . $class;
-  }
+        // return $namespace.'View\\Components\\'.$class;
+        return $namespace . 'components\\' . $class;
+    }
 }

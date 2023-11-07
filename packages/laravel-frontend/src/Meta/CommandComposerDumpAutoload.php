@@ -9,48 +9,48 @@ use Illuminate\Support\Composer;
 // #[AsCommand(name: 'dump-autoload')]
 class CommandComposerDumpAutoload extends Command
 {
-  /**
-   * The name and signature of the console command.
-   *
-   * @var string
-   */
-  protected $signature = 'dump-autoload';
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'dump-autoload';
 
-  /**
-   * The console command description.
-   *
-   * @var string
-   */
-  protected $description = 'Regenerate framework autoload files';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Regenerate framework autoload files';
 
-  /**
-   * The Composer instance.
-   *
-   * @var \Illuminate\Foundation\Composer
-   */
-  protected $composer;
+    /**
+     * The Composer instance.
+     *
+     * @var \Illuminate\Foundation\Composer
+     */
+    protected $composer;
 
-  /**
-   * Create a new command instance.
-   *
-   * @param Composer $composer
-   * @return void
-   */
-  public function __construct(Composer $composer)
-  {
-    parent::__construct();
+    /**
+     * Create a new command instance.
+     *
+     * @param Composer $composer
+     * @return void
+     */
+    public function __construct(Composer $composer)
+    {
+        parent::__construct();
 
-    $this->composer = $composer;
-  }
+        $this->composer = $composer;
+    }
 
-  /**
-   * Execute the console command.
-   *
-   * @return void
-   */
-  public function handle()
-  {
-    $this->composer->dumpAutoloads('--optimize');
-    // $this->composer->dumpOptimized();
-  }
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        $this->composer->dumpAutoloads('--optimize');
+        // $this->composer->dumpOptimized();
+    }
 }

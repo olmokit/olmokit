@@ -104,7 +104,7 @@ export function openDialogPlayer({
           playerInstance.pause();
           hasPaused = true;
         },
-      },
+      }
     )?.open();
   });
 }

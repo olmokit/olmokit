@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Facade;
 
 class AuthApiFacade extends Facade
 {
-  protected static function getFacadeAccessor()
-  {
-    return 'authapi';
-  }
+    protected static function getFacadeAccessor()
+    {
+        return 'authapi';
+    }
 }

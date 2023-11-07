@@ -11,9 +11,9 @@
 @endphp
 
 <{{ $tag }}
-  {{ $attributes->merge(['class' => $_classes]) }}@if ($tag === 'a') href="{{ $_link }}" @endif
   data-tabs-tab="{{ $tabId }}"
   data-tabs="{{ $tabParam }}"
+  {{ $attributes->merge(['class' => $_classes]) }}@if ($tag === 'a') href="{{ $_link }}" @endif
 >
   {{ $slot }}
   </{{ $tag }}>

@@ -8,7 +8,7 @@ import type { TaskrOra } from "@olmokit/cli-utils/taskr";
 export async function execArtisan(commandAndArgs: string[], ora: TaskrOra) {
   const spinner = ora({
     text: `${chalk.dim("Run")} ${chalk.italic("php artisan")} ${chalk.bold(
-      commandAndArgs.join(" "),
+      commandAndArgs.join(" ")
     )}`,
     suffixText: "...",
   }).start();

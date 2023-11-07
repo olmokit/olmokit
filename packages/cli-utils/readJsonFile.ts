@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from "fs";
 
 export function readJsonFile<T extends object>(
   jsonPath: string,
-  debug?: boolean,
+  debug?: boolean
 ) {
   try {
     if (existsSync(jsonPath)) {

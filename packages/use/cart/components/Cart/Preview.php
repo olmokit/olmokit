@@ -7,24 +7,24 @@ use LaravelFrontend\Cms\CmsCart;
 
 class CartPreview extends Component
 {
-  /**
-   * Create a new component instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-  }
+    /**
+     * Create a new component instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+    }
 
-  /**
-   * Get the view / contents that represent the component.
-   *
-   * @return \Illuminate\View\View|string
-   */
-  public function render()
-  {
-    $cart = CmsCart::get()->json();
+    /**
+     * Get the view / contents that represent the component.
+     *
+     * @return \Illuminate\View\View|string
+     */
+    public function render()
+    {
+        $cart = CmsCart::get()->json();
 
-    return view('components.CartPreview', ['cart' => $cart]);
-  }
+        return view('components.CartPreview', ['cart' => $cart]);
+    }
 }

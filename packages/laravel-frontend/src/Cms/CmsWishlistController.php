@@ -8,68 +8,68 @@ use Illuminate\Support\Facades\Validator;
 
 class CmsWishlistController
 {
-  /**
-   * Get wishlist items
-   *
-   * @return \Illuminate\Http\JsonResponse
-   */
-  public function get(Request $request)
-  {
-    $response = CmsWishlist::get();
+    /**
+     * Get wishlist items
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function get(Request $request)
+    {
+        $response = CmsWishlist::get();
 
-    return response()->json($response->json(), $response->status());
-  }
-
-  /**
-   * Add to wishlist
-   *
-   * @return \Illuminate\Http\JsonResponse
-   */
-  public function add(Request $request)
-  {
-    $validator = Validator::make($request->all(), [
-      'id' => 'required',
-    ]);
-    if ($validator->fails()) {
-      return response()->json($validator->errors(), 400);
+        return response()->json($response->json(), $response->status());
     }
 
-    $id = $request->input('id');
-    $type = $request->input('type') ?? 'product';
-    $properties = array_filter(
-      explode(',', $request->input('properties', '')),
-      'strlen'
-    );
+    /**
+     * Add to wishlist
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function add(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
 
-    $response = CmsWishlist::add($id, $type, $properties);
+        $id = $request->input('id');
+        $type = $request->input('type') ?? 'product';
+        $properties = array_filter(
+            explode(',', $request->input('properties', '')),
+            'strlen'
+        );
 
-    return response()->json($response->json(), $response->status());
-  }
+        $response = CmsWishlist::add($id, $type, $properties);
 
-  /**
-   * Remove from wishlist
-   *
-   * @return \Illuminate\Http\JsonResponse
-   */
-  public function remove(Request $request)
-  {
-    $validator = Validator::make($request->all(), [
-      'id' => 'required',
-    ]);
-    if ($validator->fails()) {
-      return response()->json($validator->errors(), 400);
+        return response()->json($response->json(), $response->status());
     }
 
-    $id = $request->input('id');
     /**
-     * This is a change
+     * Remove from wishlist
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    $type = $request->input('type') ?? 'product';
-    /**
-     * This is a change $type
-     */
-    $response = CmsWishlist::remove($id, $type);
+    public function remove(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
 
-    return response()->json($response->json(), $response->status());
-  }
+        $id = $request->input('id');
+        /**
+         * This is a change
+         */
+        $type = $request->input('type') ?? 'product';
+        /**
+         * This is a change $type
+         */
+        $response = CmsWishlist::remove($id, $type);
+
+        return response()->json($response->json(), $response->status());
+    }
 }

@@ -10,12 +10,12 @@
     style="padding-top: {{ ($height * 100) / $width }}%"
   ></span>
   <iframe
-    src="{{ $src }}"
     class="mediaElement iframe lazy"
+    src="{{ $src }}"
+    style="border:0"
     width="{{ $width }}"
     height="{{ $height }}"
     frameborder="0"
-    style="border:0"
     allowfullscreen
   ></iframe>
   @progressCircular(['size' => $progress, 'center' => true])

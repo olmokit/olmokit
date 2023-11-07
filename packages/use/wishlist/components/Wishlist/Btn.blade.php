@@ -4,20 +4,20 @@
     data-wishlist-btn
   >
     <span
-      title="Remove from wishlist"
       data-wishlist-when="true"
+      title="Remove from wishlist"
     >
       ♥ remove
     </span>
     <span
-      title="Add to wishlist"
       data-wishlist-when="false"
+      title="Add to wishlist"
     >
       ♥ add
     </span>
     <span
-      title="Processing..."
       data-wishlist-when="loading"
+      title="Processing..."
     >
       <x-progress-circular />
     </span>

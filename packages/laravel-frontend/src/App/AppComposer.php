@@ -11,37 +11,39 @@ use LaravelFrontend\Auth\AuthApi;
 
 class AppComposer
 {
-  static $translations = [];
-
-  /**
-   * Bind data to the view.
-   *
-   * @param  View  $view
-   * @return void
-   */
-  public function compose(View $view)
-  {
-    $translations = I18n::getTranslations();
-
-    $view->with('trans', $translations);
-    $view->with('locale', App::getLocale());
-    $view->with('i18n', I18n::get());
-    $view->with('analytics', CmsApi::getAnalytics());
-    $view->with('user', AuthApi::user());
-    $view->with('userJs', AuthApi::userJs());
+    static $translations = [];
 
     /**
-     * Helper directive to use static translated strings from .csv files
+     * Bind data to the view.
      *
-     * @param string $key
+     * @param  View  $view
      * @return void
      */
-    Blade::directive('trans', function (string $key = '') use ($translations) {
-      return $translations[$key] ?? $key . ' (missing translation key)';
-      // TODO: maybe do a more sophisticated custom directive with
-      // dynamic arguments handling:
+    public function compose(View $view)
+    {
+        $translations = I18n::getTranslations();
 
-      /* $parts = explode(',', $key);
+        $view->with('trans', $translations);
+        $view->with('locale', App::getLocale());
+        $view->with('i18n', I18n::get());
+        $view->with('analytics', CmsApi::getAnalytics());
+        $view->with('user', AuthApi::user());
+        $view->with('userJs', AuthApi::userJs());
+
+        /**
+         * Helper directive to use static translated strings from .csv files
+         *
+         * @param string $key
+         * @return void
+         */
+        Blade::directive('trans', function (string $key = '') use (
+            $translations
+        ) {
+            return $translations[$key] ?? $key . ' (missing translation key)';
+            // TODO: maybe do a more sophisticated custom directive with
+            // dynamic arguments handling:
+
+            /* $parts = explode(',', $key);
             $key = $parts[0];
             $args = isset($parts[1]) ? $parts[1] : 'null';
 
@@ -53,6 +55,6 @@ class AppComposer
                 '<?php } ?>',
                 "<?php echo {$translations[$key]} ?? \$key . 'missing.translation.key'; ?>",
             ]); */
-    });
-  }
+        });
+    }
 }

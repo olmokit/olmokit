@@ -20,7 +20,7 @@ export namespace Player {
   export type Initialiser = (
     rooter?: string | HTMLElement | VideoJsPlayer,
     options?: Options,
-    ready?: () => void,
+    ready?: () => void
   ) => VideoJsPlayer;
 
   export type Instance = {

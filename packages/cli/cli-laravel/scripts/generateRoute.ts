@@ -11,14 +11,14 @@ import type { CliLaravel } from "../pm.js";
  */
 export async function generateRoute(
   args: string[],
-  taskr: TaskrInstance<CliLaravel.Config>,
+  taskr: TaskrInstance<CliLaravel.Config>
 ) {
   const names = getVariadicArguments(args);
 
   taskr.log.success(
     names.length > 1
       ? `The following routes have been generated:`
-      : `The following route has been generated:`,
+      : `The following route has been generated:`
   );
 
   for (let i = 0; i < names.length; i++) {

@@ -12,15 +12,15 @@ Route::get('/robots.txt', [Robots::class, 'render']);
 Route::get('/sitemap.xml', [Sitemap::class, 'default']);
 Route::get('/sitemap-index.xml', [Sitemap::class, 'index']);
 Route::get('/{locale}-sitemap.xml', [Sitemap::class, 'localised'])->where(
-  'locale',
-  '([A-Za-z0-9\-\/]+)'
+    'locale',
+    '([A-Za-z0-9\-\/]+)'
 );
 
 // standard download routes
 Route::get(Download::PATH, [Download::class, 'get'])->where('path', '.+');
 Route::get(Download::PATH_AUTH, [Download::class, 'get'])
-  ->where('path', '.+')
-  ->middleware('auth');
+    ->where('path', '.+')
+    ->middleware('auth');
 
 // fallback route, not needed
 // Route::fallback('\resources\routes\Route404@render');

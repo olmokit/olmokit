@@ -17,7 +17,7 @@ type SwiperOptionsExtended = SwiperOptions & {
 export function swiperInit(
   selector: string,
   options: SwiperOptionsExtended = {},
-  customComponents = [],
+  customComponents = []
 ) {
   const defaultOptions = {
     lazy: {

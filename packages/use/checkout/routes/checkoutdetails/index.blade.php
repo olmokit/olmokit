@@ -23,9 +23,9 @@
                   {{-- reuse the x-forms-radio styling wrapping everything in a label --}}
                   <label class="method:head formToggle">
                     <input
-                      type="radio"
                       class="formControl"
                       name="shippingmethod"
+                      type="radio"
                       value="{{ $shippingMethod['code'] }}"
                       @if ($currentSelection['shippingmethod'] == $shippingMethod['code']) checked @endif
                     >
@@ -51,9 +51,9 @@
                     <div class="method:body__actions">
                       <a
                         class="method:body__actionsBtn"
-                        href="?dialog-address-add"
                         data-dialog-address-add
                         data-address-add="shipping"
+                        href="?dialog-address-add"
                       >
                         + Add shipping address
                       </a>
@@ -64,9 +64,9 @@
                   {{-- reuse the x-forms-radio styling wrapping everything in a label --}}
                   <label class="method:head formToggle">
                     <input
-                      type="radio"
                       class="formControl"
                       name="shippingmethod"
+                      type="radio"
                       value="{{ $shippingMethod['code'] }}"
                       @if ($currentSelection['shippingmethod'] == $shippingMethod['code']) checked @endif
                     >
@@ -109,9 +109,9 @@
               <div class="method:body__actions">
                 <a
                   class="method:body__actionsBtn"
-                  href="?dialog-address-add"
                   data-dialog-address-add
                   data-address-add="billing"
+                  href="?dialog-address-add"
                 >
                   + Add billing address
                 </a>

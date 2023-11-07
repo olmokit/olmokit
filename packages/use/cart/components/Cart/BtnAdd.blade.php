@@ -6,8 +6,8 @@
     &#128722; add
   </span>
   <span
-    title="Processing..."
     data-cart-when="loading"
+    title="Processing..."
   >
     <x-progress-circular />
   </span>

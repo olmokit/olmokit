@@ -10,20 +10,20 @@ use LaravelFrontend\Auth\AuthApi;
 
 class CacheResponse extends BaseCacheResponse
 {
-  protected function shouldCache(Request $request, Response $response)
-  {
-    // don't cache pages if:
-    // 1) the URL contains a query string
-    // 2) we are developing locally
-    // 3) user is authenticated
-    if (
-      $request->getQueryString() ||
-      config('env.DEVELOPMENT') ||
-      AuthApi::check()
-    ) {
-      return false;
-    }
+    protected function shouldCache(Request $request, Response $response)
+    {
+        // don't cache pages if:
+        // 1) the URL contains a query string
+        // 2) we are developing locally
+        // 3) user is authenticated
+        if (
+            $request->getQueryString() ||
+            config('env.DEVELOPMENT') ||
+            AuthApi::check()
+        ) {
+            return false;
+        }
 
-    return parent::shouldCache($request, $response);
-  }
+        return parent::shouldCache($request, $response);
+    }
 }

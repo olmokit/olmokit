@@ -28,14 +28,14 @@
 >
   @csrf
   <x-forms-select
+    name="url"
     :value="$value"
     :options="$options"
     :no-empty="true"
-    name="url"
     label="{{ $trans[$label] ?? '' }}"
   ></x-forms-select>
   <button
-    type="submit"
     class="hidden"
+    type="submit"
   ></button>
 </form>

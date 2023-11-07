@@ -44,7 +44,7 @@ async function linkLibsFixNodeModules(libs: LibNpm[], opts: Options) {
 async function linkLibFixNodeModules(
   lib: LibNpm,
   opts: Options,
-  libs: LibNpm[],
+  libs: LibNpm[]
 ) {
   const spinner = ora({
     text: `Fix ${chalk.bold(lib.name)} node_modules`,
@@ -69,7 +69,7 @@ async function linkLibFixNodeModules(
     // console.log("nodeModulePath", nodeModulePath)
     symlinkSyncSafe(
       join(lib.src, "/node_modules/", nodeModulePath),
-      join(lib.dist, "/node_modules/", nodeModulePath),
+      join(lib.dist, "/node_modules/", nodeModulePath)
     );
   });
   // now re-link the internal deps
@@ -78,14 +78,14 @@ async function linkLibFixNodeModules(
     .forEach((otherLib) => {
       const nodeModuleScopePath = join(
         lib.dist,
-        `/node_modules/${otherLib.scope}`,
+        `/node_modules/${otherLib.scope}`
       );
       if (!existsSync(nodeModuleScopePath)) {
         mkdirSync(nodeModuleScopePath);
       }
       symlinkSyncSafe(
         join(otherLib.dist),
-        join(nodeModuleScopePath, `/${otherLib.slug}`),
+        join(nodeModuleScopePath, `/${otherLib.slug}`)
       );
     });
 
@@ -123,7 +123,7 @@ async function linkLibGlobally(lib: LibNpm, opts: Options) {
 
     if (opts.verbose) {
       spinner.suffixText = ` ran ${chalk.italic(cmd)} from ${chalk.italic(
-        lib.packageJson.name,
+        lib.packageJson.name
       )}`;
     }
 
@@ -141,7 +141,7 @@ async function linkLibGlobally(lib: LibNpm, opts: Options) {
           spinner.succeed();
           resolve();
         }
-      },
+      }
     );
   });
 }

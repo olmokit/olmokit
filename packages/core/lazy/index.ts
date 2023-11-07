@@ -83,7 +83,7 @@ const purgeProcessedElements = (elements: HTMLElement[]) => {
 
 const purgeOneElement = (
   elements: HTMLElement[],
-  elementToPurge: HTMLElement,
+  elementToPurge: HTMLElement
 ) => {
   return elements.filter((element: HTMLElement) => element !== elementToPurge);
 };
@@ -120,7 +120,7 @@ const getSourceTags = (parentTag: HTMLElement) => {
 const setAttributeIfValue = (
   element: HTMLElement,
   attrName: string,
-  value?: null | string,
+  value?: null | string
 ) => {
   if (!value) {
     return;
@@ -206,7 +206,7 @@ const errorEventName = "error";
 const addEventListeners = (
   element: HTMLElement,
   loadHandler: (ev: Event) => void,
-  errorHandler: (ev: Event) => void,
+  errorHandler: (ev: Event) => void
 ) => {
   on(element, genericLoadEventName, loadHandler);
   on(element, mediaLoadEventName, loadHandler);
@@ -216,7 +216,7 @@ const addEventListeners = (
 const removeEventListeners = (
   element: HTMLElement,
   loadHandler: (ev: Event) => void,
-  errorHandler: (ev: Event) => void,
+  errorHandler: (ev: Event) => void
 ) => {
   off(element, genericLoadEventName, loadHandler);
   off(element, mediaLoadEventName, loadHandler);
@@ -226,7 +226,7 @@ const removeEventListeners = (
 const eventHandler = function (
   event: Event,
   success: boolean,
-  instance: LazyLoadInstance,
+  instance: LazyLoadInstance
 ) {
   const options = instance._s;
   const className = success ? options.classLoaded : options.classError;
@@ -243,7 +243,7 @@ const eventHandler = function (
 
 const addOneShotEventListeners = (
   element: HTMLElement,
-  instance: LazyLoadInstance,
+  instance: LazyLoadInstance
 ) => {
   const loadHandler = (event: Event) => {
     eventHandler(event, true, instance);
@@ -261,7 +261,7 @@ const managedTags = ["IMG", "IFRAME", "VIDEO"];
 const onEnter = (
   element: HTMLElement,
   entry: IntersectionObserverEntry,
-  instance: LazyLoadInstance,
+  instance: LazyLoadInstance
 ) => {
   const options = instance._s;
   safeCallback(options.onenter, instance, element, entry, instance);
@@ -274,7 +274,7 @@ const onEnter = (
 
 const revealAndUnobserve = (
   element: HTMLElement,
-  instance: LazyLoadInstance,
+  instance: LazyLoadInstance
 ) => {
   const observer = instance._O;
   revealElement(element, instance);
@@ -286,7 +286,7 @@ const revealAndUnobserve = (
 const onExit = (
   element: HTMLElement,
   entry: IntersectionObserverEntry,
-  instance: LazyLoadInstance,
+  instance: LazyLoadInstance
 ) => {
   const options = instance._s;
   safeCallback(options.onexit, instance, element, entry, instance);
@@ -322,7 +322,7 @@ const delayLoad = (element: HTMLElement, instance: LazyLoadInstance) => {
 const revealElement = (
   element: HTMLElement,
   instance: LazyLoadInstance,
-  force?: boolean,
+  force?: boolean
 ) => {
   const options = instance._s;
   if (!force && getWasProcessedData(element)) {
@@ -354,7 +354,7 @@ const setObserver = (instance: LazyLoadInstance) => {
     entries.forEach((entry) =>
       isIntersecting(entry)
         ? onEnter(entry.target as HTMLElement, entry, instance)
-        : onExit(entry.target as HTMLElement, entry, instance),
+        : onExit(entry.target as HTMLElement, entry, instance)
     );
   }, getObserverSettings(instance._s));
 };
@@ -376,10 +376,10 @@ const loadAllNative = (instance: LazyLoadInstance) => {
 
 const getElements = (
   options: LazyLoadOptions,
-  elements?: NodeListOf<HTMLElement>,
+  elements?: NodeListOf<HTMLElement>
 ) =>
   purgeProcessedElements(
-    toArray(elements || $all(options.selector, options.container)),
+    toArray(elements || $all(options.selector, options.container))
   );
 
 const retryLazyLoad = (instance: LazyLoadInstance) => {
@@ -434,7 +434,7 @@ export type LazyLoadOptions = {
     | ((
         element: HTMLElement,
         entry: IntersectionObserverEntry,
-        instance: LazyLoadInstance,
+        instance: LazyLoadInstance
       ) => void);
   /** @default null */
   onexit:
@@ -442,7 +442,7 @@ export type LazyLoadOptions = {
     | ((
         element: HTMLElement,
         entry: IntersectionObserverEntry,
-        instance: LazyLoadInstance,
+        instance: LazyLoadInstance
       ) => void);
   /** @default null */
   onreveal: null | ((element: HTMLElement, instance: LazyLoadInstance) => void);
@@ -481,7 +481,7 @@ export class LazyLoad {
 
   constructor(
     custom: Partial<LazyLoadOptions> = {},
-    elements?: NodeListOf<HTMLElement>,
+    elements?: NodeListOf<HTMLElement>
   ) {
     this._s = {
       ...defaultSettings,

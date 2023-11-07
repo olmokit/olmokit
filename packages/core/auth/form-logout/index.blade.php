@@ -7,11 +7,11 @@
     'defaultRedirect' => request()->url(),
 ])
 <form
+  data-auth="logout"
+  data-ajax-submit="{{ $ajax }}"
   {{ $attributes->merge(['class' => 'authForm authFormLogout']) }}
   action="{{ $logoutUrl }}"
   method="post"
-  data-auth="logout"
-  data-ajax-submit="{{ $ajax }}"
 >
   @csrf
   @if ($timezone)

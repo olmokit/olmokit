@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
-  /**
-   * Bootstrap any application services.
-   *
-   * @return void
-   */
-  public function boot()
-  {
-    View::composer('*', '\LaravelFrontend\App\AppComposer');
-  }
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        View::composer('*', '\LaravelFrontend\App\AppComposer');
+    }
 }

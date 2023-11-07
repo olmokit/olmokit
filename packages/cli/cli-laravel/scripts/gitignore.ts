@@ -11,7 +11,7 @@ export const gitignore: CliLaravel.Task = async () => {
       base: paths.self.templates,
       rename: ".gitignore",
       dest: project.root,
-    }),
+    })
   );
 };
 gitignore.meta = { title: "Ensure .gitignore file" };

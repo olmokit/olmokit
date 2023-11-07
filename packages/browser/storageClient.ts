@@ -13,7 +13,7 @@ const methodsMap = { g: "getItem", s: "setItem", r: "removeItem" };
  * @category storage
  */
 export const storageClient = <
-  TConfig extends StorageClientConfig = StorageClientConfig
+  TConfig extends StorageClientConfig = StorageClientConfig,
 >(
   useSessionStorage?: boolean
 ) => {
@@ -38,7 +38,7 @@ export const storageClient = <
 
   const get = <
     TKey extends Extract<keyof TConfig, string>,
-    TValue = TConfig[TKey]
+    TValue = TConfig[TKey],
   >(
     key: TKey,
     transform?: (value: string) => TValue,
@@ -80,7 +80,7 @@ export const storageClient = <
 
   const set = <
     TKey extends Extract<keyof TConfig, string>,
-    TValue = TConfig[TKey]
+    TValue = TConfig[TKey],
   >(
     key: TKey,
     value?: TValue,
@@ -131,7 +131,7 @@ export const storageClient = <
 
   const has = <
     TKey extends Extract<keyof TConfig, string>,
-    TValue = TConfig[TKey]
+    TValue = TConfig[TKey],
   >(
     key: TKey,
     defaultValue?: TValue

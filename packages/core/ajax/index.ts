@@ -39,14 +39,14 @@ export interface AjaxPromise<SuccessfulData, FailedData>
   then<TResult1 = SuccessfulData, TResult2 = never>(
     onfulfilled?:
       | ((
-          value: AjaxResponse<SuccessfulData>,
+          value: AjaxResponse<SuccessfulData>
         ) => TResult1 | PromiseLike<TResult1>)
       | undefined
       | null,
     onrejected?:
       | ((reason: AjaxResponse<FailedData>) => TResult2 | PromiseLike<TResult2>)
       | undefined
-      | null,
+      | null
   ): Promise<TResult1 | TResult2>;
 
   /**
@@ -58,7 +58,7 @@ export interface AjaxPromise<SuccessfulData, FailedData>
     onrejected?:
       | ((reason: AjaxResponse<FailedData>) => TResult | PromiseLike<TResult>)
       | undefined
-      | null,
+      | null
   ): Promise<SuccessfulData | TResult>;
 
   cancel(): void;
@@ -84,7 +84,7 @@ let cacheMap = {} as Partial<Record<string, ReturnType<typeof Ajax>>>;
  */
 export function Ajax<Successful, Failed = "">(
   url: string,
-  customConfig: AjaxConfig = {},
+  customConfig: AjaxConfig = {}
 ): AjaxPromise<Successful, Failed> {
   // force immutable default configuration
   const config = mergeObjects<AjaxConfigWithDefaults>(
@@ -95,7 +95,7 @@ export function Ajax<Successful, Failed = "">(
       },
       responseType: "text" as const,
     },
-    customConfig,
+    customConfig
   );
 
   /**
@@ -125,7 +125,7 @@ export function Ajax<Successful, Failed = "">(
    * Parse request body in the appropriate format
    */
   const parseRequestBody = function (
-    obj: AjaxConfig["data"],
+    obj: AjaxConfig["data"]
   ): XMLHttpRequestBodyInit {
     // ff already a string, or if a FormData object, return it as-is
     if (isString(obj) || isFormData(obj)) return obj;
@@ -142,7 +142,7 @@ export function Ajax<Successful, Failed = "">(
     const encoded = [];
     for (const prop in obj) {
       encoded.push(
-        encodeURIComponent(prop) + "=" + encodeURIComponent(obj[prop]),
+        encodeURIComponent(prop) + "=" + encodeURIComponent(obj[prop])
       );
     }
     return encoded.join("&");

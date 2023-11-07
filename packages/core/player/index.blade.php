@@ -11,17 +11,17 @@
   <video
     class="mediaElement player video-js"
     data-setup="{}"
-    title="{{ $alt ?? '' }}"
     src="{{ $video['src'] }}"
-    @if ($video['poster']) poster="{{ $video['poster'] }}" @endif
-    @if ($width) width="{{ $width }}" @endif
-    @if ($height) height="{{ $height }}" @endif
+    title="{{ $alt ?? '' }}"
     style="
       @if (isset($bgColor)) background:{{ $bgColor }}; @endif
       @if ($width && !$fullwidth) max-width:{{ $width }}px; @endif
       @if ($width && $fixed) width:{{ $width }}px;max-width:{{ $width }}px; @endif
       {!! $styles ?? '' !!}
     "
+    @if ($video['poster']) poster="{{ $video['poster'] }}" @endif
+    @if ($width) width="{{ $width }}" @endif
+    @if ($height) height="{{ $height }}" @endif
     {!! $attrs ?? '' !!}
   >
     <source

@@ -10,8 +10,8 @@
   $_link = $privacyLink ?? to($privacyRoute);
 @endphp
 <div
-  id="cookiesBanner"
   class="cookies"
+  id="cookiesBanner"
 >
   <div class="cookiesContainer {{ $classContainer }}">
     <div class="cookiesInner">

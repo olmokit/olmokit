@@ -10,11 +10,11 @@
   $form = Olmoforms::prefill($form, $userData);
 @endphp
 <form
+  data-auth="profile"
+  data-ajax-submit="{{ $ajax }}"
   {{ $attributes->merge(['class' => 'authForm authFormProfile']) }}
   action="{{ $form['action'] }}"
   method="post"
-  data-auth="profile"
-  data-ajax-submit="{{ $ajax }}"
 >
   {{ $pre ?? '' }}
   @csrf

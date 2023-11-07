@@ -7,20 +7,20 @@ use LaravelFrontend\Auth\AuthApi;
 
 class Login extends Base
 {
-  /**
-   * Instantiate a new controller instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-    // optionally disable automatic route's data caching
-    // $this->disableCache();
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        // optionally disable automatic route's data caching
+        // $this->disableCache();
 
-    // optionally enable super static page cache (cleared with hooks)
-    // $this->middleware('page-cache');
+        // optionally enable super static page cache (cleared with hooks)
+        // $this->middleware('page-cache');
 
-    $this->middleware('auth.activate');
-    $this->middleware('auth.unauthonly');
-  }
+        $this->middleware('auth.activate');
+        $this->middleware('auth.unauthonly');
+    }
 }

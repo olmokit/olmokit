@@ -18,7 +18,7 @@ import type { AnyDOMEventTarget, AnyDOMEventType } from "./types";
  */
 export function unlisten<
   TTypes extends AnyDOMEventType,
-  TTarget extends AnyDOMEventTarget = AnyDOMEventTarget
+  TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
 >(
   types: TTypes,
   // | `${TTypes},${TTypes}`

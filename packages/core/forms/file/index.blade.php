@@ -7,9 +7,9 @@
     <span class="formTexts">
       <input
         class="formControl {{ $classElement ?? '' }}"
-        type="{{ $type ?? 'file' }}"
         id="{{ $id ?? 'input-' . $name }}"
         name="{{ $name }}"
+        type="{{ $type ?? 'file' }}"
         @unless (empty($placeholder)) placeholder="{{ $placeholder }}"@endunless
         @if ($required == 'true') required="required" @endif
         {!! $attrs ?? '' !!}

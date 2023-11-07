@@ -10,8 +10,8 @@
       Set as default shipping address
     </span>
     <span
-      title="Processing..."
       data-address-when="loading"
+      title="Processing..."
     >
       <x-progress-circular />
     </span>
@@ -26,8 +26,8 @@
       Set as default billing address
     </span>
     <span
-      title="Processing..."
       data-address-when="loading"
+      title="Processing..."
     >
       <x-progress-circular />
     </span>

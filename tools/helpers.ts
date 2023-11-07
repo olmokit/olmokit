@@ -140,14 +140,14 @@ export const self = () => {
     libs,
     libsNpm: libs.filter((lib) => lib.packager === "npm") as LibNpm[],
     libsComposer: libs.filter(
-      (lib) => lib.packager === "composer",
+      (lib) => lib.packager === "composer"
     ) as LibComposer[],
     libsMap: libs.reduce(
       (map, lib) => {
         map[lib.name] = lib;
         return map;
       },
-      {} as Record<Lib["name"], Lib>,
+      {} as Record<Lib["name"], Lib>
     ),
   };
 };
@@ -184,7 +184,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
             name = packageJson.name!;
             internalDeps = getNpmDependenciesNameAndVersion(
               packageJson,
-              scope,
+              scope
             ).map((dep) => dep.name);
           }
         } catch (e) {
@@ -205,7 +205,7 @@ function getLibs(rootPackageJson: PackageJson, scope: string): Lib[] {
             name = composerJson.name!;
             internalDeps = getComposerDependenciesNameAndVersion(
               composerJson,
-              "olmo", // FIXME: scope here is `olmokit` instead of `olmo`
+              "olmo" // FIXME: scope here is `olmokit` instead of `olmo`
             ).map((dep) => dep.name);
           }
         } catch (e) {}

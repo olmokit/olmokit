@@ -61,17 +61,17 @@ const defaultOptions = {
 export function Player(
   rooter: string | Element | HTMLElement,
   options?: PlayerOptions,
-  ready?: () => any,
+  ready?: () => any
 ): PlayerTypes.Instance["video"];
 export function Player(
   rooter?: undefined,
   options?: PlayerOptions,
-  ready?: () => any,
+  ready?: () => any
 ): PlayerTypes.Instance[];
 export function Player(
   rooter?: string | Element | HTMLElement,
   options?: PlayerOptions,
-  ready?: () => any,
+  ready?: () => any
 ) {
   if (typeof rooter === "undefined") {
     const instances: PlayerTypes.Instance[] = [];

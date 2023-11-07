@@ -21,14 +21,14 @@ const checkOlmoConfig: CliLaravel.Task = async () => {
       data: {
         randomWord: generateRandomWord(["a", "c", "e", "g", "i", "m", "s"], 8),
       },
-    }),
+    })
   );
   await runIfDevAndMissingFile(join(project.root, ".olmo.ts"), () =>
     filer(".olmo.ts__tpl__", {
       base: paths.self.templates,
       dest: project.root,
       rename: ".olmo.ts",
-    }),
+    })
   );
 };
 checkOlmoConfig.meta = { title: "Ensure olmo.ts files" };
@@ -51,7 +51,7 @@ const checkAutomatedPartials: CliLaravel.Task = async ({ log }) => {
     log,
     {
       willAutogenerate: true,
-    },
+    }
   );
   if (unexisting.length) {
     await Promise.all(
@@ -61,8 +61,8 @@ const checkAutomatedPartials: CliLaravel.Task = async ({ log }) => {
           prepend,
           rename: name,
           dest: dest,
-        }),
-      ),
+        })
+      )
     );
   }
 };
@@ -80,7 +80,7 @@ const checkConfig: CliLaravel.Task = async () => {
       },
     ].map(async ({ fallback, dest }) => {
       await copy(fallback, dest, { overwrite: false });
-    }),
+    })
   );
 };
 checkConfig.meta = { title: "Check confguration files" };
@@ -110,7 +110,7 @@ export function filesExist(
   options: {
     willAutogenerate?: boolean;
     verbose?: boolean;
-  },
+  }
 ) {
   const unexisting: FilesExistFile[] = [];
 
@@ -158,6 +158,6 @@ export function filesExist(
 function generateRandomWord(arr: string[], length: number) {
   return Array.from(
     { length },
-    () => arr[Math.floor(Math.random() * arr.length)],
+    () => arr[Math.floor(Math.random() * arr.length)]
   ).join("");
 }

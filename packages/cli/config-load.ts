@@ -37,7 +37,7 @@ function lazyJiti({ spinner, taskr }: CliBootArg) {
           spinner.stop();
           taskr.log.branded.error(
             "Invalid olmo.ts file",
-            err ? err.toString() : "",
+            err ? err.toString() : ""
           );
           process.exit(1);
         }

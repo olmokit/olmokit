@@ -6,8 +6,8 @@
 ])
 <video
   data-setup="{}"
-  title="{{ $alt ?? '' }}"
   src="{{ media($src) }}"
+  title="{{ $alt ?? '' }}"
   @if ($poster) poster="{{ media($poster) }}" @endif
   {{ $attributes->merge(['class' => 'video-js']) }}
 >

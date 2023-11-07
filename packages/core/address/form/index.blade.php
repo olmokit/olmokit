@@ -9,17 +9,17 @@
 ])
 @php $form = $form ?? \LaravelFrontend\Cms\CmsAddress::getForm($type); @endphp
 <form
+  data-type="{{ $form['type'] }}"
+  data-ajax-submit="{{ $ajax }}"
   {{ $attributes->merge(['class' => 'addressForm addressForm' . ucfirst($form['type'])]) }}
   action="{{ $form['action'] }}"
   method="post"
-  data-type="{{ $form['type'] }}"
-  data-ajax-submit="{{ $ajax }}"
 >
   @csrf
   {{-- <x-auth-redirect url="{{ $redirect ?? $defaultRedirect ?? '' }}" /> --}}
   <input
-    type="hidden"
     name="_type"
+    type="hidden"
     value="{{ $type }}"
   />
   @isset($form['fields'])

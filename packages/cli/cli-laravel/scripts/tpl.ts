@@ -34,7 +34,7 @@ type Middlewares = {
  */
 function renameLaravelPhpFiles(
   { basename, dir, path }: FilerTranformerArg,
-  transformer: (input: string) => string,
+  transformer: (input: string) => string
 ) {
   const isBlade = basename.endsWith(".blade.php");
   const filename = path.basename(basename, isBlade ? ".blade.php" : ".php");

@@ -16,7 +16,7 @@ import type { AnyDOMEvent, AnyDOMEventTarget, AnyDOMEventType } from "./types";
  */
 export type EventCallback<
   TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
-  TType extends AnyDOMEventType = AnyDOMEventType
+  TType extends AnyDOMEventType = AnyDOMEventType,
 > = (event: AnyDOMEvent<TType>, desiredTarget: TTarget) => any;
 
 /**

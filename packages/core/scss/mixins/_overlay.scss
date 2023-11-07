@@ -41,7 +41,8 @@
   cursor: wait;
   @extend %Overlay;
   opacity: 0;
-  transition: opacity $duration $Transition-timing-function,
+  transition:
+    opacity $duration $Transition-timing-function,
     visibility $duration $Transition-timing-function;
 
   .is-loading & {

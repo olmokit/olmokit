@@ -83,7 +83,7 @@ export function getFormData(form: HTMLFormElement): object {
  */
 export function prefillFromElement(
   element: HTMLElement,
-  $formRoot: HTMLElement | Document | null,
+  $formRoot: HTMLElement | Document | null
 ) {
   const raw = getDataAttr(element, "prefill");
 

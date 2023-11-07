@@ -20,11 +20,11 @@ export function getSassSharedResources() {
   const importFromLibrary = (
     lib: keyof Libraries,
     module: string,
-    filename: string,
+    filename: string
   ) =>
     join(
       project.nodeModules,
-      `${libraries[lib].name}/${module}/_${filename}.scss`,
+      `${libraries[lib].name}/${module}/_${filename}.scss`
     );
   const importFromProject = (filename: string) =>
     join(paths.frontend.src.config, `/${filename}.scss`);
@@ -111,12 +111,12 @@ export function getSassAdditionalData() {
     `$ENV: "${process.env.APP_ENV}";`,
     `$SRC_ASSETS: "${relative(
       paths.frontend.src.utils,
-      paths.frontend.src.assets,
+      paths.frontend.src.assets
     )}";`,
     `$URL_ASSETS: "${publicUrls.assets}";`,
     `$SRC_FONTS: "${relative(
       paths.frontend.src.utils,
-      paths.frontend.src.fonts,
+      paths.frontend.src.fonts
     )}";`,
     // when using a CDN we need to use the absolute fonts URLS referenced in the
     // CSS or the path will be wrong. TODO: doesn't webpack have something
@@ -128,7 +128,7 @@ export function getSassAdditionalData() {
     };`,
     `$SRC_IMAGES: "${relative(
       paths.frontend.src.utils,
-      paths.frontend.src.images,
+      paths.frontend.src.images
     )}";`,
     `$URL_IMAGES: "${publicUrls.images}";`,
     `$SRC_SVGICONS: "${paths.frontend.src.svgicons}";`,

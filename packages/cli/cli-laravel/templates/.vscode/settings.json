@@ -10,6 +10,7 @@
     ".npmrc": true,
     ".prettierc": true,
     ".vscode": true,
+    ".*rc.js": true,
     "tsconfig.json": true,
     "artisan": true,
     "bootstrap": true,
@@ -42,6 +43,6 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "olmo.*": "*.md, .env*, .github*, .gitlab*, *composer.json, *package.json, tsconfig.*, *.config.ts, *.config.js, .*rc"
+    "olmo.*": "*.md, .env*, .github*, .gitlab*, *composer.json, *package.json, tsconfig.*, *.config.ts, *.config.js, .*rc, .*rc.js"
   }
 }

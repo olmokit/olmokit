@@ -2,8 +2,8 @@
     'btnClass' => '',
 ])
 <div
-  {{ $attributes->merge(['class' => 'glide__controls']) }}
   data-glide-el="controls"
+  {{ $attributes->merge(['class' => 'glide__controls']) }}
 >
   @isset($prev)
     {{ $prev }}@else<button

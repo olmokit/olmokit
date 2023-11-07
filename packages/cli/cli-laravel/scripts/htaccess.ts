@@ -16,7 +16,7 @@ async function maybeCreateFile(name: string) {
     filer(filename, {
       base: paths.self.templates,
       dest: paths.frontend.dest.public,
-    }),
+    })
   );
 }
 
@@ -38,7 +38,7 @@ async function maybeCreateFile(name: string) {
 async function htaccessHashed(
   dest: string,
   extensions: string[],
-  hours: number,
+  hours: number
 ) {
   await filer("htaccess-assets-hashed", {
     base: paths.self.templates,
@@ -140,7 +140,7 @@ const htaccessModify: CliLaravel.Task = async () => {
   } else if (/^AuthType Basic/gim.test(content)) {
     content = content.replace(
       /(AuthType Basic)((.|\s|\n|\r)*?)(^|[^\n])\n{2}(?!\n)/,
-      `$1$2$4\n${toInsert}`,
+      `$1$2$4\n${toInsert}`
     );
   } else {
     // otherwise we just add the lines at the begininng of the htaccess file,
@@ -179,7 +179,7 @@ export const htaccess: CliLaravel.Task = async (arg) => {
             paths.frontend.dest.entries,
             ["js", "css", "txt"],
 
-            24 * 365,
+            24 * 365
           );
           spinner.suffixText = spinner.suffixText + " / entries";
         },
@@ -187,7 +187,7 @@ export const htaccess: CliLaravel.Task = async (arg) => {
           await htaccessHashed(
             paths.frontend.dest.chunks,
             ["js", "css", "txt"],
-            24 * 365,
+            24 * 365
           );
           spinner.suffixText = spinner.suffixText + " / chunks";
         },
@@ -195,7 +195,7 @@ export const htaccess: CliLaravel.Task = async (arg) => {
           await htaccessHashed(
             paths.frontend.dest.images,
             ["gif", "png", "jpg", "jpeg", "svg", "webp"],
-            24 * 365,
+            24 * 365
           );
           spinner.suffixText = spinner.suffixText + " / images ";
         },
@@ -203,7 +203,7 @@ export const htaccess: CliLaravel.Task = async (arg) => {
           await htaccessHashed(
             paths.frontend.dest.fonts,
             ["woff", "woff2", "ttf", "otf", "eot"],
-            24 * 365,
+            24 * 365
           );
           spinner.suffixText = spinner.suffixText + " / fonts ";
         },
@@ -211,7 +211,7 @@ export const htaccess: CliLaravel.Task = async (arg) => {
           await htaccessHashed(
             paths.frontend.dest.favicons,
             ["png", "json", "xml", "webapp", "ico"],
-            4,
+            4
           );
           spinner.suffixText = spinner.suffixText + " / favicons ";
         },
@@ -219,7 +219,7 @@ export const htaccess: CliLaravel.Task = async (arg) => {
           await htaccessModify(arg);
           // spinner.
         },
-      ].map((fn) => fn()),
+      ].map((fn) => fn())
     );
     return;
     // return await taskr.parallel(
@@ -237,7 +237,7 @@ export const htaccess: CliLaravel.Task = async (arg) => {
     ["", ...ctx.env.names].map(async (envName) => {
       await maybeCreateFile(envName);
       spinner.suffixText = spinner.suffixText + ` / ${envName || "current"}`;
-    }),
+    })
   );
   return;
 

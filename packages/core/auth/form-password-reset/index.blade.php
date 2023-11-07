@@ -6,11 +6,11 @@
     'redirect' => '',
 ])
 <form
+  data-auth="password-reset"
+  data-ajax-submit="{{ $ajax }}"
   {{ $attributes->merge(['class' => 'authForm authFormPasswordReset']) }}
   action="{{ $form['action'] }}"
   method="post"
-  data-auth="password-reset"
-  data-ajax-submit="{{ $ajax }}"
 >
   {{ $pre ?? '' }}
   @csrf
@@ -19,8 +19,8 @@
   @endif
   <x-auth-redirect url="{{ $redirect }}" />
   <input
-    type="hidden"
     name="token"
+    type="hidden"
     value="{{ request()->query('token') }}"
   />
   @isset($form['fields'])

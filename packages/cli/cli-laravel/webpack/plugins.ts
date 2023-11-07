@@ -27,8 +27,8 @@ export default (config: CliLaravel.Config) => {
           output[def.name] = def.value;
           return output;
         },
-        {} as Record<string, string | boolean>,
-      ),
+        {} as Record<string, string | boolean>
+      )
     ),
     new CopyPlugin({
       patterns: [
@@ -93,7 +93,7 @@ export default (config: CliLaravel.Config) => {
         // exclude php files (like the favicons partial which goes through webpack
         // HTML plugin and therefore ends up in the webpack chunks handling)
         exclude: [/\.php$/],
-      }),
+      })
     );
   }
 

@@ -41,7 +41,7 @@ async function tryNodeLink({ log, ora, chalk }: CliLaravel.TaskArg) {
     spinner.warn(`No packages were linked :/.`);
   } else {
     spinner.succeed(
-      `Linked ${linkedLibs.map((lib) => chalk.bold(lib.name)).join(", ")}`,
+      `Linked ${linkedLibs.map((lib) => chalk.bold(lib.name)).join(", ")}`
     );
   }
 }
@@ -50,7 +50,7 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
   const { orgScope } = meta;
   const linked: LinkedLib[] = [];
   const packageJson = readJsonFile<PackageJson>(
-    join(projectRoot, "./package.json"),
+    join(projectRoot, "./package.json")
   );
   const hereLibsDist = findFolderUp("*/*/olmokit/dist/packages", projectRoot);
 
@@ -61,7 +61,7 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
 
   const projectInternalDeps = getNpmDependenciesNameAndVersion(
     packageJson,
-    meta.orgScope,
+    meta.orgScope
   );
 
   if (hereLibsDist && existsSync(hereLibsDist)) {
@@ -86,7 +86,7 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
             linked.push({ name: fullName, root: pathInProject });
           }
         } catch (e) {}
-      }),
+      })
     );
   } else {
     // 2) 'pnpm' standard linking
@@ -105,7 +105,7 @@ async function linkInternalNodeLibsFrom(projectRoot: string) {
         if (exitCode === 0) {
           linked.push(name);
         }
-      }),
+      })
     );
   }
 
@@ -121,7 +121,7 @@ function tryComposerLink({ log, chalk }: CliLaravel.TaskArg) {
   const nameLog = chalk.bold(name);
   const src = findFolderUp(
     "*/*/olmokit/packages/laravel-frontend",
-    project.root,
+    project.root
   );
 
   if (src && existsSync(src)) {
@@ -140,7 +140,7 @@ function tryComposerLink({ log, chalk }: CliLaravel.TaskArg) {
 
 function findFolderUp(
   pathToFind: string,
-  startFromPath: string,
+  startFromPath: string
   // preferPathParent?: string
 ): string {
   const parent = join(startFromPath, "../");

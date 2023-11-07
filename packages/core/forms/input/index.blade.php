@@ -8,10 +8,10 @@
         <span class="formIcon formIconPre">@icon(['id' => $iconPre])</span>
       @endunless
       <input
-        type="{{ $type ?? 'text' }}"
         class="formControl"
         id="{{ $id ?? 'input-' . $name }}"
         name="{{ $name }}"
+        type="{{ $type ?? 'text' }}"
         value="{{ old($name) ?? ($value ?? '') }}"
         @isset($autocomplete) autocomplete="{{ $autocomplete }}"@endisset
         @unless (empty($placeholder)) placeholder="{{ $placeholder }}"@endunless
@@ -27,8 +27,8 @@
     <span class="formUnderline"></span>
     @unless (empty($label))
       <label
-        for="{{ $id ?? 'input-' . $name }}"
         class="formLabel"
+        for="{{ $id ?? 'input-' . $name }}"
       >
         {!! $label !!}
         {{ $labelPost ?? '' }}

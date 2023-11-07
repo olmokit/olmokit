@@ -42,8 +42,8 @@
     <span class="formUnderline"></span>
     @isset($label)
       <label
-        for="{{ $id ?? 'input-' . $name }}"
         class="formLabel"
+        for="{{ $id ?? 'input-' . $name }}"
       >
         {!! $label !!}
       </label>

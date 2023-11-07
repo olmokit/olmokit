@@ -71,7 +71,7 @@ export function removeTrailingSlashes(url: string) {
  */
 export async function runIfDevAndMissingFile(
   filePath: string,
-  target: () => Promise<void>,
+  target: () => Promise<void>
 ) {
   if (process.env["NODE_ENV"] === "development") {
     let alreadyExists = false;

@@ -7,12 +7,12 @@
     'less' => '',
 ])
 <input
-  id="{{ $id }}"
-  type="checkbox"
   class="hidden"
+  id="{{ $id }}"
+  data-zacc-input
+  type="checkbox"
   aria-hidden="true"
   @if ($expanded) checked @endif
-  data-zacc-input
 >
 @if ($order == 'reverse')
   <div data-zacc-wrap>
@@ -22,9 +22,9 @@
   </div>
 @endif
 <label
-  for="{{ $id }}"
-  data-zacc-head
   class="zacc-head"
+  data-zacc-head
+  for="{{ $id }}"
   role="tab"
   aria-expanded="{{ $expanded ? 'true' : 'false' }}"
 >

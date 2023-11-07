@@ -18,10 +18,10 @@
     <input
       class="CheckoutPaymentMethod:input"
       id="paymentmethod_{{ $code }}"
-      type="radio"
       name="paymentmethod"
-      value="{{ $code }}"
       data-checkout-paymentmethod-input
+      type="radio"
+      value="{{ $code }}"
       @if ($required) required @endif
       @if ($_value == $code) checked @endif
     >

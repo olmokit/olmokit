@@ -5,10 +5,12 @@
     "@shufo/prettier-plugin-blade"
   ],
   "tabWidth": 2,
+  "trailingComma": "es5",
   "overrides": [
     {
       "files": "*.php",
       "options": {
+        "tabWidth": 4,
         "singleQuote": true
       }
     },

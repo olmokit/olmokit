@@ -1,6 +1,6 @@
 <form
-  id="{{ $domId ? $domId : $form['id'] }}"
   class="of:"
+  id="{{ $domId ? $domId : $form['id'] }}"
   @isset($form['olmoforms']) data-action="{{ $form['action'] }}" data-id="{{ $form['id'] }}"@endisset
 >
   <x-olmoforms-fields

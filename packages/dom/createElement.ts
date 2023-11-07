@@ -9,7 +9,7 @@ export function createElement<
   TType extends LiteralUnion<keyof HTMLElementTagNameMap, string>,
   TElement extends HTMLElement = TType extends keyof HTMLElementTagNameMap
     ? HTMLElementTagNameMap[TType]
-    : HTMLElement
+    : HTMLElement,
 >(type: TType, className?: string) {
   const el = document.createElement(type) as TElement;
   if (className) {

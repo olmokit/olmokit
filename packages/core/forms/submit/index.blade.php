@@ -1,6 +1,6 @@
 <button
-  type="submit"
   class="btn {{ $classRoot ?? '' }} {{ $classElement ?? '' }}"
+  type="submit"
   {!! $attrs ?? '' !!}
 >
   {{ $label }}

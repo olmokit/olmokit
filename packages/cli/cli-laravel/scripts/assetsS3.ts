@@ -227,7 +227,7 @@ export const assetsS3: CliLaravel.Task = async ({
           Body: createReadStream(srcAbsolute),
           Key: dest,
           ContentType: mime.getType(dest) ?? undefined,
-        }),
+        })
       );
       return {
         ok: true,
@@ -265,15 +265,15 @@ export const assetsS3: CliLaravel.Task = async ({
             ],
           },
           ContentMD5: "",
-        }),
+        })
       );
 
       log.success(
         `Saved ${log.chalk.bold(
-          "S3 Cors",
+          "S3 Cors"
         )} configuration with allowed origins: ${log.chalk.italic(
-          appUrls.join(", "),
-        )}`,
+          appUrls.join(", ")
+        )}`
       );
     } catch (e) {
       log.error(`Failed to save ${log.chalk.bold("S3 Cors")} configuration`);

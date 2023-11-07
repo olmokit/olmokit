@@ -63,7 +63,9 @@
     margin: auto;
     position: relative;
     transform: scale(0.8);
-    transition: transform $Transition, opacity $Transition;
+    transition:
+      transform $Transition,
+      opacity $Transition;
     opacity: 0;
   }
 

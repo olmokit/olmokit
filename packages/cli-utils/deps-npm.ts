@@ -11,7 +11,7 @@ export type PackageJson = _PackageJson;
  */
 export function getNpmDependenciesNameAndVersion(
   data: PackageJson,
-  orgScope?: string,
+  orgScope?: string
 ) {
   const allDeps = {
     ...(data.dependencies ?? {}),
@@ -50,7 +50,7 @@ export async function getNpmDependencies(data: PackageJson, orgScope?: string) {
         latestVersion,
         currentVersion: version,
       };
-    }),
+    })
   );
 
   return packages;
@@ -71,7 +71,7 @@ type DepType = (typeof depTypes)[number];
 export async function updateNpmDependencies(
   dataDir: string,
   data: PackageJson,
-  orgScope?: string,
+  orgScope?: string
 ) {
   const deps = await getNpmDependencies(data, orgScope);
   const actions: {

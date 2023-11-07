@@ -3,14 +3,14 @@
   data-cart-btn="remove"
 >
   <span
-    title="Remove from cart"
     data-cart-when="available"
+    title="Remove from cart"
   >
     remove &#128722;
   </span>
   <span
-    title="Processing..."
     data-cart-when="loading"
+    title="Processing..."
   >
     <x-progress-circular />
   </span>

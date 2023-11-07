@@ -17,23 +17,23 @@ export const watch: CliLaravel.Task = ({ log, chalk, runTask }) => {
 
     const watchers = [
       createWatcher(join(project.root, "olmo.ts"), true).on("change", () =>
-        runTask(envWrite, taskOptions),
+        runTask(envWrite, taskOptions)
       ),
       createWatcher(join(project.root, ".olmo.ts"), true).on("change", () =>
-        runTask(envWrite, taskOptions),
+        runTask(envWrite, taskOptions)
       ),
       createWatcher(project.envPath, true).on("change", () =>
-        runTask(clear, taskOptions),
+        runTask(clear, taskOptions)
       ),
       createWatcher(join(paths.frontend.src.svgicons, "*.svg")).on(
         "change",
-        () => runTask(svgicons, taskOptions),
+        () => runTask(svgicons, taskOptions)
       ),
       createWatcher(
         join(
           paths.frontend.src.translations,
-          paths.frontend.filenames.translations,
-        ),
+          paths.frontend.filenames.translations
+        )
       ).on("change", () => runTask(i18n, taskOptions)),
     ];
 

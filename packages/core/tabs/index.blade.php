@@ -8,8 +8,8 @@
 @endphp
 
 <{{ $tag }}
-  {{ $attributes->merge(['class' => $_classes]) }}
   data-tabs="{{ $tabParam }}"
+  {{ $attributes->merge(['class' => $_classes]) }}
 >
   {{ $slot ?? '' }}
   </{{ $tag }}>

@@ -20,6 +20,10 @@
       "import": "./index.js",
       "require": "./index.js"
     },
+    "./prettier": {
+      "import": "./prettier.js",
+      "require": "./prettier.js"
+    },
     "./cli-laravel/bootstrap": {
       "import": "./cli-laravel/bootstrap.js",
       "require": "./cli-laravel/bootstrap.js"

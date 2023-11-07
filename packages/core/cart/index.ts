@@ -310,7 +310,7 @@ export function updateCartItemsQuantity(howMany: number) {
  * Just reduce duplication
  */
 function asyncRequest<
-  Successful extends Pick<Cart.$response, "items_quantity">
+  Successful extends Pick<Cart.$response, "items_quantity">,
 >(fn: typeof laravelPost, endpoint: string, data?: any) {
   cartEmit("updating", { data });
   const request = fn<Successful>(endpoint, { data });

@@ -10,12 +10,12 @@
   @if ($analytics['gtmHeader'])
     @push('styles')
       <link
-        rel="dns-preconnect"
         href="https://www.google-analytics.com"
+        rel="dns-preconnect"
       >
       <link
-        rel="dns-prefetch"
         href="https://www.google-analytics.com"
+        rel="dns-prefetch"
       >
     @endpush
     {!! $analytics['gtmHeader'] !!}
@@ -26,12 +26,12 @@
   @if ($analytics['gtmBody'])
     @push('styles')
       <link
-        rel="dns-preconnect"
         href="https://www.google-analytics.com"
+        rel="dns-preconnect"
       >
       <link
-        rel="dns-prefetch"
         href="https://www.google-analytics.com"
+        rel="dns-prefetch"
       >
     @endpush
     {!! $analytics['gtmBody'] !!}

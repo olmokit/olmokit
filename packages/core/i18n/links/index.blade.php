@@ -18,8 +18,8 @@
     @else
       <a
         data-locale="{{ $lang['locale'] }}"
-        {{ $attributes->merge(['class' => 'i18nLinksItem']) }}
         href="{{ $lang['switchUrl'] }}"
+        {{ $attributes->merge(['class' => 'i18nLinksItem']) }}
       >
         {{ $trans[$transPrefix . '.' . $lang['locale']] }}
       </a>

@@ -136,7 +136,8 @@
       href="/_/hooks/cache/clear-translations{{ $param }}"
     >
       cache/clear-translations
-    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cachecleartranslations">docs</a>, clear
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cachecleartranslations">docs</a>,
+      clear
       just one locale with <code>_/hooks/cache/clear-translations/{locale}{{ $param }}</code></small>
   </li>
   <li class="group-title">Visit</h3>

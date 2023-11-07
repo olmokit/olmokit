@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Facade;
 
 class OlmoformsFacade extends Facade
 {
-  protected static function getFacadeAccessor()
-  {
-    return 'olmoforms';
-  }
+    protected static function getFacadeAccessor()
+    {
+        return 'olmoforms';
+    }
 }

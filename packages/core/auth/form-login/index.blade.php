@@ -7,11 +7,11 @@
     'defaultRedirect' => AuthApi::getAfterLoginRedirect(),
 ])
 <form
+  data-auth="login"
+  data-ajax-submit="{{ $ajax }}"
   {{ $attributes->merge(['class' => 'authForm authFormLogin']) }}
   action="{{ $form['action'] }}"
   method="post"
-  data-auth="login"
-  data-ajax-submit="{{ $ajax }}"
 >
   {{ $pre ?? '' }}
   @csrf

@@ -11,8 +11,8 @@
     <span class="formUnderline"></span>
     @unless (empty($label))
       <label
-        for="{{ $id ?? 'input-' . $name }}"
         class="formLabel"
+        for="{{ $id ?? 'input-' . $name }}"
       >
         {!! $label !!}
         {{ $labelPost ?? '' }}

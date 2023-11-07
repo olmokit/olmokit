@@ -22,7 +22,7 @@ export const create = () =>
 
       const packagePath = join(
         __dirname,
-        "../dist/packages/create-app/index.js",
+        "../dist/packages/create-app/index.js"
       );
 
       if (existsSync(packagePath)) {
@@ -43,7 +43,7 @@ export const create = () =>
 
         if (exitCode === 0) {
           console.error(
-            "Run 'create-app', a folder '.olmokit-test-create' in the parent path has been created",
+            "Run 'create-app', a folder '.olmokit-test-create' in the parent path has been created"
           );
         }
       } else {

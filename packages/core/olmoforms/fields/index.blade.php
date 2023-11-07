@@ -40,8 +40,8 @@
       @endif
       <div
         class="of:el of:{{ $field['name'] }}"
-        {!! $elAttrs !!}
         data-name="{{ $field['name'] }}"
+        {!! $elAttrs !!}
       >
         <x-forms-checkbox
           :id="$fieldId"
@@ -61,8 +61,8 @@
     @elseif ($field['typology'] == 'submit')
       <div
         class="of:el of:{{ $field['name'] }}"
-        {!! $elAttrs !!}
         data-name="{{ $field['name'] }}"
+        {!! $elAttrs !!}
       >
         <x-forms-submit
           :id="$fieldId"
@@ -76,8 +76,8 @@
     @elseif ($field['typology'] == 'file')
       <div
         class="of:el of:{{ $field['name'] }}"
-        {!! $elAttrs !!}
         data-name="{{ $field['name'] }}"
+        {!! $elAttrs !!}
       >
         <x-forms-file
           :id="$fieldId"
@@ -95,17 +95,17 @@
       </div>
     @elseif ($field['typology'] == 'hidden')
       <input
-        type="hidden"
         name="{{ $field['name'] }}"
-        value="{{ $_value ?? '' }}"
         data-name="{{ $field['name'] }}"
+        type="hidden"
+        value="{{ $_value ?? '' }}"
       />
     @else
       {{-- $field['typology'] == "text" | "email" | "url" --}}
       <div
         class="of:el of:{{ $field['name'] }}"
-        {!! $elAttrs !!}
         data-name="{{ $field['name'] }}"
+        {!! $elAttrs !!}
       >
         <x-forms-input
           :id="$fieldId"
@@ -124,8 +124,8 @@
     @if ($field['typology'] == 'radio')
       <div
         class="of:el of:{{ $field['name'] }}"
-        {!! $elAttrs !!}
         data-name="{{ $field['name'] }}"
+        {!! $elAttrs !!}
       >
         <x-forms-radio
           :id="$fieldId"
@@ -142,8 +142,8 @@
     @else
       <div
         class="of:el of:{{ $field['name'] }}"
-        {!! $elAttrs !!}
         data-name="{{ $field['name'] }}"
+        {!! $elAttrs !!}
       >
         <x-forms-select
           :id="$fieldId"
@@ -162,8 +162,8 @@
   @elseif ($field['element'] == 'textarea')
     <div
       class="of:el of:{{ $field['name'] }}"
-      {!! $elAttrs !!}
       data-name="{{ $field['name'] }}"
+      {!! $elAttrs !!}
     >
       <x-forms-textarea
         :id="$fieldId"
@@ -181,8 +181,8 @@
     @if ($field['typology'] == 'longtext')
       <div
         class="of:el of:{{ $field['name'] }} {{ $field['class'] }}"
-        {!! $elAttrs !!}
         data-name="{{ $field['name'] }}"
+        {!! $elAttrs !!}
       >
         <p class="textLabel">
           {!! $field['label'] !!}
@@ -191,8 +191,8 @@
     @elseif ($field['typology'] == 'sorttext')
       <div
         class="of:el of:{{ $field['name'] }} {{ $field['class'] }}"
-        {!! $elAttrs !!}
         data-name="{{ $field['name'] }}"
+        {!! $elAttrs !!}
       >
         <p class="textLabel">
           {!! $field['label'] !!}
@@ -201,8 +201,8 @@
     @else
       <div
         class="of:el of:{{ $field['name'] }} {{ $field['class'] }}"
-        {!! $elAttrs !!}
         data-name="{{ $field['name'] }}"
+        {!! $elAttrs !!}
       >
         <p class="textLabel">
           {!! $field['label'] !!}

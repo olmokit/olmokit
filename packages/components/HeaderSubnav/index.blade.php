@@ -3,8 +3,8 @@
     'routes' => [],
 ])
 <x-dropdown
-  namespace="HS"
   class-toggle="Header:nav__link"
+  namespace="HS"
 >
   <x-slot name="toggle">
     {{ $trans['Header.' . $root] }}

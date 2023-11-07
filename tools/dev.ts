@@ -38,8 +38,8 @@ program
         .aliases(["watch", "s", "w"])
         .action(async (options: BasicCommandsOptions) => {
           await devWatch(options);
-        }),
-    ),
+        })
+    )
   )
   .addCommand(
     commonOptions(
@@ -48,8 +48,8 @@ program
         .action(async (options: BasicCommandsOptions) => {
           const lib = await getOptionLib(options, true, true);
           await devBuild(lib);
-        }),
-    ),
+        })
+    )
   )
   .addCommand(
     commonOptions(
@@ -59,9 +59,9 @@ program
             const lib = await getOptionLib(options, false, true);
             await devBuild(lib, true);
           }
-        },
-      ),
-    ),
+        }
+      )
+    )
   )
   .addCommand(commonOptions(link()))
   .addCommand(commonOptions(unlink()))
@@ -101,7 +101,7 @@ async function devBuild(libSlug: string, linkAfterBuild?: boolean) {
 export async function getOptionLib(
   options: BasicCommandsOptions,
   prompt?: boolean,
-  allowAll?: boolean,
+  allowAll?: boolean
 ) {
   // console.log("options", options);
   let choosenLib = options.lib || "";
@@ -145,7 +145,7 @@ export async function getOptionLib(
 
 function optionLib() {
   return new Option("-l, --lib <lib>", "operate on a single library").choices(
-    self().libs.map((lib) => lib.slug),
+    self().libs.map((lib) => lib.slug)
   );
 }
 

@@ -26,8 +26,8 @@
             </a> --}}
             <button
               class="{{ $_classes }}"
-              type="submit"
               name="_redirect"
+              type="submit"
               value="{{ \LaravelFrontend\Cms\CmsCheckout::getRoute($name) }}
             "
             >

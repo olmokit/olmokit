@@ -41,7 +41,7 @@ buildPre.meta = { title: "Store new build information" };
 const buildHtaccess: CliLaravel.Task = async () => {
   const pathHtaccess = join(
     paths.frontend.dest.public,
-    `.htaccess.${process.env.APP_ENV}`,
+    `.htaccess.${process.env.APP_ENV}`
   );
 
   // use the right .htaccess.{env} file and copy it as .htaccess

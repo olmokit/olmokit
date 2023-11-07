@@ -16,7 +16,7 @@ import type { PredefinedEnvVars } from "../../config-env";
  * In node we return `false` instead of `null`, it will behave the same.
  */
 export function laravelConfig<T extends keyof PredefinedEnvVars>(
-  key: `env.${T}`,
+  key: `env.${T}`
 ): PredefinedEnvVars[T] {
   const raw = process.env[key.replace("env.", "") as T];
 

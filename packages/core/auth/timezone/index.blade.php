@@ -6,8 +6,8 @@
   $_value = $value ?? ($user[$name] ?? '');
 @endphp
 <input
+  name="{{ $name }}"
   data-auth-timezone-offset
   type="hidden"
-  name="{{ $name }}"
   value="{{ $_value }}"
 >

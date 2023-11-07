@@ -10,9 +10,9 @@
 
 <div
   class="ItemCard:"
-  {!! $item->attrs() !!}
   data-wishlist-item
   data-cart-item
+  {!! $item->attrs() !!}
 >
   @if ($wishlist)
     <x-WishlistBtn></x-WishlistBtn>

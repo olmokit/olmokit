@@ -14,9 +14,9 @@
     <div class="formToggle">
       <input
         class="formControl"
-        type="{{ $type ?? 'radio' }}"
         id="{{ $id ?? 'input-' . $name }}--{{ $loop->iteration }}"
         name="{{ $name }}"
+        type="{{ $type ?? 'radio' }}"
         value="{{ $option['value'] }}"
         {{ !empty($_value) && ($_value === true || $option['value'] == $_value) ? 'checked' : '' }}
         @if ($required == 'true') required="required" @endif

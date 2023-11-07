@@ -6,11 +6,11 @@
     'redirect' => '',
 ])
 <form
+  data-auth="register"
+  data-ajax-submit="{{ $ajax }}"
   {{ $attributes->merge(['class' => 'authForm authFormRegister']) }}
   action="{{ $form['action'] }}"
   method="post"
-  data-auth="register"
-  data-ajax-submit="{{ $ajax }}"
 >
   {{ $pre ?? '' }}
   @csrf

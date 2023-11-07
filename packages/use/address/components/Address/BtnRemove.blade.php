@@ -6,8 +6,8 @@
     remove
   </span>
   <span
-    title="Processing..."
     data-address-when="loading"
+    title="Processing..."
   >
     <x-progress-circular />
   </span>

@@ -122,7 +122,7 @@ const uploadChunk = async ($input: HTMLInputElement, formid: string) => {
           headers: {
             "Content-Type": "application/json",
           },
-        },
+        }
       );
       const data = (await response.json()) as {
         isSuccess?: boolean;
@@ -152,7 +152,7 @@ const uploadChunk = async ($input: HTMLInputElement, formid: string) => {
             "Content-Type": "application/json",
           },
           body: chunk,
-        },
+        }
       );
       const data = (await response.json()) as {
         isSuccess?: boolean;

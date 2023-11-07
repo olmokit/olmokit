@@ -24,7 +24,7 @@ export function isOneOf<
   C extends A,
   D extends A,
   E extends A,
-  F extends A
+  F extends A,
 >(
   a: TypeGuard<A, B>,
   b: TypeGuard<A, C>,

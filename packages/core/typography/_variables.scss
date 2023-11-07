@@ -17,9 +17,11 @@ $Typography-font-sans-base: -apple-system, BlinkMacSystemFont, "Segoe UI",
 $Typography-font-serif-base: serif, Times, "Times New Roman", "Times-Roman" !default;
 $Typography-font-sans-custom: -apple-system !default;
 $Typography-font-serif-custom: serif !default;
-$Typography-font-sans: #{$Typography-font-sans-custom},
+$Typography-font-sans:
+  #{$Typography-font-sans-custom},
   #{$Typography-font-sans-base} !default;
-$Typography-font-serif: #{$Typography-font-serif-custom},
+$Typography-font-serif:
+  #{$Typography-font-serif-custom},
   #{$Typography-font-serif-base} !default;
 $Typography-font-base: $Typography-font-sans !default;
 $Typography-link-decoration: none !default;

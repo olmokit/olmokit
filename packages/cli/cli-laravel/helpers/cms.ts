@@ -48,7 +48,7 @@ function apiGet<T>(endpoint: string) {
         } else {
           reject();
         }
-      },
+      }
     ).on("error", () => {
       reject();
     });
@@ -61,7 +61,7 @@ function apiGet<T>(endpoint: string) {
 function cmsApiGet<TData extends object>(
   endpoint: string,
   customOptions: Partial<CmsApiRequestOpts>,
-  log: TaskrLog,
+  log: TaskrLog
 ) {
   const opts: CmsApiRequestOpts = {
     subject: "data",
@@ -74,29 +74,29 @@ function cmsApiGet<TData extends object>(
 
   if (hasCache) {
     log.success(
-      log.chalk.dim.italic(`Retrieving ${opts.subject} from CMS local cache.`),
+      log.chalk.dim.italic(`Retrieving ${opts.subject} from CMS local cache.`)
     );
     return cache[endpoint] as Promise<TData>;
   }
 
   log.info(
-    log.chalk.dim.italic(`Retrieving ${opts.subject} from CMS API ${url}...`),
+    log.chalk.dim.italic(`Retrieving ${opts.subject} from CMS API ${url}...`)
   );
   const promise = apiGet<TData>(url);
 
   promise.then(
     () => {
       log.success(
-        log.chalk.dim.italic(`Successfully retrieved ${opts.subject}`),
+        log.chalk.dim.italic(`Successfully retrieved ${opts.subject}`)
       );
     },
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (_error) => {
       log.error(
-        log.chalk.dim.italic(`Failed retrieving ${opts.subject}`),
+        log.chalk.dim.italic(`Failed retrieving ${opts.subject}`)
         // error
       );
-    },
+    }
   );
 
   if (!hasCache) {
@@ -113,7 +113,7 @@ export async function cmsGetStructure(log: TaskrLog) {
       useCache: true,
       subject: "structure",
     },
-    log,
+    log
   );
   return res;
 }

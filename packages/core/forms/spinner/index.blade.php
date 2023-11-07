@@ -13,9 +13,9 @@
     </span>
     <input
       class="spinnerControl"
-      type="{{ $type ?? 'number' }}"
       id="{{ $id ?? 'spinner-' . $name }}"
       name="{{ $name }}"
+      type="{{ $type ?? 'number' }}"
       value="{{ $value ?? '' }}"
       @isset($min)min="{{ $min }}"@endisset
       @isset($max)max="{{ $max }}"@endisset

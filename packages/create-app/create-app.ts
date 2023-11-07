@@ -72,79 +72,79 @@ export function init() {
     .option("--info", "print environment debug info")
     .option(
       "--scripts-version <alternative-package>",
-      "use a non-standard version of cli",
+      "use a non-standard version of cli"
     )
     .option(
       "--template <path-to-template>",
-      "specify a template for the created project",
+      "specify a template for the created project"
     )
     .addOption(
       new Option("-p --pkgm <pkgm>", "Choose which package manager to use")
         .choices(["pnpm", "npm", "yarn"])
-        .default(getDefaultPackageManager()),
+        .default(getDefaultPackageManager())
     )
     .allowUnknownOption()
     .on("--help", () => {
       console.log(
-        `    Only ${chalk.magenta("<project-directory>")} is required.`,
+        `    Only ${chalk.magenta("<project-directory>")} is required.`
       );
       console.log();
       console.log(
-        `    A custom ${chalk.magenta("--scripts-version")} can be one of:`,
+        `    A custom ${chalk.magenta("--scripts-version")} can be one of:`
       );
       console.log(`      - a specific npm version: ${chalk.magenta("0.8.2")}`);
       console.log(`      - a specific npm tag: ${chalk.magenta("@next")}`);
       console.log(
-        `      - a custom fork published on npm: ${chalk.magenta("my-cli")}`,
+        `      - a custom fork published on npm: ${chalk.magenta("my-cli")}`
       );
       console.log(
         `      - a local path relative to the current working directory: ${chalk.magenta(
-          "file:../my-cli",
-        )}`,
+          "file:../my-cli"
+        )}`
       );
       console.log(
         `      - a .tgz archive: ${chalk.magenta(
-          "https://mysite.com/my-cli-0.8.2.tgz",
-        )}`,
+          "https://mysite.com/my-cli-0.8.2.tgz"
+        )}`
       );
       console.log(
         `      - a .tar.gz archive: ${chalk.magenta(
-          "https://mysite.com/my-cli-0.8.2.tar.gz",
-        )}`,
+          "https://mysite.com/my-cli-0.8.2.tar.gz"
+        )}`
       );
       console.log(
-        `    It is not needed unless you specifically want to use a fork.`,
+        `    It is not needed unless you specifically want to use a fork.`
       );
       console.log();
       console.log(`    A custom ${chalk.magenta("--template")} can be one of:`);
       console.log(
         `      - a custom template published on npm: ${chalk.magenta(
-          "@mycompany/olmokit-template",
-        )}`,
+          "@mycompany/olmokit-template"
+        )}`
       );
       console.log(
         `      - a local path relative to the current working directory: ${chalk.magenta(
-          "file:../my-custom-template",
-        )}`,
+          "file:../my-custom-template"
+        )}`
       );
       console.log(
         `      - a .tgz archive: ${chalk.magenta(
-          "https://mysite.com/my-custom-template-0.8.2.tgz",
-        )}`,
+          "https://mysite.com/my-custom-template-0.8.2.tgz"
+        )}`
       );
       console.log(
         `      - a .tar.gz archive: ${chalk.magenta(
-          "https://mysite.com/my-custom-template-0.8.2.tar.gz",
-        )}`,
+          "https://mysite.com/my-custom-template-0.8.2.tar.gz"
+        )}`
       );
       console.log();
       console.log(
-        `    If you have any problems, do not hesitate to file an issue:`,
+        `    If you have any problems, do not hesitate to file an issue:`
       );
       console.log(
         `      ${chalk.magenta(
-          "https://github.com/olmokit/olmokit/issues/new",
-        )}`,
+          "https://github.com/olmokit/olmokit/issues/new"
+        )}`
       );
       console.log();
     })
@@ -171,7 +171,7 @@ export function init() {
       {
         duplicates: true,
         showNotFound: true,
-      },
+      }
     ).then(console.log);
   }
 
@@ -179,15 +179,15 @@ export function init() {
     console.error("Please specify the project directory:");
     console.log(
       `  ${chalk.magenta(program.name())} ${chalk.magenta(
-        "<project-directory>",
-      )}`,
+        "<project-directory>"
+      )}`
     );
     console.log();
     console.log("For example:");
     console.log(`  ${chalk.magenta(program.name())} ${chalk.magenta("myapp")}`);
     console.log();
     console.log(
-      `Run ${chalk.magenta(`${program.name()} --help`)} to see all options.`,
+      `Run ${chalk.magenta(`${program.name()} --help`)} to see all options.`
     );
     process.exit(1);
   }
@@ -253,15 +253,15 @@ function createApp(
   verbose: CommandOptions["verbose"],
   version: CommandOptions["scriptsVersion"],
   template: CommandOptions["template"],
-  pkgm: CommandOptions["pkgm"],
+  pkgm: CommandOptions["pkgm"]
 ) {
   const unsupportedNodeVersion = !semverSatisfies(process.version, ">=16");
   if (unsupportedNodeVersion) {
     console.log(
       chalk.yellow(
         `You are using Node ${process.version} so the project will be bootstrapped with an old unsupported version of tools.\n\n` +
-          `Please update to Node 16 or higher for a better, fully supported experience.\n`,
-      ),
+          `Please update to Node 16 or higher for a better, fully supported experience.\n`
+      )
     );
     process.exit(1);
   }
@@ -287,7 +287,7 @@ function createApp(
   };
   writeFileSync(
     join(root, "package.json"),
-    JSON.stringify(packageJson, null, 2) + EOL,
+    JSON.stringify(packageJson, null, 2) + EOL
   );
 
   // init git here, so husky install does not break
@@ -304,8 +304,8 @@ function createApp(
       if (npmInfo.npmVersion) {
         console.log(
           chalk.red(
-            `You are using an unsupported npm version ${npmInfo.npmVersion}\n`,
-          ),
+            `You are using an unsupported npm version ${npmInfo.npmVersion}\n`
+          )
         );
       }
       process.exit(1);
@@ -323,7 +323,7 @@ function run(
   verbose: CommandOptions["verbose"],
   originalDirectory: string,
   template: CommandOptions["template"],
-  pkgm: CommandOptions["pkgm"],
+  pkgm: CommandOptions["pkgm"]
 ) {
   Promise.all([
     getInstallPackage(version, originalDirectory),
@@ -342,15 +342,15 @@ function run(
           isOnline,
           packageInfo,
           templateInfo,
-        })),
+        }))
       )
       .then(({ isOnline, packageInfo, templateInfo }) => {
         allDependencies.push(templateToInstall);
 
         console.log(
           `Installing ${chalk.magenta(packageInfo.name)} with ${chalk.magenta(
-            templateInfo.name,
-          )}...`,
+            templateInfo.name
+          )}...`
         );
         console.log();
 
@@ -358,7 +358,7 @@ function run(
           () => ({
             packageInfo,
             templateInfo,
-          }),
+          })
         );
       })
       .then(async ({ packageInfo, templateInfo }) => {
@@ -373,7 +373,7 @@ function run(
             args: [],
           },
           [root, appName, verbose, originalDirectory, templateName],
-          `import('${packageName}/cli-laravel/bootstrap').then(module => { module.default.apply(null, JSON.parse(process.argv[1])); });`,
+          `import('${packageName}/cli-laravel/bootstrap').then(module => { module.default.apply(null, JSON.parse(process.argv[1])); });`
         );
       })
       .catch((reason) => {
@@ -383,7 +383,7 @@ function run(
           console.log(`  ${chalk.magenta(reason.command)} has failed.`);
         } else {
           console.log(
-            chalk.red("Unexpected error. Please report it as a bug:"),
+            chalk.red("Unexpected error. Please report it as a bug:")
           );
           console.log(reason);
         }
@@ -410,8 +410,8 @@ function run(
           // Delete target folder if empty
           console.log(
             `Deleting ${chalk.magenta(`${appName}/`)} from ${chalk.magenta(
-              resolve(root, ".."),
-            )}`,
+              resolve(root, "..")
+            )}`
           );
           process.chdir(resolve(root, ".."));
           rmSync(join(root));
@@ -427,7 +427,7 @@ async function install(
   pkgm: CommandOptions["pkgm"],
   dependencies: string[] = [],
   verbose?: boolean,
-  isOnline?: boolean,
+  isOnline?: boolean
 ) {
   let command: string;
   let args: string[];
@@ -458,7 +458,7 @@ async function install(
   } else {
     command = "npm";
     args = ["install", "--save", "--save-exact", "--loglevel", "error"].concat(
-      dependencies,
+      dependencies
     );
   }
 
@@ -485,7 +485,7 @@ function getInstallPackage(version: string, originalDirectory: string) {
     } else if (version.match(/^file:/)) {
       packageToInstall = `file:${resolve(
         originalDirectory,
-        version.match(/^file:(.*)?$/)![1],
+        version.match(/^file:(.*)?$/)![1]
       )}`;
     } else {
       // for tar.gz or alternative paths
@@ -498,14 +498,14 @@ function getInstallPackage(version: string, originalDirectory: string) {
 
 export function getTemplateInstallPackage(
   template: string,
-  originalDirectory: string,
+  originalDirectory: string
 ) {
   let templateToInstall = "@olmokit/template-laravel";
   if (template) {
     if (template.match(/^file:/)) {
       templateToInstall = `file:${resolve(
         originalDirectory,
-        template.match(/^file:(.*)?$/)?.[1] || "",
+        template.match(/^file:(.*)?$/)?.[1] || ""
       )}`;
     } else if (
       template.includes("://") ||
@@ -604,7 +604,7 @@ async function getPackageInfo(installPackage: string) {
       throw `Invalid installPackagePath`;
     }
     const { name, version } = readJsonFile(
-      join(installPackagePath, "package.json"),
+      join(installPackagePath, "package.json")
     );
     return { name, version };
   }
@@ -680,7 +680,7 @@ function checkNodeVersion(packageName: string) {
     process.cwd(),
     "node_modules",
     packageName,
-    "package.json",
+    "package.json"
   );
 
   if (!existsSync(packageJsonPath)) {
@@ -697,10 +697,10 @@ function checkNodeVersion(packageName: string) {
       chalk.red(
         "You are running Node %s.\n" +
           "But this program requires Node %s or higher. \n" +
-          "Please update your version of Node.",
+          "Please update your version of Node."
       ),
       process.version,
-      packageJson.engines.node,
+      packageJson.engines.node
     );
     process.exit(1);
   }
@@ -720,9 +720,9 @@ function checkAppName(appName: string) {
     console.error(
       chalk.red(
         `Cannot create a project named ${chalk.magenta(
-          `"${appName}"`,
-        )} because of npm naming restrictions:\n`,
-      ),
+          `"${appName}"`
+        )} because of npm naming restrictions:\n`
+      )
     );
     [
       ...(validationResult.errors || []),
@@ -740,14 +740,14 @@ function checkAppName(appName: string) {
     console.error(
       chalk.red(
         `Cannot create a project named ${chalk.magenta(
-          `"${appName}"`,
+          `"${appName}"`
         )} because a dependency with the same name exists.\n` +
-          `Due to the way npm works, the following names are not allowed:\n\n`,
+          `Due to the way npm works, the following names are not allowed:\n\n`
       ) +
         chalk.magenta(
-          dependencies.map((depName) => `  ${depName}`).join("\n"),
+          dependencies.map((depName) => `  ${depName}`).join("\n")
         ) +
-        chalk.red("\n\nPlease choose a different project name."),
+        chalk.red("\n\nPlease choose a different project name.")
     );
     process.exit(1);
   }
@@ -839,9 +839,7 @@ function isSafeToCreateProjectIn(root: string, name: string) {
 
   if (conflicts.length > 0) {
     console.log(
-      `The directory ${chalk.magenta(
-        name,
-      )} contains files that could conflict:`,
+      `The directory ${chalk.magenta(name)} contains files that could conflict:`
     );
     console.log();
     for (const file of conflicts) {
@@ -858,7 +856,7 @@ function isSafeToCreateProjectIn(root: string, name: string) {
     }
     console.log();
     console.log(
-      "Either try using a new directory name, or remove the files listed above.",
+      "Either try using a new directory name, or remove the files listed above."
     );
 
     return false;
@@ -926,13 +924,13 @@ function executeNodeScript(
     args: string[];
   },
   data: object,
-  source: string,
+  source: string
 ) {
   return new Promise<void>((resolve, reject) => {
     const child = spawn(
       process.execPath,
       [...args, "-e", source, "--", JSON.stringify(data)],
-      { cwd, stdio: "inherit" },
+      { cwd, stdio: "inherit" }
     );
 
     child.on("close", (code) => {

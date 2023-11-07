@@ -3,8 +3,8 @@
 ])
 
 <div
-  {{ $attributes->merge(['class' => 'barba:wrapper']) }}
   data-barba="wrapper"
+  {{ $attributes->merge(['class' => 'barba:wrapper']) }}
 >
   {{ $above ?? '' }}
   <div

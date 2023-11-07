@@ -109,10 +109,10 @@
           </section>
           <div class="submit:">
             <x-btn
+              type="submit"
+              style="outline"
               text="Continue"
               size="big"
-              style="outline"
-              type="submit"
             />
           </div>
         </div>

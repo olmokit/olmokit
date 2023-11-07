@@ -22,6 +22,6 @@ export async function updateOurProjectNpmDependencies() {
   return await updateNpmDependencies(
     project.root,
     project.packageJson,
-    meta.orgScope,
+    meta.orgScope
   );
 }

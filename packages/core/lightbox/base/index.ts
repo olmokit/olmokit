@@ -37,7 +37,7 @@ import "./index.scss";
 export default function lightboxBase(
   id: string,
   hooks: Lightbox.Hooks = {},
-  sliderOpts: Partial<GlideOptions> = {},
+  sliderOpts: Partial<GlideOptions> = {}
 ): Lightbox.Instance {
   let $arrows;
   let $placeholder;
@@ -82,7 +82,7 @@ export default function lightboxBase(
         // slider.destroy();
         checkScrollLock();
       },
-    },
+    }
   );
 
   // decorate dialog instance with custom public methods
