@@ -1054,15 +1054,15 @@
     "@olmokit/browser": "*",
     "@olmokit/dom": "*",
     "@olmokit/utils": "*",
-    "@swc/helpers": "^0.5.2",
+    "@swc/helpers": "^0.5.3",
     "@terwanerik/scrolltrigger": "^1.0.5",
     "aos": "^2.3.4",
     "date-fns": "^2.30.0",
     "gsap": "^3.12.2",
     "loadjs": "4.3.0-rc1",
     "object-fit-images": "^3.2.4",
-    "swiper": "^10.3.1",
-    "video.js": "^8.5.2",
+    "swiper": "^11.0.3",
+    "video.js": "^8.6.1",
     "videojs-font": "^4.1.0"
   }
 }

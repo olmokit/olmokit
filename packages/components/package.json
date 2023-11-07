@@ -72,6 +72,6 @@
     "@olmokit/core": "*",
     "@olmokit/dom": "*",
     "@olmokit/utils": "*",
-    "@swc/helpers": "^0.5.2"
+    "@swc/helpers": "^0.5.3"
   }
 }

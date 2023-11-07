@@ -74,7 +74,7 @@
   "dependencies": {
     "@olmokit/dom": "*",
     "@olmokit/utils": "*",
-    "@swc/helpers": "^0.5.2",
+    "@swc/helpers": "^0.5.3",
     "date-fns-tz": "^2.0.0"
   }
 }
