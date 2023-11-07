@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/cli",
-  "version": "0.0.90",
+  "version": "0.0.91",
   "description": "Olmo's CLI.",
   "keywords": [
     "olmo",
@@ -59,7 +59,7 @@
     "css-loader": "^6.8.1",
     "css-minimizer-webpack-plugin": "^4.2.2",
     "deepmerge": "^4.3.1",
-    "dotenv": "^10.0.0",
+    "dotenv": "^16.3.1",
     "edit-json-file": "^1.7.0",
     "execa": "^8.0.1",
     "favicons": "^7.1.4",
@@ -76,6 +76,7 @@
     "postcss-loader": "^7.3.3",
     "postcss-preset-env": "^9.3.0",
     "postcss-sort-media-queries": "^4.4.1",
+    "prettier": "^3.0.3",
     "prompts": "^2.4.2",
     "public-ip": "^6.0.1",
     "rimraf": "^5.0.5",
@@ -93,7 +94,6 @@
     "webpack-bundle-analyzer": "^4.9.1",
     "webpack-dev-server": "^4.15.1",
     "webpack-manifest-plugin": "^5.0.0",
-    "workbox-webpack-plugin": "^7.0.0",
-    "prettier": "^3.0.3"
+    "workbox-webpack-plugin": "^7.0.0"
   }
 }

@@ -95,9 +95,7 @@ const envSetupModify: CliLaravel.Task = async () => {
 envSetupModify.meta = { title: "tweak .env file" };
 
 const envSetupLoad: CliLaravel.Task = async () => {
-  configDotenv({
-    override: true,
-  });
+  configDotenv({ override: true });
   return;
 };
 envSetupLoad.meta = { title: "reload .env" };
