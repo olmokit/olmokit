@@ -1,7 +1,9 @@
+import { createRequire } from "node:module";
 import path from "node:path";
 import ci from "ci-info";
 import type { Configuration } from "webpack";
 import { project } from "../../project.js";
+import { laravelConfig } from "../helpers/dotenv.js";
 import { getPublicUrls } from "../helpers/index.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
@@ -53,7 +55,7 @@ export function webpackConfig(config: CliLaravel.Config) {
       : // during dev webpack cache is opt-in, one must explictly set the
       // appropriate env variable to false, otherwise we set here `true` which
       // is webpack default value for this option (equal to `memory` cache)
-      process.env.DEV_WEBPACK_CACHE
+      laravelConfig("env.DEV_WEBPACK_CACHE")
       ? {
           type: "filesystem",
           name: `${project.packageJson.name}-${process.env.APP_ENV}`,
@@ -70,7 +72,9 @@ export function webpackConfig(config: CliLaravel.Config) {
     infrastructureLogging: {
       // @see presets here https://github.com/webpack/webpack/blob/main/lib/stats/DefaultStatsPresetPlugin.js#L23
       level: "warn",
-      debug: process.env.DEV_WEBPACK_DEBUG ? /webpack\.cache/ : undefined,
+      debug: laravelConfig("env.DEV_WEBPACK_DEBUG")
+        ? /webpack\.cache/
+        : undefined,
       appendOnly: true,
     },
     // @see https://github.com/webpack/webpack/blob/main/declarations/WebpackOptions.d.ts#L2383
@@ -105,8 +109,8 @@ export function webpackConfig(config: CliLaravel.Config) {
     plugins: webpackPlugins(config),
   };
 
-  if (process.env.DEV_ANALYZE) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+  if (laravelConfig("env.DEV_ANALYZE")) {
+    const require = createRequire(import.meta.url);
     const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
     const smp = new SpeedMeasurePlugin();
     configuration = smp.wrap(configuration);

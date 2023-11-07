@@ -21,13 +21,13 @@ function lazyJiti({ spinner, taskr }: CliBootArg) {
     jiti ||
     (jiti = jitiFactory(__filename, {
       interopDefault: true,
+      // this allows to watch the `olmo.ts` files
+      requireCache: false,
       onError: (err) => {
         spinner.stop();
         taskr.log.branded.error("Invalid olmo.ts file", err.message);
         process.exit(1);
       },
-      // transformOptions: {
-      // },
       transform: function (opts) {
         try {
           return sucrase.transform(opts.source, {
@@ -37,7 +37,7 @@ function lazyJiti({ spinner, taskr }: CliBootArg) {
           spinner.stop();
           taskr.log.branded.error(
             "Invalid olmo.ts file",
-            err ? err.toString() : ""
+            err ? err.toString() : "",
           );
           process.exit(1);
         }
@@ -50,6 +50,8 @@ export function loadConfig(path: string, cliBootArg: CliBootArg) {
   try {
     const config = (function () {
       try {
+        // https://stackoverflow.com/a/16060619/1938970
+        if (path) delete require.cache[require.resolve(path)];
         return path ? require(path) : {};
       } catch (e) {
         return lazyJiti(cliBootArg)(path);

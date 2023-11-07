@@ -3,6 +3,7 @@ import { copyFile } from "fs/promises";
 import { join } from "path";
 import { configBuild } from "../../config-build.js";
 import { normaliseUrl } from "../../helpers-getters.js";
+import { laravelConfig } from "../helpers/dotenv.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 
@@ -25,11 +26,11 @@ function getCdnReadyPublicPath(envName: string) {
 }
 
 const buildPre: CliLaravel.Task = async ({ ctx }) => {
-  const publicPath = process.env.CDN
+  const publicPath = laravelConfig("env.CDN")
     ? getCdnReadyPublicPath(process.env.APP_ENV)
     : "/";
   const publicUrl =
-    process.env.CDN === "s3"
+    laravelConfig("env.CDN") === "s3"
       ? normaliseUrl(`${process.env.AWS_URL}/${publicPath}/`)
       : "/";
 
@@ -40,7 +41,7 @@ buildPre.meta = { title: "Store new build information" };
 const buildHtaccess: CliLaravel.Task = async () => {
   const pathHtaccess = join(
     paths.frontend.dest.public,
-    `.htaccess.${process.env.APP_ENV}`
+    `.htaccess.${process.env.APP_ENV}`,
   );
 
   // use the right .htaccess.{env} file and copy it as .htaccess

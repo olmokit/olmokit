@@ -313,7 +313,7 @@ function processConfigEnvVars<
       }
 
       // NOTE: The overrides only act on the current variables not on the map
-      // by env name
+      // by env name, which would be `map.byVarNameMap[varName] = rawValueOverride;`
       if (typeof rawValueOverride !== "undefined") {
         map.current[varName] = rawValueOverride;
       }
@@ -463,19 +463,25 @@ function applyProcessEnvPrimitive(
   if (typeof value === "undefined") {
     delete process.env[name];
   } else if (typeof value === "boolean") {
-    if (value) {
-      process.env[name] = "true";
-      dotEnvFileLines.push(`${name}=true`);
-    } else {
-      delete process.env[name];
-    }
+    process.env[name] = value + "";
+    dotEnvFileLines.push(`${name}=${value}`);
+    // (deprecated behaviour) delete `false` values:
+    // if (value) {
+    //   process.env[name] = "true";
+    //   dotEnvFileLines.push(`${name}=true`);
+    // } else {
+    //   delete process.env[name];
+    // }
   } else if (typeof value === "string") {
-    if (value) {
-      process.env[name] = value;
-      dotEnvFileLines.push(`${name}=${value}`);
-    } else {
-      delete process.env[name];
-    }
+    process.env[name] = value;
+    dotEnvFileLines.push(`${name}=${value}`);
+    // (deprecated behaviour) delete `empty string` values:
+    // if (value) {
+    //   process.env[name] = value;
+    //   dotEnvFileLines.push(`${name}=${value}`);
+    // } else {
+    //   delete process.env[name];
+    // }
   } else if (typeof value === "number") {
     process.env[name] = value.toString();
     dotEnvFileLines.push(`${name}=${value.toString()}`);
@@ -505,19 +511,3 @@ export function applyEnvVars(config: {
     ].join("\n"),
   );
 }
-
-// type FlatteEnvVarValue<
-//   A extends Config.EnvsMap,
-//   T
-// > = T extends Config.EnvVarsByVarName<A, infer U>
-//   ? U
-//   : T extends Config.EnvVarValueByEnvName<A, infer U>
-//   ? U
-//   : T;
-
-// const a/* : Config.EnvVarValueFlatOrByEnvName<Config.EnvsMap, string> */ = { d: "d", p: "p"};
-// const b/* : Config.EnvVarsByVarName<Config.EnvsMap, { A: string }> */ = { A: a };
-// const c = b["x" as keyof (typeof b)];
-// type aFlat = FlatteEnvVarValue<Config.EnvsMap, typeof a>;
-// type bFlat = FlatteEnvVarValue<Config.EnvsMap, typeof b>;
-// type cFlat = FlatteEnvVarValue<Config.EnvsMap, typeof c>;

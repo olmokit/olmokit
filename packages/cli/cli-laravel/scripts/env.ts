@@ -2,6 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import ci from "ci-info";
 import { configDotenv } from "dotenv";
 import { filer } from "@olmokit/cli-utils/filer";
+import { cliConfig } from "../../cli.js";
 import { project } from "../../project.js";
 import { getBaseUrl, getInternalIps } from "../helpers/index.js";
 import { paths } from "../paths/index.js";
@@ -100,6 +101,13 @@ const envSetupLoad: CliLaravel.Task = async () => {
   return;
 };
 envSetupLoad.meta = { title: "reload .env" };
+
+export const envWrite: CliLaravel.Task = async (arg) => {
+  cliConfig();
+  configDotenv({ override: true });
+  return;
+};
+envWrite.meta = { title: "write .env" };
 
 /**
  * Rerun dotenv programmatically, so that we can load it after the file has

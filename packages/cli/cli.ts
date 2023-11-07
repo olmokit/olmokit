@@ -22,7 +22,7 @@ const spinner = taskr.ora("Booting Olmo CLI...").start();
  * Process the project's given config defined in `olmo.ts` and `.olmo.ts`
  * returning its `Internal` representation we use throughout the CLI
  */
-async function cliConfig() {
+export async function cliConfig() {
   const cwd = process.cwd();
   const pathHidden = join(cwd, ".olmo.ts");
   const pathPublic = join(cwd, "olmo.ts");

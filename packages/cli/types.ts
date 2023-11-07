@@ -184,8 +184,8 @@ export namespace Config {
    * {
    *   MYVAR: "shared",
    *   MYVAR2: {
-   *     dev: "speficic-to-dev",
-   *     prod: "speficic-to-prod"
+   *     dev: "specific-to-dev",
+   *     prod: "specific-to-prod"
    *   }
    * }
    */
@@ -203,8 +203,8 @@ export namespace Config {
    * @example
    *
    * "shared" | {
-   *   dev: "speficic-to-dev",
-   *   prod: "speficic-to-prod"
+   *   dev: "specific-to-dev",
+   *   prod: "specific-to-prod"
    * }
    */
   export type EnvVarValueFlatOrByEnvName<
@@ -215,8 +215,8 @@ export namespace Config {
   /**
    * @example
    * {
-   *   dev: "speficic-to-dev",
-   *   prod: "speficic-to-prod"
+   *   dev: "specific-to-dev",
+   *   prod: "specific-to-prod"
    * }
    */
   export type EnvVarValueByEnvName<
@@ -268,11 +268,11 @@ export namespace Config {
    * {
    *   dev: {
    *   MYVAR: "shared",
-   *   MYVAR2: "speficic-to-dev"EnvVarValueByEnvName
+   *   MYVAR2: "specific-to-dev"EnvVarValueByEnvName
    *   },
    *   prod: {
    *     MYVAR: "shared",
-   *     MYVAR2: "speficic-to-prod"
+   *     MYVAR2: "specific-to-prod"
    *   }
    * }
    */

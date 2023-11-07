@@ -9,6 +9,7 @@ import webpack from "webpack";
 import { WebpackManifestPlugin } from "webpack-manifest-plugin";
 import WorkboxPlugin from "workbox-webpack-plugin";
 import { getBanner } from "../../helpers-getters.js";
+import { laravelConfig } from "../helpers/dotenv.js";
 import { getProjectJsGlobals } from "../helpers/index.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
@@ -21,10 +22,13 @@ export default (config: CliLaravel.Config) => {
   let plugins = [
     new CaseSensitivePathsPlugin(),
     new webpack.DefinePlugin(
-      getProjectJsGlobals(config).reduce((output, def) => {
-        output[def.name] = def.value;
-        return output;
-      }, {} as Record<string, string | boolean>)
+      getProjectJsGlobals(config).reduce(
+        (output, def) => {
+          output[def.name] = def.value;
+          return output;
+        },
+        {} as Record<string, string | boolean>,
+      ),
     ),
     new CopyPlugin({
       patterns: [
@@ -89,12 +93,12 @@ export default (config: CliLaravel.Config) => {
         // exclude php files (like the favicons partial which goes through webpack
         // HTML plugin and therefore ends up in the webpack chunks handling)
         exclude: [/\.php$/],
-      })
+      }),
     );
   }
 
   // env dependent plugins
-  if (process.env.DEV_ANALYZE) {
+  if (laravelConfig("env.DEV_ANALYZE")) {
     const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
     plugins = plugins.concat([

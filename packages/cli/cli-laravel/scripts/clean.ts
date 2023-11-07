@@ -4,6 +4,7 @@ import { project } from "../../project.js";
 import { execArtisan } from "../helpers/execArtisan.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
+import { tplServices } from "./tpl.js";
 
 /**
  * Clean storage and public
@@ -62,7 +63,7 @@ cleanTpl.meta = { title: "Clean laravel compiled templates" };
 /**
  * Clean the Laravel caches
  */
-export const clear: CliLaravel.Task = async ({ ora }) => {
+export const clear: CliLaravel.Task = async (arg) => {
   const commands = [
     ["config:cache"],
     ["route:clear"],
@@ -71,8 +72,9 @@ export const clear: CliLaravel.Task = async ({ ora }) => {
     ["page-cache:clear"],
   ];
   for (let i = 0; i < commands.length; i++) {
-    await execArtisan(commands[i], ora);
+    await execArtisan(commands[i], arg.ora);
   }
+  await tplServices(arg);
 };
 clear.meta = { title: "Clear Laravel caches", ownLog: ["start", "end"] };
 

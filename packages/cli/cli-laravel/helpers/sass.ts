@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 import { project } from "../../project.js";
 import { paths } from "../paths/index.js";
+import { laravelConfig } from "./dotenv.js";
 import { getPublicUrls } from "./index.js";
 // eslint-disable-next-line import/order
 import { type Libraries, libraries } from "./libraries.js";
@@ -19,11 +20,11 @@ export function getSassSharedResources() {
   const importFromLibrary = (
     lib: keyof Libraries,
     module: string,
-    filename: string
+    filename: string,
   ) =>
     join(
       project.nodeModules,
-      `${libraries[lib].name}/${module}/_${filename}.scss`
+      `${libraries[lib].name}/${module}/_${filename}.scss`,
     );
   const importFromProject = (filename: string) =>
     join(paths.frontend.src.config, `/${filename}.scss`);
@@ -110,24 +111,24 @@ export function getSassAdditionalData() {
     `$ENV: "${process.env.APP_ENV}";`,
     `$SRC_ASSETS: "${relative(
       paths.frontend.src.utils,
-      paths.frontend.src.assets
+      paths.frontend.src.assets,
     )}";`,
     `$URL_ASSETS: "${publicUrls.assets}";`,
     `$SRC_FONTS: "${relative(
       paths.frontend.src.utils,
-      paths.frontend.src.fonts
+      paths.frontend.src.fonts,
     )}";`,
     // when using a CDN we need to use the absolute fonts URLS referenced in the
     // CSS or the path will be wrong. TODO: doesn't webpack have something
     // more integrated to manage paths in scss files?
     `$URL_FONTS: ${
-      process.env.NODE_ENV === "production" && process.env.CDN
+      process.env.NODE_ENV === "production" && laravelConfig("env.CDN")
         ? `"${publicUrls.fonts}"`
         : `false`
     };`,
     `$SRC_IMAGES: "${relative(
       paths.frontend.src.utils,
-      paths.frontend.src.images
+      paths.frontend.src.images,
     )}";`,
     `$URL_IMAGES: "${publicUrls.images}";`,
     `$SRC_SVGICONS: "${paths.frontend.src.svgicons}";`,

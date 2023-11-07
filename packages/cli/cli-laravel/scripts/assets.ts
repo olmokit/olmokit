@@ -1,5 +1,6 @@
 import { filer } from "@olmokit/cli-utils/filer";
 import { getHeaderAutogeneration, isHttps } from "../../helpers-getters.js";
+import { laravelConfig } from "../helpers/dotenv.js";
 import { getPublicUrls } from "../helpers/index.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
@@ -9,13 +10,13 @@ function getAssetPartialData() {
   const publicUrls = getPublicUrls();
   return {
     isProduction: process.env["NODE_ENV"] === "production",
-    useCDN: !!process.env.CDN,
+    useCDN: !!laravelConfig("env.CDN"),
     assetsPath: paths.frontend.dest.relativeUrls.assets,
     manifestPath: paths.frontend.dest.relativeUrls.manifest,
     entriesFolder: paths.frontend.dest.folders.entries,
     assetsUrl: publicUrls.assets,
     // NOTE: service worker does not work with cross origin URLs
-    hasServiceWorker: isHttps() && !process.env.CDN,
+    hasServiceWorker: isHttps() && !laravelConfig("env.CDN"),
     serviceWorkerUrl: publicUrls.serviceWorker,
   };
 }

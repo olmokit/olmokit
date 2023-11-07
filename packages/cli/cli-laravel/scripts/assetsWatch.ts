@@ -93,7 +93,6 @@ export const assetsWatch: CliLaravel.Task = async ({
   });
 };
 assetsWatch.meta = {
-  // subject: "watch",
   title: "Watch assets (with webpack)",
   still: true,
 };

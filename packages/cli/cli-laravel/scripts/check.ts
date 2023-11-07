@@ -91,7 +91,7 @@ const checkRoutes: CliLaravel.Task = async ({ ctx, log }) => {
 checkRoutes.meta = { title: "Check routes consistency" };
 
 export const check: CliLaravel.TaskGroup = {
-  meta: { /* subject: "check", */ title: "Preliminary checks" },
+  meta: { title: "Preliminary checks" },
   children: [checkAutomatedPartials, checkConfig, checkOlmoConfig, checkRoutes],
   parallel: true,
 };

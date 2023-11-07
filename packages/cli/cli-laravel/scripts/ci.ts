@@ -118,7 +118,6 @@ const ciClean: CliLaravel.CmdDeploy.Task = async ({ ctx }) => {
     join(root, "*.md"),
     join(root, ".vscode"),
     join(root, ".husky"),
-    join(paths.frontend.src.base),
   ];
 
   if (ctx.output?.src) {
@@ -304,7 +303,7 @@ const ciVisit: CliLaravel.CmdDeploy.Task = async ({ ctx, log }) => {
 ciVisit.meta = { title: "Run visit task" };
 
 export const ci: CliLaravel.CmdDeploy.TaskGroup = {
-  meta: { /* subject: "ci", */ title: "CI" },
+  meta: { title: "CI" },
   children: [
     ciComposer,
     ciComposerZip,

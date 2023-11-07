@@ -7,6 +7,7 @@
 import { createRequire } from "node:module";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import type { RuleSetRule } from "webpack";
+import { laravelConfig } from "../helpers/dotenv.js";
 import {
   getSassAdditionalData,
   getSassIncludePaths,
@@ -55,7 +56,7 @@ export default () => {
           loader: require.resolve("css-loader"),
           options: {
             esModule: process.env["NODE_ENV"] === "production" ? true : false,
-            sourceMap: process.env.DEV_SOURCEMAPS,
+            sourceMap: laravelConfig("env.DEV_SOURCEMAPS"),
             modules: {
               mode: "icss",
             },
@@ -83,7 +84,7 @@ export default () => {
         {
           loader: require.resolve("sass-loader"),
           options: {
-            sourceMap: process.env.DEV_SOURCEMAPS,
+            sourceMap: laravelConfig("env.DEV_SOURCEMAPS"),
             implementation: require("sass"),
             additionalData: getSassAdditionalData(),
             // webpackImporter: false,

@@ -6,12 +6,16 @@ import { generate } from "../../generate.js";
 import { getNameVariants } from "../../getNameVariants.js";
 import { paths } from "../paths/index.js";
 import { type CmsResponseDataStructure, cmsGetStructure } from "./cms.js";
+import { laravelConfig } from "./dotenv.js";
 
 /**
  * Should check routes
  */
 export function shouldCheckRoutes() {
-  if (!process.env["CMS_API_URL"] || process.env["DEV_SKIP_CMS_ROUTES_CHECK"]) {
+  if (
+    !laravelConfig("env.CMS_API_URL") ||
+    laravelConfig("env.DEV_SKIP_CMS_ROUTES_CHECK")
+  ) {
     return false;
   }
 
