@@ -297,10 +297,7 @@ class Helpers
             foreach ($routeInfo['slug'] as $locale => $slug) {
                 // allow the route to override its localised slug from its controller
                 if (isset($class::$slug) && isset($class::$slug[$locale])) {
-                    $routeInfo['slug'] = array_merge(
-                        $routeInfo['slug'],
-                        $class::$slug
-                    );
+                    $slug = $class::$slug[$locale];
                 }
 
                 // we need to check if we are managing the default locale here
