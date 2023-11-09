@@ -255,7 +255,8 @@ class Helpers
 
         if (Cache::has($cacheKey)) {
             $profiler();
-            return Cache::get($cacheKey);
+            self::$routesMap = Cache::get($cacheKey);
+            return self::$routesMap;
         }
 
         $routesMap = [];
