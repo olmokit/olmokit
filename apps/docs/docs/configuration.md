@@ -17,7 +17,7 @@ Inside all SCSS files you have for instance:
 
 ```scss
 $DEV: true; // or false
-$ENV: "local" | "dev" | "staging" | "production";
+$ENV: "dev" | "staging" | "production";
 $SRC_ASSETS: "../assets";
 $URL_ASSETS: "https://myproject.com/assets";
 $SRC_FONTS: "../assets/fonts";

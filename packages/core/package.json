@@ -15,6 +15,7 @@
   "author": "Acanto <info@acanto.net> (https://acanto.agency/)",
   "sideEffects": [
     "**/*.scss",
+    "debug/**",
     "forms/checkbox/*.js",
     "forms/file/*.js",
     "forms/group/*.js",
