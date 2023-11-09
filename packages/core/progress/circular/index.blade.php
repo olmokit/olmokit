@@ -29,7 +29,6 @@
     <animateTransform
       type="rotate"
       values="0 {{ $size_half }} {{ $size_half }};360 {{ $size_half }} {{ $size_half }}"
-      values="0 {{ $size_half }} {{ $size_half }};360 {{ $size_half }} {{ $size_half }}"
       attributeName="transform"
       calcMode="linear"
       keyTimes="0;1"
