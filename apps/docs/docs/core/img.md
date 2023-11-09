@@ -173,28 +173,3 @@ or, if the image come from your local src/assets/images folder:
 
 <img src="{{ Img::getOriginalLocalUrl('imagename.svg') }}" />
 ```
-
-<!--
-## Resizer
-
-### Option `factor`
-
-Opzione per generare facilmente delle immagini delle stesse proporzioni ma un po' più grandi (o più piccole) rispetto alle dimensioni che leggiamo nei layout su zeplin. La si usa così:
-
-```twig
-{% partial "media/img"
-  img=my.img | img('media',270,187,{mode: 'crop',factor: 1.5})
-  alt='my-alt'
-  width=270
-  height=187
-  fullwidth=true
-%}
-```
-
-In questo modo le misure 270 e 187 le possiamo prendere/copiare dal layout su zeplin e poi dire al resizer, senza fare calcoli a mente, di tagliarmela di quella dimensione con un `factor` di moltiplicazione, quindi in questo caso il resizer genererà un immagine di 405x280 (fa l'arrotondamento a un numero intero in automatico).
-Poi invece i due parametri sotto all'`alt` (`width` e `height`) rimangono, come era prima, a dettare ciò che che viene gestito nel partial. Da notare è che se non si mette `fullwidth=true` tutto questo non ha senso perchè nel partial altrimenti viene applicato lo stile `max-width: 270px​​​​​​​`.
-
-## Interesting plugins
-
-- Zoom effect like medium [lightense-images](https://sparanoid.com/work/lightense-images/)
- -->
