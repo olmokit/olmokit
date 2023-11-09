@@ -65,6 +65,7 @@ cleanTpl.meta = { title: "Clean laravel compiled templates" };
  */
 export const clear: CliLaravel.Task = async (arg) => {
   const commands = [
+    ["config:clear"],
     ["config:cache"],
     ["route:clear"],
     ["view:clear"],
