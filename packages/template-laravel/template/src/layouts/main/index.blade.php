@@ -60,6 +60,7 @@
       @yield('body')
       @yield('bodyBelow')
     @endif
+    <x-debug-profiler />
     {{-- <x-debug-api :data="$data"/> --}}
     {{-- <x-cookies-banner/> --}}
     <x-assets-body />
