@@ -170,7 +170,7 @@ if (!function_exists('download')) {
     {
         return \LaravelFrontend\App\Controllers\Download::getUrl(
             $path,
-            $viewIt
+            $viewIt,
         );
     }
 }
@@ -190,7 +190,7 @@ if (!function_exists('downloadWithAuth')) {
         return \LaravelFrontend\App\Controllers\Download::getUrl(
             $path,
             $viewIt,
-            true
+            true,
         );
     }
 }
@@ -208,6 +208,15 @@ if (!function_exists('item')) {
     {
         $item = new \LaravelFrontend\Helpers\Item($data, $config);
         return $item;
+    }
+}
+
+if (!function_exists('profiler')) {
+    /**
+     */
+    function profiler()
+    {
+        return new \LaravelFrontend\Debug\Profiler();
     }
 }
 

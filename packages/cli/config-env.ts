@@ -28,6 +28,11 @@ export const defaultEnvVars = {
    */
   DEBUGBAR_ENABLED: false as boolean,
   /**
+   * It enables the collection of profiling tracks in `LaravelFrontend` php package
+   * @category Debug
+   */
+  DEBUG_PROFILER: "",
+  /**
    * @category CMS
    */
   CMS_API_URL: "",

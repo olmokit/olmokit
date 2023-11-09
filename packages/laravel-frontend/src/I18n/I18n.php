@@ -117,6 +117,8 @@ class I18n
      */
     public static function getTranslations(): array
     {
+        $profiler = profiler()->start();
+
         if (self::$translations) {
             return self::$translations;
         }
@@ -143,6 +145,7 @@ class I18n
 
         self::$translations = $all;
 
+        $profiler();
         return $all;
     }
 
@@ -153,6 +156,7 @@ class I18n
      */
     public static function getLocalTranslations(): array
     {
+        // $profiler = profiler()->start();
         $data = [];
         $locale = App::getLocale();
 
@@ -176,6 +180,8 @@ class I18n
             ])->put($cacheKey, $data);
         }
 
+        // $profiler();
+
         return $data;
     }
 
@@ -186,6 +192,7 @@ class I18n
      */
     public static function parseLocalTranslations($locale = ''): array
     {
+        // $profiler = profiler()->start();
         $data = [];
         $filepath = resource_path('/translations.csv');
 
@@ -232,6 +239,7 @@ class I18n
             }
         }
 
+        // $profiler();
         return $data;
     }
 
@@ -242,7 +250,9 @@ class I18n
      */
     public static function getRemoteTranslations(): array
     {
+        // $profiler = profiler()->start();
         $data = CmsApi::getTranslations();
+        // $profiler();
         return $data ?? [];
     }
 

@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use LaravelFrontend\I18n\I18n;
 use LaravelFrontend\Cms\CmsApi;
 use LaravelFrontend\Auth\AuthApi;
+use LaravelFrontend\Debug\Profiler;
 
 class AppComposer
 {
@@ -29,6 +30,7 @@ class AppComposer
         $view->with('analytics', CmsApi::getAnalytics());
         $view->with('user', AuthApi::user());
         $view->with('userJs', AuthApi::userJs());
+        $view->with('profiler', Profiler()::html());
 
         /**
          * Helper directive to use static translated strings from .csv files
@@ -37,7 +39,7 @@ class AppComposer
          * @return void
          */
         Blade::directive('trans', function (string $key = '') use (
-            $translations
+            $translations,
         ) {
             return $translations[$key] ?? $key . ' (missing translation key)';
             // TODO: maybe do a more sophisticated custom directive with

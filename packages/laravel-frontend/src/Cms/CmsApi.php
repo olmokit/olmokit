@@ -32,7 +32,7 @@ class CmsApi
         string $url = '',
         string $cacheKey = '',
         callable $adapter = null,
-        $cacheTags = [CacherTags::data]
+        $cacheTags = [CacherTags::data],
     ) {
         return Helpers::apiGet(
             $url,
@@ -40,7 +40,7 @@ class CmsApi
             $adapter,
             'env.CMS_API_CACHE',
             'array',
-            $cacheTags
+            $cacheTags,
         );
     }
 
@@ -59,7 +59,7 @@ class CmsApi
         array $requestBody = [],
         string $cacheKey = '',
         callable $adapter = null,
-        $cacheTags = [CacherTags::data]
+        $cacheTags = [CacherTags::data],
     ) {
         return Helpers::apiPost(
             $url,
@@ -68,7 +68,7 @@ class CmsApi
             $adapter,
             'env.CMS_API_CACHE',
             'array',
-            $cacheTags
+            $cacheTags,
         );
     }
 
@@ -101,7 +101,7 @@ class CmsApi
         string $endpoint = '',
         bool $cache = true,
         callable $adapter = null,
-        $cacheTags = [CacherTags::data, CacherTags::custom]
+        $cacheTags = [CacherTags::data, CacherTags::custom],
     ) {
         $endpoint = str_replace('{locale}', App::getLocale(), $endpoint);
         $requestUrl = self::getEndpointUrl($endpoint);
@@ -132,7 +132,7 @@ class CmsApi
         array $requestBody = [],
         bool $cache = true,
         callable $adapter = null,
-        $cacheTags = [CacherTags::data, CacherTags::custom]
+        $cacheTags = [CacherTags::data, CacherTags::custom],
     ) {
         $endpoint = str_replace('{locale}', App::getLocale(), $endpoint);
         $requestUrl = self::getEndpointUrl($endpoint);
@@ -143,7 +143,7 @@ class CmsApi
             $requestBody,
             $cacheKey,
             $adapter,
-            $cacheTags
+            $cacheTags,
         );
 
         return $data;
@@ -174,7 +174,7 @@ class CmsApi
         string $locale = '',
         bool $cache = true,
         callable $adapter = null,
-        string $urlPrefix = '/allmodel/'
+        string $urlPrefix = '/allmodel/',
     ) {
         $debug = false;
         // we do not pass an endpoint URL as argument but, to keep the api use
@@ -217,7 +217,7 @@ class CmsApi
     private static function requestWithAuth(
         string $method = 'get',
         string $endpoint = '',
-        array $requestBody = []
+        array $requestBody = [],
     ) {
         $endpoint = str_replace('{locale}', App::getLocale(), $endpoint);
         $requestUrl = self::getEndpointUrl($endpoint);
@@ -225,7 +225,7 @@ class CmsApi
         $response = AuthApi::requestWithAuth(
             $method,
             $requestUrl,
-            $requestBody
+            $requestBody,
         );
 
         return $response;
@@ -302,13 +302,14 @@ class CmsApi
     public static function getRouteData(
         string $slug = '',
         bool $cache = true,
-        callable $adapter = null
+        callable $adapter = null,
     ) {
+        $profiler = profiler()->start();
         $requestUrl = self::getEndpointUrl($slug);
         $cacheKey = $cache ? 'cmsapi.route.' . $slug : '';
 
         $data = self::get($requestUrl, $cacheKey, $adapter, function (
-            $routeData
+            $routeData,
         ) {
             $cacheTags = [CacherTags::data, CacherTags::routes];
 
@@ -320,7 +321,7 @@ class CmsApi
             }
             return $cacheTags;
         });
-
+        $profiler();
         return $data;
     }
 
@@ -455,7 +456,7 @@ class CmsApi
      */
     public static function getMediaUrl(
         string $path = '',
-        string $source = ''
+        string $source = '',
     ): string {
         $key = $source == 'storage' ? 'local' : 'media';
 

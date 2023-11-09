@@ -29,7 +29,7 @@ class Helpers
     {
         $ver = class_exists('\Composer\InstalledVersions')
             ? \Composer\InstalledVersions::getVersion(
-                    'olmo/laravel-frontend'
+                    'olmo/laravel-frontend',
                 ) ?? ''
             : '';
 
@@ -46,7 +46,7 @@ class Helpers
      */
     public static function getCacheKey(
         string $input = '',
-        bool $versioned = false
+        bool $versioned = false,
     ) {
         return $versioned ? self::getVersionedKey(md5($input)) : md5($input);
     }
@@ -82,7 +82,7 @@ class Helpers
     public static function routeName(string $route = '')
     {
         $hideDefaultLocaleUrl = config(
-            'laravel-frontend.i18n.hide_default_locale_in_url'
+            'laravel-frontend.i18n.hide_default_locale_in_url',
         );
         if ($hideDefaultLocaleUrl) {
             return $route;
@@ -125,7 +125,7 @@ class Helpers
      */
     public static function routeFilename(
         string $route = '',
-        $srcFilename
+        $srcFilename,
     ): string {
         if ($srcFilename && $srcFilename !== 'index') {
             $route .= '_' . $srcFilename;
@@ -245,6 +245,8 @@ class Helpers
      */
     public static function getRoutesMap()
     {
+        $profiler = profiler()->start();
+
         if (self::$routesMap) {
             return self::$routesMap;
         }
@@ -252,6 +254,7 @@ class Helpers
         $cacheKey = self::getCacheKey('helpers.routesMap', true);
 
         if (Cache::has($cacheKey)) {
+            $profiler();
             return Cache::get($cacheKey);
         }
 
@@ -275,10 +278,10 @@ class Helpers
 
         $defaultLocale = I18n::get()['default_locale'];
         $enforceLocalisedUrls = config(
-            'laravel-frontend.i18n.enforce_localised_urls'
+            'laravel-frontend.i18n.enforce_localised_urls',
         );
         $hideDefaultLocaleUrl = config(
-            'laravel-frontend.i18n.hide_default_locale_in_url'
+            'laravel-frontend.i18n.hide_default_locale_in_url',
         );
 
         foreach ($routesMap as $routeId => $routeInfo) {
@@ -349,9 +352,10 @@ class Helpers
         // cache it
         Cache::tags([CacherTags::data, CacherTags::structure])->put(
             $cacheKey,
-            $routesMap
+            $routesMap,
         );
 
+        $profiler();
         return $routesMap;
     }
 
@@ -465,6 +469,7 @@ class Helpers
      */
     public static function registerRoutes()
     {
+        $profiler = profiler()->start();
         $router = app()->make('router');
         $routesMap = self::getRoutesMap();
         $middlewares = self::getWebMiddlewares();
@@ -530,6 +535,7 @@ class Helpers
                     ->middleware($middlewares);
             }
         }
+        $profiler();
     }
 
     /**
@@ -616,7 +622,7 @@ class Helpers
      */
     public static function getEndpointUrlApi(
         string $endpoint = '',
-        string $configEnvKey = ''
+        string $configEnvKey = '',
     ): string {
         $url = rtrim(config($configEnvKey), '/');
 
@@ -640,7 +646,7 @@ class Helpers
         callable $adapter = null,
         string $configEnvCacheKey = '',
         string $parseDataAs = 'array',
-        $cacheTags = [CacherTags::data]
+        $cacheTags = [CacherTags::data],
     ) {
         $debug = false;
 
@@ -712,7 +718,7 @@ class Helpers
         callable $adapter = null,
         string $configEnvCacheKey = '',
         string $parseDataAs = 'array',
-        $cacheTags = [CacherTags::data]
+        $cacheTags = [CacherTags::data],
     ) {
         $debug = false;
 
@@ -772,7 +778,7 @@ class Helpers
      */
     public static function stripParamsFromUrl(
         string $url = '',
-        array $params = []
+        array $params = [],
     ): string {
         $output = $url;
         $parsed = parse_url($url);
@@ -804,7 +810,7 @@ class Helpers
     public static function flashStatus(
         string $namespace = '',
         string $msgRaw = '',
-        string $msgKey = ''
+        string $msgKey = '',
     ) {
         $value = $msgRaw ? "[raw][key=$msgKey]$msgRaw" : $msgKey;
         Session::flash($namespace . '_status', $value);

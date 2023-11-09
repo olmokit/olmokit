@@ -5,6 +5,7 @@
 return [
     'DEVELOPMENT' => env('DEVELOPMENT'),
     'CACHE_DRIVER' => env('CACHE_DRIVER'),
+    'DEBUG_PROFILER' => env('DEBUG_PROFILER'),
     'APP_NAME' => env('APP_NAME'),
     'APP_ENV' => env('APP_ENV'),
     'APP_KEY' => env('APP_KEY'),
