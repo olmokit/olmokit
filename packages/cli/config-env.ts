@@ -31,7 +31,7 @@ export const defaultEnvVars = {
    * It enables the collection of profiling tracks in `LaravelFrontend` php package
    * @category Debug
    */
-  DEBUG_PROFILER: "",
+  DEBUG_PROFILER: false,
   /**
    * @category CMS
    */
