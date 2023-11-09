@@ -18,11 +18,14 @@ class BladeCompiler extends Base
         if (!$this->compilesComponentTags) {
             return $value;
         }
-
+        if (isset($this->classComponentAliases['dynamic-component'])) {
+            $this->classComponentAliases['dynamic-component'] =
+                'Illuminate\View\DynamicComponent';
+        }
         return (new ComponentTagCompiler(
             $this->classComponentAliases,
             $this->classComponentNamespaces,
-            $this
+            $this,
         ))->compile($value);
     }
 }
