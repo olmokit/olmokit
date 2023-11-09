@@ -162,6 +162,6 @@
   "dependencies": {
     "@olmokit/utils": "*",
     "@swc/helpers": "^0.5.3",
-    "type-fest": "^4.6.0"
+    "type-fest": "^4.7.1"
   }
 }

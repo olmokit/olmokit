@@ -37,7 +37,7 @@
     "olmo": "./bin/pm.js"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.441.0",
+    "@aws-sdk/client-s3": "^3.445.0",
     "@olmokit/cli-utils": "*",
     "@olmokit/utils": "*",
     "@prettier/plugin-php": "^0.21.0",
@@ -70,7 +70,7 @@
     "jiti": "^1.21.0",
     "lint-staged": "^14.0.1",
     "lodash.template": "^4.5.0",
-    "mime": "^1.6.0",
+    "mime": "^3.0.0",
     "mini-css-extract-plugin": "^2.7.6",
     "php-parser": "^3.1.5",
     "postcss-loader": "^7.3.3",
@@ -89,7 +89,7 @@
     "swc-loader": "^0.2.3",
     "terser-webpack-plugin": "^5.3.9",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
-    "type-fest": "^4.6.0",
+    "type-fest": "^4.7.1",
     "webpack": "^5.89.0",
     "webpack-bundle-analyzer": "^4.9.1",
     "webpack-dev-server": "^4.15.1",

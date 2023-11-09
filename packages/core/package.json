@@ -1062,7 +1062,7 @@
     "gsap": "^3.12.2",
     "loadjs": "4.3.0-rc1",
     "object-fit-images": "^3.2.4",
-    "swiper": "^11.0.3",
+    "swiper": "^11.0.4",
     "video.js": "^8.6.1",
     "videojs-font": "^4.1.0"
   }
