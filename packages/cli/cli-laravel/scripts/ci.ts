@@ -116,6 +116,7 @@ const ciClean: CliLaravel.CmdDeploy.Task = async ({ ctx }) => {
     join(root, "olmo.ts"),
     join(root, ".npmrc"),
     join(root, "*.md"),
+    join(root, "*.js"),
     join(root, ".vscode"),
     join(root, ".husky"),
   ];
