@@ -26,6 +26,20 @@ class Sitemap
     }
 
     /**
+     * Get sitemap url
+     *
+     * @param string $locale
+     * @return void
+     */
+    private static function getLocalisedSitemapImagesUrl(string $locale = '')
+    {
+        return rtrim(config('env.APP_URL'), '/') .
+            '/' .
+            $locale .
+            '-images-sitemap.xml';
+    }
+
+    /**
      * Actually render a sitemap for the given locale/lang, it first checks
      * if the component to render it exists, otherwise it just 404s.
      *
@@ -60,6 +74,41 @@ class Sitemap
     }
 
     /**
+     * Actually render an images sitemap for the given locale/lang, it first checks
+     * if the component to render it exists, otherwise it just 404s.
+     *
+     * This function is used both by the default and the localised route
+     * render methods.
+     *
+     * @param string $lang
+     * @return void
+     */
+    private static function renderLocalisedSitemapimages(string $lang = '')
+    {
+        if (!View::exists('components.Sitemapimages')) {
+            abort(404);
+        }
+
+        // $sitemap = CmsApi::getSitemapimages($lang);
+        $sitemap = CmsApi::getData('/imagesitemap/' . $lang);
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>';
+        $header =
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
+        $footer = '</urlset>';
+
+        $view = View::make('components.Sitemapimages', [
+            'lang' => $lang,
+            'file' => $xml,
+            'header' => $header,
+            'footer' => $footer,
+            'sitemap' => $sitemap,
+        ])->render();
+
+        return response($view)->header('Content-Type', 'text/xml');
+    }
+
+    /**
      * Handler for `sitemap.xml` route
      *
      * @return View
@@ -74,6 +123,23 @@ class Sitemap
 
         $locale = App::getLocale();
         return self::renderLocalisedSitemap($locale);
+    }
+
+    /**
+     * Handler for `images-sitemap.xml` route
+     *
+     * @return View
+     */
+    public function defaultImage()
+    {
+        $i18n = I18n::get();
+
+        if (count($i18n['locales']) > 1) {
+            return redirect('/sitemap-index.xml');
+        }
+
+        $locale = App::getLocale();
+        return self::renderLocalisedSitemapimages($locale);
     }
 
     /**
@@ -97,6 +163,15 @@ class Sitemap
                     '</loc></sitemap>';
             }
 
+            // if(){
+                foreach ($i18n['locales'] as $locale) {
+                    $xml .=
+                        '<sitemap><loc>' .
+                        self::getLocalisedSitemapImagesUrl($locale) .
+                        '</loc></sitemap>';
+                }                
+            // }
+
             $xml .= '</sitemapindex>';
 
             return Response::make($xml, 200, [
@@ -117,5 +192,17 @@ class Sitemap
     {
         // $lang = explode('-', $locale);
         return self::renderLocalisedSitemap($locale);
+    }
+
+    /**
+     * Handler for localised `{locale}-images-sitemap.xml` routes
+     *
+     * @param string $locale
+     * @return View
+     */
+    public function localisedimage(string $locale = '')
+    {
+        // $lang = explode('-', $locale);
+        return self::renderLocalisedSitemapimages($locale);
     }
 }
