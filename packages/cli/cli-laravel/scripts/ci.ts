@@ -192,6 +192,11 @@ function ciSyncFtp(arg: CliLaravel.CmdDeploy.TaskArg) {
   execSync(`${cmdCommon} --delete ./resources ${folder}/resources" || true`);
   log.success("Synced resources folder");
 
+  if (arg.ctx.output?.src) {
+    execSync(`${cmdCommon} --delete ./src ${folder}/src" || true`);
+    log.success("Synced src folder");
+  }
+
   execSync(
     `${cmdCommon} --delete --exclude-glob=.git* --exclude=^.git/ --exclude=^.npm/ --exclude=^node_modules/ --exclude=^vendor/ --exclude=^public/ --exclude=^resources/ --exclude=^storage/ ./ ${folder}/" || true`
   );
@@ -247,6 +252,11 @@ async function ciSyncSsh(arg: CliLaravel.CmdDeploy.TaskArg) {
 
   execSync(`${cmdPrefx} --delete-after ./resources ${address}/`);
   log.success("Synced resources folder");
+
+  if (arg.ctx.output?.src) {
+    execSync(`${cmdPrefx} --delete-after ./src ${address}/`);
+    log.success("Synced src folder");
+  }
 
   execSync(
     `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude '.pnpm-store' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' ./ ${address}/`
