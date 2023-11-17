@@ -110,11 +110,8 @@ export namespace Config {
    * a shared one, as the two configs are quite different and have different
    * purposes
    */
-  export type Internal = Pick<
-    Custom,
-    "type" | "favicons" | "httpAuth" | "output"
-  > &
-    Pick<Required<Custom>, "useBarba"> & {
+  export type Internal = Pick<Custom, "type" | "favicons" | "httpAuth"> &
+    Pick<Required<Custom>, "useBarba" | "output"> & {
       /**
        * Environment information
        */

@@ -29,6 +29,9 @@ export async function getConfig(
     httpAuth,
     env,
     useBarba: !!custom.useBarba,
+    output: {
+      src: custom.output?.src ?? false,
+    },
   };
 
   spinner.text = "Validate configuration";

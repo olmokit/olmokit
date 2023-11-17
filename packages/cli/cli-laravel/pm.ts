@@ -56,11 +56,16 @@ process.env.NODE_ENV = "development";
 
 export const pm: Cli.Creator<CliLaravel.Config> = ({ taskr }) => ({
   commands: [
-    // new Command("a").description("FIXME: remove me").action(async () => {
-    //   await import("../development.js").then((mod) => {
-    //     console.log("test me!");
-    //     mod.isUsingLinkedPackages();
-    //   });
+    // new Command("try").action(async () => {
+    //   const test: CliLaravel.Task = async (ctx) => {
+    //     console.log("Try!", { ctx });
+    //   };
+    //   test.meta = { title: "try" };
+    //   await taskr.runTask(test);
+    //   // await import("../development.js").then((mod) => {
+    //   //   console.log("test me!");
+    //   //   mod.isUsingLinkedPackages();
+    //   // });
     // }),
     new Command("start")
       .description("Start the dev server")
