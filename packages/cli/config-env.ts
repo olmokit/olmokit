@@ -221,7 +221,7 @@ function getAutomaticEnvVars(
      * global variable typical in nodejs environments. Therefore this only serves
      * to distinguish whether the app is running in the local **development**
      * environment vs. the built/compiled **production** environment. This lives
-     * alongside th standard laravel `APP_ENV` but is not to be confused with that
+     * alongside the standard laravel `APP_ENV` but is not to be confused with that
      * as a developer might use for instance a _staging_ or _production_ `APP_ENV`
      * while running in a _local_ environment while developing.
      */
@@ -244,6 +244,15 @@ function getAutomaticEnvVars(
      * @category Automatic
      */
     PUBLIC_URL: build.publicUrl,
+    /**
+     * This tells to Laravel whether to minify the served HTML. Basically we
+     * always want that except when we include the `src` folder in the output,
+     * as in the kit docs website. Reading and showing those source files
+     * requires minification to be disabled.
+     *
+     * @category Automatic
+     */
+    OUTPUT_MINIFY_HTML: custom.output?.src ? false : true,
   };
 }
 

@@ -546,7 +546,11 @@ class Helpers
      */
     public static function getWebMiddlewares()
     {
-        return config('env.DEVELOPMENT') ? ['web'] : ['web-optimize', 'web'];
+        $middlewares = ['web'];
+        if (!config('env.DEVELOPMENT') && config('env.OUTPUT_MINIFY_HTML')) {
+            $middlewares[] = 'web-optimize';
+        }
+        return $middlewares;
     }
 
     /**

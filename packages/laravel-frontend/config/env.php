@@ -26,4 +26,5 @@ return [
     'IMG_PRETTY_URLS' => env('IMG_PRETTY_URLS'),
     'CI_VISIT_MODE' => env('CI_VISIT_MODE'),
     'CI_CLEAR_CACHE' => env('CI_CLEAR_CACHE'),
+    'OUTPUT_MINIFY_HTML' => env('OUTPUT_MINIFY_HTML'),
 ];
