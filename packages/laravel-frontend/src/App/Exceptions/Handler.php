@@ -62,7 +62,7 @@ class Handler extends ExceptionHandler
                 // ideal route is the login one
                 case 403:
                     $specialRoute = config(
-                        'laravel-frontend.auth.routesMap.login'
+                        'laravel-frontend.auth.routesMap.login',
                     );
                     break;
                 // special super static maintenance route
@@ -100,8 +100,7 @@ class Handler extends ExceptionHandler
 
                 // or display error page under current URL
                 $request = Request::create($routeUrl, 'GET');
-                $request->setLaravelSession(session());
-                return Route::dispatch($request);
+                return app()->handle($request);
             }
 
             // otherwise return laravel exception view
