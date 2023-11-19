@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/template-laravel",
-  "version": "0.0.100",
+  "version": "0.0.101",
   "description": "The base template for Olmo Laravel apps.",
   "keywords": [
     "olmo",
