@@ -24,17 +24,17 @@ class Kernel extends HttpKernel
         if (class_exists('\resources\middlewares\Middlewares')) {
             $this->middleware = array_merge(
                 $this->middleware,
-                \resources\middlewares\Middlewares::$global
+                \resources\middlewares\Middlewares::$global,
             );
             $this->middlewareGroups = array_merge_recursive(
                 $this->middlewareGroups,
                 [
                     'web' => \resources\middlewares\Middlewares::$web,
-                ]
+                ],
             );
             $this->routeMiddleware = array_merge(
                 $this->routeMiddleware,
-                \resources\middlewares\Middlewares::$named
+                \resources\middlewares\Middlewares::$named,
             );
         }
 
@@ -96,9 +96,6 @@ class Kernel extends HttpKernel
         // @laravel-frontend:
         'web-optimize' => [
             \RenatoMarinho\LaravelPageSpeed\Middleware\RemoveComments::class,
-            // FIXME: remove quotes laravel-page-speed breaks inline svgs,
-            // @see https://github.com/renatomarinho/laravel-page-speed/issues/68
-            // \RenatoMarinho\LaravelPageSpeed\Middleware\RemoveQuotes::class,
             \RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace::class,
         ],
 
