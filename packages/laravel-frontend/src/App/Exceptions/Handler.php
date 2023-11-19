@@ -4,6 +4,7 @@ namespace LaravelFrontend\App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 // use Illuminate\Support\Facades\Exception;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
@@ -100,7 +101,7 @@ class Handler extends ExceptionHandler
 
                 // or display error page under current URL
                 $request = Request::create($routeUrl, 'GET');
-                return app()->handle($request);
+                return App::handle($request);
             }
 
             // otherwise return laravel exception view
