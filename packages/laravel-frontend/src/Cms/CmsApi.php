@@ -559,7 +559,7 @@ class CmsApi
     }
 
     /**
-     * Get sitemap information from API /api/sitemap/sitemap
+     * Get sitemap information from API /api/sitemap/{lang}
      *
      * @param string locale
      * @return array
@@ -567,6 +567,19 @@ class CmsApi
     public static function getSitemap(string $locale = ''): array
     {
         $sitemap = self::getData('/sitemap/' . $locale);
+
+        return $sitemap;
+    }
+
+    /**
+     * Get images sitemap information from API /api/imagesitemap/{lang}
+     *
+     * @param string locale
+     * @return array
+     */
+    public static function getSitemapimages(string $locale = '')
+    {
+        $sitemap = self::getData('/imagesitemap/' . $locale);
 
         return $sitemap;
     }

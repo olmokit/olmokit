@@ -11,6 +11,11 @@ Route::get('/robots.txt', [Robots::class, 'render']);
 // standard sitemap routes
 Route::get('/sitemap.xml', [Sitemap::class, 'default']);
 Route::get('/sitemap-index.xml', [Sitemap::class, 'index']);
+Route::get('/images-sitemap.xml', [Sitemap::class, 'defaultImage']);
+Route::get('/{locale}-images-sitemap.xml', [Sitemap::class, 'localisedimage'])->where(
+    'locale',
+    '([A-Za-z0-9\-\/]+)'
+);
 Route::get('/{locale}-sitemap.xml', [Sitemap::class, 'localised'])->where(
     'locale',
     '([A-Za-z0-9\-\/]+)'
