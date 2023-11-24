@@ -163,14 +163,14 @@ class Sitemap
                     '</loc></sitemap>';
             }
 
-            // if(){
+            if(config('env.IMG_SITEMAP')){
                 foreach ($i18n['locales'] as $locale) {
                     $xml .=
                         '<sitemap><loc>' .
                         self::getLocalisedSitemapImagesUrl($locale) .
                         '</loc></sitemap>';
                 }                
-            // }
+            }
 
             $xml .= '</sitemapindex>';
 

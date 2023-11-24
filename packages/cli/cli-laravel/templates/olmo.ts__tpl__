@@ -21,6 +21,7 @@ export default createConfig({
       HOOKS_ALLOWED_PARAM: "<%= randomWord %>",
       IMG_COMPRESSION_QUALITY: 80,
       IMG_COMPRESSION_QUALITY_WEBP: 75,
+      IMG_SITEMAP: false,
       CDN: false,
       AWS_URL: "https://storage.myclient.com",
       AWS_ACCESS_KEY_ID: "XXXXXXXXXXXXXXXXXXX",

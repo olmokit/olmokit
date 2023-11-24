@@ -94,6 +94,11 @@ export const defaultEnvVars = {
    */
   IMG_PRETTY_URLS: false as boolean,
   /**
+   * @default false
+   * @category Sitemap
+   */
+  IMG_SITEMAP: false as boolean,
+  /**
    * @category CI
    */
   CI_VISIT_MODE: undefined as undefined | false | "php" | "node",
