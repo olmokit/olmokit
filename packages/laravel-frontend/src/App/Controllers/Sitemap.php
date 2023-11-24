@@ -89,8 +89,8 @@ class Sitemap
             abort(404);
         }
 
-        // $sitemap = CmsApi::getSitemapimages($lang);
-        $sitemap = CmsApi::getData('/imagesitemap/' . $lang);
+        $sitemap = CmsApi::getSitemapimages($lang);
+        // $sitemap = CmsApi::getData('/imagesitemap/' . $lang);
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $header =
