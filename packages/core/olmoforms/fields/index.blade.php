@@ -33,7 +33,7 @@
     
   @endphp
 
-  @if ($field['element'] == 'input')
+  @if ($field['element'] == 'input' OR $field['element'] == 'Input')
     @if ($field['typology'] == 'checkbox')
       @if ($nextField['typology'] == 'checkbox')
         <div class="of:group of:{{ $field['name'] }}-{{ $nextField['name'] }}">
@@ -58,7 +58,7 @@
       @if ($prevField['typology'] == 'checkbox')
         </div>
       @endif
-    @elseif ($field['typology'] == 'submit')
+    @elseif ($field['typology'] == 'submit')    
       <div
         class="of:el of:{{ $field['name'] }}"
         data-name="{{ $field['name'] }}"
