@@ -172,6 +172,16 @@ class Cacher
     }
 
     /**
+     * Clear single 'route.{routeUrl}' no tagged cache just single route with cachekey
+     *
+     * @return void
+     */
+    public static function clearCacheSingleRoute(string $path = '')
+    {
+        Artisan::call('cacher:clear ' . CacherTags::singleRoute($path));
+    }
+
+    /**
      * Clear 'forms' tagged cache
      *
      * @return void

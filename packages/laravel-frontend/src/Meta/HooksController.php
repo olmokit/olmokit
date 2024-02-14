@@ -135,6 +135,19 @@ class HooksController extends Controller
     }
 
     /**
+     * Clear `'cmsapi.routeTemplate.{path}'` no tagged cache
+     *
+     * @param string $routeId
+     * @return void
+     */
+    public function clearSingleRoute(string $path = '')
+    {
+        $msg = "Clear 'cmsapi.routeTemplate.$path' cache hook called successfully.";
+        Cacher::clearCacheSingleRoute($path);
+        return $this->getMsg($msg);
+    }
+
+    /**
      * Clear `'forms'` tagged custom cache
      *
      * @return void

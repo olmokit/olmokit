@@ -14,6 +14,8 @@ class CacherTags
 
     const routes = 'routes';
 
+    const route = 'cmsapi.routeTemplate';
+
     const forms = 'forms';
 
     const img = 'img';
@@ -28,6 +30,11 @@ class CacherTags
     public static function route(string $id = '')
     {
         return self::routes . '.' . $id;
+    }
+
+    public static function singleRoute(string $path = '')
+    {
+        return self::routes . '.' . $path;
     }
 
     public static function form(string $id = '')
