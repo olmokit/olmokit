@@ -68,7 +68,7 @@ Route::prefix('_/hooks')
             'clearRoute',
         ]);
 
-        Route::get('cache/clear-route/{path}', [
+        Route::post('cache/clear-route', [
             HooksController::class,
             'clearSingleRoute',
         ]);

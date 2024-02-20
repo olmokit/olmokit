@@ -14,7 +14,7 @@ class CacherTags
 
     const routes = 'routes';
 
-    const route = 'cmsapi.routeTemplate';
+    const route = 'cmsapi.route';
 
     const forms = 'forms';
 
@@ -34,7 +34,7 @@ class CacherTags
 
     public static function singleRoute(string $path = '')
     {
-        return self::routes . '.' . $path;
+        return self::route . '.' . $path;
     }
 
     public static function form(string $id = '')

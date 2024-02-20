@@ -116,6 +116,15 @@
   <li>
     🔥 <a
       class="url"
+      href="/_/hooks/cache/clear-route{{ $param }}"
+    >
+      cache/clear-route
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclearroute">docs</a>, clear
+      just one entry with <code>_/hooks/cache/clear-route/{path}{{ $param }}</code></small>
+  </li>
+  <li>
+    🔥 <a
+      class="url"
       href="/_/hooks/cache/clear-forms{{ $param }}"
     >
       cache/clear-forms

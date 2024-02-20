@@ -4,6 +4,7 @@ namespace LaravelFrontend\Cacher;
 
 use Illuminate\Support\Facades\Artisan;
 use LaravelFrontend\Cacher\CacherTags;
+use Illuminate\Support\Facades\Cache;
 
 class Cacher
 {
@@ -172,13 +173,15 @@ class Cacher
     }
 
     /**
-     * Clear single 'route.{routeUrl}' no tagged cache just single route with cachekey
+     * Clear single 'singleRoute.{path}' no tagged cache just single route with cachekey
+     * the $path option is the md5 crypted version of the route path
      *
      * @return void
      */
     public static function clearCacheSingleRoute(string $path = '')
     {
-        Artisan::call('cacher:clear ' . CacherTags::singleRoute($path));
+        Cache::forget($path);
+        // Artisan::call('cacher:clear ' . CacherTags::singleRoute($path));
     }
 
     /**
