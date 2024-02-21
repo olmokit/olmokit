@@ -181,7 +181,6 @@ class Cacher
     public static function clearCacheSingleRoute(string $path = '')
     {
         Cache::forget($path);
-        // Artisan::call('cacher:clear ' . CacherTags::singleRoute($path));
     }
 
     /**
