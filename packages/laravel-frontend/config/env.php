@@ -12,6 +12,7 @@ return [
     'APP_DEBUG' => env('APP_DEBUG'),
     'APP_URL' => env('APP_URL'),
     'CMS_API_URL' => env('CMS_API_URL'),
+    'CMS_API_URL_FORM' => env('CMS_API_URL_FORM'),
     'CMS_API_CACHE' => env('CMS_API_CACHE'),
     'AUTH_API_URL' => env('AUTH_API_URL'),
     'AUTH_API_CACHE' => env('AUTH_API_CACHE'),

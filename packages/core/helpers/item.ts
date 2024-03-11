@@ -321,7 +321,7 @@ export function Item(
     const data = { ...current };
 
     if (!readonlyProperties) {
-      resetPropertyExceptPivot(element, interact);
+      // resetPropertyExceptPivot(element, interact);
       const propertiesMap = getPropertiesMap();
 
       data.properties = Object.keys(propertiesMap).map((k) => propertiesMap[k]);

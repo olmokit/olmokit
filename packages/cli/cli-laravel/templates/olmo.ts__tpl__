@@ -16,6 +16,7 @@ export default createConfig({
         dev: "https://api.myclient.mycompany.dev/api",
         production: "https://api.myclient.com/api",
       },
+      CMS_API_URL_FORM: "",
       CMS_API_STORAGE: "https://storage.myclient.com/public",
       OLMOFORMS_TOKEN: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       HOOKS_ALLOWED_PARAM: "<%= randomWord %>",

@@ -22,7 +22,7 @@ class Olmoforms
         bool $quickReturn = false
     ) {
         $appUrl = config('env.APP_URL');
-        $apiUrl = config('env.CMS_API_URL');
+        $apiUrl = config('env.CMS_API_URL_FORM') ? config('env.CMS_API_URL_FORM') : config('env.CMS_API_URL');
         $token = config('env.OLMOFORMS_TOKEN');
 
         if (!$token || !$apiUrl) {

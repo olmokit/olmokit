@@ -93,6 +93,114 @@ class Item implements \ArrayAccess
     }
 
     /**
+     * Get the properties list name
+     *
+     * It throws an error for missing property name during development
+     *
+     * @return array
+     */
+    public function getPropertiesName()
+    {
+        $properties = $this->_properties;
+        $array = [];
+        foreach($properties as $prop){
+            array_push($array, $prop['name']);
+        }
+
+        return $array;
+    }
+
+    /**
+     * Get the properties list
+     *
+     *
+     * @return array
+     */
+    public function getProperties()
+    {
+        $data = $this->_data;
+        $array = [];        
+        foreach($data['items'] as $prop){
+            foreach($prop['property'] as $p){
+                if(!in_array($p, $array)){
+                    array_push($array, $p);
+                }
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * Get the properties id list
+     *
+     *
+     * @return array
+     */
+    public function getPropertiesIdValue()
+    {
+        $array = [];
+        foreach($this->_properties as $prop){
+            foreach($prop['property'] as $p){
+                array_push($array, $p['id']);
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * Get the Items
+     *
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        $data = $this->_data;
+        $items = $data['items'];
+        return $items;
+    }
+
+    /**
+     * Get the properties list name
+     *
+     * It throws an error for missing property name during development
+     *
+     * @return string
+     */
+    public function getPivot()
+    {
+        $properties = $this->_properties;
+        $pivot = '';
+        foreach($properties as $prop){
+            if($prop['pivot'] == 'true'){
+                $pivot = $prop['name'];
+            }
+        }
+
+        return $pivot;
+    }
+
+    /**
+     * Get the properties list name
+     *
+     * It throws an error for missing property name during development
+     *
+     * @return string
+     */    
+    public function getImageChange()
+    {
+        $properties = $this->_properties;
+        $changeimage = '';
+        foreach($properties as $prop){
+            if($prop['changeimage'] == 'true'){
+                $changeimage = $prop['name'];
+            }
+        }
+
+        return $changeimage;
+    }
+
+    /**
      * Get property by name
      *
      * It throws an error for missing property name during development

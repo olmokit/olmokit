@@ -14,7 +14,7 @@ class OlmoformsController
         $user_token = $request->header('X-CSRF-TOKEN');
 
         if ($token == $user_token) {
-            $apiurl = config('env.CMS_API_URL');
+            $apiurl = config('env.CMS_API_URL_FORM') ? config('env.CMS_API_URL_FORM') : config('env.CMS_API_URL');
             $token = config('env.OLMOFORMS_TOKEN');
             $id = $request->id;
 
@@ -36,7 +36,7 @@ class OlmoformsController
 
     public function uploadChunks(Request $request)
     {
-        $apiurl = config('env.CMS_API_URL');
+        $apiurl = config('env.CMS_API_URL_FORM') ? config('env.CMS_API_URL_FORM') : config('env.CMS_API_URL');
         // $token = config('env.OLMOFORMS_TOKEN');
 
         $filename = $request->fileName;
@@ -53,7 +53,7 @@ class OlmoformsController
 
     public function uploadComplete(Request $request)
     {
-        $apiurl = config('env.CMS_API_URL');
+        $apiurl = config('env.CMS_API_URL_FORM') ? config('env.CMS_API_URL_FORM') : config('env.CMS_API_URL');
         $token = config('env.OLMOFORMS_TOKEN');
 
         $data = [

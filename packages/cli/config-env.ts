@@ -39,6 +39,10 @@ export const defaultEnvVars = {
   /**
    * @category CMS
    */
+  CMS_API_URL_FORM: "",
+  /**
+   * @category CMS
+   */
   CMS_API_STORAGE: "",
   /**
    * @default true
