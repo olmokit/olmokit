@@ -420,13 +420,12 @@ export function Item(
     const isValid = !errors.length;
     const data = setDataOnElement(element, interact);
     const addToCart = validateAddtoCart(length, index, interact);
-
     if (interact && syncUrlClear) {
       if (syncUrlClear != element?.name) {
         updateUrl(data.params, element);
       } else {
         resetUrlParams(syncUrlClear);
-        updateUrl(data.params);
+        updateUrl({[syncUrlClear]: data.params[syncUrlClear]});
       }
     }
 
