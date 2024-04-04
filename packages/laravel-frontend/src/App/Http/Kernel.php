@@ -123,6 +123,7 @@ class Kernel extends HttpKernel
         'auth.activate' => \LaravelFrontend\Auth\MiddlewareActivate::class,
         'auth.unauthonly' => \LaravelFrontend\Auth\MiddlewareUnauthOnly::class,
         'checkout' => \LaravelFrontend\Cms\MiddlewareCheckout::class,
+        'checkout-onepage' => \LaravelFrontend\Cms\MiddlewareCheckoutOnepage::class,
 
         // 'auth.verifiedonly' => \LaravelFrontend\Auth\MiddlewareVerifiedOnly::class,
         // 'auth' => \Illuminate\Auth\Middleware\Authenticate::class,

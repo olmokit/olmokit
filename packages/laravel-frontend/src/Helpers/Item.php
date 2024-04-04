@@ -172,8 +172,10 @@ class Item implements \ArrayAccess
         $properties = $this->_properties;
         $pivot = '';
         foreach($properties as $prop){
-            if($prop['pivot'] == 'true'){
-                $pivot = $prop['name'];
+            if(isset($prop['pivot'])){
+                if($prop['pivot'] == 'true'){
+                    $pivot = $prop['name'];
+                }
             }
         }
 
@@ -192,8 +194,10 @@ class Item implements \ArrayAccess
         $properties = $this->_properties;
         $changeimage = '';
         foreach($properties as $prop){
-            if($prop['changeimage'] == 'true'){
-                $changeimage = $prop['name'];
+            if(isset($prop['changeimage'])){
+                if($prop['changeimage'] == 'true'){
+                    $changeimage = $prop['name'];
+                }
             }
         }
 

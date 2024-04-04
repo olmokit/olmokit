@@ -185,7 +185,7 @@ class CmsCheckoutController extends EndpointController
 
         $response = CmsOrder::place();
         $data = $response->json();
-        $code = $response->status();
+        $code = $response->status();      
 
         $redirectRoute =
             $data['paymentmethod'] == 'creditcard'
