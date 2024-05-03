@@ -18,6 +18,7 @@ export default createConfig({
       },
       CMS_API_URL_FORM: "",
       CMS_API_STORAGE: "https://storage.myclient.com/public",
+      HOSTING_TYPE: "",
       OLMOFORMS_TOKEN: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
       HOOKS_ALLOWED_PARAM: "<%= randomWord %>",
       IMG_COMPRESSION_QUALITY: 80,

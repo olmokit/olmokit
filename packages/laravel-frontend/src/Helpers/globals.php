@@ -220,4 +220,16 @@ if (!function_exists('profiler')) {
     }
 }
 
+if (!function_exists('data')) {
+    /**
+     */
+    function data($data, string $type = 'string')
+    {
+        if($type == 'array'){
+            return $data ?? [];
+        }
+        return $data ?? '';
+    }
+}
+
 ?>

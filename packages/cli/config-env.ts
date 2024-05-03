@@ -45,6 +45,10 @@ export const defaultEnvVars = {
    */
   CMS_API_STORAGE: "",
   /**
+   * @category HOSTING
+   */
+  HOSTING_TYPE: "",  
+  /**
    * @default true
    * @category CMS
    */

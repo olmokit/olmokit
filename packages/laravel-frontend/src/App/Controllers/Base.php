@@ -410,7 +410,16 @@ class Base extends Controller
         $this->setRoute($route);
 
         // set the route status code
-        $this->statusCode = $this->getRouteStatusCode();
+        if($this->cmsApiData){
+            if(isset($this->cmsApiData['statuscode'])){
+                $cmsApiDataStatusCode = $this->cmsApiData['statuscode'] != '' ? $this->cmsApiData['statuscode'] : $this->getRouteStatusCode();
+                $this->statusCode = (int)$cmsApiDataStatusCode;
+            } else {
+                $this->statusCode = $this->getRouteStatusCode();
+            }            
+        } else {
+            $this->statusCode = $this->getRouteStatusCode();
+        }
 
         // get this route type to determine if we need to strictly put
         // confidence into the cms api route data or not
@@ -445,7 +454,7 @@ class Base extends Controller
      */
     protected function getRouteStatusCode()
     {
-        foreach (['400', '404', '419', '500', '503'] as $code) {
+        foreach (['400', '404', '419', '500', '503', '410'] as $code) {
             if ($this->route === $code || $this->slugCleaned === $code) {
                 return (int) $code;
             }

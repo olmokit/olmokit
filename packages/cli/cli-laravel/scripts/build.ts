@@ -6,6 +6,7 @@ import { normaliseUrl } from "../../helpers-getters.js";
 import { laravelConfig } from "../helpers/dotenv.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
+import { project } from "../../project.js";
 
 /**
  * Get "kind-of-versioned" public path for CDN deployments
@@ -39,9 +40,12 @@ const buildPre: CliLaravel.Task = async ({ ctx }) => {
 buildPre.meta = { title: "Store new build information" };
 
 const buildHtaccess: CliLaravel.Task = async () => {
+  const hostingType = process.env.HOSTING_TYPE == "shared" ? "."+process.env.HOSTING_TYPE : "";
+  const htaccessType = process.env.APP_ENV+hostingType;
+  const destFolder = process.env.HOSTING_TYPE == "shared" ? project.root : paths.frontend.dest.public;
   const pathHtaccess = join(
-    paths.frontend.dest.public,
-    `.htaccess.${process.env.APP_ENV}`
+    destFolder,
+    `.htaccess.${htaccessType}`
   );
 
   // use the right .htaccess.{env} file and copy it as .htaccess
