@@ -101,8 +101,6 @@ class CmsOrder
 
         $response = CmsApi::postWithAuth('{locale}/order/completed', $data);
 
-        return $response;
-
         if ($response->successful()) {
             CmsCart::clearSession();
         }
