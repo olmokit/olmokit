@@ -40,7 +40,7 @@ const buildPre: CliLaravel.Task = async ({ ctx }) => {
 buildPre.meta = { title: "Store new build information" };
 
 const buildHtaccess: CliLaravel.Task = async () => {
-  const hostingType = process.env.HOSTING_TYPE == "shared" ? "."+process.env.HOSTING_TYPE : "";
+  const hostingType = process.env.HOSTING_TYPE == "shared" ? ".shared" : "";
   const htaccessType = process.env.APP_ENV+hostingType;
   const destFolder = process.env.HOSTING_TYPE == "shared" ? project.root : paths.frontend.dest.public;
   const pathHtaccess = join(
@@ -50,7 +50,11 @@ const buildHtaccess: CliLaravel.Task = async () => {
 
   // use the right .htaccess.{env} file and copy it as .htaccess
   if (existsSync(pathHtaccess)) {
-    await copyFile(pathHtaccess, join(paths.frontend.dest.public, ".htaccess"));
+    if(process.env.HOSTING_TYPE == "shared"){
+      await copyFile(pathHtaccess, join(project.root, ".htaccess"));
+    } else {
+      await copyFile(pathHtaccess, join(paths.frontend.dest.public, ".htaccess"));
+    }
   }
 
   // reload current env to be sure...
