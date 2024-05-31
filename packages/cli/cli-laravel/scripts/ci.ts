@@ -197,6 +197,11 @@ function ciSyncFtp(arg: CliLaravel.CmdDeploy.TaskArg) {
     log.success("Synced src folder");
   }
 
+  if (process.env.HOSTING_TYPE == "shared") {
+    execSync(`${cmdCommon} --delete ./.htaccess ${folder}/.htaccess" || true`);
+    log.success("Synced htaccess file");
+  }
+
   execSync(
     `${cmdCommon} --delete --exclude-glob=.git* --exclude=^.git/ --exclude=^.npm/ --exclude=^node_modules/ --exclude=^vendor/ --exclude=^public/ --exclude=^resources/ --exclude=^storage/ ./ ${folder}/" || true`
   );
