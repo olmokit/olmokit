@@ -47,6 +47,7 @@ const buildHtaccess: CliLaravel.Task = async () => {
     destFolder,
     `.htaccess.${htaccessType}`
   );
+  console.log(hostingType, htaccessType, destFolder, pathHtaccess);
 
   // use the right .htaccess.{env} file and copy it as .htaccess
   if (existsSync(pathHtaccess)) {
