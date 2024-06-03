@@ -42,23 +42,29 @@ buildPre.meta = { title: "Store new build information" };
 const buildHtaccess: CliLaravel.Task = async () => {
   const hostingType = process.env.HOSTING_TYPE == "shared" ? ".shared" : "";
   const htaccessType = process.env.APP_ENV+hostingType;
-  const destFolder = process.env.HOSTING_TYPE == "shared" ? project.root : paths.frontend.dest.public;
+  const destFolder = paths.frontend.dest.public;
   const pathHtaccess = join(
     destFolder,
     `.htaccess.${htaccessType}`
   );
   const pathTo = process.env.HOSTING_TYPE == "shared" ? project.root : paths.frontend.dest.public;
+  const finalPathToShared = join(pathTo, `.htaccess.${htaccessType}`);
+
   console.log('setup htaccess hostingType:', hostingType);
   console.log('setup htaccess htaccessType:', htaccessType);
   console.log('setup htaccess destFolder:', destFolder);
   console.log('setup htaccess pathHtaccess:', pathHtaccess);
   console.log('setup htaccess pathTo:', pathTo);
-  console.log('existsSync(pathHtaccess)', existsSync(pathHtaccess));
 
+  console.log('existsSync(pathHtaccess)', existsSync(pathHtaccess));
 
   readdirSync(pathTo).forEach(file => {
     console.log('readdirSync:', file);
   });
+
+  if(process.env.HOSTING_TYPE == "shared" && existsSync(pathHtaccess)){
+    await copyFile(pathHtaccess, join(finalPathToShared, ".htaccess"));
+  }
 
   // use the right .htaccess.{env} file and copy it as .htaccess
   if (existsSync(pathHtaccess)) {
