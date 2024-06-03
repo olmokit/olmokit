@@ -48,7 +48,7 @@ const buildHtaccess: CliLaravel.Task = async () => {
     `.htaccess.${htaccessType}`
   );
   const pathTo = process.env.HOSTING_TYPE == "shared" ? project.root : paths.frontend.dest.public;
-  const finalPathToShared = join(pathTo, `.htaccess.${htaccessType}`);
+  const finalPathToShared = join(project.root, `.htaccess.${htaccessType}`);
 
   console.log('setup htaccess hostingType:', hostingType);
   console.log('setup htaccess htaccessType:', htaccessType);
