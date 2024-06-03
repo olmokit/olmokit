@@ -1,4 +1,4 @@
-import { existsSync, readdirSync } from "fs";
+import { existsSync, readdirSync, unlinkSync } from "fs";
 import { copyFile } from "fs/promises";
 import { join } from "path";
 import { configBuild } from "../../config-build.js";
@@ -51,11 +51,11 @@ const buildHtaccess: CliLaravel.Task = async () => {
 
   if(process.env.HOSTING_TYPE == "shared" && existsSync(pathHtaccess)){
     await copyFile(pathHtaccess, join(project.root, ".htaccess"));
+    unlinkSync(pathHtaccess);
   }
 
   // use the right .htaccess.{env} file and copy it as .htaccess
   if (existsSync(pathHtaccess)) {
-    console.log('copied htaccess:', pathHtaccess, join(pathTo, ".htaccess"));
     await copyFile(pathHtaccess, join(pathTo, ".htaccess"));
   }
 
