@@ -1,4 +1,4 @@
-import { existsSync } from "fs";
+import { existsSync, readdirSync } from "fs";
 import { copyFile } from "fs/promises";
 import { join } from "path";
 import { configBuild } from "../../config-build.js";
@@ -53,6 +53,12 @@ const buildHtaccess: CliLaravel.Task = async () => {
   console.log('setup htaccess destFolder:', destFolder);
   console.log('setup htaccess pathHtaccess:', pathHtaccess);
   console.log('setup htaccess pathTo:', pathTo);
+  console.log('existsSync(pathHtaccess)', existsSync(pathHtaccess));
+
+
+  readdirSync(pathTo).forEach(file => {
+    console.log('readdirSync:', file);
+  });
 
   // use the right .htaccess.{env} file and copy it as .htaccess
   if (existsSync(pathHtaccess)) {
