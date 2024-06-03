@@ -47,14 +47,15 @@ const buildHtaccess: CliLaravel.Task = async () => {
     destFolder,
     `.htaccess.${htaccessType}`
   );
-  const pathTo = process.env.HOSTING_TYPE == "shared" ? project.root : paths.frontend.dest.public;
-  const finalPathToShared = join(project.root, `.htaccess.${htaccessType}`);
+  const pathTo = paths.frontend.dest.public;
+  const pathToShared = join(project.root, `.htaccess.${htaccessType}`);
 
   console.log('setup htaccess hostingType:', hostingType);
   console.log('setup htaccess htaccessType:', htaccessType);
   console.log('setup htaccess destFolder:', destFolder);
   console.log('setup htaccess pathHtaccess:', pathHtaccess);
   console.log('setup htaccess pathTo:', pathTo);
+  console.log('setup htaccess pathTo:', pathToShared);
 
   console.log('existsSync(pathHtaccess)', existsSync(pathHtaccess));
 
@@ -63,7 +64,7 @@ const buildHtaccess: CliLaravel.Task = async () => {
   });
 
   if(process.env.HOSTING_TYPE == "shared" && existsSync(pathHtaccess)){
-    await copyFile(pathHtaccess, join(finalPathToShared, ".htaccess"));
+    await copyFile(pathHtaccess, join(pathToShared, ".htaccess"));
   }
 
   // use the right .htaccess.{env} file and copy it as .htaccess
