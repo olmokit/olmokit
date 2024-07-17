@@ -17,7 +17,7 @@ class MiddlewareAuthOnly
      */
     public function handle(Request $request, Closure $next)
     {
-        // redirect if unauthenticated
+        // redirect if unauthenticated        
         if (!AuthApi::check()) {
             AuthApi::setLoginRedirect($request->url());
             abort(403);

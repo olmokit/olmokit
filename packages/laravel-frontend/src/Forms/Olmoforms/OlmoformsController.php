@@ -23,7 +23,9 @@ class OlmoformsController
             $data = $request->all();
             $data['locale'] = App::getLocale();
 
-            $response = Http::post($url, $data);
+            $response = Http::withHeaders([
+                'X-CSRF-TOKEN' => $user_token
+            ])->post($url, $data);
 
             return response($response, $response->getStatusCode());
         }
