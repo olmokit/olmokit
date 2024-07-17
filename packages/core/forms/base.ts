@@ -8,6 +8,7 @@ import ajaxLaravel from "../ajax/laravel";
 // import scrollTo from "@olmokit/core/scroll/scrollTo";
 import "../progress/loading.scss";
 import { getFormData, getPostData } from "./helpers";
+import { getMetaCsrfToken } from "../helpers";
 import {
   Validation,
   type ValidationError,
@@ -121,7 +122,10 @@ export function FormsBase(
     const { endpoint, url } = options;
     const requestUrl = url || endpoint || $form.action + "ajax/";
     const requestOptions = {
-      method: "POST",
+      headers: {
+        "X-CSRF-TOKEN": getMetaCsrfToken(),
+      },      
+      method: "POST",      
       data: getPostData(formData),
     } as const;
     const request = url
