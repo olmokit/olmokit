@@ -63,6 +63,18 @@ class HooksController extends Controller
     }
 
     /**
+     * It wipes out the cache folder inside storage_path('framework/cache/data/cache')
+     *
+     * @return void
+     */
+    public function clearStrict()
+    {
+        $msg = "Clear 'data strict' cache hook called successfully.";
+        Cacher::clearCacheStrict();
+        return $this->getMsg($msg);
+    }
+
+    /**
      * It wipes out all `'structure'` tagged custom cache
      *
      * @return void

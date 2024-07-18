@@ -29,14 +29,16 @@ Route::prefix('_/hooks')
 
         Route::get('deploy/end', [HooksController::class, 'deployEnd']);
 
-        Route::get('cache/clear', [HooksController::class, 'clearAll']);
+        Route::get('cache/clear', [HooksController::class, 'clearAll']);      
+        
+        Route::get('cache/clear-strict', [HooksController::class, 'clearStrict']);
 
         Route::get('cache/clear-system', [
             HooksController::class,
             'clearSystem',
         ]);
 
-        Route::get('cache/clear-data', [HooksController::class, 'clearData']);
+        Route::get('cache/clear-data', [HooksController::class, 'clearData']);        
 
         Route::get('cache/clear-structure', [
             HooksController::class,

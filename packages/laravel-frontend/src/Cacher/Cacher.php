@@ -5,6 +5,7 @@ namespace LaravelFrontend\Cacher;
 use Illuminate\Support\Facades\Artisan;
 use LaravelFrontend\Cacher\CacherTags;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
 
 class Cacher
 {
@@ -104,6 +105,21 @@ class Cacher
     {
         // return self::clearCaches([CacherTags::data]);
         Artisan::call('cacher:clear ' . CacherTags::data);
+    }
+
+    /**
+     * Clear 'data' tagged cache
+     *
+     * NB: `structure`, `custom`, `models`, `routes` and `forms` all share the
+     * `data` tag, so no need to clear those tags too here
+     *
+     * @return void
+     */
+    public static function clearCacheStrict()
+    {
+        $path = storage_path('framework/cache/data/cache');
+        File::deleteDirectory($path);
+        // rmdir($dir);
     }
 
     /**

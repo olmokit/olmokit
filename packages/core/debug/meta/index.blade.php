@@ -65,6 +65,14 @@
   <li>
     🔥 <a
       class="url"
+      href="/_/hooks/cache/clear-strict{{ $param }}"
+    >
+      cache/clear-strict
+    </a><small>: 📖 <a href="https://olmokit.github.io/olmokit/laravel-frontend/Hooks#cacheclear">docs</a></small>
+  </li>
+  <li>
+    🔥 <a
+      class="url"
       href="/_/hooks/cache/clear-system{{ $param }}"
     >
       cache/clear-system
