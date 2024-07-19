@@ -50,7 +50,12 @@ const buildHtaccess: CliLaravel.Task = async () => {
 
   if(process.env.HOSTING_TYPE == "shared" && existsSync(pathHtaccess)){
     await copyFile(pathHtaccess, join(project.root, ".htaccess"));
-    unlinkSync(pathHtaccess);
+    /** Delete htaccess file in the public folder */
+    const pathHtaccessPublic = join(
+      destFolder,
+      `.htaccess`
+    );    
+    await unlinkSync(pathHtaccessPublic);
   } else if (existsSync(pathHtaccess)) {
     await copyFile(pathHtaccess, join(destFolder, ".htaccess"));
   }

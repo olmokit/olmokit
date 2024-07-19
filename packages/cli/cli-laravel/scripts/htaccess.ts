@@ -235,14 +235,8 @@ export const htaccess: CliLaravel.Task = async (arg) => {
   await Promise.all(
     // add current too (no env name)
     ["", ...ctx.env.names].map(async (envName) => {
-      const hostingType = process.env.HOSTING_TYPE;
-      console.log('before create htaccess');
-      console.log('ctx.env.names', [...ctx.env.names]);
-      if(hostingType != 'shared'){
-        await maybeCreateFile(envName);
-        console.log('after created htaccess');
-        spinner.suffixText = spinner.suffixText + ` / ${envName || "current"}`;
-      }
+      await maybeCreateFile(envName);
+      spinner.suffixText = spinner.suffixText + ` / ${envName || "current"}`;
     })
   );
   return;
