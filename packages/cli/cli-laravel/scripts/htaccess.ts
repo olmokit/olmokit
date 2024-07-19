@@ -235,8 +235,11 @@ export const htaccess: CliLaravel.Task = async (arg) => {
   await Promise.all(
     // add current too (no env name)
     ["", ...ctx.env.names].map(async (envName) => {
-      await maybeCreateFile(envName);
-      spinner.suffixText = spinner.suffixText + ` / ${envName || "current"}`;
+      const hostingType = process.env.HOSTING_TYPE;
+      if(hostingType != 'shared'){
+        await maybeCreateFile(envName);
+        spinner.suffixText = spinner.suffixText + ` / ${envName || "current"}`;
+      }
     })
   );
   return;
@@ -249,4 +252,5 @@ export const htaccess: CliLaravel.Task = async (arg) => {
   //   htaccessProduction
   // );
 };
-htaccess.meta = { title: "Manage .htaccess files" };
+const onShared = process.env.HOSTING_TYPE == "shared" ? " on shared host" : "";
+htaccess.meta = { title: "Manage .htaccess files" + onShared };
