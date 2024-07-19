@@ -54,15 +54,6 @@ const buildHtaccess: CliLaravel.Task = async () => {
     await copyFile(pathHtaccess, join(destFolder, ".htaccess"));
   }
 
-  /** Delete htaccess file in the public folder */
-  if(process.env.HOSTING_TYPE == "shared"){
-    const pathHtaccessPublic = join(
-      destFolder,
-      `.htaccess`
-    );    
-    await unlinkSync(pathHtaccessPublic);    
-  }
-
   // reload current env to be sure...
   // configDotenv({ override: true });
 };

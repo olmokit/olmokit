@@ -1,4 +1,5 @@
 import { join, relative } from "node:path";
+import { unlinkSync } from "fs";
 import { camelCase, pascalCase } from "change-case";
 import { glob } from "glob";
 import { type FilerTranformerArg, filer } from "@olmokit/cli-utils/filer";
@@ -95,6 +96,16 @@ const tplLaravelPublic: CliLaravel.Task = async () => {
     base: paths.laravel.tpl.public,
     dest: paths.laravel.app.public,
   });
+
+  /** Delete htaccess file in the public folder */  
+  if(process.env.HOSTING_TYPE == "shared"){
+    const destFolder = paths.frontend.dest.public;
+    const pathHtaccessPublic = join(
+      destFolder,
+      `.htaccess`
+    );    
+    await unlinkSync(pathHtaccessPublic);    
+  }  
 };
 tplLaravelPublic.meta = { title: "public folder" };
 
