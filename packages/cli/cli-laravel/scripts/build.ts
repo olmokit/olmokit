@@ -49,15 +49,18 @@ const buildHtaccess: CliLaravel.Task = async () => {
   );
 
   if(process.env.HOSTING_TYPE == "shared" && existsSync(pathHtaccess)){
-    await copyFile(pathHtaccess, join(project.root, ".htaccess"));
-    /** Delete htaccess file in the public folder */
+    await copyFile(pathHtaccess, join(project.root, ".htaccess"));    
+  } else if (existsSync(pathHtaccess)) {
+    await copyFile(pathHtaccess, join(destFolder, ".htaccess"));
+  }
+
+  /** Delete htaccess file in the public folder */
+  if(process.env.HOSTING_TYPE == "shared"){
     const pathHtaccessPublic = join(
       destFolder,
       `.htaccess`
     );    
-    await unlinkSync(pathHtaccessPublic);
-  } else if (existsSync(pathHtaccess)) {
-    await copyFile(pathHtaccess, join(destFolder, ".htaccess"));
+    await unlinkSync(pathHtaccessPublic);    
   }
 
   // reload current env to be sure...
