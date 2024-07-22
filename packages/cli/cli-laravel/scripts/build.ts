@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, unlinkSync } from "fs";
+import { existsSync, readdirSync, unlinkSync, rename } from "fs";
 import { copyFile } from "fs/promises";
 import { join } from "path";
 import { configBuild } from "../../config-build.js";
@@ -45,15 +45,16 @@ const buildHtaccess: CliLaravel.Task = async () => {
   console.log('-----------------');  
   const hostingType = process.env.HOSTING_TYPE == "shared" ? ".shared" : "";
   const htaccessType = process.env.APP_ENV+hostingType;
-  const destFolder = paths.frontend.dest.public;
-  console.log(process.env.HOSTING_TYPE, process.env.APP_ENV, hostingType, paths.frontend.dest.public);
+  const destFolder = paths.frontend.dest.public;  
   const pathHtaccess = join(
     destFolder,
     `.htaccess.${htaccessType}`
   );
+  console.log(process.env.HOSTING_TYPE, process.env.APP_ENV, hostingType, destFolder, pathHtaccess);
 
   if(process.env.HOSTING_TYPE == "shared" && existsSync(pathHtaccess)){
     await copyFile(pathHtaccess, join(project.root, ".htaccess"));    
+    await rename(pathHtaccess, join(destFolder, ".htaccess"));    
   } else if (process.env.HOSTING_TYPE != "shared" && existsSync(pathHtaccess)) {
     await copyFile(pathHtaccess, join(destFolder, ".htaccess"));
   }
