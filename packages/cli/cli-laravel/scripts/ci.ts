@@ -268,10 +268,18 @@ async function ciSyncSsh(arg: CliLaravel.CmdDeploy.TaskArg) {
   //   log.success("Synced htaccess file");
   // }  
 
-  execSync(
-    `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude '.pnpm-store' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' ./ ${address}/`
-  );
-  log.success("Synced all the rest");
+  if(process.env.HOSTING_TYPE == "shared"){
+    execSync(
+      `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude '.pnpm-store' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' --exclude '.htaccess' --exclude 'index.php' ./ ${address}/`
+    );
+    log.success("Synced all the rest without .htaccess-temp");
+  } else {
+    execSync(
+      `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude '.pnpm-store' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' ./ ${address}/`
+    );
+    log.success("Synced all the rest");
+  }
+
 
   if (sshkeyvar) {
     execSync(`rm ~/.ssh/id_dsa`);
@@ -318,14 +326,8 @@ const ciShared: CliLaravel.CmdDeploy.Task = async ({ arg }) => {
     if (port) {
       address = `-e 'ssh -p ${port}' ${address}`;
     }    
-    execSync(
-      `${cmdPrefx} ./public_html/index.php ${address}/`
-    );
-    log.success("Shared Step 1.1 - Delete index.php file in root");
-    // execSync(
-    //   `${cmdPrefx} --delete-after ./public_html/index.php ${address}/`
-    // );
-    // log.success("Shared Step 1.2 - Delete index.php file in root");
+    execSync(`${cmdPrefx} --delete-after ./.htaccess ${address}/`);
+    log.success("Synced .htaccess file");
   }
 };
 ciShared.meta = { title: "Script for shared hosting. Done!" };
@@ -358,8 +360,8 @@ export const ci: CliLaravel.CmdDeploy.TaskGroup = {
     ciTouch,
     ciSync,
     ciDeployer,
-    ciShared,
     ciHooks,
+    ciShared,
     ciVisit,
   ],
 };

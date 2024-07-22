@@ -49,7 +49,7 @@ const buildHtaccess: CliLaravel.Task = async () => {
   );
 
   if(process.env.HOSTING_TYPE == "shared" && existsSync(pathHtaccess)){
-    await copyFile(pathHtaccess, join(project.root, ".htaccess-temp"));    
+    await copyFile(pathHtaccess, join(project.root, ".htaccess"));    
     await rename(pathHtaccess, join(destFolder, ".htaccess"), () => console.log('htaccess file renamed'));
   } else if (process.env.HOSTING_TYPE != "shared" && existsSync(pathHtaccess)) {
     await copyFile(pathHtaccess, join(destFolder, ".htaccess"));
