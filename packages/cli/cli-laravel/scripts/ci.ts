@@ -321,12 +321,17 @@ const ciShared: CliLaravel.CmdDeploy.Task = async ({ arg }) => {
   if(process.env.HOSTING_TYPE == "shared"){
     const { log } = arg;
     const { sshkeyvar, port, host: hostRaw, folder, password } = arg.ctx.options;
-    let address = "";
     let cmdPrefx = `rsync --recursive --verbose`;
-    cmdPrefx = `sshpass -p "${password}" ${cmdPrefx}`;
+    let address = "";
+    let host = hostRaw;
+    // ensure host ends with column without doubling it
+    host = host.trim().replace(/:+$/, "") + ":";
+    // turn the folder into the full server address
+    address = host + removeTrailingSlashes(folder);
+    // listen to port if necessary
     if (port) {
       address = `-e 'ssh -p ${port}' ${address}`;
-    }    
+    }
     execSync(`${cmdPrefx} --delete-after ./.htaccess ${address}/`);
     log.success("Synced .htaccess file");
   }
