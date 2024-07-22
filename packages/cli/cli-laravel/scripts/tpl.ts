@@ -92,16 +92,6 @@ async function getMiddlewaresToRegister() {
 }
 
 const tplLaravelPublic: CliLaravel.Task = async () => {
-  console.log('Step 0 - .htaccess is in the folder already');
-  const destFolder = paths.frontend.dest.public;
-  const pathHtaccessPublic = join(
-    destFolder,
-    `.htaccess`
-  );  
-  if(existsSync(pathHtaccessPublic)){ 
-    console.log('Step 1 - .htaccess is in the folder already');
-  }
-
   filer("**/*.php", {
     base: paths.laravel.tpl.public,
     dest: paths.laravel.app.public,
@@ -109,7 +99,16 @@ const tplLaravelPublic: CliLaravel.Task = async () => {
 
   /** Delete htaccess file in the public folder */  
   if(process.env.HOSTING_TYPE == "shared"){
+
+    console.log('Step 0 - .htaccess is in the folder already');
+    const destFolder = paths.frontend.dest.public;
+    const pathHtaccessPublic = join(
+      destFolder,
+      `.htaccess`
+    );
+    
     if(existsSync(pathHtaccessPublic)){
+      console.log('Step 1 - .htaccess is in the folder already');
       await unlinkSync(pathHtaccessPublic);
     }
   }  
