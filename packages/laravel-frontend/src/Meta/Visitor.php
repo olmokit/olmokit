@@ -111,7 +111,7 @@ class Visitor extends CrawlObserver
     public function crawled(
         UriInterface $url,
         ResponseInterface $response,
-        // ?UriInterface $foundOnUrl = null
+        ?UriInterface $foundOnUrl = null
     ) {
         $statusCode = $response->getStatusCode();
 
