@@ -313,7 +313,7 @@ const ciShared: CliLaravel.CmdDeploy.Task = async ({ arg }) => {
     const { log } = arg;
     const { sshkeyvar, port, host: hostRaw, folder, password } = arg.ctx.options;
     let address = "";
-    let cmdPrefx = `rm --recursive --verbose`;
+    let cmdPrefx = `rm`;
     cmdPrefx = `sshpass -p "${password}" ${cmdPrefx}`;
     if (port) {
       address = `-e 'ssh -p ${port}' ${address}`;
