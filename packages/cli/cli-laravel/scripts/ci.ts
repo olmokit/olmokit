@@ -332,6 +332,9 @@ const ciShared: CliLaravel.CmdDeploy.Task = async ({ arg }) => {
     if (port) {
       address = `-e 'ssh -p ${port}' ${address}`;
     }
+    if (password) {
+      cmdPrefx = `sshpass -p "${password}" ${cmdPrefx}`;
+    }
     execSync(`${cmdPrefx} --delete-after ./.htaccess ${address}/`);
     log.success("Synced .htaccess file");
   }
