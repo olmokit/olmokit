@@ -312,17 +312,17 @@ const ciShared: CliLaravel.CmdDeploy.Task = async ({ log }) => {
   if(process.env.HOSTING_TYPE == "shared"){
 
     console.log('Step 1 - Yes! It is a shared hosting');
-    const pathHtaccessShared = join(
-      project.root,
-      `.htaccess-temp`
-    );  
+    // const pathHtaccessShared = join(
+    //   project.root,
+    //   `.htaccess-temp`
+    // );  
 
     /** Delete htaccess file in the public folder */  
     if(process.env.HOSTING_TYPE == "shared"){
-      if(existsSync(pathHtaccessShared)){
+      // if(existsSync(pathHtaccessShared)){
         console.log('Step 2 - Rename the htaccess file');
         await rename(join(project.root, ".htaccess-temp"), join(project.root, ".htaccess"), () => console.log('Step 2 - htaccess file renamed'));
-      }
+      // }
     }  
 
   }
