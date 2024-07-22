@@ -202,11 +202,6 @@ function ciSyncFtp(arg: CliLaravel.CmdDeploy.TaskArg) {
     log.success("Synced src folder");
   }
 
-  if (process.env.HOSTING_TYPE == "shared") {
-    execSync(`${cmdCommon} --delete ./.htaccess ${folder}/.htaccess" || true`);
-    log.success("Synced htaccess file");
-  }
-
   execSync(
     `${cmdCommon} --delete --exclude-glob=.git* --exclude=^.git/ --exclude=^.npm/ --exclude=^node_modules/ --exclude=^vendor/ --exclude=^public/ --exclude=^resources/ --exclude=^storage/ ./ ${folder}/" || true`
   );
@@ -268,6 +263,11 @@ async function ciSyncSsh(arg: CliLaravel.CmdDeploy.TaskArg) {
     log.success("Synced src folder");
   }
 
+  // if (process.env.HOSTING_TYPE == "shared") {
+  //   execSync(`${cmdCommon} --delete ./.htaccess ${folder}/.htaccess" || true`);
+  //   log.success("Synced htaccess file");
+  // }  
+
   execSync(
     `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude '.pnpm-store' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' ./ ${address}/`
   );
@@ -308,23 +308,24 @@ ciHooks.meta = { title: "Run deploy hooks" };
 /**
  * Execute script to set the filesystem for a shared hosting
  */
-const ciShared: CliLaravel.CmdDeploy.Task = async ({ log }) => {
+const ciShared: CliLaravel.CmdDeploy.Task = async ({ arg }) => {
   if(process.env.HOSTING_TYPE == "shared"){
-
-    console.log('Step 1 - Yes! It is a shared hosting');
-    // const pathHtaccessShared = join(
-    //   project.root,
-    //   `.htaccess-temp`
-    // );  
-
-    /** Delete htaccess file in the public folder */  
-    if(process.env.HOSTING_TYPE == "shared"){
-      // if(existsSync(pathHtaccessShared)){
-        console.log('Step 2 - Rename the htaccess file');
-        await rename(join(project.root, ".htaccess-temp"), join(project.root, ".htaccess"), () => console.log('Step 2 - htaccess file renamed'));
-      // }
-    }  
-
+    const { log } = arg;
+    const { sshkeyvar, port, host: hostRaw, folder, password } = arg.ctx.options;
+    let address = "";
+    let cmdPrefx = `rsync --recursive --verbose`;
+    cmdPrefx = `sshpass -p "${password}" ${cmdPrefx}`;
+    if (port) {
+      address = `-e 'ssh -p ${port}' ${address}`;
+    }    
+    execSync(
+      `${cmdPrefx} rm -rf ./public_html/index.php ${address}/`
+    );
+    log.success("Shared Step 1.1 - Delete index.php file in root");
+    // execSync(
+    //   `${cmdPrefx} --delete-after ./public_html/index.php ${address}/`
+    // );
+    // log.success("Shared Step 1.2 - Delete index.php file in root");
   }
 };
 ciShared.meta = { title: "Script for shared hosting. Done!" };
