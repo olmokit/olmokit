@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/browser",
-  "version": "0.0.144",
+  "version": "0.0.145",
   "description": "Browser utilities for Olmo based applications.",
   "keywords": [
     "olmo",
