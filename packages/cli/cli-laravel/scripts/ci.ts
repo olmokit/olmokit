@@ -313,13 +313,13 @@ const ciShared: CliLaravel.CmdDeploy.Task = async ({ arg }) => {
     const { log } = arg;
     const { sshkeyvar, port, host: hostRaw, folder, password } = arg.ctx.options;
     let address = "";
-    let cmdPrefx = `rsync --recursive --verbose`;
+    let cmdPrefx = `rm --recursive --verbose`;
     cmdPrefx = `sshpass -p "${password}" ${cmdPrefx}`;
     if (port) {
       address = `-e 'ssh -p ${port}' ${address}`;
     }    
     execSync(
-      `${cmdPrefx} rm ./public_html/index.php ${address}/`
+      `${cmdPrefx} ./public_html/index.php ${address}/`
     );
     log.success("Shared Step 1.1 - Delete index.php file in root");
     // execSync(
