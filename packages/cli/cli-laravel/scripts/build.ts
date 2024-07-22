@@ -40,9 +40,13 @@ const buildPre: CliLaravel.Task = async ({ ctx }) => {
 buildPre.meta = { title: "Store new build information" };
 
 const buildHtaccess: CliLaravel.Task = async () => {
+  console.log('-----------------');
+  console.log('The process start');
+  console.log('-----------------');  
   const hostingType = process.env.HOSTING_TYPE == "shared" ? ".shared" : "";
   const htaccessType = process.env.APP_ENV+hostingType;
   const destFolder = paths.frontend.dest.public;
+  console.log(process.env.HOSTING_TYPE, process.env.APP_ENV, hostingType, paths.frontend.dest.public);
   const pathHtaccess = join(
     destFolder,
     `.htaccess.${htaccessType}`
@@ -53,6 +57,9 @@ const buildHtaccess: CliLaravel.Task = async () => {
   } else if (process.env.HOSTING_TYPE != "shared" && existsSync(pathHtaccess)) {
     await copyFile(pathHtaccess, join(destFolder, ".htaccess"));
   }
+  console.log('-----------------');
+  console.log('The process end');
+  console.log('-----------------');  
 
   // reload current env to be sure...
   // configDotenv({ override: true });
