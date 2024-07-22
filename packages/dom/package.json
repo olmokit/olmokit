@@ -1,6 +1,6 @@
 {
   "name": "@olmokit/dom",
-  "version": "0.0.141",
+  "version": "0.0.142",
   "description": "DOM utilities for Olmo based applications.",
   "keywords": [
     "olmo",
