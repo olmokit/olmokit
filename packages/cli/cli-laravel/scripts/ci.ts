@@ -28,7 +28,8 @@ function callDeployEndpoint(
   action = "",
   async = false
 ) {
-  const url = normaliseUrl(process.env.APP_URL + "/" + path);
+  const shared = process.env.HOSTING_TYPE == "shared" ? "/public" : "";
+  const url = normaliseUrl(process.env.APP_URL + shared + "/" + path);
 
   // alternative with curl:
   log.info(`Calling ${action} script at url ${url}`);
