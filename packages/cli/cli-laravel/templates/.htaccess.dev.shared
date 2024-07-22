@@ -1,4 +1,9 @@
-## .htaccess "production shared"
+## .htaccess "dev shared"
+
+AuthType Basic
+AuthName "Restricted area"
+AuthUserFile /home/acantorv/public_html/.htpasswd
+Require valid-user
 
 <IfModule mod_rewrite.c>
 
