@@ -92,13 +92,14 @@ async function getMiddlewaresToRegister() {
 }
 
 const tplLaravelPublic: CliLaravel.Task = async () => {
+  console.log('Step 0 - .htaccess is in the folder already');
   const destFolder = paths.frontend.dest.public;
   const pathHtaccessPublic = join(
     destFolder,
     `.htaccess`
   );  
   if(existsSync(pathHtaccessPublic)){ 
-    console.log('.htaccess is in the folder already');    
+    console.log('Step 1 - .htaccess is in the folder already');
   }
 
   filer("**/*.php", {
