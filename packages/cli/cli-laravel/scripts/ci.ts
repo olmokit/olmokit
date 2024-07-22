@@ -272,8 +272,7 @@ async function ciSyncSsh(arg: CliLaravel.CmdDeploy.TaskArg) {
     execSync(
       `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude '.pnpm-store' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' --exclude '.htaccess' --exclude 'index.php' ./ ${address}/`
     );
-    console.log(`${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude '.pnpm-store' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' --exclude '.htaccess' --exclude 'index.php' ./ ${address}/`);
-    log.success("Synced all the rest without .htaccess-temp");
+    log.success("Synced all the rest without .htaccess");
   } else {
     execSync(
       `${cmdPrefx} --delete-after --exclude '.git*' --exclude '.npm' --exclude '.pnpm-store' --exclude 'node_modules' --exclude 'vendor' --exclude 'public' --exclude 'resources' --exclude 'storage' ./ ${address}/`
