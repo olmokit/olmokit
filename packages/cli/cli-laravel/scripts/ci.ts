@@ -12,6 +12,7 @@ import { touchFiles } from "../../touchFiles.js";
 import { paths } from "../paths/index.js";
 import type { CliLaravel } from "../pm.js";
 import { visit } from "./visit.js";
+import { unlinkSync, existsSync, rename } from "fs";
 
 /**
  * Call deploy endpoint
@@ -301,6 +302,33 @@ const ciHooks: CliLaravel.CmdDeploy.Task = async ({ log }) => {
 ciHooks.meta = { title: "Run deploy hooks" };
 
 /**
+ * Execute script to set the filesystem for a shared hosting
+ */
+const ciShared: CliLaravel.CmdDeploy.Task = async ({ log }) => {
+  if(process.env.HOSTING_TYPE == "shared"){
+
+    console.log('Step 0 - .htaccess is in the folder already');
+    const destFolder = paths.frontend.dest.public;
+    const pathHtaccessPublic = join(
+      destFolder,
+      `.htaccess`
+    );  
+
+    /** Delete htaccess file in the public folder */  
+    if(process.env.HOSTING_TYPE == "shared"){
+      if(existsSync(pathHtaccessPublic)){
+        console.log('Step 2 - .htaccess unlink');
+        await unlinkSync(pathHtaccessPublic);
+        console.log('Step 3 - .htaccess rename');
+        await rename(join(project.root, ".htaccess-temp"), join(project.root, ".htaccess"), () => console.log('htaccess file renamed'));
+      }
+    }  
+
+  }
+};
+ciShared.meta = { title: "Run script for shared hosting" };
+
+/**
  * Visit all website url to re-create caches
  */
 const ciVisit: CliLaravel.CmdDeploy.Task = async ({ ctx, log }) => {
@@ -329,6 +357,7 @@ export const ci: CliLaravel.CmdDeploy.TaskGroup = {
     ciSync,
     ciDeployer,
     ciHooks,
+    ciShared,
     ciVisit,
   ],
 };
