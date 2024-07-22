@@ -319,7 +319,7 @@ const ciShared: CliLaravel.CmdDeploy.Task = async ({ arg }) => {
       address = `-e 'ssh -p ${port}' ${address}`;
     }    
     execSync(
-      `${cmdPrefx} rm -rf ./public_html/index.php ${address}/`
+      `${cmdPrefx} rm ./public_html/index.php ${address}/`
     );
     log.success("Shared Step 1.1 - Delete index.php file in root");
     // execSync(
