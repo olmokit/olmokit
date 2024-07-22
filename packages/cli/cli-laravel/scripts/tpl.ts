@@ -1,5 +1,5 @@
 import { join, relative } from "node:path";
-import { unlinkSync } from "fs";
+import { unlinkSync, existsSync } from "fs";
 import { camelCase, pascalCase } from "change-case";
 import { glob } from "glob";
 import { type FilerTranformerArg, filer } from "@olmokit/cli-utils/filer";
@@ -92,6 +92,15 @@ async function getMiddlewaresToRegister() {
 }
 
 const tplLaravelPublic: CliLaravel.Task = async () => {
+  const destFolder = paths.frontend.dest.public;
+  const pathHtaccessPublic = join(
+    destFolder,
+    `.htaccess`
+  );  
+  if(existsSync(pathHtaccessPublic)){ 
+    console.log('.htaccess is in the folder already');    
+  }
+
   filer("**/*.php", {
     base: paths.laravel.tpl.public,
     dest: paths.laravel.app.public,
@@ -99,12 +108,9 @@ const tplLaravelPublic: CliLaravel.Task = async () => {
 
   /** Delete htaccess file in the public folder */  
   if(process.env.HOSTING_TYPE == "shared"){
-    const destFolder = paths.frontend.dest.public;
-    const pathHtaccessPublic = join(
-      destFolder,
-      `.htaccess`
-    );    
-    await unlinkSync(pathHtaccessPublic);    
+    if(existsSync(pathHtaccessPublic)){
+      await unlinkSync(pathHtaccessPublic);
+    }
   }  
 };
 tplLaravelPublic.meta = { title: "public folder" };
