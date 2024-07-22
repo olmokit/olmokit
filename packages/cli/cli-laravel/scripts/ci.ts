@@ -339,7 +339,9 @@ const ciShared: CliLaravel.CmdDeploy.Task = async ({ arg }) => {
     log.success("Synced .htaccess file");
   }
 };
-ciShared.meta = { title: "Script for shared hosting. Done!" };
+if(process.env.HOSTING_TYPE == "shared"){
+  ciShared.meta = { title: "Script for shared hosting. Done!" };
+}
 
 /**
  * Visit all website url to re-create caches
@@ -369,8 +371,8 @@ export const ci: CliLaravel.CmdDeploy.TaskGroup = {
     ciTouch,
     ciSync,
     ciDeployer,
-    ciHooks,
     ciShared,
+    ciHooks,
     ciVisit,
   ],
 };
