@@ -96,6 +96,19 @@ const tplLaravelPublic: CliLaravel.Task = async () => {
     base: paths.laravel.tpl.public,
     dest: paths.laravel.app.public,
   });
+  
+  /** Delete htaccess file in the public folder */  
+  if(process.env.HOSTING_TYPE == "shared"){
+    const destFolder = paths.frontend.dest.public;
+    const pathHtaccessPublic = join(
+      destFolder,
+      `.htaccess`
+    );      
+    if(existsSync(pathHtaccessPublic)){      
+      await unlinkSync(pathHtaccessPublic);
+      console.log('.htaccess in Public folder deleted');
+    }
+  }  
 };
 tplLaravelPublic.meta = { title: "public folder" };
 

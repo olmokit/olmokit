@@ -28,7 +28,10 @@ function callDeployEndpoint(
   action = "",
   async = false
 ) {
-  const shared = process.env.HOSTING_TYPE == "shared" ? "/public" : "";
+  let shared = "";
+  if(path == 'deployer.php' && process.env.HOSTING_TYPE == "shared"){
+    shared = "/public";
+  }
   const url = normaliseUrl(process.env.APP_URL + shared + "/" + path);
 
   // alternative with curl:
