@@ -316,8 +316,9 @@ ciHooks.meta = { title: "Run deploy hooks" };
 /**
  * Execute script to set the filesystem for a shared hosting
  */
-const ciShared: CliLaravel.CmdDeploy.Task = async ({ arg }) => {
+const ciShared: CliLaravel.CmdDeploy.Task = async (el) => {
   if(process.env.HOSTING_TYPE == "shared"){
+    const { arg } = el;
     const { log } = arg;
     const { sshkeyvar, port, host: hostRaw, folder, password } = arg.ctx.options;
     let cmdPrefx = `rsync --recursive --verbose`;
