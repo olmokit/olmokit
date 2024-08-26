@@ -185,8 +185,10 @@
   max-width: $maxWidth;
   margin-left: auto;
   margin-right: auto;
-  padding-left: math.div($gutter, 2);
-  padding-right: math.div($gutter, 2);
+  & {
+    padding-left: math.div($gutter, 2);
+    padding-right: math.div($gutter, 2);
+}
 }
 
 //

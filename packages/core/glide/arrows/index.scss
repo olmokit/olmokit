@@ -36,7 +36,10 @@
     &.is-prev {
       @include Glide-arrow(180);
 
-      left: $Glide__arrow-spacer-x;
+      & {
+        left: $Glide__arrow-spacer-x;
+      }
+
       [dir="rtl"] & {
         left: auto;
         right: $Glide__arrow-spacer-x;
@@ -44,8 +47,11 @@
     }
 
     &.is-next {
-      right: $Glide__arrow-spacer-x;
       @include Glide-arrow(0);
+      
+      & {
+        right: $Glide__arrow-spacer-x;
+      }
 
       [dir="rtl"] & {
         left: $Glide__arrow-spacer-x;
