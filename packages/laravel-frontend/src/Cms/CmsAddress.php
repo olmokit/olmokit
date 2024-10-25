@@ -92,7 +92,7 @@ class CmsAddress
         if (!$async && isset($user['addresses'])) {
             $allAddresses = $user['addresses'];
         } else {
-            $response = CmsApi::getWithAuth('address');
+            $response = CmsApi::getWithAuth('[guest]address');
             if ($response->successful()) {
                 $allAddresses = $response->json();
             }
@@ -244,7 +244,7 @@ class CmsAddress
     {
         $data = self::transformPostData($data);
 
-        $response = CmsApi::postWithAuth('address', $data);
+        $response = CmsApi::postWithAuth('[guest]address', $data);
 
         return self::processResponse($response);
     }

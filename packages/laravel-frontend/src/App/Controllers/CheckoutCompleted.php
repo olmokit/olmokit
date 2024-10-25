@@ -7,6 +7,8 @@ use LaravelFrontend\Cms\CmsOrderController;
 use LaravelFrontend\Cms\CmsOrder;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Redirect;
+use LaravelFrontend\Auth\AuthApi;
 
 class CheckoutCompleted extends CheckoutBase
 {
@@ -32,33 +34,41 @@ class CheckoutCompleted extends CheckoutBase
         if (isset($output['order'])) {
             $code = $output['order'];
             $order = CmsOrderController::getByCode($code);
-            $items = [];
-            if (isset($order['orderitems'])) {
-                $items = json_decode($order['orderitems'], true);
-            }
-
-            if ($order['paymentmethod'] == 'paypal') {
-                if (isset($output['token'])) {
-                    $token = $output['token'];
-                    $ordercompleted = CmsOrder::completed($code, $token);
+            if(isset($order['msg']) OR !$order OR $order == 400){
+                if(!$order OR $order == 400){
+                    return ['login' => true];
+                }else if($order['msg'] == 'Not logged in.'){
+                    return ['login' => true];
                 }
-            } elseif ($order['paymentmethod'] == 'creditcard') {
-                if (isset($output['token'])) {
-                    $token = $output['token'];
-                    $ordercompleted = CmsOrder::completed($code, $token);
+            } else {
+                $items = [];
+                if (isset($order['orderitems'])) {
+                    $items = json_decode($order['orderitems'], true);
                 }
-            } elseif ($order['paymentmethod'] == 'email') {
-                if (isset($output['order'])) {
-                    $ordercompleted = CmsOrder::completed($code);
+    
+                if ($order['paymentmethod'] == 'paypal') {
+                    if (isset($output['token'])) {
+                        $token = $output['token'];
+                        $ordercompleted = CmsOrder::completed($code, $token);
+                    }
+                } elseif ($order['paymentmethod'] == 'creditcard') {
+                    if (isset($output['token'])) {
+                        $token = $output['token'];
+                        $ordercompleted = CmsOrder::completed($code, $token);
+                    }
+                } elseif ($order['paymentmethod'] == 'email') {
+                    if (isset($output['order'])) {
+                        $ordercompleted = CmsOrder::completed($code);
+                    }
+                } elseif ($order['paymentmethod'] == 'banktransfer') {
+                    if (isset($output['order'])) {
+                        $ordercompleted = CmsOrder::completed($code);
+                    }
                 }
-            } elseif ($order['paymentmethod'] == 'banktransfer') {
-                if (isset($output['order'])) {
-                    $ordercompleted = CmsOrder::completed($code);
+    
+                if (isset($output['payerid'])) {
+                    $payerid = $output['payerid'];
                 }
-            }
-
-            if (isset($output['payerid'])) {
-                $payerid = $output['payerid'];
             }
         }
 

@@ -135,6 +135,9 @@ class AuthApi
                     $form
                         ->addInput('email', 'email', true)
                         ->addInput('password', 'password', true)
+                        ->addInput('newpassword_confirm', 'password', true)
+                        ->addInput('privacy', 'checkbox', true)
+                        ->addInput('terms', 'checkbox', true)
                         ->addSubmit();
                     break;
             }

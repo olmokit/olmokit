@@ -35,7 +35,7 @@ class CmsOrder
      */
     public static function getByCode($code)
     {
-        return CmsApi::getWithAuth('{locale}/orderbycode/' . $code);
+        return CmsApi::getWithAuth('[guest]{locale}/orderbycode/' . $code);
     }
 
     /**
@@ -47,7 +47,7 @@ class CmsOrder
      */
     public static function place()
     {
-        $response = CmsApi::postWithAuth('{locale}/order');
+        $response = CmsApi::postWithAuth('[guest]{locale}/order');
 
         return $response;
     }
@@ -99,7 +99,7 @@ class CmsOrder
             'token' => $token,
         ];
 
-        $response = CmsApi::postWithAuth('{locale}/order/completed', $data);
+        $response = CmsApi::postWithAuth('[guest]{locale}/order/completed', $data);
 
         if ($response->successful()) {
             CmsCart::clearSession();
