@@ -6,7 +6,7 @@ $HS__flyout-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2) !default;
 $HS__link-padding-y: math.div($Header__navLink-padding-x, 1.5) !default;
 $HS__link-padding-x: $Header__navLink-padding-x !default;
 $HS__link-bg: transparent !default;
-$HS__link-bg--hover: darken($HS__flyout-bg, 5%) !default;
+$HS__link-bg--hover: hls($HS__flyout-bg, 5%) !default;
 $HS__link-color: inherit !default;
 $HS__link-color--hover: inherit !default;
 $HS__link-uncollapsed-bg: $HS__link-bg !default;

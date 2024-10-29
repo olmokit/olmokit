@@ -77,9 +77,9 @@ export function webpackConfig(config: CliLaravel.Config) {
         : undefined,
       appendOnly: true,
     },
-    ignoreWarnings: [
-      (warning) => false
-    ],
+    // ignoreWarnings: [
+    //   (warning) => false
+    // ],
     // @see https://github.com/webpack/webpack/blob/main/declarations/WebpackOptions.d.ts#L2383
     stats: {
       assets: false,

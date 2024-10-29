@@ -13,7 +13,7 @@ export function webpackConfigDevServer() {
       writeToDisk: (filePath) => {
         // match everyhting but js/css
         return /^(.(?!\.js|\.css$))+$/.test(filePath);
-      },      
+      },
     },
     client: {
       webSocketURL: {
@@ -27,7 +27,7 @@ export function webpackConfigDevServer() {
     host: getServerHost(),
     port: getServerPort(),
     https: isHttps(),
-    allowedHosts: "all",    
+    allowedHosts: "all",
     proxy: {
       "*": {
         target: removeTrailingSlashes(process.env.APP_URL), // target host
