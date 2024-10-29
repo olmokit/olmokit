@@ -24,7 +24,7 @@ $Colors: (
 $Color-body: Color(black) !default;
 $Color-body-bg: Color(white) !default;
 $Color-links: Color(blue) !default;
-$Color-links-hover: hsl($Color-links, 15%) !default;
+$Color-links-hover: hsl(0 $Color-links, 15%) !default;
 $Color-headings: null !default;
 
 // Devices
