@@ -2,7 +2,7 @@ $Swiper-navigation-width: 42px !default;
 $Swiper-navigation-height: $Swiper-navigation-width !default;
 $Swiper-navigation-border-radius: $Border-radius !default;
 $Swiper-navigation-bg: #fff !default;
-$Swiper-navigation-bg-hover: $Swiper-navigation-bg !default;
+$Swiper-navigation-bg-hover: $Swiper-navigation-bg !default; //hsl(0 $Swiper-navigation-bg, 10%)
 $Swiper-navigation-border-width: 1px !default;
 $Swiper-navigation-border-color: #ccc !default;
 
