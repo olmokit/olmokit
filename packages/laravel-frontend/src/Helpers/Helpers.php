@@ -666,7 +666,10 @@ class Helpers
             $data = Cache::get($cacheKey);
         } else {
             // $response = Http::get($url);
-            $response = @file_get_contents($url);
+            // $response = @file_get_contents($url);
+            $response = Http::withHeaders([
+                'front-token' => config('env.FRONT_TOKEN')
+            ])->get($url);
 
             if (!$response) {
                 // if ($response->failed()) {
@@ -740,7 +743,10 @@ class Helpers
         if (config($configEnvCacheKey) && $cacheKey && Cache::has($cacheKey)) {
             $data = Cache::get($cacheKey);
         } else {
-            $response = Http::post($url, $requestBody);
+            // $response = Http::post($url, $requestBody);
+            $response = Http::withHeaders([
+                'front-token' => config('env.FRONT_TOKEN')
+            ])->post($url, $requestBody);
 
             if ($response->failed()) {
                 $data = false;

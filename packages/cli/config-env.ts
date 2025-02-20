@@ -41,6 +41,10 @@ export const defaultEnvVars = {
    */
   CMS_API_URL_FORM: "",
   /**
+   * @category FRONT Auth
+   */
+  FRONT_TOKEN: "",
+  /**
    * @category CMS
    */
   CMS_API_STORAGE: "",

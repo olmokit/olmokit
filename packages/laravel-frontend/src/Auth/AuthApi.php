@@ -268,7 +268,11 @@ class AuthApi
             $endpoint = self::getEndpoint('activate');
             $postData = ['token' => $token];
             // self::debugRequest($endpoint, $postData);
-            $response = Http::post($endpoint, $postData);
+            // $response = Http::post($endpoint, $postData);
+            $response = Http::withHeaders([
+                'front-token' => config('env.FRONT_TOKEN')
+            ])->post($endpoint, $postData);
+
             return $response;
         }
 
@@ -409,8 +413,12 @@ class AuthApi
         $postData = self::transformPostData($postData, false);
         $postData['reset_url'] =
             self::getRouteUrl('password-reset') . '?token=';
-        // self::debugRequest($endpoint, $postData);
-        $response = Http::post($endpoint, $postData);
+        // self::debugRequest($endpoint, $postData);        
+        // $response = Http::post($endpoint, $postData);
+
+        $response = Http::withHeaders([
+            'front-token' => config('env.FRONT_TOKEN')
+        ])->post($endpoint, $postData);        
 
         return $response;
     }
@@ -426,7 +434,11 @@ class AuthApi
         $endpoint = self::getEndpoint('password-reset');
         $postData = self::transformPostData($postData, false);
         // self::debugRequest($endpoint, $postData);
-        $response = Http::post($endpoint, $postData);
+        // $response = Http::post($endpoint, $postData);
+
+        $response = Http::withHeaders([
+            'front-token' => config('env.FRONT_TOKEN')
+        ])->post($endpoint, $postData);
 
         return $response;
     }
@@ -560,6 +572,8 @@ class AuthApi
             $headers = self::addGuestHeader($headers);
         }
 
+        $headers['front-token'] = config('env.FRONT_TOKEN');
+
         if (count($headers)) {
             return $headers;
         }
@@ -579,6 +593,8 @@ class AuthApi
         if ($guestToken) {
             $headers['X-Guest'] = $guestToken;
         }
+
+        $headers['front-token'] = config('env.FRONT_TOKEN');
 
         return $headers;
     }
