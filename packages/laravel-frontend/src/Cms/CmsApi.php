@@ -553,6 +553,11 @@ class CmsApi
         // index is true by default if there are more than one locale
         $defaultSitemapIndex = count(I18n::get()['locales']) > 1;
 
+        if(!$defaultSitemapIndex){
+            // index is true by default if there are more than one locale
+            $defaultSitemapIndex = config('env.IMG_SITEMAP');
+        }
+
         return [
             'sitemap_index' => $defaultSitemapIndex,
         ];

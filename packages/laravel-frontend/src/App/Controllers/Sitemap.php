@@ -121,6 +121,10 @@ class Sitemap
             return redirect('/sitemap-index.xml');
         }
 
+        if (config('env.IMG_SITEMAP') == true) {
+            return redirect('/sitemap-index.xml');
+        }
+
         $locale = App::getLocale();
         return self::renderLocalisedSitemap($locale);
     }
@@ -136,7 +140,7 @@ class Sitemap
 
         if (count($i18n['locales']) > 1) {
             return redirect('/sitemap-index.xml');
-        }
+        }      
 
         $locale = App::getLocale();
         return self::renderLocalisedSitemapimages($locale);
@@ -163,13 +167,18 @@ class Sitemap
                     '</loc></sitemap>';
             }
 
-            if(config('env.IMG_SITEMAP')){
+            if(config('env.IMG_SITEMAP') AND count($i18n['locales']) > 1){
                 foreach ($i18n['locales'] as $locale) {
                     $xml .=
                         '<sitemap><loc>' .
                         self::getLocalisedSitemapImagesUrl($locale) .
                         '</loc></sitemap>';
                 }                
+            } else if(config('env.IMG_SITEMAP')){
+                $xml .=
+                '<sitemap><loc>' .
+                    config('env.APP_URL') . '/images-sitemap.xml' .
+                '</loc></sitemap>';
             }
 
             $xml .= '</sitemapindex>';
@@ -202,6 +211,12 @@ class Sitemap
      */
     public function localisedimage(string $locale = '')
     {
+
+        $i18n = I18n::get();
+
+        if (count($i18n['locales']) < 2) {
+            return redirect('/sitemap-index.xml');
+        }   
         // $lang = explode('-', $locale);
         return self::renderLocalisedSitemapimages($locale);
     }
