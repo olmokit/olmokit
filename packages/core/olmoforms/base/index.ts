@@ -18,7 +18,7 @@ import "./index.scss";
 export const OlmoformsBase: Olmoforms.Initialiser = (
   rootSelector = ".ofForm:",
   hooks = {},
-  adapters = {}
+  adapters = {},
   // checkers = {}
 ) => {
   const $root = $(rootSelector);
@@ -31,7 +31,9 @@ export const OlmoformsBase: Olmoforms.Initialiser = (
     $submit,
     action,
     destroy,
+    boot
   };
+  let bootCheck = false; 
 
   // init form validation
   const validation = Validation($form, {
@@ -60,6 +62,11 @@ export const OlmoformsBase: Olmoforms.Initialiser = (
     callHookSafely("before", instance);
 
     onSubmitStart();
+
+    if(bootCheck){
+      handleFailed();
+      return;
+    }
 
     /**
      * Inserire questa funzione dentro submitActionChecker
@@ -125,7 +132,7 @@ export const OlmoformsBase: Olmoforms.Initialiser = (
       console.log(error);
       return;
     }
-  };
+  }; 
 
   /**
    * Call hook safely (if defined)
@@ -133,6 +140,10 @@ export const OlmoformsBase: Olmoforms.Initialiser = (
   function callHookSafely(hookName: keyof Olmoforms.Hooks, specificData: any) {
     if (hooks[hookName]) hooks[hookName]?.(specificData, action);
   }
+
+  function boot() {
+    bootCheck = true;
+  }  
 
   /**
    * Handle succeded ajax response

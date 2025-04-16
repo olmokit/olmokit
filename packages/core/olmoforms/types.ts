@@ -7,7 +7,7 @@ export namespace Olmoforms {
     rootSelector: string,
     hooks?: Hooks,
     adapters?: Adapters,
-    checkers?: Checkers
+    checkers?: Checkers,
   ) => Instance;
 
   export type Hooks = {
@@ -32,7 +32,7 @@ export namespace Olmoforms {
 
   export type Checkers = {
     /** Checker to determine if the user wants to subscribe to the newsletter */
-    newsletter?: (formData: Object) => boolean;
+    newsletter?: (formData: Object) => boolean;    
   };
 
   export type Instance = {
@@ -41,5 +41,6 @@ export namespace Olmoforms {
     $submit: HTMLButtonElement;
     action: string;
     destroy: () => void;
+    boot?: () => void;
   };
 }

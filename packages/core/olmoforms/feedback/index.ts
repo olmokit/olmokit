@@ -13,7 +13,7 @@ export const OlmoformsWithFeedback: Olmoforms.Initialiser = (
   rootSelector,
   hooks = {},
   adapters,
-  checkers
+  checkers = {}
 ) => {
   const instance = OlmoformsBase(
     rootSelector,
@@ -24,7 +24,7 @@ export const OlmoformsWithFeedback: Olmoforms.Initialiser = (
       failed: handleFailed,
     },
     adapters,
-    checkers
+    checkers,
   );
 
   const $feedback = $(".of:feedback", instance.$root);
