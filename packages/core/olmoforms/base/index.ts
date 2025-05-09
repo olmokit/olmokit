@@ -92,8 +92,13 @@ export const OlmoformsBase: Olmoforms.Initialiser = (
         if (e == true) {
           console.log("sending");
           submitContact(dataContact, action)
-            .then(() => {
-              callHookSafely("sent", dataContact);
+            .then((response) => {
+              const { data } = response;
+              const element = {
+                data: data,
+                formData: dataContact
+              }
+              callHookSafely("sent", element);
               handleSucceded();
               resolve();
             })
