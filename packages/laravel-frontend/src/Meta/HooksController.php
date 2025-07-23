@@ -158,8 +158,17 @@ class HooksController extends Controller
     {
         $path = $request->input('path');
         $locale = $request->input('locale');
-        $cachekey = Helpers::getCacheKey('cmsapi.route.'.$locale.'/'.$path);
-        $msg = "Clear 'cmsapi.route.'.$locale.'/'.$path' cache hook called successfully. - '$cachekey'";
+        $path = str_replace('/', '', $path);
+        if($path && $locale){
+            $cachekey = Helpers::getCacheKey('cmsapi.route.' . $locale . $path);
+            $msg = "Clear cmsapi.route." . $locale . $path . " cache hook called successfully. - " . $cachekey;
+        } else if($path){
+            $cachekey = Helpers::getCacheKey('cmsapi.route.' . $path);
+            $msg = "Clear cmsapi.route." . $path . " cache hook called successfully. - " . $cachekey;
+        } else {
+            $cachekey = Helpers::getCacheKey('cmsapi.route.' . $locale);
+            $msg = "Clear cmsapi.route." . $locale . " cache hook called successfully. - " . $cachekey;
+        }
         Cacher::clearCacheSingleRoute($cachekey);
         return $this->getMsg($msg);
     }

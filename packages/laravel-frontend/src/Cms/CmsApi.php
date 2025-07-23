@@ -307,6 +307,7 @@ class CmsApi
         $profiler = profiler()->start();
         $requestUrl = self::getEndpointUrl($slug);
         $cacheKey = $cache ? 'cmsapi.route.' . $slug : '';
+        $cacheKey = str_replace('/', '', $cacheKey);
 
         $data = self::get($requestUrl, $cacheKey, $adapter, function (
             $routeData,
