@@ -19,7 +19,9 @@ export const OlmoformsWithFeedback: Olmoforms.Initialiser = (
     rootSelector,
     {
       ...hooks,
-      before: handleBefore,
+      before: async (instance) => {
+        await handleBefore();
+      },
       succeded: handleSucceded,
       failed: handleFailed,
     },
@@ -39,9 +41,12 @@ export const OlmoformsWithFeedback: Olmoforms.Initialiser = (
 
   areaFeedback?.collapse(true);
 
-  function handleBefore() {
+  async function handleBefore() {
     areaFeedback?.collapse();
-    if (before) before(instance);
+
+    if (before) {
+      return await before(instance);
+    }
   }
 
   function handleSucceded() {
