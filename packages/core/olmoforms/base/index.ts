@@ -58,8 +58,8 @@ export const OlmoformsBase: Olmoforms.Initialiser = (
   /**
    * Handle valid submission attempt (before sending to server)
    */
-  function handleValidSubmit() {
-    callHookSafely("before", instance);
+  async function handleValidSubmit() {
+    await callHookSafely("before", instance);
 
     onSubmitStart();
 
