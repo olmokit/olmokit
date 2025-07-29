@@ -142,8 +142,10 @@ export const OlmoformsBase: Olmoforms.Initialiser = (
   /**
    * Call hook safely (if defined)
    */
-  function callHookSafely(hookName: keyof Olmoforms.Hooks, specificData: any) {
-    if (hooks[hookName]) hooks[hookName]?.(specificData, action);
+  async function callHookSafely(hookName: keyof Olmoforms.Hooks, specificData: any): Promise<any> {
+    if (hooks[hookName]) {
+      return await hooks[hookName]?.(specificData, action);
+    }
   }
 
   function boot() {
