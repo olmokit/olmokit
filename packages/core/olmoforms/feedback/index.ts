@@ -19,7 +19,7 @@ export const OlmoformsWithFeedback: Olmoforms.Initialiser = (
     rootSelector,
     {
       ...hooks,
-      before: async (instance) => {
+      before: async () => {
         await handleBefore();
       },
       succeded: handleSucceded,

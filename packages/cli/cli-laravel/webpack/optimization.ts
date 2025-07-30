@@ -14,7 +14,7 @@ const optimization = () => ({
             minify: TerserPlugin.swcMinify,
             terserOptions: {
               compress: {
-                drop_console: process.env.APP_ENV !== "dev",
+                drop_console: false,
               },
               // output: {
               //   // the regex should match the one in "./helpers-getters.js" to

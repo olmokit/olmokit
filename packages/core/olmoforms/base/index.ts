@@ -63,6 +63,8 @@ export const OlmoformsBase: Olmoforms.Initialiser = (
 
     onSubmitStart();
 
+    console.log('start sending after before');
+
     if(bootCheck){
       handleFailed();
       return;
