@@ -60,7 +60,7 @@ class CheckoutCompleted extends CheckoutBase
                     if (isset($output['order'])) {
                         $ordercompleted = CmsOrder::completed($code);
                     }
-                } elseif ($order['paymentmethod'] == 'banktransfer') {
+                } elseif ($order['paymentmethod'] == 'banktransfer' OR $order['paymentmethod'] == 'cashondelivery') {
                     if (isset($output['order'])) {
                         $ordercompleted = CmsOrder::completed($code);
                     }
