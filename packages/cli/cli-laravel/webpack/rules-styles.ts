@@ -92,6 +92,16 @@ export default () => {
               includePaths: getSassIncludePaths(),
               // fiber: require("fibers"),
               quietDeps: true,
+              // Silence all Sass deprecation warnings (sass >= 1.74.0)
+              // Prevents CI log overflow from repetitive deprecation notices
+              silenceDeprecations: [
+                "import",
+                "global-builtin",
+                "color-functions",
+                "legacy-js-api",
+                "mixed-decls",
+                "slash-div",
+              ],
             },
           },
         },

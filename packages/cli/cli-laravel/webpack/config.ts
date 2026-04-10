@@ -77,9 +77,12 @@ export function webpackConfig(config: CliLaravel.Config) {
         : undefined,
       appendOnly: true,
     },
-    // ignoreWarnings: [
-    //   (warning) => false
-    // ],
+    ignoreWarnings: [
+      // Suppress Sass deprecation warnings to prevent CI log overflow
+      (warning) =>
+        warning.module?.userRequest?.endsWith(".scss") === true &&
+        warning.message.includes("deprecat"),
+    ],
     // @see https://github.com/webpack/webpack/blob/main/declarations/WebpackOptions.d.ts#L2383
     stats: {
       assets: false,
